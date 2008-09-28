@@ -1,0 +1,9 @@
+E:\Programming\C#\XBMControl\XBMControl\bin\Debug\XBMControl.exe
+E:\Programming\C#\XBMControl\XBMControl\bin\Debug\XBMControl.pdb
+E:\Programming\C#\XBMControl\XBMControl\obj\Debug\ResolveAssemblyReference.cache
+E:\Programming\C#\XBMControl\XBMControl\obj\Debug\WindowsFormsApplication1.MainForm.resources
+E:\Programming\C#\XBMControl\XBMControl\obj\Debug\WindowsFormsApplication1.Properties.Resources.resources
+E:\Programming\C#\XBMControl\XBMControl\obj\Debug\XBMControl.csproj.GenerateResource.Cache
+E:\Programming\C#\XBMControl\XBMControl\obj\Debug\XBMControl.exe
+E:\Programming\C#\XBMControl\XBMControl\obj\Debug\XBMControl.pdb
+E:\Programming\C#\XBMControl\XBMControl\bin\Debug\XBMControl.exe.config
