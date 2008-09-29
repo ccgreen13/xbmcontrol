@@ -7,30 +7,56 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using System.Net;
-using WindowsFormsApplication1.Properties;
+using XBMControl.Properties;
+using XBMC.Communicator;
+using XBMControl.Language;
 
-namespace WindowsFormsApplication1
+namespace XBMControl
 {
     public partial class ConfigurationF1 : Form
     {
+        XBMCcomm XBMC;
+        XBMCLanguage Language;
+
         public ConfigurationF1()
         {
+            XBMC     = new XBMCcomm();
+            Language = new XBMCLanguage();
             InitializeComponent();
             LoadConfiguration();
+            Language.SetModule("configuration");
+            Language.SetLanguage(Settings.Default.Language);
+            SetLanguageStrings();
             bApply.Enabled = false;
+        }
+
+        private void SetLanguageStrings()
+        {
+            lLanguageTitle.Text                     = Language.GetString("labelLanguage");
+            lIpTitle.Text                           = Language.GetString("labelIp");
+            lUsernameTitle.Text                     = Language.GetString("labelUsername");
+            lPasswordTitle.Text                     = Language.GetString("labelPassword");
+            cbShowInTray.Text                       = Language.GetString("labelShowInTray");
+            cbShowInTaskbar.Text                    = Language.GetString("labelShowInTaskbar");
+            cbShowNowPlayingBalloonTip.Text         = Language.GetString("labelShowNowPlayingBalloonTip");
+            cbShowPlayStatusBalloonTip.Text         = Language.GetString("labelShowPlayStatusBalloonTip");
+            cbShowConnectionStatusBalloonTip.Text   = Language.GetString("labelShowConnectionStatusBalloonTip");
+            bApply.Text                             = Language.GetString("buttonApply");
+            bConfirm.Text                           = Language.GetString("buttonConfirm");
+            bCancel.Text                            = Language.GetString("buttonCancel");
         }
 
         private bool SaveConfiguration()
         {
             if (ip.Text == "")
             {
-                MessageBox.Show("The 'ip address' is a required field.");
+                MessageBox.Show(Language.GetString("ipRequired"));
                 ip.Focus();
                 return false;
             }
-            else if (!HostExists(ip.Text))
+            else if (!XBMC.IsConnected(ip.Text))
             {
-                MessageBox.Show("Invalid ip address. Could not connect to host.");
+                MessageBox.Show(Language.GetString("invalidIp"));
                 ip.Focus();
                 return false;
             }
@@ -41,9 +67,10 @@ namespace WindowsFormsApplication1
             Settings.Default.Password                       = password.Text;
             Settings.Default.ShowInSystemTray               = cbShowInTray.Checked;
             Settings.Default.ShowNowPlayingBalloonTips      = cbShowNowPlayingBalloonTip.Checked;
-            Settings.Default.ShowPlayStausBalloonTips       = cbShowPlayStatusBalloonTips.Checked;
+            Settings.Default.ShowPlayStausBalloonTips       = cbShowPlayStatusBalloonTip.Checked;
             Settings.Default.ShowInTaskbar                  = cbShowInTaskbar.Checked;
             Settings.Default.ShowConnectionStatusBalloonTip = cbShowConnectionStatusBalloonTip.Checked;
+            Settings.Default.Language                       = cbLanguage.Text;
             if (!Settings.Default.ShowInSystemTray) Settings.Default.ShowInTaskbar = true;
 
             Settings.Default.Save();
@@ -59,37 +86,18 @@ namespace WindowsFormsApplication1
             password.Text                            = Settings.Default.Password;
             cbShowInTray.Checked                     = Settings.Default.ShowInSystemTray;
             cbShowNowPlayingBalloonTip.Checked       = Settings.Default.ShowNowPlayingBalloonTips;
-            cbShowPlayStatusBalloonTips.Checked      = Settings.Default.ShowPlayStausBalloonTips;
-            cbShowInTaskbar.Checked                 = Settings.Default.ShowInTaskbar;
+            cbShowPlayStatusBalloonTip.Checked      = Settings.Default.ShowPlayStausBalloonTips;
+            cbShowInTaskbar.Checked                  = Settings.Default.ShowInTaskbar;
             cbShowConnectionStatusBalloonTip.Checked = Settings.Default.ShowConnectionStatusBalloonTip;
+            cbLanguage.Text                          = Settings.Default.Language;
         }
 
         private void SetSystrayChackboxesEnabled(bool enabled)
         {
             cbShowNowPlayingBalloonTip.Enabled       = enabled;
-            cbShowPlayStatusBalloonTips.Enabled      = enabled;
+            cbShowPlayStatusBalloonTip.Enabled      = enabled;
             cbShowInTaskbar.Enabled                  = enabled;
             cbShowConnectionStatusBalloonTip.Enabled = enabled;
-        }
-
-        private bool HostExists(string host)
-        {
-            HttpWebResponse response = null;
-            HttpWebRequest connection = (HttpWebRequest)WebRequest.Create("http://" + host);
-            connection.Method = "GET";
-
-            try
-            {
-                response = (HttpWebResponse)connection.GetResponse();
-            }
-            catch (Exception e)
-            {
-                return false;
-            }
-
-            if (response != null) response.Close();
-
-            return true ;
         }
 
         private void ConfigurationF1_FormClosed(object sender, FormClosedEventArgs e)
@@ -148,6 +156,12 @@ namespace WindowsFormsApplication1
         private void cbMinimizeToTray_Click(object sender, EventArgs e)
         {
             bApply.Enabled = true;
+        }
+
+        private void cbLanguage_TextChanged(object sender, EventArgs e)
+        {
+            Language.SetLanguage(cbLanguage.Text);
+            SetLanguageStrings();
         }
     }
 }

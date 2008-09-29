@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace WindowsFormsApplication1.Properties {
+namespace XBMControl.Properties {
     
     
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
@@ -116,6 +116,18 @@ namespace WindowsFormsApplication1.Properties {
             }
             set {
                 this["ShowConnectionStatusBalloonTip"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("english")]
+        public string Language {
+            get {
+                return ((string)(this["Language"]));
+            }
+            set {
+                this["Language"] = value;
             }
         }
     }

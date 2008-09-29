@@ -8,13 +8,15 @@ using System.Text;
 using System.Windows.Forms;
 using XBMC.Communicator;
 using System.IO;
-using WindowsFormsApplication1.Properties;
+using XBMControl.Properties;
+using XBMControl.Language;
 
-namespace WindowsFormsApplication1
+namespace XBMControl
 {
     public partial class MainForm : Form
     {
         XBMCcomm XBMC;
+        XBMCLanguage Language;
         string[,] maNowPlayingInfo   = new string[50,2];
         string mediaCurrentlyPlaying = null;
         bool pausedMessageShowed     = false;
@@ -26,6 +28,8 @@ namespace WindowsFormsApplication1
 
         public MainForm()
         {
+            XBMC     = new XBMCcomm();
+            Language = new XBMCLanguage();
             InitializeComponent();
             ApplyApplicationSettings();
             Initialize();
@@ -33,21 +37,20 @@ namespace WindowsFormsApplication1
 
         private void Initialize()
         {
-            XBMC = new XBMCcomm();
-
             if (Settings.Default.Ip == "")
                 ShowConfigurationForm();
             else if (!XBMC.IsConnected())
             {
                 if (Settings.Default.ShowConnectionStatusBalloonTip)
-                    notifyIcon1.ShowBalloonTip(2000, "XBMControl", "Could not connect to XBMC host with ip " + Settings.Default.Ip, ToolTipIcon.Info);
+                    notifyIcon1.ShowBalloonTip(2000, "XBMControl", Language.GetString("notConnected"), ToolTipIcon.Info);
                 else
-                    MessageBox.Show("Could not connect to XBMC host with ip " + Settings.Default.Ip);
+                    MessageBox.Show(Language.GetString("notConnected"));
                 timerLong.Enabled = true;
                 this.Enabled = false;
             }
             else
             {
+                XBMC.Request("SetResponseFormat");
                 initiallyConnected = true;
                 UpdateData();
                 UpdateDataLong();
@@ -58,8 +61,19 @@ namespace WindowsFormsApplication1
 
         private void ApplyApplicationSettings()
         {
+            Language.SetModule("mainform");
+            Language.SetLanguage(Settings.Default.Language);
+            SetLanguageStrings();
             notifyIcon1.Visible = Settings.Default.ShowInSystemTray;
             this.Visible        = Settings.Default.ShowInTaskbar;
+        }
+
+        private void SetLanguageStrings()
+        {
+            lArtistTitle.Text   = Language.GetString("labelArtist");
+            lTitleTitle.Text    = Language.GetString("labelTitle");
+            lDurationTitle.Text = Language.GetString("labelDuration");
+            lAlbumTitle.Text    = Language.GetString("labelAlbum");
         }
 
         private void UpdateData()
@@ -80,7 +94,7 @@ namespace WindowsFormsApplication1
                 if (timerShort.Enabled == false) timerShort.Enabled = true;
                 if(this.Enabled == false) this.Enabled = true;
                 if (initiallyConnected && connectionLost && Settings.Default.ShowConnectionStatusBalloonTip)
-                    notifyIcon1.ShowBalloonTip(2000, "XBMControl", "Connection with XBMC host reastablished.", ToolTipIcon.Info);
+                    notifyIcon1.ShowBalloonTip(2000, "XBMControl", Language.GetString("connectionReastablished"), ToolTipIcon.Info);
                 if (connectionLost) connectionLost = false;
                 if (Settings.Default.ShowNowPlayingBalloonTips) ShowNowPlayingBalloonTip();
                 if (Settings.Default.ShowPlayStausBalloonTips) ShowPlayStausBalloonTip();
@@ -93,7 +107,7 @@ namespace WindowsFormsApplication1
             else
             {
                 if (!connectionLost && initiallyConnected && Settings.Default.ShowConnectionStatusBalloonTip)
-                    notifyIcon1.ShowBalloonTip(2000, "XBMControl", "Lost connection with XBMC host.", ToolTipIcon.Info);
+                    notifyIcon1.ShowBalloonTip(2000, "XBMControl", Language.GetString("connectionLost"), ToolTipIcon.Info);
                 connectionLost = true;
                 this.Enabled = false;
             }
@@ -149,7 +163,7 @@ namespace WindowsFormsApplication1
         {
             if (resetToDefault)
             {
-                lArtistSong.Text = "No music playing";
+                lArtistSong.Text = Language.GetString("nothingPlaying");
                 lArtist.Text     = "";
                 lTitle.Text      = "";
                 lDuration.Text   = "";
@@ -173,9 +187,9 @@ namespace WindowsFormsApplication1
             if (Settings.Default.Ip == "")
             {
                 if (Settings.Default.ShowConnectionStatusBalloonTip)
-                    notifyIcon1.ShowBalloonTip(3000, "XBMControl", "A valid 'ip address' is required. A port number is optional. If no port number is entered, the default (80) will be used.\n\nExample 1: 192.168.1.101\nExample 2: 192.168.1.101:8080\n", ToolTipIcon.Info);
+                    notifyIcon1.ShowBalloonTip(3000, "XBMControl", Language.GetString("invalidIp"), ToolTipIcon.Info);
                 else
-                    MessageBox.Show("A valid 'ip address' is required. A port number is optional. If no port number is entered, the default (80) will be used.\n\nExample 1: 192.168.1.101\nExample 2: 192.168.1.101:8080\n");
+                    MessageBox.Show(Language.GetString("invalidIp"));
             }
             ApplyApplicationSettings();
             Initialize();
@@ -201,7 +215,7 @@ namespace WindowsFormsApplication1
         {
             if (resetToDefault && !notPlayingMessageShowed)
             {
-                notifyIcon1.ShowBalloonTip(2000, "XBMControl", "Nothing playing...", ToolTipIcon.Info);
+                notifyIcon1.ShowBalloonTip(2000, "XBMControl", Language.GetString("nothingPlaying"), ToolTipIcon.Info);
                 notPlayingMessageShowed = true;
             }
             else if (mediaCurrentlyPlaying != XBMC.GetNowPlayingInfo("filename") && XBMC.GetNowPlayingInfo("type") == "Audio")
@@ -209,7 +223,7 @@ namespace WindowsFormsApplication1
                 notPlayingMessageShowed = false;
                 mediaCurrentlyPlaying = XBMC.GetNowPlayingInfo("filename");
                 string lastFM = (mediaCurrentlyPlaying.Substring(0, 6) == "lastfm") ? "(Last.FM)" : "";
-                notifyIcon1.ShowBalloonTip(2000, "XBMControl : Now playing " + lastFM, XBMC.GetNowPlayingInfo("artist") + " - " + XBMC.GetNowPlayingInfo("title"), ToolTipIcon.Info);
+                notifyIcon1.ShowBalloonTip(2000, "XBMControl : " + Language.GetString("nowPlaying") + lastFM, XBMC.GetNowPlayingInfo("artist") + " ~ " + XBMC.GetNowPlayingInfo("title"), ToolTipIcon.Info);
             }
         }
 
@@ -217,7 +231,7 @@ namespace WindowsFormsApplication1
         {
             if (XBMC.GetNowPlayingInfo("playstatus") == "Paused" && !pausedMessageShowed)
             {
-                notifyIcon1.ShowBalloonTip(2000, "XBMControl", "Playback has been paused.", ToolTipIcon.Info);
+                notifyIcon1.ShowBalloonTip(2000, "XBMControl", Language.GetString("paused"), ToolTipIcon.Info);
                 pausedMessageShowed = true;
             }
             else if (XBMC.GetNowPlayingInfo("playstatus") == "Playing")

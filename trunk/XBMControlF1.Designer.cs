@@ -1,4 +1,4 @@
-﻿namespace WindowsFormsApplication1
+﻿namespace XBMControl
 {
     partial class MainForm
     {
@@ -125,7 +125,7 @@
             // 
             // bNext
             // 
-            this.bNext.BackgroundImage = global::WindowsFormsApplication1.Properties.Resources.next2_32x32;
+            this.bNext.BackgroundImage = global::XBMControl.Properties.Resources.next2_32x32;
             this.bNext.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
             this.bNext.FlatAppearance.BorderColor = System.Drawing.SystemColors.Control;
             this.bNext.FlatAppearance.BorderSize = 0;
@@ -143,7 +143,7 @@
             // 
             // bStop
             // 
-            this.bStop.BackgroundImage = global::WindowsFormsApplication1.Properties.Resources.stop2_32x32;
+            this.bStop.BackgroundImage = global::XBMControl.Properties.Resources.stop2_32x32;
             this.bStop.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
             this.bStop.FlatAppearance.BorderColor = System.Drawing.SystemColors.Control;
             this.bStop.FlatAppearance.BorderSize = 0;
@@ -161,7 +161,7 @@
             // 
             // bPause
             // 
-            this.bPause.BackgroundImage = global::WindowsFormsApplication1.Properties.Resources.pause2_32x32;
+            this.bPause.BackgroundImage = global::XBMControl.Properties.Resources.pause2_32x32;
             this.bPause.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
             this.bPause.FlatAppearance.BorderColor = System.Drawing.SystemColors.Control;
             this.bPause.FlatAppearance.BorderSize = 0;
@@ -179,7 +179,7 @@
             // 
             // bPlay
             // 
-            this.bPlay.BackgroundImage = global::WindowsFormsApplication1.Properties.Resources.play2_32x32;
+            this.bPlay.BackgroundImage = global::XBMControl.Properties.Resources.play2_32x32;
             this.bPlay.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
             this.bPlay.FlatAppearance.BorderColor = System.Drawing.SystemColors.Control;
             this.bPlay.FlatAppearance.BorderSize = 0;
@@ -197,7 +197,7 @@
             // 
             // bPrevious
             // 
-            this.bPrevious.BackgroundImage = global::WindowsFormsApplication1.Properties.Resources.previous_32x32;
+            this.bPrevious.BackgroundImage = global::XBMControl.Properties.Resources.previous_32x32;
             this.bPrevious.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
             this.bPrevious.FlatAppearance.BorderColor = System.Drawing.SystemColors.Control;
             this.bPrevious.FlatAppearance.BorderSize = 0;
@@ -215,7 +215,7 @@
             // 
             // bMute
             // 
-            this.bMute.BackgroundImage = global::WindowsFormsApplication1.Properties.Resources.mute_16x16;
+            this.bMute.BackgroundImage = global::XBMControl.Properties.Resources.mute_16x16;
             this.bMute.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
             this.bMute.FlatAppearance.BorderSize = 0;
             this.bMute.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
@@ -289,7 +289,7 @@
             // 
             // cmsNotifyPrevious
             // 
-            this.cmsNotifyPrevious.Image = global::WindowsFormsApplication1.Properties.Resources.previous_16x16;
+            this.cmsNotifyPrevious.Image = global::XBMControl.Properties.Resources.previous_16x16;
             this.cmsNotifyPrevious.Name = "cmsNotifyPrevious";
             this.cmsNotifyPrevious.Size = new System.Drawing.Size(132, 22);
             this.cmsNotifyPrevious.Text = "Previous";
@@ -297,7 +297,7 @@
             // 
             // cmsNotifyPlay
             // 
-            this.cmsNotifyPlay.Image = global::WindowsFormsApplication1.Properties.Resources.play2_16x16;
+            this.cmsNotifyPlay.Image = global::XBMControl.Properties.Resources.play2_16x16;
             this.cmsNotifyPlay.Name = "cmsNotifyPlay";
             this.cmsNotifyPlay.Size = new System.Drawing.Size(132, 22);
             this.cmsNotifyPlay.Text = "Play";
@@ -305,7 +305,7 @@
             // 
             // cmsNotifyPause
             // 
-            this.cmsNotifyPause.Image = global::WindowsFormsApplication1.Properties.Resources.pause_16x16;
+            this.cmsNotifyPause.Image = global::XBMControl.Properties.Resources.pause_16x16;
             this.cmsNotifyPause.Name = "cmsNotifyPause";
             this.cmsNotifyPause.Size = new System.Drawing.Size(132, 22);
             this.cmsNotifyPause.Text = "Pause";
@@ -313,7 +313,7 @@
             // 
             // cmsNotifyStop
             // 
-            this.cmsNotifyStop.Image = global::WindowsFormsApplication1.Properties.Resources.stop_16x16;
+            this.cmsNotifyStop.Image = global::XBMControl.Properties.Resources.stop_16x16;
             this.cmsNotifyStop.Name = "cmsNotifyStop";
             this.cmsNotifyStop.Size = new System.Drawing.Size(132, 22);
             this.cmsNotifyStop.Text = "Stop";
@@ -321,7 +321,7 @@
             // 
             // cmsNotifyNext
             // 
-            this.cmsNotifyNext.Image = global::WindowsFormsApplication1.Properties.Resources.next_16x16;
+            this.cmsNotifyNext.Image = global::XBMControl.Properties.Resources.next_16x16;
             this.cmsNotifyNext.Name = "cmsNotifyNext";
             this.cmsNotifyNext.Size = new System.Drawing.Size(132, 22);
             this.cmsNotifyNext.Text = "Next";
@@ -329,7 +329,7 @@
             // 
             // cmsNotifyMute
             // 
-            this.cmsNotifyMute.Image = global::WindowsFormsApplication1.Properties.Resources.mute_16x16;
+            this.cmsNotifyMute.Image = global::XBMControl.Properties.Resources.mute_16x16;
             this.cmsNotifyMute.Name = "cmsNotifyMute";
             this.cmsNotifyMute.Size = new System.Drawing.Size(132, 22);
             this.cmsNotifyMute.Text = "Mute";
@@ -342,7 +342,7 @@
             // 
             // cmsNotifyShow
             // 
-            this.cmsNotifyShow.Image = global::WindowsFormsApplication1.Properties.Resources.show_16x16;
+            this.cmsNotifyShow.Image = global::XBMControl.Properties.Resources.show_16x16;
             this.cmsNotifyShow.Name = "cmsNotifyShow";
             this.cmsNotifyShow.Size = new System.Drawing.Size(132, 22);
             this.cmsNotifyShow.Text = "Show";
@@ -350,7 +350,7 @@
             // 
             // cmsNotifyHide
             // 
-            this.cmsNotifyHide.Image = global::WindowsFormsApplication1.Properties.Resources.hide_16x16;
+            this.cmsNotifyHide.Image = global::XBMControl.Properties.Resources.hide_16x16;
             this.cmsNotifyHide.Name = "cmsNotifyHide";
             this.cmsNotifyHide.Size = new System.Drawing.Size(132, 22);
             this.cmsNotifyHide.Text = "Hide";
@@ -363,7 +363,7 @@
             // 
             // cmsConfigure
             // 
-            this.cmsConfigure.Image = global::WindowsFormsApplication1.Properties.Resources.configure_16x16;
+            this.cmsConfigure.Image = global::XBMControl.Properties.Resources.configure_16x16;
             this.cmsConfigure.Name = "cmsConfigure";
             this.cmsConfigure.Size = new System.Drawing.Size(132, 22);
             this.cmsConfigure.Text = "Configure";
@@ -376,7 +376,7 @@
             // 
             // cmsNotifyExit
             // 
-            this.cmsNotifyExit.Image = global::WindowsFormsApplication1.Properties.Resources.exit_16x16;
+            this.cmsNotifyExit.Image = global::XBMControl.Properties.Resources.exit_16x16;
             this.cmsNotifyExit.Name = "cmsNotifyExit";
             this.cmsNotifyExit.Size = new System.Drawing.Size(132, 22);
             this.cmsNotifyExit.Text = "Exit";
@@ -401,21 +401,20 @@
             // 
             // lDurationTitle
             // 
-            this.lDurationTitle.AutoSize = true;
             this.lDurationTitle.ForeColor = System.Drawing.Color.Silver;
-            this.lDurationTitle.Location = new System.Drawing.Point(10, 100);
+            this.lDurationTitle.Location = new System.Drawing.Point(3, 100);
             this.lDurationTitle.Name = "lDurationTitle";
-            this.lDurationTitle.Size = new System.Drawing.Size(27, 13);
+            this.lDurationTitle.Size = new System.Drawing.Size(44, 13);
             this.lDurationTitle.TabIndex = 30;
-            this.lDurationTitle.Text = "time";
+            this.lDurationTitle.TextAlign = System.Drawing.ContentAlignment.TopRight;
             // 
             // lDuration
             // 
             this.lDuration.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lDuration.ForeColor = System.Drawing.Color.Gray;
-            this.lDuration.Location = new System.Drawing.Point(34, 100);
+            this.lDuration.Location = new System.Drawing.Point(44, 100);
             this.lDuration.Name = "lDuration";
-            this.lDuration.Size = new System.Drawing.Size(180, 13);
+            this.lDuration.Size = new System.Drawing.Size(170, 13);
             this.lDuration.TabIndex = 31;
             // 
             // pThumbnail
@@ -429,7 +428,7 @@
             // 
             // pbLastFM
             // 
-            this.pbLastFM.Image = global::WindowsFormsApplication1.Properties.Resources.lastfm1;
+            this.pbLastFM.Image = global::XBMControl.Properties.Resources.lastfm1;
             this.pbLastFM.Location = new System.Drawing.Point(81, 104);
             this.pbLastFM.Name = "pbLastFM";
             this.pbLastFM.Size = new System.Drawing.Size(39, 15);
@@ -439,10 +438,10 @@
             // 
             // pbThumbnail
             // 
-            this.pbThumbnail.BackgroundImage = global::WindowsFormsApplication1.Properties.Resources.XBMClogo;
+            this.pbThumbnail.BackgroundImage = global::XBMControl.Properties.Resources.XBMClogo;
             this.pbThumbnail.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.pbThumbnail.ErrorImage = global::WindowsFormsApplication1.Properties.Resources.XBMClogo;
-            this.pbThumbnail.InitialImage = global::WindowsFormsApplication1.Properties.Resources.XBMClogo;
+            this.pbThumbnail.ErrorImage = global::XBMControl.Properties.Resources.XBMClogo;
+            this.pbThumbnail.InitialImage = global::XBMControl.Properties.Resources.XBMClogo;
             this.pbThumbnail.Location = new System.Drawing.Point(5, 4);
             this.pbThumbnail.Name = "pbThumbnail";
             this.pbThumbnail.Size = new System.Drawing.Size(120, 120);
@@ -454,59 +453,56 @@
             // 
             this.lTitle.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lTitle.ForeColor = System.Drawing.Color.Gray;
-            this.lTitle.Location = new System.Drawing.Point(34, 87);
+            this.lTitle.Location = new System.Drawing.Point(44, 87);
             this.lTitle.Name = "lTitle";
-            this.lTitle.Size = new System.Drawing.Size(180, 13);
+            this.lTitle.Size = new System.Drawing.Size(170, 13);
             this.lTitle.TabIndex = 26;
             // 
             // lAlbumTitle
             // 
-            this.lAlbumTitle.AutoSize = true;
             this.lAlbumTitle.ForeColor = System.Drawing.Color.Silver;
-            this.lAlbumTitle.Location = new System.Drawing.Point(2, 113);
+            this.lAlbumTitle.Location = new System.Drawing.Point(3, 113);
             this.lAlbumTitle.Name = "lAlbumTitle";
-            this.lAlbumTitle.Size = new System.Drawing.Size(35, 13);
+            this.lAlbumTitle.Size = new System.Drawing.Size(44, 13);
             this.lAlbumTitle.TabIndex = 23;
-            this.lAlbumTitle.Text = "album";
+            this.lAlbumTitle.TextAlign = System.Drawing.ContentAlignment.TopRight;
             // 
             // lArtist
             // 
             this.lArtist.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lArtist.ForeColor = System.Drawing.Color.Gray;
-            this.lArtist.Location = new System.Drawing.Point(34, 74);
+            this.lArtist.Location = new System.Drawing.Point(44, 74);
             this.lArtist.Name = "lArtist";
-            this.lArtist.Size = new System.Drawing.Size(180, 13);
+            this.lArtist.Size = new System.Drawing.Size(170, 13);
             this.lArtist.TabIndex = 25;
             // 
             // lTitleTitle
             // 
-            this.lTitleTitle.AutoSize = true;
             this.lTitleTitle.ForeColor = System.Drawing.Color.Silver;
-            this.lTitleTitle.Location = new System.Drawing.Point(12, 87);
+            this.lTitleTitle.Location = new System.Drawing.Point(3, 87);
             this.lTitleTitle.Name = "lTitleTitle";
-            this.lTitleTitle.Size = new System.Drawing.Size(25, 13);
+            this.lTitleTitle.Size = new System.Drawing.Size(44, 13);
             this.lTitleTitle.TabIndex = 22;
             this.lTitleTitle.Tag = "";
-            this.lTitleTitle.Text = "title";
+            this.lTitleTitle.TextAlign = System.Drawing.ContentAlignment.TopRight;
             // 
             // lAlbum
             // 
             this.lAlbum.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lAlbum.ForeColor = System.Drawing.Color.Gray;
-            this.lAlbum.Location = new System.Drawing.Point(34, 113);
+            this.lAlbum.Location = new System.Drawing.Point(44, 113);
             this.lAlbum.Name = "lAlbum";
-            this.lAlbum.Size = new System.Drawing.Size(180, 13);
+            this.lAlbum.Size = new System.Drawing.Size(170, 13);
             this.lAlbum.TabIndex = 24;
             // 
             // lArtistTitle
             // 
-            this.lArtistTitle.AutoSize = true;
             this.lArtistTitle.ForeColor = System.Drawing.Color.Silver;
-            this.lArtistTitle.Location = new System.Drawing.Point(5, 74);
+            this.lArtistTitle.Location = new System.Drawing.Point(3, 74);
             this.lArtistTitle.Name = "lArtistTitle";
-            this.lArtistTitle.Size = new System.Drawing.Size(32, 13);
+            this.lArtistTitle.Size = new System.Drawing.Size(44, 13);
             this.lArtistTitle.TabIndex = 21;
-            this.lArtistTitle.Text = "artist";
+            this.lArtistTitle.TextAlign = System.Drawing.ContentAlignment.TopRight;
             // 
             // pNowPlayingInfo
             // 
@@ -538,7 +534,7 @@
             // 
             // pbMediaType
             // 
-            this.pbMediaType.Image = global::WindowsFormsApplication1.Properties.Resources.audio_cd_32x32;
+            this.pbMediaType.Image = global::XBMControl.Properties.Resources.audio_cd_32x32;
             this.pbMediaType.Location = new System.Drawing.Point(176, 1);
             this.pbMediaType.Name = "pbMediaType";
             this.pbMediaType.Size = new System.Drawing.Size(32, 32);
@@ -625,7 +621,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.tbVolume)).EndInit();
             this.cmsNotifyIcon.ResumeLayout(false);
             this.pMusicInfo.ResumeLayout(false);
-            this.pMusicInfo.PerformLayout();
             this.pThumbnail.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.pbLastFM)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbThumbnail)).EndInit();

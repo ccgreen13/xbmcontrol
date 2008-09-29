@@ -4,8 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Net;
 using System.IO;
-using WindowsFormsApplication1.Properties;
-//using System.Windows.Forms;
+using XBMControl.Properties;
+using System.Windows.Forms;
 
 namespace XBMC.Communicator
 {
@@ -18,26 +18,32 @@ namespace XBMC.Communicator
         {
         }
 
-        public bool IsConnected()
+        public bool IsConnected(string ip)
         {
+            bool connected           = true;
+            string xbmcIp            = (ip == null) ? Settings.Default.Ip : ip;
             HttpWebResponse response = null;
-            HttpWebRequest connection = (HttpWebRequest)WebRequest.Create("http://" + Settings.Default.Ip);
+
+            HttpWebRequest connection = (HttpWebRequest)WebRequest.Create("http://" + xbmcIp);
             connection.Method = "GET";
             connection.Timeout = 2000;
-
             try
             {
                 response = (HttpWebResponse)connection.GetResponse();
             }
             catch (Exception e)
             {
-                return false;
+                connected = false;
             }
 
             if (response != null) response.Close();
-            this.Request("SetResponseFormat");
 
-            return true;
+            return connected;
+        }
+
+        public bool IsConnected()
+        { 
+            return IsConnected(null);
         }
 
         public bool IsPlaying()
@@ -52,6 +58,7 @@ namespace XBMC.Communicator
             string[] pageContent        = null;
             string param                = "?command=" + command;
             if (parameter != null) param += "&parameter=" + parameter;
+
             try
             {
                 HttpWebRequest request = (HttpWebRequest)WebRequest.Create("http://" + Settings.Default.Ip + this._ApiPath + param);
