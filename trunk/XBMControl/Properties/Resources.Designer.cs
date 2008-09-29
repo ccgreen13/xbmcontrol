@@ -67,6 +67,20 @@ namespace WindowsFormsApplication1.Properties {
             }
         }
         
+        internal static System.Drawing.Bitmap exit_16x16 {
+            get {
+                object obj = ResourceManager.GetObject("exit-16x16", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap hide_16x16 {
+            get {
+                object obj = ResourceManager.GetObject("hide-16x16", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
         internal static System.Drawing.Bitmap lastfm {
             get {
                 object obj = ResourceManager.GetObject("lastfm", resourceCulture);
@@ -77,6 +91,13 @@ namespace WindowsFormsApplication1.Properties {
         internal static System.Drawing.Bitmap lastfm1 {
             get {
                 object obj = ResourceManager.GetObject("lastfm1", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap mute_16x16 {
+            get {
+                object obj = ResourceManager.GetObject("mute-16x16", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -95,9 +116,51 @@ namespace WindowsFormsApplication1.Properties {
             }
         }
         
+        internal static System.Drawing.Bitmap next_16x16 {
+            get {
+                object obj = ResourceManager.GetObject("next-16x16", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap pause_16x16 {
+            get {
+                object obj = ResourceManager.GetObject("pause-16x16", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
         internal static System.Drawing.Bitmap pictures_32x32 {
             get {
                 object obj = ResourceManager.GetObject("pictures-32x32", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap play2_16x16 {
+            get {
+                object obj = ResourceManager.GetObject("play2-16x16", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap previous_16x16 {
+            get {
+                object obj = ResourceManager.GetObject("previous-16x16", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap show_16x16 {
+            get {
+                object obj = ResourceManager.GetObject("show-16x16", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap stop_16x16 {
+            get {
+                object obj = ResourceManager.GetObject("stop-16x16", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

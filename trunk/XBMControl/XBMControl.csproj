@@ -125,6 +125,15 @@
     <None Include="Resources\lastfm1.png" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Resources\previous-16x16.png" />
+    <None Include="Resources\next-16x16.png" />
+    <None Include="Resources\play2-16x16.png" />
+    <None Include="Resources\pause-16x16.png" />
+    <None Include="Resources\stop-16x16.png" />
+    <None Include="Resources\exit-16x16.png" />
+    <None Include="Resources\show-16x16.png" />
+    <None Include="Resources\hide-16x16.png" />
+    <None Include="Resources\mute-16x16.png" />
     <Content Include="Xbox.ico" />
   </ItemGroup>
   <ItemGroup>
