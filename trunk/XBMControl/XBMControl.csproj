@@ -64,6 +64,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ConfigurationF1.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ConfigurationF1.Designer.cs">
+      <DependentUpon>ConfigurationF1.cs</DependentUpon>
+    </Compile>
     <Compile Include="E:\Programming\C#\XBMControl\XBMControlF1.cs">
       <Link>XBMControlF1.cs</Link>
       <SubType>Form</SubType>
@@ -74,6 +80,9 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="ConfigurationF1.resx">
+      <DependentUpon>ConfigurationF1.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="E:\Programming\C#\XBMControl\XBMControlF1.resx">
       <Link>XBMControlF1.resx</Link>
       <DependentUpon>XBMControlF1.cs</DependentUpon>
@@ -134,6 +143,12 @@
     <None Include="Resources\show-16x16.png" />
     <None Include="Resources\hide-16x16.png" />
     <None Include="Resources\mute-16x16.png" />
+    <None Include="Resources\configure-16x16.png" />
+    <None Include="Resources\previous-32x32.png" />
+    <None Include="Resources\play2-32x32.png" />
+    <None Include="Resources\pause2-32x32.png" />
+    <None Include="Resources\stop2-32x32.png" />
+    <None Include="Resources\next2-32x32.png" />
     <Content Include="Xbox.ico" />
   </ItemGroup>
   <ItemGroup>

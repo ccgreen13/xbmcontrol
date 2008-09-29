@@ -38,9 +38,9 @@
             this.tbVolume = new System.Windows.Forms.TrackBar();
             this.notifyIcon1 = new System.Windows.Forms.NotifyIcon(this.components);
             this.cmsNotifyIcon = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.cmsNotifyMute = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
+            this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
             this.pMusicInfo = new System.Windows.Forms.Panel();
             this.lDurationTitle = new System.Windows.Forms.Label();
             this.lDuration = new System.Windows.Forms.Label();
@@ -58,6 +58,16 @@
             this.lBitrate = new System.Windows.Forms.Label();
             this.lBitrateTitle = new System.Windows.Forms.Label();
             this.lTimePlayed = new System.Windows.Forms.Label();
+            this.cmsNotifyPrevious = new System.Windows.Forms.ToolStripMenuItem();
+            this.cmsNotifyPlay = new System.Windows.Forms.ToolStripMenuItem();
+            this.cmsNotifyPause = new System.Windows.Forms.ToolStripMenuItem();
+            this.cmsNotifyStop = new System.Windows.Forms.ToolStripMenuItem();
+            this.cmsNotifyNext = new System.Windows.Forms.ToolStripMenuItem();
+            this.cmsNotifyMute = new System.Windows.Forms.ToolStripMenuItem();
+            this.cmsNotifyShow = new System.Windows.Forms.ToolStripMenuItem();
+            this.cmsNotifyHide = new System.Windows.Forms.ToolStripMenuItem();
+            this.cmsConfigure = new System.Windows.Forms.ToolStripMenuItem();
+            this.cmsNotifyExit = new System.Windows.Forms.ToolStripMenuItem();
             this.pbLastFM = new System.Windows.Forms.PictureBox();
             this.pbThumbnail = new System.Windows.Forms.PictureBox();
             this.pbMediaType = new System.Windows.Forms.PictureBox();
@@ -67,14 +77,6 @@
             this.bPlay = new System.Windows.Forms.Button();
             this.bPrevious = new System.Windows.Forms.Button();
             this.bMute = new System.Windows.Forms.Button();
-            this.cmsNotifyPrevious = new System.Windows.Forms.ToolStripMenuItem();
-            this.cmsNotifyPlay = new System.Windows.Forms.ToolStripMenuItem();
-            this.cmsNotifyPause = new System.Windows.Forms.ToolStripMenuItem();
-            this.cmsNotifyStop = new System.Windows.Forms.ToolStripMenuItem();
-            this.cmsNotifyNext = new System.Windows.Forms.ToolStripMenuItem();
-            this.cmsNotifyShow = new System.Windows.Forms.ToolStripMenuItem();
-            this.cmsNotifyHide = new System.Windows.Forms.ToolStripMenuItem();
-            this.cmsNotifyExit = new System.Windows.Forms.ToolStripMenuItem();
             this.pControls.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.tbProgress)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.tbVolume)).BeginInit();
@@ -142,12 +144,12 @@
             // tbVolume
             // 
             this.tbVolume.AutoSize = false;
-            this.tbVolume.Location = new System.Drawing.Point(202, 25);
+            this.tbVolume.Location = new System.Drawing.Point(215, 20);
             this.tbVolume.Maximum = 100;
             this.tbVolume.MaximumSize = new System.Drawing.Size(200, 21);
             this.tbVolume.MinimumSize = new System.Drawing.Size(1, 1);
             this.tbVolume.Name = "tbVolume";
-            this.tbVolume.Size = new System.Drawing.Size(103, 21);
+            this.tbVolume.Size = new System.Drawing.Size(103, 20);
             this.tbVolume.TabIndex = 9;
             this.tbVolume.TickStyle = System.Windows.Forms.TickStyle.None;
             this.tbVolume.ValueChanged += new System.EventHandler(this.tbVolume_ValueChanged);
@@ -177,27 +179,26 @@
             this.cmsNotifyShow,
             this.cmsNotifyHide,
             this.toolStripSeparator1,
+            this.cmsConfigure,
+            this.toolStripSeparator3,
             this.cmsNotifyExit});
             this.cmsNotifyIcon.Name = "cmsNotifyIcon";
-            this.cmsNotifyIcon.Size = new System.Drawing.Size(153, 236);
-            // 
-            // cmsNotifyMute
-            // 
-            this.cmsNotifyMute.Image = global::WindowsFormsApplication1.Properties.Resources.mute_16x16;
-            this.cmsNotifyMute.Name = "cmsNotifyMute";
-            this.cmsNotifyMute.Size = new System.Drawing.Size(152, 22);
-            this.cmsNotifyMute.Text = "Mute";
-            this.cmsNotifyMute.Click += new System.EventHandler(this.cmsNotifyMute_Click);
+            this.cmsNotifyIcon.Size = new System.Drawing.Size(133, 242);
             // 
             // toolStripSeparator2
             // 
             this.toolStripSeparator2.Name = "toolStripSeparator2";
-            this.toolStripSeparator2.Size = new System.Drawing.Size(149, 6);
+            this.toolStripSeparator2.Size = new System.Drawing.Size(129, 6);
             // 
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(149, 6);
+            this.toolStripSeparator1.Size = new System.Drawing.Size(129, 6);
+            // 
+            // toolStripSeparator3
+            // 
+            this.toolStripSeparator3.Name = "toolStripSeparator3";
+            this.toolStripSeparator3.Size = new System.Drawing.Size(129, 6);
             // 
             // pMusicInfo
             // 
@@ -386,6 +387,86 @@
             this.lTimePlayed.TabIndex = 0;
             this.lTimePlayed.Text = "00:00";
             // 
+            // cmsNotifyPrevious
+            // 
+            this.cmsNotifyPrevious.Image = global::WindowsFormsApplication1.Properties.Resources.previous_16x16;
+            this.cmsNotifyPrevious.Name = "cmsNotifyPrevious";
+            this.cmsNotifyPrevious.Size = new System.Drawing.Size(132, 22);
+            this.cmsNotifyPrevious.Text = "Previous";
+            this.cmsNotifyPrevious.Click += new System.EventHandler(this.cmsNotifyPrevious_Click);
+            // 
+            // cmsNotifyPlay
+            // 
+            this.cmsNotifyPlay.Image = global::WindowsFormsApplication1.Properties.Resources.play2_16x16;
+            this.cmsNotifyPlay.Name = "cmsNotifyPlay";
+            this.cmsNotifyPlay.Size = new System.Drawing.Size(132, 22);
+            this.cmsNotifyPlay.Text = "Play";
+            this.cmsNotifyPlay.Click += new System.EventHandler(this.cmsNotifyPlay_Click);
+            // 
+            // cmsNotifyPause
+            // 
+            this.cmsNotifyPause.Image = global::WindowsFormsApplication1.Properties.Resources.pause_16x16;
+            this.cmsNotifyPause.Name = "cmsNotifyPause";
+            this.cmsNotifyPause.Size = new System.Drawing.Size(132, 22);
+            this.cmsNotifyPause.Text = "Pause";
+            this.cmsNotifyPause.Click += new System.EventHandler(this.cmsNotifyPause_Click);
+            // 
+            // cmsNotifyStop
+            // 
+            this.cmsNotifyStop.Image = global::WindowsFormsApplication1.Properties.Resources.stop_16x16;
+            this.cmsNotifyStop.Name = "cmsNotifyStop";
+            this.cmsNotifyStop.Size = new System.Drawing.Size(132, 22);
+            this.cmsNotifyStop.Text = "Stop";
+            this.cmsNotifyStop.Click += new System.EventHandler(this.cmsNotifyStop_Click);
+            // 
+            // cmsNotifyNext
+            // 
+            this.cmsNotifyNext.Image = global::WindowsFormsApplication1.Properties.Resources.next_16x16;
+            this.cmsNotifyNext.Name = "cmsNotifyNext";
+            this.cmsNotifyNext.Size = new System.Drawing.Size(132, 22);
+            this.cmsNotifyNext.Text = "Next";
+            this.cmsNotifyNext.Click += new System.EventHandler(this.cmsNotifyNext_Click);
+            // 
+            // cmsNotifyMute
+            // 
+            this.cmsNotifyMute.Image = global::WindowsFormsApplication1.Properties.Resources.mute_16x16;
+            this.cmsNotifyMute.Name = "cmsNotifyMute";
+            this.cmsNotifyMute.Size = new System.Drawing.Size(132, 22);
+            this.cmsNotifyMute.Text = "Mute";
+            this.cmsNotifyMute.Click += new System.EventHandler(this.cmsNotifyMute_Click);
+            // 
+            // cmsNotifyShow
+            // 
+            this.cmsNotifyShow.Image = global::WindowsFormsApplication1.Properties.Resources.show_16x16;
+            this.cmsNotifyShow.Name = "cmsNotifyShow";
+            this.cmsNotifyShow.Size = new System.Drawing.Size(132, 22);
+            this.cmsNotifyShow.Text = "Show";
+            this.cmsNotifyShow.Click += new System.EventHandler(this.cmsNotifyShow_Click);
+            // 
+            // cmsNotifyHide
+            // 
+            this.cmsNotifyHide.Image = global::WindowsFormsApplication1.Properties.Resources.hide_16x16;
+            this.cmsNotifyHide.Name = "cmsNotifyHide";
+            this.cmsNotifyHide.Size = new System.Drawing.Size(132, 22);
+            this.cmsNotifyHide.Text = "Hide";
+            this.cmsNotifyHide.Click += new System.EventHandler(this.cmsNotifyHide_Click);
+            // 
+            // cmsConfigure
+            // 
+            this.cmsConfigure.Image = global::WindowsFormsApplication1.Properties.Resources.configure_16x16;
+            this.cmsConfigure.Name = "cmsConfigure";
+            this.cmsConfigure.Size = new System.Drawing.Size(132, 22);
+            this.cmsConfigure.Text = "Configure";
+            this.cmsConfigure.Click += new System.EventHandler(this.cmsConfigure_Click);
+            // 
+            // cmsNotifyExit
+            // 
+            this.cmsNotifyExit.Image = global::WindowsFormsApplication1.Properties.Resources.exit_16x16;
+            this.cmsNotifyExit.Name = "cmsNotifyExit";
+            this.cmsNotifyExit.Size = new System.Drawing.Size(132, 22);
+            this.cmsNotifyExit.Text = "Exit";
+            this.cmsNotifyExit.Click += new System.EventHandler(this.cmsNotifyExit_Click);
+            // 
             // pbLastFM
             // 
             this.pbLastFM.Image = global::WindowsFormsApplication1.Properties.Resources.lastfm1;
@@ -421,7 +502,7 @@
             // 
             // bNext
             // 
-            this.bNext.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("bNext.BackgroundImage")));
+            this.bNext.BackgroundImage = global::WindowsFormsApplication1.Properties.Resources.next2_32x32;
             this.bNext.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
             this.bNext.FlatAppearance.BorderColor = System.Drawing.SystemColors.Control;
             this.bNext.FlatAppearance.BorderSize = 0;
@@ -439,7 +520,7 @@
             // 
             // bStop
             // 
-            this.bStop.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("bStop.BackgroundImage")));
+            this.bStop.BackgroundImage = global::WindowsFormsApplication1.Properties.Resources.stop2_32x32;
             this.bStop.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
             this.bStop.FlatAppearance.BorderColor = System.Drawing.SystemColors.Control;
             this.bStop.FlatAppearance.BorderSize = 0;
@@ -457,7 +538,7 @@
             // 
             // bPause
             // 
-            this.bPause.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("bPause.BackgroundImage")));
+            this.bPause.BackgroundImage = global::WindowsFormsApplication1.Properties.Resources.pause2_32x32;
             this.bPause.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
             this.bPause.FlatAppearance.BorderColor = System.Drawing.SystemColors.Control;
             this.bPause.FlatAppearance.BorderSize = 0;
@@ -475,7 +556,7 @@
             // 
             // bPlay
             // 
-            this.bPlay.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("bPlay.BackgroundImage")));
+            this.bPlay.BackgroundImage = global::WindowsFormsApplication1.Properties.Resources.play2_32x32;
             this.bPlay.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
             this.bPlay.FlatAppearance.BorderColor = System.Drawing.SystemColors.Control;
             this.bPlay.FlatAppearance.BorderSize = 0;
@@ -493,7 +574,7 @@
             // 
             // bPrevious
             // 
-            this.bPrevious.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("bPrevious.BackgroundImage")));
+            this.bPrevious.BackgroundImage = global::WindowsFormsApplication1.Properties.Resources.previous_32x32;
             this.bPrevious.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
             this.bPrevious.FlatAppearance.BorderColor = System.Drawing.SystemColors.Control;
             this.bPrevious.FlatAppearance.BorderSize = 0;
@@ -511,86 +592,24 @@
             // 
             // bMute
             // 
-            this.bMute.BackgroundImage = global::WindowsFormsApplication1.Properties.Resources.mute_24x24;
+            this.bMute.BackgroundImage = global::WindowsFormsApplication1.Properties.Resources.mute_16x16;
             this.bMute.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
             this.bMute.FlatAppearance.BorderSize = 0;
             this.bMute.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.bMute.Location = new System.Drawing.Point(311, 25);
+            this.bMute.Location = new System.Drawing.Point(316, 20);
             this.bMute.Name = "bMute";
-            this.bMute.Size = new System.Drawing.Size(24, 24);
+            this.bMute.Size = new System.Drawing.Size(16, 16);
             this.bMute.TabIndex = 11;
             this.bMute.UseVisualStyleBackColor = true;
             this.bMute.Click += new System.EventHandler(this.bMute_Click);
             // 
-            // cmsNotifyPrevious
-            // 
-            this.cmsNotifyPrevious.Image = global::WindowsFormsApplication1.Properties.Resources.previous_16x16;
-            this.cmsNotifyPrevious.Name = "cmsNotifyPrevious";
-            this.cmsNotifyPrevious.Size = new System.Drawing.Size(152, 22);
-            this.cmsNotifyPrevious.Text = "Previous";
-            this.cmsNotifyPrevious.Click += new System.EventHandler(this.cmsNotifyPrevious_Click);
-            // 
-            // cmsNotifyPlay
-            // 
-            this.cmsNotifyPlay.Image = global::WindowsFormsApplication1.Properties.Resources.play2_16x16;
-            this.cmsNotifyPlay.Name = "cmsNotifyPlay";
-            this.cmsNotifyPlay.Size = new System.Drawing.Size(152, 22);
-            this.cmsNotifyPlay.Text = "Play";
-            this.cmsNotifyPlay.Click += new System.EventHandler(this.cmsNotifyPlay_Click);
-            // 
-            // cmsNotifyPause
-            // 
-            this.cmsNotifyPause.Image = global::WindowsFormsApplication1.Properties.Resources.pause_16x16;
-            this.cmsNotifyPause.Name = "cmsNotifyPause";
-            this.cmsNotifyPause.Size = new System.Drawing.Size(152, 22);
-            this.cmsNotifyPause.Text = "Pause";
-            this.cmsNotifyPause.Click += new System.EventHandler(this.cmsNotifyPause_Click);
-            // 
-            // cmsNotifyStop
-            // 
-            this.cmsNotifyStop.Image = global::WindowsFormsApplication1.Properties.Resources.stop_16x16;
-            this.cmsNotifyStop.Name = "cmsNotifyStop";
-            this.cmsNotifyStop.Size = new System.Drawing.Size(152, 22);
-            this.cmsNotifyStop.Text = "Stop";
-            this.cmsNotifyStop.Click += new System.EventHandler(this.cmsNotifyStop_Click);
-            // 
-            // cmsNotifyNext
-            // 
-            this.cmsNotifyNext.Image = global::WindowsFormsApplication1.Properties.Resources.next_16x16;
-            this.cmsNotifyNext.Name = "cmsNotifyNext";
-            this.cmsNotifyNext.Size = new System.Drawing.Size(152, 22);
-            this.cmsNotifyNext.Text = "Next";
-            this.cmsNotifyNext.Click += new System.EventHandler(this.cmsNotifyNext_Click);
-            // 
-            // cmsNotifyShow
-            // 
-            this.cmsNotifyShow.Image = global::WindowsFormsApplication1.Properties.Resources.show_16x16;
-            this.cmsNotifyShow.Name = "cmsNotifyShow";
-            this.cmsNotifyShow.Size = new System.Drawing.Size(152, 22);
-            this.cmsNotifyShow.Text = "Show";
-            this.cmsNotifyShow.Click += new System.EventHandler(this.cmsNotifyShow_Click);
-            // 
-            // cmsNotifyHide
-            // 
-            this.cmsNotifyHide.Image = global::WindowsFormsApplication1.Properties.Resources.hide_16x16;
-            this.cmsNotifyHide.Name = "cmsNotifyHide";
-            this.cmsNotifyHide.Size = new System.Drawing.Size(152, 22);
-            this.cmsNotifyHide.Text = "Hide";
-            this.cmsNotifyHide.Click += new System.EventHandler(this.cmsNotifyHide_Click);
-            // 
-            // cmsNotifyExit
-            // 
-            this.cmsNotifyExit.Image = global::WindowsFormsApplication1.Properties.Resources.exit_16x16;
-            this.cmsNotifyExit.Name = "cmsNotifyExit";
-            this.cmsNotifyExit.Size = new System.Drawing.Size(152, 22);
-            this.cmsNotifyExit.Text = "Exit";
-            this.cmsNotifyExit.Click += new System.EventHandler(this.cmsNotifyExit_Click);
-            // 
             // MainForm
             // 
+            this.AccessibleName = "MainForm";
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(344, 196);
+            this.ContextMenuStrip = this.cmsNotifyIcon;
             this.Controls.Add(this.pMusicInfo);
             this.Controls.Add(this.pControls);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
@@ -665,6 +684,8 @@
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
         private System.Windows.Forms.ToolStripMenuItem cmsNotifyShow;
         private System.Windows.Forms.ToolStripMenuItem cmsNotifyHide;
+        private System.Windows.Forms.ToolStripMenuItem cmsConfigure;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator3;
     }
 }
 

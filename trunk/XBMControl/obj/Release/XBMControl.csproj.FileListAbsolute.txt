@@ -7,3 +7,4 @@ E:\Programming\C#\XBMControl\XBMControl\obj\Release\XBMControl.csproj.GenerateRe
 E:\Programming\C#\XBMControl\XBMControl\obj\Release\XBMControl.exe
 E:\Programming\C#\XBMControl\XBMControl\obj\Release\XBMControl.pdb
 E:\Programming\C#\XBMControl\XBMControl\bin\Release\XBMControl.exe.config
+E:\Programming\C#\XBMControl\XBMControl\obj\Release\WindowsFormsApplication1.ConfigurationF1.resources

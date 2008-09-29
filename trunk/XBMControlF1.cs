@@ -8,38 +8,40 @@ using System.Text;
 using System.Windows.Forms;
 using XBMC.Communicator;
 using System.IO;
+using WindowsFormsApplication1.Properties;
 
 namespace WindowsFormsApplication1
 {
     public partial class MainForm : Form
     {
         XBMCcomm XBMC;
-        static string XBMCip         = "10.1.1.156";
-        string XBMCurl               = XBMCip + "/xbmcCmds/xbmcHttp?";
         string[,] maNowPlayingInfo   = new string[50,2];
         string mediaCurrentlyPlaying = null;
         bool pausedMessageShowed     = false;
+        bool notPlayingMessageShowed = false;
         bool resetToDefault          = false;
+        bool configFormOpened        = false;
 
         public MainForm()
         {
             XBMC = new XBMCcomm();
-            XBMC.SetIp(XBMCip);
             InitializeComponent();
             Initialize();
         }
-       
+
         private void Initialize()
         {
-            if (XBMC.IsConnected())
+            if (Settings.Default.Ip == "")
+                ShowConfigurationForm();
+            else if (XBMC.IsConnected())
             {
                 UpdateData();
                 UpdateDataLong();
                 timerShort.Enabled = true;
-                timerLong.Enabled  = true;
+                timerLong.Enabled = true;
             }
             else
-                notifyIcon1.ShowBalloonTip(2000, "XBMControl", "Could not connect to XBMC with ip " + XBMCip, ToolTipIcon.Info);
+                notifyIcon1.ShowBalloonTip(2000, "XBMControl", "Could not connect to XBMC with ip " + Settings.Default.Ip, ToolTipIcon.Info);
         }
 
         private void UpdateData()
@@ -50,7 +52,7 @@ namespace WindowsFormsApplication1
             SetNowPlayingTimePlayed(resetToDefault);
         }
 
-        private void UpdateDataLong()
+        public void UpdateDataLong()
         {
             ShowNowPlayingBalloonTip();
             ShowPlayStausBalloonTip();
@@ -128,6 +130,15 @@ namespace WindowsFormsApplication1
             }
         }
 
+        public void SetConfigFormClosed(object sender, EventArgs e)
+        {
+            configFormOpened = false;
+            this.Enabled = true;
+            if (Settings.Default.Ip == "")
+                notifyIcon1.ShowBalloonTip(3000, "XBMControl", "A valid 'ip address' is required. A port number is optional. If no port number is entered, the default (80) will be used.\n\nExample 1: 192.168.1.101\nExample 2: 192.168.1.101:8080\n", ToolTipIcon.Info);
+            Initialize();
+        }
+
         private void ShowMediaTypeImage(bool resetToDefault)
         {
             string mediaType = XBMC.GetNowPlayingInfo("type");
@@ -146,10 +157,14 @@ namespace WindowsFormsApplication1
 
         private void ShowNowPlayingBalloonTip()
         {
-            if (resetToDefault)
+            if (resetToDefault && !notPlayingMessageShowed)
+            {
                 notifyIcon1.ShowBalloonTip(2000, "XBMControl", "Nothing playing...", ToolTipIcon.Info);
+                notPlayingMessageShowed = true;
+            }
             else if (mediaCurrentlyPlaying != XBMC.GetNowPlayingInfo("filename") && XBMC.GetNowPlayingInfo("type") == "Audio")
             {
+                notPlayingMessageShowed = false;
                 mediaCurrentlyPlaying = XBMC.GetNowPlayingInfo("filename");
                 string lastFM = (mediaCurrentlyPlaying.Substring(0, 6) == "lastfm") ? "(Last.FM)" : "";
                 notifyIcon1.ShowBalloonTip(2000, "XBMControl : Now playing " + lastFM, XBMC.GetNowPlayingInfo("artist") + " - " + XBMC.GetNowPlayingInfo("title"), ToolTipIcon.Info);
@@ -165,6 +180,18 @@ namespace WindowsFormsApplication1
             }
             else if (XBMC.GetNowPlayingInfo("playstatus") == "Playing")
                 pausedMessageShowed = false;
+        }
+
+        private void ShowConfigurationForm()
+        {
+            if (!configFormOpened)
+            {
+                configFormOpened = true;
+                ConfigurationF1 ConfigForm = new ConfigurationF1();
+                ConfigForm.FormClosed += new System.Windows.Forms.FormClosedEventHandler(SetConfigFormClosed);
+                ConfigForm.Show();
+                this.Enabled = false;
+            }
         }
 
 //------------------START EVENTS-------------------------
@@ -307,6 +334,11 @@ namespace WindowsFormsApplication1
         private void MainForm_Load(object sender, EventArgs e)
         {
             this.Visible = false;
+        }
+
+        private void cmsConfigure_Click(object sender, EventArgs e)
+        {
+            ShowConfigurationForm();    
         }
     }
 }

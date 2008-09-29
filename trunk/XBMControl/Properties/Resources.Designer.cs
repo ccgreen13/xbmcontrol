@@ -67,6 +67,13 @@ namespace WindowsFormsApplication1.Properties {
             }
         }
         
+        internal static System.Drawing.Bitmap configure_16x16 {
+            get {
+                object obj = ResourceManager.GetObject("configure-16x16", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
         internal static System.Drawing.Bitmap exit_16x16 {
             get {
                 object obj = ResourceManager.GetObject("exit-16x16", resourceCulture);
@@ -123,9 +130,23 @@ namespace WindowsFormsApplication1.Properties {
             }
         }
         
+        internal static System.Drawing.Bitmap next2_32x32 {
+            get {
+                object obj = ResourceManager.GetObject("next2-32x32", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
         internal static System.Drawing.Bitmap pause_16x16 {
             get {
                 object obj = ResourceManager.GetObject("pause-16x16", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap pause2_32x32 {
+            get {
+                object obj = ResourceManager.GetObject("pause2-32x32", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -144,9 +165,23 @@ namespace WindowsFormsApplication1.Properties {
             }
         }
         
+        internal static System.Drawing.Bitmap play2_32x32 {
+            get {
+                object obj = ResourceManager.GetObject("play2-32x32", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
         internal static System.Drawing.Bitmap previous_16x16 {
             get {
                 object obj = ResourceManager.GetObject("previous-16x16", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap previous_32x32 {
+            get {
+                object obj = ResourceManager.GetObject("previous-32x32", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -161,6 +196,13 @@ namespace WindowsFormsApplication1.Properties {
         internal static System.Drawing.Bitmap stop_16x16 {
             get {
                 object obj = ResourceManager.GetObject("stop-16x16", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap stop2_32x32 {
+            get {
+                object obj = ResourceManager.GetObject("stop2-32x32", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

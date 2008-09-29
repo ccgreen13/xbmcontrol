@@ -4,13 +4,13 @@ using System.Linq;
 using System.Text;
 using System.Net;
 using System.IO;
+using WindowsFormsApplication1.Properties;
 //using System.Windows.Forms;
 
 namespace XBMC.Communicator
 {
     class XBMCcomm
     {
-        private string _XbmcUrl             = null;
         private string _ApiPath             = "/xbmcCmds/xbmcHttp";
         private string[,] maNowPlayingInfo  = new string[50, 2];
 
@@ -18,19 +18,9 @@ namespace XBMC.Communicator
         {
         }
 
-        public void SetIp(string ip)
-        {
-            this._XbmcUrl = "http://" + ip;
-        }
-
-        public string GetIp()
-        {
-            return _XbmcUrl;
-        }
-
         public bool IsConnected()
         {
-            HttpWebRequest connection = (HttpWebRequest)WebRequest.Create(this._XbmcUrl);
+            HttpWebRequest connection = (HttpWebRequest)WebRequest.Create("http://" + Settings.Default.Ip);
             connection.Method = "GET";
             HttpWebResponse response = (HttpWebResponse)connection.GetResponse();
             bool connected = (response == null) ? false : true;
@@ -54,7 +44,7 @@ namespace XBMC.Communicator
             if (parameter != null) param += "&parameter=" + parameter;
             try
             {
-                HttpWebRequest request = (HttpWebRequest)WebRequest.Create(this._XbmcUrl + this._ApiPath + param);
+                HttpWebRequest request = (HttpWebRequest)WebRequest.Create("http://" + Settings.Default.Ip + this._ApiPath + param);
                 request.Method = "GET";
                 response = (HttpWebResponse)request.GetResponse();
                 reader = new StreamReader(response.GetResponseStream(), Encoding.UTF8);
@@ -113,7 +103,7 @@ namespace XBMC.Communicator
         {
             MemoryStream thumb = null;
             WebClient client   = new WebClient();
-            string thumbUrl    = this.GetIp() + "/thumb.jpg";
+            string thumbUrl    = "http://" + Settings.Default.Ip + "/thumb.jpg";
             this.Request("GetCurrentlyPlaying", "q:\\web\\thumb.jpg");
 
             try
