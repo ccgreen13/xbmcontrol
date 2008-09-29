@@ -58,5 +58,65 @@ namespace WindowsFormsApplication1.Properties {
                 this["Password"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool ShowInSystemTray {
+            get {
+                return ((bool)(this["ShowInSystemTray"]));
+            }
+            set {
+                this["ShowInSystemTray"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool ShowNowPlayingBalloonTips {
+            get {
+                return ((bool)(this["ShowNowPlayingBalloonTips"]));
+            }
+            set {
+                this["ShowNowPlayingBalloonTips"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool ShowPlayStausBalloonTips {
+            get {
+                return ((bool)(this["ShowPlayStausBalloonTips"]));
+            }
+            set {
+                this["ShowPlayStausBalloonTips"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool ShowInTaskbar {
+            get {
+                return ((bool)(this["ShowInTaskbar"]));
+            }
+            set {
+                this["ShowInTaskbar"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool ShowConnectionStatusBalloonTip {
+            get {
+                return ((bool)(this["ShowConnectionStatusBalloonTip"]));
+            }
+            set {
+                this["ShowConnectionStatusBalloonTip"] = value;
+            }
+        }
     }
 }

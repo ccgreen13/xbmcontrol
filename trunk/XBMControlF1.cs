@@ -21,46 +21,82 @@ namespace WindowsFormsApplication1
         bool notPlayingMessageShowed = false;
         bool resetToDefault          = false;
         bool configFormOpened        = false;
+        bool connectionLost          = false;
+        bool initiallyConnected      = false;
 
         public MainForm()
         {
-            XBMC = new XBMCcomm();
             InitializeComponent();
+            ApplyApplicationSettings();
             Initialize();
         }
 
         private void Initialize()
         {
+            XBMC = new XBMCcomm();
+
             if (Settings.Default.Ip == "")
                 ShowConfigurationForm();
-            else if (XBMC.IsConnected())
+            else if (!XBMC.IsConnected())
             {
+                if (Settings.Default.ShowConnectionStatusBalloonTip)
+                    notifyIcon1.ShowBalloonTip(2000, "XBMControl", "Could not connect to XBMC host with ip " + Settings.Default.Ip, ToolTipIcon.Info);
+                else
+                    MessageBox.Show("Could not connect to XBMC host with ip " + Settings.Default.Ip);
+                timerLong.Enabled = true;
+                this.Enabled = false;
+            }
+            else
+            {
+                initiallyConnected = true;
                 UpdateData();
                 UpdateDataLong();
                 timerShort.Enabled = true;
                 timerLong.Enabled = true;
             }
-            else
-                notifyIcon1.ShowBalloonTip(2000, "XBMControl", "Could not connect to XBMC with ip " + Settings.Default.Ip, ToolTipIcon.Info);
+        }
+
+        private void ApplyApplicationSettings()
+        {
+            notifyIcon1.Visible = Settings.Default.ShowInSystemTray;
+            this.Visible        = Settings.Default.ShowInTaskbar;
         }
 
         private void UpdateData()
         {
-            resetToDefault = (XBMC.IsPlaying()) ? false : true;
-            SetProgressPosition();
-            SetVolumePosition();
-            SetNowPlayingTimePlayed(resetToDefault);
+            if(!connectionLost)
+            {
+                resetToDefault = (XBMC.IsPlaying()) ? false : true;
+                SetProgressPosition();
+                SetVolumePosition();
+                SetNowPlayingTimePlayed(resetToDefault);
+            }
         }
 
         public void UpdateDataLong()
         {
-            ShowNowPlayingBalloonTip();
-            ShowPlayStausBalloonTip();
-            ShowMediaTypeImage(resetToDefault);
-            SetNowPlayingBitrate(resetToDefault);
-            SetNowPlayingSamplerate(resetToDefault);
-            SetNowPlayingSongInfo(resetToDefault);
-            SetNowPlayingThumbnail(resetToDefault);
+            if (XBMC.IsConnected())
+            {
+                if (timerShort.Enabled == false) timerShort.Enabled = true;
+                if(this.Enabled == false) this.Enabled = true;
+                if (initiallyConnected && connectionLost && Settings.Default.ShowConnectionStatusBalloonTip)
+                    notifyIcon1.ShowBalloonTip(2000, "XBMControl", "Connection with XBMC host reastablished.", ToolTipIcon.Info);
+                if (connectionLost) connectionLost = false;
+                if (Settings.Default.ShowNowPlayingBalloonTips) ShowNowPlayingBalloonTip();
+                if (Settings.Default.ShowPlayStausBalloonTips) ShowPlayStausBalloonTip();
+                ShowMediaTypeImage(resetToDefault);
+                SetNowPlayingBitrate(resetToDefault);
+                SetNowPlayingSamplerate(resetToDefault);
+                SetNowPlayingSongInfo(resetToDefault);
+                SetNowPlayingThumbnail(resetToDefault);
+            }
+            else
+            {
+                if (!connectionLost && initiallyConnected && Settings.Default.ShowConnectionStatusBalloonTip)
+                    notifyIcon1.ShowBalloonTip(2000, "XBMControl", "Lost connection with XBMC host.", ToolTipIcon.Info);
+                connectionLost = true;
+                this.Enabled = false;
+            }
         }
 
         private void SetProgressPosition()
@@ -135,7 +171,13 @@ namespace WindowsFormsApplication1
             configFormOpened = false;
             this.Enabled = true;
             if (Settings.Default.Ip == "")
-                notifyIcon1.ShowBalloonTip(3000, "XBMControl", "A valid 'ip address' is required. A port number is optional. If no port number is entered, the default (80) will be used.\n\nExample 1: 192.168.1.101\nExample 2: 192.168.1.101:8080\n", ToolTipIcon.Info);
+            {
+                if (Settings.Default.ShowConnectionStatusBalloonTip)
+                    notifyIcon1.ShowBalloonTip(3000, "XBMControl", "A valid 'ip address' is required. A port number is optional. If no port number is entered, the default (80) will be used.\n\nExample 1: 192.168.1.101\nExample 2: 192.168.1.101:8080\n", ToolTipIcon.Info);
+                else
+                    MessageBox.Show("A valid 'ip address' is required. A port number is optional. If no port number is entered, the default (80) will be used.\n\nExample 1: 192.168.1.101\nExample 2: 192.168.1.101:8080\n");
+            }
+            ApplyApplicationSettings();
             Initialize();
         }
 
@@ -258,7 +300,7 @@ namespace WindowsFormsApplication1
             if (this.WindowState == System.Windows.Forms.FormWindowState.Normal)
             {
                 this.WindowState = System.Windows.Forms.FormWindowState.Minimized;
-                this.Visible = false;
+                this.Visible = Settings.Default.ShowInTaskbar;
             }
             else
             {
@@ -322,18 +364,18 @@ namespace WindowsFormsApplication1
         private void cmsNotifyHide_Click(object sender, EventArgs e)
         {
             this.WindowState = System.Windows.Forms.FormWindowState.Minimized;
-            this.Visible = false;
+            this.Visible = Settings.Default.ShowInTaskbar;
         }
 
         private void MainForm_Resize(object sender, EventArgs e)
         {
             if(this.WindowState == System.Windows.Forms.FormWindowState.Minimized)
-                this.Visible = false;
+                this.Visible = Settings.Default.ShowInTaskbar;
         }
 
         private void MainForm_Load(object sender, EventArgs e)
         {
-            this.Visible = false;
+            this.Visible = Settings.Default.ShowInTaskbar;
         }
 
         private void cmsConfigure_Click(object sender, EventArgs e)

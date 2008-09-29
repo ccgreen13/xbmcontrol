@@ -38,13 +38,18 @@
             this.password = new System.Windows.Forms.TextBox();
             this.lUsernameTitle = new System.Windows.Forms.Label();
             this.lPasswordTitle = new System.Windows.Forms.Label();
+            this.cbShowInTray = new System.Windows.Forms.CheckBox();
+            this.cbShowNowPlayingBalloonTip = new System.Windows.Forms.CheckBox();
+            this.cbShowPlayStatusBalloonTips = new System.Windows.Forms.CheckBox();
+            this.cbShowInTaskbar = new System.Windows.Forms.CheckBox();
+            this.cbShowConnectionStatusBalloonTip = new System.Windows.Forms.CheckBox();
             this.SuspendLayout();
             // 
             // bCancel
             // 
             this.bCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.bCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.bCancel.Location = new System.Drawing.Point(136, 109);
+            this.bCancel.Location = new System.Drawing.Point(146, 225);
             this.bCancel.Name = "bCancel";
             this.bCancel.Size = new System.Drawing.Size(57, 23);
             this.bCancel.TabIndex = 0;
@@ -55,7 +60,7 @@
             // bConfirm
             // 
             this.bConfirm.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.bConfirm.Location = new System.Drawing.Point(72, 109);
+            this.bConfirm.Location = new System.Drawing.Point(82, 225);
             this.bConfirm.Name = "bConfirm";
             this.bConfirm.Size = new System.Drawing.Size(58, 23);
             this.bConfirm.TabIndex = 1;
@@ -67,7 +72,7 @@
             // 
             this.bApply.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.bApply.Enabled = false;
-            this.bApply.Location = new System.Drawing.Point(10, 109);
+            this.bApply.Location = new System.Drawing.Point(20, 225);
             this.bApply.Name = "bApply";
             this.bApply.Size = new System.Drawing.Size(56, 23);
             this.bApply.TabIndex = 2;
@@ -130,6 +135,64 @@
             this.lPasswordTitle.TabIndex = 12;
             this.lPasswordTitle.Text = "password";
             // 
+            // cbShowInTray
+            // 
+            this.cbShowInTray.AutoSize = true;
+            this.cbShowInTray.Location = new System.Drawing.Point(13, 101);
+            this.cbShowInTray.Name = "cbShowInTray";
+            this.cbShowInTray.Size = new System.Drawing.Size(121, 17);
+            this.cbShowInTray.TabIndex = 13;
+            this.cbShowInTray.Text = "Show in system tray";
+            this.cbShowInTray.UseVisualStyleBackColor = true;
+            this.cbShowInTray.Click += new System.EventHandler(this.cbShowInTray_Click);
+            // 
+            // cbShowNowPlayingBalloonTip
+            // 
+            this.cbShowNowPlayingBalloonTip.AutoSize = true;
+            this.cbShowNowPlayingBalloonTip.Enabled = false;
+            this.cbShowNowPlayingBalloonTip.Location = new System.Drawing.Point(13, 145);
+            this.cbShowNowPlayingBalloonTip.Name = "cbShowNowPlayingBalloonTip";
+            this.cbShowNowPlayingBalloonTip.Size = new System.Drawing.Size(172, 17);
+            this.cbShowNowPlayingBalloonTip.TabIndex = 14;
+            this.cbShowNowPlayingBalloonTip.Text = "Show \'Now Playing\' balloon tips";
+            this.cbShowNowPlayingBalloonTip.UseVisualStyleBackColor = true;
+            this.cbShowNowPlayingBalloonTip.Click += new System.EventHandler(this.cbShowNowPlayingBalloonTip_Click);
+            // 
+            // cbShowPlayStatusBalloonTips
+            // 
+            this.cbShowPlayStatusBalloonTips.AutoSize = true;
+            this.cbShowPlayStatusBalloonTips.Enabled = false;
+            this.cbShowPlayStatusBalloonTips.Location = new System.Drawing.Point(13, 168);
+            this.cbShowPlayStatusBalloonTips.Name = "cbShowPlayStatusBalloonTips";
+            this.cbShowPlayStatusBalloonTips.Size = new System.Drawing.Size(163, 17);
+            this.cbShowPlayStatusBalloonTips.TabIndex = 15;
+            this.cbShowPlayStatusBalloonTips.Text = "Show play status balloon tips";
+            this.cbShowPlayStatusBalloonTips.UseVisualStyleBackColor = true;
+            this.cbShowPlayStatusBalloonTips.Click += new System.EventHandler(this.cbShowPlayStatusBalloonTips_Click);
+            // 
+            // cbShowInTaskbar
+            // 
+            this.cbShowInTaskbar.AutoSize = true;
+            this.cbShowInTaskbar.Enabled = false;
+            this.cbShowInTaskbar.Location = new System.Drawing.Point(14, 122);
+            this.cbShowInTaskbar.Name = "cbShowInTaskbar";
+            this.cbShowInTaskbar.Size = new System.Drawing.Size(100, 17);
+            this.cbShowInTaskbar.TabIndex = 16;
+            this.cbShowInTaskbar.Text = "Show in taskbar";
+            this.cbShowInTaskbar.UseVisualStyleBackColor = true;
+            this.cbShowInTaskbar.Click += new System.EventHandler(this.cbMinimizeToTray_Click);
+            // 
+            // cbShowConnectionStatusBalloonTip
+            // 
+            this.cbShowConnectionStatusBalloonTip.AutoSize = true;
+            this.cbShowConnectionStatusBalloonTip.Enabled = false;
+            this.cbShowConnectionStatusBalloonTip.Location = new System.Drawing.Point(14, 191);
+            this.cbShowConnectionStatusBalloonTip.Name = "cbShowConnectionStatusBalloonTip";
+            this.cbShowConnectionStatusBalloonTip.Size = new System.Drawing.Size(195, 17);
+            this.cbShowConnectionStatusBalloonTip.TabIndex = 17;
+            this.cbShowConnectionStatusBalloonTip.Text = "Show connection status balloon tips";
+            this.cbShowConnectionStatusBalloonTip.UseVisualStyleBackColor = true;
+            // 
             // ConfigurationF1
             // 
             this.AcceptButton = this.bConfirm;
@@ -138,7 +201,12 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.bCancel;
-            this.ClientSize = new System.Drawing.Size(203, 144);
+            this.ClientSize = new System.Drawing.Size(213, 260);
+            this.Controls.Add(this.cbShowConnectionStatusBalloonTip);
+            this.Controls.Add(this.cbShowInTaskbar);
+            this.Controls.Add(this.cbShowPlayStatusBalloonTips);
+            this.Controls.Add(this.cbShowNowPlayingBalloonTip);
+            this.Controls.Add(this.cbShowInTray);
             this.Controls.Add(this.lPasswordTitle);
             this.Controls.Add(this.lUsernameTitle);
             this.Controls.Add(this.password);
@@ -153,6 +221,7 @@
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "ConfigurationF1";
+            this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "XBMControl Configuration";
             this.TopMost = true;
@@ -173,5 +242,10 @@
         private System.Windows.Forms.TextBox password;
         private System.Windows.Forms.Label lUsernameTitle;
         private System.Windows.Forms.Label lPasswordTitle;
+        private System.Windows.Forms.CheckBox cbShowInTray;
+        private System.Windows.Forms.CheckBox cbShowNowPlayingBalloonTip;
+        private System.Windows.Forms.CheckBox cbShowPlayStatusBalloonTips;
+        private System.Windows.Forms.CheckBox cbShowInTaskbar;
+        private System.Windows.Forms.CheckBox cbShowConnectionStatusBalloonTip;
     }
 }

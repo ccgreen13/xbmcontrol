@@ -17,6 +17,7 @@ namespace WindowsFormsApplication1
         {
             InitializeComponent();
             LoadConfiguration();
+            bApply.Enabled = false;
         }
 
         private bool SaveConfiguration()
@@ -36,8 +37,13 @@ namespace WindowsFormsApplication1
             else
                 Settings.Default.Ip = ip.Text;
 
-            Settings.Default.Username   = username.Text;
-            Settings.Default.Password   = password.Text;
+            Settings.Default.Username                       = username.Text;
+            Settings.Default.Password                       = password.Text;
+            Settings.Default.ShowInSystemTray               = cbShowInTray.Checked;
+            Settings.Default.ShowNowPlayingBalloonTips      = cbShowNowPlayingBalloonTip.Checked;
+            Settings.Default.ShowPlayStausBalloonTips       = cbShowPlayStatusBalloonTips.Checked;
+            Settings.Default.ShowInTaskbar                 = cbShowInTaskbar.Checked;
+            Settings.Default.ShowConnectionStatusBalloonTip = cbShowConnectionStatusBalloonTip.Checked;
             Settings.Default.Save();
 
             return true;
@@ -45,9 +51,23 @@ namespace WindowsFormsApplication1
 
         private void LoadConfiguration()
         {
-            ip.Text         = Settings.Default.Ip;
-            username.Text   = Settings.Default.Username;
-            password.Text   = Settings.Default.Password;
+            SetSystrayChackboxesEnabled(Settings.Default.ShowInSystemTray);
+            ip.Text                                  = Settings.Default.Ip;
+            username.Text                            = Settings.Default.Username;
+            password.Text                            = Settings.Default.Password;
+            cbShowInTray.Checked                     = Settings.Default.ShowInSystemTray;
+            cbShowNowPlayingBalloonTip.Checked       = Settings.Default.ShowNowPlayingBalloonTips;
+            cbShowPlayStatusBalloonTips.Checked      = Settings.Default.ShowPlayStausBalloonTips;
+            cbShowInTaskbar.Checked                 = Settings.Default.ShowInTaskbar;
+            cbShowConnectionStatusBalloonTip.Checked = Settings.Default.ShowConnectionStatusBalloonTip;
+        }
+
+        private void SetSystrayChackboxesEnabled(bool enabled)
+        {
+            cbShowNowPlayingBalloonTip.Enabled       = enabled;
+            cbShowPlayStatusBalloonTips.Enabled      = enabled;
+            cbShowInTaskbar.Enabled                  = enabled;
+            cbShowConnectionStatusBalloonTip.Enabled = enabled;
         }
 
         private bool HostExists(string host)
@@ -104,6 +124,27 @@ namespace WindowsFormsApplication1
         {
             if(SaveConfiguration())
                 bApply.Enabled = false;
+        }
+
+        private void cbShowInTray_Click(object sender, EventArgs e)
+        {
+            SetSystrayChackboxesEnabled(cbShowInTray.Checked);
+            bApply.Enabled = true;
+        }
+
+        private void cbShowNowPlayingBalloonTip_Click(object sender, EventArgs e)
+        {
+            bApply.Enabled = true;
+        }
+
+        private void cbShowPlayStatusBalloonTips_Click(object sender, EventArgs e)
+        {
+            bApply.Enabled = true;
+        }
+
+        private void cbMinimizeToTray_Click(object sender, EventArgs e)
+        {
+            bApply.Enabled = true;
         }
     }
 }

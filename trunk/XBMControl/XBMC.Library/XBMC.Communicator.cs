@@ -20,14 +20,24 @@ namespace XBMC.Communicator
 
         public bool IsConnected()
         {
+            HttpWebResponse response = null;
             HttpWebRequest connection = (HttpWebRequest)WebRequest.Create("http://" + Settings.Default.Ip);
             connection.Method = "GET";
-            HttpWebResponse response = (HttpWebResponse)connection.GetResponse();
-            bool connected = (response == null) ? false : true;
-            response.Close();
-            if (connected) this.Request("SetResponseFormat");
-          
-            return connected;
+            connection.Timeout = 2000;
+
+            try
+            {
+                response = (HttpWebResponse)connection.GetResponse();
+            }
+            catch (Exception e)
+            {
+                return false;
+            }
+
+            if (response != null) response.Close();
+            this.Request("SetResponseFormat");
+
+            return true;
         }
 
         public bool IsPlaying()
