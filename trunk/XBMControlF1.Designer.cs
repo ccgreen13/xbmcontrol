@@ -43,11 +43,24 @@
             this.tbProgress = new System.Windows.Forms.TrackBar();
             this.tbVolume = new System.Windows.Forms.TrackBar();
             this.notifyIcon1 = new System.Windows.Forms.NotifyIcon(this.components);
+            this.cmsNotifyIcon = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.cmsNotifyPrevious = new System.Windows.Forms.ToolStripMenuItem();
+            this.cmsNotifyPlay = new System.Windows.Forms.ToolStripMenuItem();
+            this.cmsNotifyPause = new System.Windows.Forms.ToolStripMenuItem();
+            this.cmsNotifyStop = new System.Windows.Forms.ToolStripMenuItem();
+            this.cmsNotifyNext = new System.Windows.Forms.ToolStripMenuItem();
+            this.cmsNotifyMute = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
+            this.cmsNotifyShow = new System.Windows.Forms.ToolStripMenuItem();
+            this.cmsNotifyHide = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
+            this.cmsNotifyExit = new System.Windows.Forms.ToolStripMenuItem();
             this.pMusicInfo = new System.Windows.Forms.Panel();
             this.lDurationTitle = new System.Windows.Forms.Label();
             this.lDuration = new System.Windows.Forms.Label();
             this.pThumbnail = new System.Windows.Forms.Panel();
             this.pbLastFM = new System.Windows.Forms.PictureBox();
+            this.pbThumbnail = new System.Windows.Forms.PictureBox();
             this.lTitle = new System.Windows.Forms.Label();
             this.lAlbumTitle = new System.Windows.Forms.Label();
             this.lArtist = new System.Windows.Forms.Label();
@@ -62,16 +75,16 @@
             this.lBitrate = new System.Windows.Forms.Label();
             this.lBitrateTitle = new System.Windows.Forms.Label();
             this.lTimePlayed = new System.Windows.Forms.Label();
-            this.pbThumbnail = new System.Windows.Forms.PictureBox();
             this.pControls.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.tbProgress)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.tbVolume)).BeginInit();
+            this.cmsNotifyIcon.SuspendLayout();
             this.pMusicInfo.SuspendLayout();
             this.pThumbnail.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbLastFM)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pbThumbnail)).BeginInit();
             this.pNowPlayingInfo.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbMediaType)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pbThumbnail)).BeginInit();
             this.SuspendLayout();
             // 
             // timerLong
@@ -105,7 +118,7 @@
             this.pControls.Controls.Add(this.tbVolume);
             this.pControls.Location = new System.Drawing.Point(0, 131);
             this.pControls.Name = "pControls";
-            this.pControls.Size = new System.Drawing.Size(347, 72);
+            this.pControls.Size = new System.Drawing.Size(347, 65);
             this.pControls.TabIndex = 16;
             // 
             // bNext
@@ -119,7 +132,7 @@
             this.bNext.FlatAppearance.MouseOverBackColor = System.Drawing.SystemColors.Control;
             this.bNext.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.bNext.ForeColor = System.Drawing.SystemColors.Control;
-            this.bNext.Location = new System.Drawing.Point(166, 27);
+            this.bNext.Location = new System.Drawing.Point(162, 25);
             this.bNext.Name = "bNext";
             this.bNext.Size = new System.Drawing.Size(32, 32);
             this.bNext.TabIndex = 16;
@@ -139,7 +152,7 @@
             this.bStop.ForeColor = System.Drawing.SystemColors.Control;
             this.bStop.Location = new System.Drawing.Point(124, 25);
             this.bStop.Name = "bStop";
-            this.bStop.Size = new System.Drawing.Size(36, 36);
+            this.bStop.Size = new System.Drawing.Size(32, 32);
             this.bStop.TabIndex = 15;
             this.bStop.UseVisualStyleBackColor = true;
             this.bStop.Click += new System.EventHandler(this.bStop_Click);
@@ -155,9 +168,9 @@
             this.bPause.FlatAppearance.MouseOverBackColor = System.Drawing.SystemColors.Control;
             this.bPause.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.bPause.ForeColor = System.Drawing.SystemColors.Control;
-            this.bPause.Location = new System.Drawing.Point(85, 25);
+            this.bPause.Location = new System.Drawing.Point(86, 25);
             this.bPause.Name = "bPause";
-            this.bPause.Size = new System.Drawing.Size(36, 36);
+            this.bPause.Size = new System.Drawing.Size(32, 32);
             this.bPause.TabIndex = 14;
             this.bPause.UseVisualStyleBackColor = true;
             this.bPause.Click += new System.EventHandler(this.bPause_Click);
@@ -173,9 +186,9 @@
             this.bPlay.FlatAppearance.MouseOverBackColor = System.Drawing.SystemColors.Control;
             this.bPlay.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.bPlay.ForeColor = System.Drawing.SystemColors.Control;
-            this.bPlay.Location = new System.Drawing.Point(45, 25);
+            this.bPlay.Location = new System.Drawing.Point(48, 25);
             this.bPlay.Name = "bPlay";
-            this.bPlay.Size = new System.Drawing.Size(37, 36);
+            this.bPlay.Size = new System.Drawing.Size(32, 32);
             this.bPlay.TabIndex = 13;
             this.bPlay.UseVisualStyleBackColor = true;
             this.bPlay.Click += new System.EventHandler(this.bPlay_Click);
@@ -191,9 +204,9 @@
             this.bPrevious.FlatAppearance.MouseOverBackColor = System.Drawing.SystemColors.Control;
             this.bPrevious.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.bPrevious.ForeColor = System.Drawing.SystemColors.Control;
-            this.bPrevious.Location = new System.Drawing.Point(5, 25);
+            this.bPrevious.Location = new System.Drawing.Point(12, 25);
             this.bPrevious.Name = "bPrevious";
-            this.bPrevious.Size = new System.Drawing.Size(39, 36);
+            this.bPrevious.Size = new System.Drawing.Size(32, 32);
             this.bPrevious.TabIndex = 12;
             this.bPrevious.UseVisualStyleBackColor = true;
             this.bPrevious.Click += new System.EventHandler(this.bPrevious_Click);
@@ -226,30 +239,123 @@
             this.tbProgress.TickStyle = System.Windows.Forms.TickStyle.None;
             this.tbProgress.Value = 1;
             this.tbProgress.MouseDown += new System.Windows.Forms.MouseEventHandler(this.tbProgress_MouseDown);
+            this.tbProgress.MouseHover += new System.EventHandler(this.tbProgress_MouseHover);
             this.tbProgress.MouseUp += new System.Windows.Forms.MouseEventHandler(this.tbProgress_MouseUp);
             // 
             // tbVolume
             // 
             this.tbVolume.AutoSize = false;
-            this.tbVolume.Location = new System.Drawing.Point(214, 25);
+            this.tbVolume.Location = new System.Drawing.Point(202, 25);
             this.tbVolume.Maximum = 100;
             this.tbVolume.MaximumSize = new System.Drawing.Size(200, 21);
             this.tbVolume.MinimumSize = new System.Drawing.Size(1, 1);
             this.tbVolume.Name = "tbVolume";
-            this.tbVolume.Size = new System.Drawing.Size(91, 21);
+            this.tbVolume.Size = new System.Drawing.Size(103, 21);
             this.tbVolume.TabIndex = 9;
             this.tbVolume.TickStyle = System.Windows.Forms.TickStyle.None;
             this.tbVolume.ValueChanged += new System.EventHandler(this.tbVolume_ValueChanged);
+            this.tbVolume.MouseHover += new System.EventHandler(this.tbVolume_MouseHover);
             // 
             // notifyIcon1
             // 
             this.notifyIcon1.BalloonTipIcon = System.Windows.Forms.ToolTipIcon.Info;
             this.notifyIcon1.BalloonTipText = "Click to open the XBMController";
             this.notifyIcon1.BalloonTipTitle = "XBMController";
+            this.notifyIcon1.ContextMenuStrip = this.cmsNotifyIcon;
             this.notifyIcon1.Icon = ((System.Drawing.Icon)(resources.GetObject("notifyIcon1.Icon")));
             this.notifyIcon1.Text = "XBMControl";
             this.notifyIcon1.Visible = true;
             this.notifyIcon1.DoubleClick += new System.EventHandler(this.notifyIcon1_DoubleClick);
+            // 
+            // cmsNotifyIcon
+            // 
+            this.cmsNotifyIcon.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.cmsNotifyPrevious,
+            this.cmsNotifyPlay,
+            this.cmsNotifyPause,
+            this.cmsNotifyStop,
+            this.cmsNotifyNext,
+            this.cmsNotifyMute,
+            this.toolStripSeparator2,
+            this.cmsNotifyShow,
+            this.cmsNotifyHide,
+            this.toolStripSeparator1,
+            this.cmsNotifyExit});
+            this.cmsNotifyIcon.Name = "cmsNotifyIcon";
+            this.cmsNotifyIcon.Size = new System.Drawing.Size(127, 214);
+            // 
+            // cmsNotifyPrevious
+            // 
+            this.cmsNotifyPrevious.Name = "cmsNotifyPrevious";
+            this.cmsNotifyPrevious.Size = new System.Drawing.Size(126, 22);
+            this.cmsNotifyPrevious.Text = "Previous";
+            this.cmsNotifyPrevious.Click += new System.EventHandler(this.cmsNotifyPrevious_Click);
+            // 
+            // cmsNotifyPlay
+            // 
+            this.cmsNotifyPlay.Name = "cmsNotifyPlay";
+            this.cmsNotifyPlay.Size = new System.Drawing.Size(126, 22);
+            this.cmsNotifyPlay.Text = "Play";
+            this.cmsNotifyPlay.Click += new System.EventHandler(this.cmsNotifyPlay_Click);
+            // 
+            // cmsNotifyPause
+            // 
+            this.cmsNotifyPause.Name = "cmsNotifyPause";
+            this.cmsNotifyPause.Size = new System.Drawing.Size(126, 22);
+            this.cmsNotifyPause.Text = "Pause";
+            this.cmsNotifyPause.Click += new System.EventHandler(this.cmsNotifyPause_Click);
+            // 
+            // cmsNotifyStop
+            // 
+            this.cmsNotifyStop.Name = "cmsNotifyStop";
+            this.cmsNotifyStop.Size = new System.Drawing.Size(126, 22);
+            this.cmsNotifyStop.Text = "Stop";
+            this.cmsNotifyStop.Click += new System.EventHandler(this.cmsNotifyStop_Click);
+            // 
+            // cmsNotifyNext
+            // 
+            this.cmsNotifyNext.Name = "cmsNotifyNext";
+            this.cmsNotifyNext.Size = new System.Drawing.Size(126, 22);
+            this.cmsNotifyNext.Text = "Next";
+            this.cmsNotifyNext.Click += new System.EventHandler(this.cmsNotifyNext_Click);
+            // 
+            // cmsNotifyMute
+            // 
+            this.cmsNotifyMute.Name = "cmsNotifyMute";
+            this.cmsNotifyMute.Size = new System.Drawing.Size(126, 22);
+            this.cmsNotifyMute.Text = "Mute";
+            this.cmsNotifyMute.Click += new System.EventHandler(this.cmsNotifyMute_Click);
+            // 
+            // toolStripSeparator2
+            // 
+            this.toolStripSeparator2.Name = "toolStripSeparator2";
+            this.toolStripSeparator2.Size = new System.Drawing.Size(123, 6);
+            // 
+            // cmsNotifyShow
+            // 
+            this.cmsNotifyShow.Name = "cmsNotifyShow";
+            this.cmsNotifyShow.Size = new System.Drawing.Size(126, 22);
+            this.cmsNotifyShow.Text = "Show";
+            this.cmsNotifyShow.Click += new System.EventHandler(this.cmsNotifyShow_Click);
+            // 
+            // cmsNotifyHide
+            // 
+            this.cmsNotifyHide.Name = "cmsNotifyHide";
+            this.cmsNotifyHide.Size = new System.Drawing.Size(126, 22);
+            this.cmsNotifyHide.Text = "Hide";
+            this.cmsNotifyHide.Click += new System.EventHandler(this.cmsNotifyHide_Click);
+            // 
+            // toolStripSeparator1
+            // 
+            this.toolStripSeparator1.Name = "toolStripSeparator1";
+            this.toolStripSeparator1.Size = new System.Drawing.Size(123, 6);
+            // 
+            // cmsNotifyExit
+            // 
+            this.cmsNotifyExit.Name = "cmsNotifyExit";
+            this.cmsNotifyExit.Size = new System.Drawing.Size(126, 22);
+            this.cmsNotifyExit.Text = "Exit";
+            this.cmsNotifyExit.Click += new System.EventHandler(this.cmsNotifyExit_Click);
             // 
             // pMusicInfo
             // 
@@ -305,6 +411,19 @@
             this.pbLastFM.TabIndex = 12;
             this.pbLastFM.TabStop = false;
             this.pbLastFM.Visible = false;
+            // 
+            // pbThumbnail
+            // 
+            this.pbThumbnail.BackgroundImage = global::WindowsFormsApplication1.Properties.Resources.XBMClogo;
+            this.pbThumbnail.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.pbThumbnail.ErrorImage = global::WindowsFormsApplication1.Properties.Resources.XBMClogo;
+            this.pbThumbnail.InitialImage = global::WindowsFormsApplication1.Properties.Resources.XBMClogo;
+            this.pbThumbnail.Location = new System.Drawing.Point(5, 4);
+            this.pbThumbnail.Name = "pbThumbnail";
+            this.pbThumbnail.Size = new System.Drawing.Size(120, 120);
+            this.pbThumbnail.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pbThumbnail.TabIndex = 11;
+            this.pbThumbnail.TabStop = false;
             // 
             // lTitle
             // 
@@ -383,9 +502,10 @@
             // lArtistSong
             // 
             this.lArtistSong.BackColor = System.Drawing.SystemColors.ControlDarkDark;
-            this.lArtistSong.Font = new System.Drawing.Font("Verdana", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lArtistSong.Font = new System.Drawing.Font("Verdana", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lArtistSong.ForeColor = System.Drawing.Color.Gold;
             this.lArtistSong.Location = new System.Drawing.Point(-2, 49);
+            this.lArtistSong.Margin = new System.Windows.Forms.Padding(0);
             this.lArtistSong.Name = "lArtistSong";
             this.lArtistSong.Size = new System.Drawing.Size(211, 16);
             this.lArtistSong.TabIndex = 7;
@@ -406,7 +526,7 @@
             this.lSamplerate.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.lSamplerate.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lSamplerate.ForeColor = System.Drawing.Color.Snow;
-            this.lSamplerate.Location = new System.Drawing.Point(127, 2);
+            this.lSamplerate.Location = new System.Drawing.Point(124, 2);
             this.lSamplerate.Margin = new System.Windows.Forms.Padding(1, 0, 1, 0);
             this.lSamplerate.Name = "lSamplerate";
             this.lSamplerate.Size = new System.Drawing.Size(27, 13);
@@ -418,7 +538,7 @@
             this.lSamplerateTitle.AutoSize = true;
             this.lSamplerateTitle.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lSamplerateTitle.ForeColor = System.Drawing.Color.Gold;
-            this.lSamplerateTitle.Location = new System.Drawing.Point(151, 15);
+            this.lSamplerateTitle.Location = new System.Drawing.Point(148, 15);
             this.lSamplerateTitle.Name = "lSamplerateTitle";
             this.lSamplerateTitle.Size = new System.Drawing.Size(23, 13);
             this.lSamplerateTitle.TabIndex = 3;
@@ -428,10 +548,10 @@
             // 
             this.lBitrate.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lBitrate.ForeColor = System.Drawing.Color.Snow;
-            this.lBitrate.Location = new System.Drawing.Point(123, 15);
-            this.lBitrate.Margin = new System.Windows.Forms.Padding(1, 0, 1, 0);
+            this.lBitrate.Location = new System.Drawing.Point(116, 15);
+            this.lBitrate.Margin = new System.Windows.Forms.Padding(0);
             this.lBitrate.Name = "lBitrate";
-            this.lBitrate.Size = new System.Drawing.Size(31, 13);
+            this.lBitrate.Size = new System.Drawing.Size(35, 13);
             this.lBitrate.TabIndex = 2;
             this.lBitrate.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
@@ -440,7 +560,7 @@
             this.lBitrateTitle.AutoSize = true;
             this.lBitrateTitle.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lBitrateTitle.ForeColor = System.Drawing.Color.Gold;
-            this.lBitrateTitle.Location = new System.Drawing.Point(151, 2);
+            this.lBitrateTitle.Location = new System.Drawing.Point(148, 2);
             this.lBitrateTitle.Name = "lBitrateTitle";
             this.lBitrateTitle.Size = new System.Drawing.Size(29, 13);
             this.lBitrateTitle.TabIndex = 1;
@@ -449,32 +569,19 @@
             // lTimePlayed
             // 
             this.lTimePlayed.BackColor = System.Drawing.SystemColors.ButtonShadow;
-            this.lTimePlayed.Font = new System.Drawing.Font("Tahoma", 30F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lTimePlayed.Font = new System.Drawing.Font("Tahoma", 27.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lTimePlayed.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.lTimePlayed.Location = new System.Drawing.Point(-5, 0);
+            this.lTimePlayed.Location = new System.Drawing.Point(-3, 0);
             this.lTimePlayed.Name = "lTimePlayed";
             this.lTimePlayed.Size = new System.Drawing.Size(135, 48);
             this.lTimePlayed.TabIndex = 0;
             this.lTimePlayed.Text = "00:00";
             // 
-            // pbThumbnail
-            // 
-            this.pbThumbnail.BackgroundImage = global::WindowsFormsApplication1.Properties.Resources.XBMClogo;
-            this.pbThumbnail.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.pbThumbnail.ErrorImage = global::WindowsFormsApplication1.Properties.Resources.XBMClogo;
-            this.pbThumbnail.InitialImage = global::WindowsFormsApplication1.Properties.Resources.XBMClogo;
-            this.pbThumbnail.Location = new System.Drawing.Point(5, 4);
-            this.pbThumbnail.Name = "pbThumbnail";
-            this.pbThumbnail.Size = new System.Drawing.Size(120, 120);
-            this.pbThumbnail.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.pbThumbnail.TabIndex = 11;
-            this.pbThumbnail.TabStop = false;
-            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(347, 203);
+            this.ClientSize = new System.Drawing.Size(344, 196);
             this.Controls.Add(this.pMusicInfo);
             this.Controls.Add(this.pControls);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
@@ -483,17 +590,21 @@
             this.Name = "MainForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "XBMControl";
+            this.WindowState = System.Windows.Forms.FormWindowState.Minimized;
+            this.Load += new System.EventHandler(this.MainForm_Load);
+            this.Resize += new System.EventHandler(this.MainForm_Resize);
             this.pControls.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.tbProgress)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.tbVolume)).EndInit();
+            this.cmsNotifyIcon.ResumeLayout(false);
             this.pMusicInfo.ResumeLayout(false);
             this.pMusicInfo.PerformLayout();
             this.pThumbnail.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.pbLastFM)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pbThumbnail)).EndInit();
             this.pNowPlayingInfo.ResumeLayout(false);
             this.pNowPlayingInfo.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbMediaType)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pbThumbnail)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -533,6 +644,18 @@
         private System.Windows.Forms.Label lDuration;
         private System.Windows.Forms.Label lArtistSong;
         private System.Windows.Forms.PictureBox pbThumbnail;
+        private System.Windows.Forms.ContextMenuStrip cmsNotifyIcon;
+        private System.Windows.Forms.ToolStripMenuItem cmsNotifyExit;
+        private System.Windows.Forms.ToolStripMenuItem cmsNotifyPlay;
+        private System.Windows.Forms.ToolStripMenuItem cmsNotifyPrevious;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
+        private System.Windows.Forms.ToolStripMenuItem cmsNotifyPause;
+        private System.Windows.Forms.ToolStripMenuItem cmsNotifyStop;
+        private System.Windows.Forms.ToolStripMenuItem cmsNotifyNext;
+        private System.Windows.Forms.ToolStripMenuItem cmsNotifyMute;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
+        private System.Windows.Forms.ToolStripMenuItem cmsNotifyShow;
+        private System.Windows.Forms.ToolStripMenuItem cmsNotifyHide;
     }
 }
 
