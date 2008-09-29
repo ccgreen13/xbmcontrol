@@ -42,8 +42,10 @@ namespace WindowsFormsApplication1
             Settings.Default.ShowInSystemTray               = cbShowInTray.Checked;
             Settings.Default.ShowNowPlayingBalloonTips      = cbShowNowPlayingBalloonTip.Checked;
             Settings.Default.ShowPlayStausBalloonTips       = cbShowPlayStatusBalloonTips.Checked;
-            Settings.Default.ShowInTaskbar                 = cbShowInTaskbar.Checked;
+            Settings.Default.ShowInTaskbar                  = cbShowInTaskbar.Checked;
             Settings.Default.ShowConnectionStatusBalloonTip = cbShowConnectionStatusBalloonTip.Checked;
+            if (!Settings.Default.ShowInSystemTray) Settings.Default.ShowInTaskbar = true;
+
             Settings.Default.Save();
 
             return true;
@@ -129,6 +131,7 @@ namespace WindowsFormsApplication1
         private void cbShowInTray_Click(object sender, EventArgs e)
         {
             SetSystrayChackboxesEnabled(cbShowInTray.Checked);
+            if (!cbShowInTray.Checked) cbShowInTaskbar.Checked = true;
             bApply.Enabled = true;
         }
 
