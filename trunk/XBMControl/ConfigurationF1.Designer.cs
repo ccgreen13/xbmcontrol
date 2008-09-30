@@ -51,9 +51,9 @@
             // 
             this.bCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.bCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.bCancel.Location = new System.Drawing.Point(382, 139);
+            this.bCancel.Location = new System.Drawing.Point(365, 139);
             this.bCancel.Name = "bCancel";
-            this.bCancel.Size = new System.Drawing.Size(57, 23);
+            this.bCancel.Size = new System.Drawing.Size(72, 23);
             this.bCancel.TabIndex = 0;
             this.bCancel.Text = "Cancel";
             this.bCancel.UseVisualStyleBackColor = true;
@@ -62,9 +62,9 @@
             // bConfirm
             // 
             this.bConfirm.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.bConfirm.Location = new System.Drawing.Point(318, 139);
+            this.bConfirm.Location = new System.Drawing.Point(287, 139);
             this.bConfirm.Name = "bConfirm";
-            this.bConfirm.Size = new System.Drawing.Size(58, 23);
+            this.bConfirm.Size = new System.Drawing.Size(72, 23);
             this.bConfirm.TabIndex = 1;
             this.bConfirm.Text = "OK";
             this.bConfirm.UseVisualStyleBackColor = true;
@@ -74,9 +74,9 @@
             // 
             this.bApply.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.bApply.Enabled = false;
-            this.bApply.Location = new System.Drawing.Point(256, 139);
+            this.bApply.Location = new System.Drawing.Point(209, 139);
             this.bApply.Name = "bApply";
-            this.bApply.Size = new System.Drawing.Size(56, 23);
+            this.bApply.Size = new System.Drawing.Size(72, 23);
             this.bApply.TabIndex = 2;
             this.bApply.Text = "Apply";
             this.bApply.UseVisualStyleBackColor = true;
