@@ -25,9 +25,13 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using System.Net;
+using System.Security.Permissions;
+using Microsoft.Win32;
 using XBMControl.Properties;
 using XBMC.Communicator;
 using XBMControl.Language;
+
+[assembly: RegistryPermissionAttribute(SecurityAction.RequestMinimum, ViewAndModify = "HKEY_CURRENT_USER")]
 
 namespace XBMControl
 {
@@ -35,11 +39,13 @@ namespace XBMControl
     {
         XBMCcomm XBMC;
         XBMCLanguage Language;
+        RegistryKey regRunAtStartup;
 
         public ConfigurationF1()
         {
-            XBMC     = new XBMCcomm();
-            Language = new XBMCLanguage();
+            XBMC            = new XBMCcomm();
+            Language        = new XBMCLanguage();
+            regRunAtStartup = Registry.CurrentUser.OpenSubKey("SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run", true);
             InitializeComponent();
             LoadConfiguration();
             Language.SetLanguage(XBMControl.Properties.Settings.Default.Language);
@@ -58,6 +64,7 @@ namespace XBMControl
             cbShowNowPlayingBalloonTip.Text         = Language.GetString("configuration/label/showNowPlayingBalloonTip");
             cbShowPlayStatusBalloonTip.Text         = Language.GetString("configuration/label/showPlayStatusBalloonTip");
             cbShowConnectionStatusBalloonTip.Text   = Language.GetString("configuration/label/showConnectionStatusBalloonTip");
+            cbRunAtStartup.Text                     = Language.GetString("configuration/label/runAtStartup");
             bConfirm.Text                           = Language.GetString("global/button/confirm");
             bCancel.Text                            = Language.GetString("global/button/cancel");
         }
@@ -75,7 +82,36 @@ namespace XBMControl
             XBMControl.Properties.Settings.Default.Language                       = cbLanguage.Text;
             if (!XBMControl.Properties.Settings.Default.ShowInSystemTray) XBMControl.Properties.Settings.Default.ShowInTaskbar = true;
 
+            if( cbRunAtStartup.Checked )
+                regRunAtStartup.SetValue(Language.GetString("global/appName"), Application.ExecutablePath.ToString());
+            else
+                regRunAtStartup.DeleteValue(Language.GetString("global/appName"), false);
+
             XBMControl.Properties.Settings.Default.Save();
+        }
+
+        private void LoadConfiguration()
+        {
+            ShowAvailableLanguages();
+            SetSystrayChackboxesEnabled(XBMControl.Properties.Settings.Default.ShowInSystemTray);
+            tbIp.Text                                = XBMControl.Properties.Settings.Default.Ip;
+            tbUsername.Text                          = XBMControl.Properties.Settings.Default.Username;
+            tbPassword.Text                          = XBMControl.Properties.Settings.Default.Password;
+            cbShowInTray.Checked                     = XBMControl.Properties.Settings.Default.ShowInSystemTray;
+            cbShowNowPlayingBalloonTip.Checked       = XBMControl.Properties.Settings.Default.ShowNowPlayingBalloonTips;
+            cbShowPlayStatusBalloonTip.Checked       = XBMControl.Properties.Settings.Default.ShowPlayStausBalloonTips;
+            cbShowInTaskbar.Checked                  = XBMControl.Properties.Settings.Default.ShowInTaskbar;
+            cbShowConnectionStatusBalloonTip.Checked = XBMControl.Properties.Settings.Default.ShowConnectionStatusBalloonTip;
+            cbLanguage.Text                          = XBMControl.Properties.Settings.Default.Language;
+            cbRunAtStartup.Checked                   = (regRunAtStartup.GetValue(Language.GetString("global/appName")) == null) ? false : true;
+        }
+
+        private void SetSystrayChackboxesEnabled(bool enabled)
+        {
+            cbShowNowPlayingBalloonTip.Enabled       = enabled;
+            cbShowPlayStatusBalloonTip.Enabled       = enabled;
+            cbShowInTaskbar.Enabled                  = enabled;
+            cbShowConnectionStatusBalloonTip.Enabled = enabled;
         }
 
         private bool IsValidIp()
@@ -94,29 +130,6 @@ namespace XBMControl
             }
             else
                 return true;
-        }
-
-        private void LoadConfiguration()
-        {
-            ShowAvailableLanguages();
-            SetSystrayChackboxesEnabled(XBMControl.Properties.Settings.Default.ShowInSystemTray);
-            tbIp.Text                                = XBMControl.Properties.Settings.Default.Ip;
-            tbUsername.Text                          = XBMControl.Properties.Settings.Default.Username;
-            tbPassword.Text                          = XBMControl.Properties.Settings.Default.Password;
-            cbShowInTray.Checked                     = XBMControl.Properties.Settings.Default.ShowInSystemTray;
-            cbShowNowPlayingBalloonTip.Checked       = XBMControl.Properties.Settings.Default.ShowNowPlayingBalloonTips;
-            cbShowPlayStatusBalloonTip.Checked       = XBMControl.Properties.Settings.Default.ShowPlayStausBalloonTips;
-            cbShowInTaskbar.Checked                  = XBMControl.Properties.Settings.Default.ShowInTaskbar;
-            cbShowConnectionStatusBalloonTip.Checked = XBMControl.Properties.Settings.Default.ShowConnectionStatusBalloonTip;
-            cbLanguage.Text                          = XBMControl.Properties.Settings.Default.Language;
-        }
-
-        private void SetSystrayChackboxesEnabled(bool enabled)
-        {
-            cbShowNowPlayingBalloonTip.Enabled       = enabled;
-            cbShowPlayStatusBalloonTip.Enabled       = enabled;
-            cbShowInTaskbar.Enabled                  = enabled;
-            cbShowConnectionStatusBalloonTip.Enabled = enabled;
         }
 
         private void ShowAvailableLanguages()

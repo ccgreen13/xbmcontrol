@@ -40,6 +40,7 @@
 ; Language files
 !insertmacro MUI_LANGUAGE "Dutch"
 !insertmacro MUI_LANGUAGE "English"
+!insertmacro MUI_LANGUAGE "French"
 
 ; MUI end ------
 
@@ -49,6 +50,7 @@ InstallDir "$PROGRAMFILES\XBMControl"
 InstallDirRegKey HKLM "${PRODUCT_DIR_REGKEY}" ""
 ShowInstDetails show
 ShowUnInstDetails show
+RequestExecutionLevel user
 
 Function .onInit
   !insertmacro MUI_LANGDLL_DISPLAY
@@ -62,8 +64,9 @@ Section "MainSection" SEC01
   CreateShortCut "$SMPROGRAMS\XBMControl\XBMControl.lnk" "$INSTDIR\XBMControl.exe"
   CreateShortCut "$DESKTOP\XBMControl.lnk" "$INSTDIR\XBMControl.exe"
   SetOutPath "$INSTDIR\language"
-  File "language\dutch.xml"
+  File "language\nederlands.xml"
   File "language\english.xml"
+  File "language\francais.xml"
 SectionEnd
 
 Section -AdditionalIcons
@@ -80,6 +83,7 @@ Section -Post
   WriteRegStr ${PRODUCT_UNINST_ROOT_KEY} "${PRODUCT_UNINST_KEY}" "DisplayVersion" "${PRODUCT_VERSION}"
   WriteRegStr ${PRODUCT_UNINST_ROOT_KEY} "${PRODUCT_UNINST_KEY}" "URLInfoAbout" "${PRODUCT_WEB_SITE}"
   WriteRegStr ${PRODUCT_UNINST_ROOT_KEY} "${PRODUCT_UNINST_KEY}" "Publisher" "${PRODUCT_PUBLISHER}"
+  WriteRegStr HKLM "SOFTWARE\Microsoft\Windows\CurrentVersion\Run" "${PRODUCT_NAME}" "$INSTDIR\XBMControl.exe"
 SectionEnd
 
 
@@ -97,7 +101,8 @@ FunctionEnd
 Section Uninstall
   Delete "$INSTDIR\uninst.exe"
   Delete "$INSTDIR\language\english.xml"
-  Delete "$INSTDIR\language\dutch.xml"
+  Delete "$INSTDIR\language\nederlands.xml"
+  Delete "$INSTDIR\language\francais.xml"
   Delete "$INSTDIR\XBMControl.exe"
 
   Delete "$SMPROGRAMS\XBMControl\Uninstall.lnk"
@@ -110,5 +115,6 @@ Section Uninstall
 
   DeleteRegKey ${PRODUCT_UNINST_ROOT_KEY} "${PRODUCT_UNINST_KEY}"
   DeleteRegKey HKLM "${PRODUCT_DIR_REGKEY}"
+  DeleteRegKey HKLM "SOFTWARE\Microsoft\Windows\CurrentVersion\Run\${PRODUCT_NAME}"
   SetAutoClose true
 SectionEnd

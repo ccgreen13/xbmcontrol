@@ -84,18 +84,17 @@ namespace XBMC.Communicator
                 response = (HttpWebResponse)request.GetResponse();
                 reader = new StreamReader(response.GetResponseStream(), Encoding.UTF8);
                 pageContent = reader.ReadToEnd().Replace("<li>", "|").Replace("\n", "").Replace("<html>", "").Replace("</html>", "").Split('|');
- 
-                return pageContent;
             }
             catch (Exception e)
             {
-                throw new Exception(e.Message.ToString());
             }
             finally
             {
                 response.Close();
                 reader.Close();
             }
+
+            return pageContent;
         }
 
         public string[] Request(string command)

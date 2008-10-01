@@ -193,9 +193,30 @@ namespace XBMControl.Properties {
             }
         }
         
+        internal static System.Drawing.Bitmap reboot_16x16 {
+            get {
+                object obj = ResourceManager.GetObject("reboot-16x16", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap restart_16x16 {
+            get {
+                object obj = ResourceManager.GetObject("restart-16x16", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
         internal static System.Drawing.Bitmap show_16x16 {
             get {
                 object obj = ResourceManager.GetObject("show-16x16", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap shutdown_16x16 {
+            get {
+                object obj = ResourceManager.GetObject("shutdown-16x16", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
