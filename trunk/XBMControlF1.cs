@@ -136,7 +136,6 @@ namespace XBMControl
                 GetVolumePosition();
                 SetNowPlayingTimePlayed(resetToDefault);
                 if (Properties.Settings.Default.ShowPlayStausBalloonTips) ShowPlayStausBalloonTip();
-                updateTimer.Interval = updateIntervalLong;
             }
             else
             {
