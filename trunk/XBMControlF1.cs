@@ -114,14 +114,14 @@ namespace XBMControl
                 if (connectionLost) connectionLost = false;
                 if (Properties.Settings.Default.ShowNowPlayingBalloonTips) ShowNowPlayingBalloonTip();
                 if (Properties.Settings.Default.ShowPlayStausBalloonTips) ShowPlayStausBalloonTip();
-                if (mediaCurrentlyPlaying != XBMC.GetNowPlayingInfo("filename"))
-                {
+                //if (mediaCurrentlyPlaying != XBMC.GetNowPlayingInfo("filename"))
+                //{
                     ShowMediaTypeImage(resetToDefault);
                     SetNowPlayingBitrate(resetToDefault);
                     SetNowPlayingSamplerate(resetToDefault);
                     SetNowPlayingThumbnail(resetToDefault);
                     SetNowPlayingSongInfo(resetToDefault);
-                }
+                //}
             }
             else
             {
