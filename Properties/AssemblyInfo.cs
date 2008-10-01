@@ -1,16 +1,17 @@
 ﻿using System.Reflection;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
+using System.Resources;
 
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("WindowsFormsApplication1")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyTitle("XBMControl")]
+[assembly: AssemblyDescription("A compact remote XBMC controller for Windows")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("WindowsFormsApplication1")]
-[assembly: AssemblyCopyright("Copyright ©  2008")]
+[assembly: AssemblyCompany("Bram van Oploo")]
+[assembly: AssemblyProduct("XBMControl")]
+[assembly: AssemblyCopyright("Copyright ©  2008 Bram van Oploo")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
@@ -34,3 +35,4 @@ using System.Runtime.InteropServices;
 // [assembly: AssemblyVersion("1.0.*")]
 [assembly: AssemblyVersion("1.0.0.0")]
 [assembly: AssemblyFileVersion("1.0.0.0")]
+[assembly: NeutralResourcesLanguageAttribute("en")]

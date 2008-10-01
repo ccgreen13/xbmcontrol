@@ -1,0 +1,69 @@
+<language>
+	<mainform>
+		<connection>
+			<none>Kan niet verbinden met XBMC</none>
+		</connection>
+		<label>
+			<artist>artiest</artist>
+			<title>titel</title>
+			<duration>tijd</duration>
+			<album>album</album>
+		</label>
+		<playing>
+			<nothing>Er wordt geen media afgespeeld</nothing>
+			<now>Speelt nu </now>
+			<paused>Afspelen gepauseerd</paused>
+		</playing>
+	</mainform>
+	<configuration>
+		<title>Configuratie</title>
+		<label>
+			<language>taal</language>
+			<ip>ip adres</ip>
+			<username>gebruikersnaam</username>
+			<password>wachtwoord</password>
+			<showInTray>Weergeven in systeembalk</showInTray>
+			<showInTaskbar>Weergeven in taakbalk</showInTaskbar>
+			<showNowPlayingBalloonTip>Laat 'Speelt nu' ballontips zien</showNowPlayingBalloonTip>
+			<showPlayStatusBalloonTip>Laat afspeelstatus in ballontips zien</showPlayStatusBalloonTip>
+			<showConnectionStatusBalloonTip>Laat verbindingsstatus in ballontips zien</showConnectionStatusBalloonTip>
+			<runAtStartup>Uitvoeren bij opstarten Windows</runAtStartup>
+		</label>
+		<language>
+			<noLanguages>Geen taalbestanden gevonden</noLanguages>
+		</language>
+		<ipAddress>
+			<required>Het ip adres veld is verplicht</required>
+			<invalid>Kan niet verbinden met het huidige ip adres</invalid>
+			<proceedMessage>Weet je zeker dat je door wilt gaan?</proceedMessage>
+		</ipAddress>
+	</configuration>
+	<contextMenu>
+		<controls>
+			<title>Bediening</title>
+			<previous>Vorige</previous>
+			<play>Afspelen</play>
+			<pause>Pauzeren</pause>
+			<stop>Stop</stop>
+			<next>Volgende</next>
+			<mute>Dempen</mute>
+		</controls>
+		<xbmc>
+			<title>XBMC</title>
+			<reboot>Herstart Computer</reboot>
+			<restart>Herstart XBMC</restart>
+			<shutdown>Uitzetten</shutdown>
+		</xbmc>
+		<show>Weergeven</show>
+		<hide>Verbergen</hide>
+		<configure>Configureren</configure>
+		<exit>Sluiten</exit>
+	</contextMenu>
+	<global>
+		<appName>XBMControl</appName>
+		<button>
+			<confirm>OK</confirm>
+			<cancel>Annuleren</cancel>
+		</button>
+	</global>
+</language>

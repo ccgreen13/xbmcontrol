@@ -28,6 +28,8 @@
     <IsWebBootstrapper>false</IsWebBootstrapper>
     <UseApplicationTrust>false</UseApplicationTrust>
     <BootstrapperEnabled>true</BootstrapperEnabled>
+    <TargetFrameworkSubset>
+    </TargetFrameworkSubset>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -153,6 +155,9 @@
     <None Include="Resources\stop2-32x32.png" />
     <None Include="Resources\next2-32x32.png" />
     <None Include="Resources\folder-16x16.png" />
+    <None Include="Resources\shutdown-16x16.png" />
+    <None Include="Resources\restart-16x16.png" />
+    <None Include="Resources\reboot-16x16.png" />
     <Content Include="XBMC.ico" />
     <Content Include="Xbox.ico" />
   </ItemGroup>

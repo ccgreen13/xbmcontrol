@@ -34,16 +34,17 @@ namespace XBMControl
 {
     public partial class MainForm : Form
     {
-        XBMCcomm XBMC;
-        XBMCLanguage Language;
-        string[,] maNowPlayingInfo   = new string[50,2];
-        string mediaCurrentlyPlaying = null;
-        bool pausedMessageShowed     = false;
-        bool notPlayingMessageShowed = false;
-        bool resetToDefault          = false;
-        bool configFormOpened        = false;
-        bool connectionLost          = false;
-        bool initiallyConnected      = false;
+        private const int updateIntervalShort = 1000;
+        private const int updateIntervalLong  = 5000; 
+        private XBMCcomm XBMC;
+        private XBMCLanguage Language;
+        private string[,] maNowPlayingInfo = new string[50, 2];
+        private string mediaCurrentlyPlaying = null;
+        private bool pausedMessageShowed = false;
+        private bool configFormOpened = false;
+        private bool connected = false;
+        private bool configured;
+        private bool showedConnectionStatus = false;
 
         public MainForm()
         {
@@ -57,25 +58,27 @@ namespace XBMControl
         private void Initialize()
         {
             if (Properties.Settings.Default.Ip == "")
-                ShowConfigurationForm();
-            else if (!XBMC.IsConnected())
             {
-                if (Properties.Settings.Default.ShowConnectionStatusBalloonTip)
-                    notifyIcon1.ShowBalloonTip(2000, "XBMControl", Language.GetString("mainform/connection/none"), ToolTipIcon.Info);
-                else
-                    MessageBox.Show(Language.GetString("mainform/connection/none"));
-                timerLong.Enabled = true;
-                this.Enabled = false;
+                configured = false;
+                ShowConfigurationForm();
+            }
+            else if (XBMC.IsConnected())
+            {
+                XBMC.Request("SetResponseFormat");
+                configured           = true;
+                connected            = true;
+                updateTimer.Interval = updateIntervalShort;
             }
             else
             {
-                XBMC.Request("SetResponseFormat");
-                initiallyConnected = true;
-                timerShort.Enabled = true;
-                timerLong.Enabled  = true;
-                UpdateData();
-                UpdateDataLong();
+                configured           = true;
+                connected            = false;
+                this.Enabled         = false;
+                updateTimer.Interval = updateIntervalLong;
+                ShowConnectionStatus();
             }
+
+            updateTimer.Enabled = (configured) ? true : false ;
         }
 
         private void ApplyApplicationSettings()
@@ -96,64 +99,55 @@ namespace XBMControl
             lAlbumTitle.Text    = Language.GetString("mainform/label/album");
 
             //Context Menu
-            cmsPrevious.Text    = Language.GetString("contextMenu/previous");
-            cmsPlay.Text        = Language.GetString("contextMenu/play");
-            cmsPause.Text       = Language.GetString("contextMenu/pause");
-            cmsStop.Text        = Language.GetString("contextMenu/stop");
-            cmsNext.Text        = Language.GetString("contextMenu/next");
-            cmsMute.Text        = Language.GetString("contextMenu/mute");
-            cmsControls.Text    = Language.GetString("contextMenu/controls");
-            cmsShow.Text        = Language.GetString("contextMenu/show");
-            cmsHide.Text        = Language.GetString("contextMenu/hide");
-            cmsConfigure.Text   = Language.GetString("contextMenu/configure");
-            cmsExit.Text        = Language.GetString("contextMenu/exit");
+            cmsPrevious.Text     = Language.GetString("contextMenu/controls/previous");
+            cmsPlay.Text         = Language.GetString("contextMenu/controls/play");
+            cmsPause.Text        = Language.GetString("contextMenu/controls/pause");
+            cmsStop.Text         = Language.GetString("contextMenu/controls/stop");
+            cmsNext.Text         = Language.GetString("contextMenu/controls/next");
+            cmsMute.Text         = Language.GetString("contextMenu/controls/mute");
+            cmsControls.Text     = Language.GetString("contextMenu/controls/title");
+            cmsXBMC.Text         = Language.GetString("contextMenu/xbmc/title");
+            cmsXBMCreboot.Text   = Language.GetString("contextMenu/xbmc/reboot");
+            cmsXBMCrestart.Text  = Language.GetString("contextMenu/xbmc/restart");
+            cmsXBMCshutdown.Text = Language.GetString("contextMenu/xbmc/shutdown");
+            cmsShow.Text         = Language.GetString("contextMenu/show");
+            cmsHide.Text         = Language.GetString("contextMenu/hide");
+            cmsConfigure.Text    = Language.GetString("contextMenu/configure");
+            cmsExit.Text         = Language.GetString("contextMenu/exit");
         }
 
         private void UpdateData()
         {
-            if(!connectionLost)
-            {
-                resetToDefault = (XBMC.IsPlaying()) ? false : true;
-                SetProgressPosition();
-                SetVolumePosition();
-                SetNowPlayingTimePlayed(resetToDefault);
-            }
-        }
-
-        public void UpdateDataLong()
-        {
             if (XBMC.IsConnected())
             {
-                if (timerShort.Enabled == false) timerShort.Enabled = true;
-                if(this.Enabled == false) this.Enabled = true;
-                if (initiallyConnected && connectionLost && Properties.Settings.Default.ShowConnectionStatusBalloonTip)
-                    notifyIcon1.ShowBalloonTip(2000, Language.GetString("global/appName"), Language.GetString("mainform/connection/reastablished"), ToolTipIcon.Info);
-                else if (initiallyConnected && connectionLost && !Properties.Settings.Default.ShowConnectionStatusBalloonTip)
-                    MessageBox.Show(Language.GetString("mainform/connection/reastablished"));
-                if (connectionLost) connectionLost = false;
-                if (Properties.Settings.Default.ShowNowPlayingBalloonTips) ShowNowPlayingBalloonTip();
+                if (this.Enabled == false) this.Enabled = true;
+                bool resetToDefault = (XBMC.IsPlaying()) ? false : true;
+                updateTimer.Interval = updateIntervalShort;
+
+                if (IsNewMediaPlaying() || !connected)
+                {
+                    GetNowPlayingSongInfo(resetToDefault);
+                    if (Properties.Settings.Default.ShowNowPlayingBalloonTips) ShowNowPlayingBalloonTip(resetToDefault);
+                    if (!connected) connected = true;
+                }
+
+                ShowConnectionStatus();
+                GetProgressPosition();
+                GetVolumePosition();
+                SetNowPlayingTimePlayed(resetToDefault);
                 if (Properties.Settings.Default.ShowPlayStausBalloonTips) ShowPlayStausBalloonTip();
-                //if (mediaCurrentlyPlaying != XBMC.GetNowPlayingInfo("filename"))
-                //{
-                    ShowMediaTypeImage(resetToDefault);
-                    SetNowPlayingBitrate(resetToDefault);
-                    SetNowPlayingSamplerate(resetToDefault);
-                    SetNowPlayingThumbnail(resetToDefault);
-                    SetNowPlayingSongInfo(resetToDefault);
-                //}
+                updateTimer.Interval = updateIntervalLong;
             }
             else
             {
-                if (!connectionLost && initiallyConnected && Properties.Settings.Default.ShowConnectionStatusBalloonTip)
-                    notifyIcon1.ShowBalloonTip(2000, Language.GetString("global/appName"), Language.GetString("mainform/connection/lost"), ToolTipIcon.Info);
-                else if (!connectionLost && initiallyConnected && !Properties.Settings.Default.ShowConnectionStatusBalloonTip)
-                    MessageBox.Show(Language.GetString("mainform/connection/lost"));
-                if (!connectionLost) connectionLost = true;
-                this.Enabled = false;
+                if (connected) connected = false;
+                updateTimer.Interval     = updateIntervalLong;
+                this.Enabled             = false;
+                ShowConnectionStatus();
             }
         }
 
-        private void SetProgressPosition()
+        private void GetProgressPosition()
         {
             string[] aCurProgress = XBMC.Request("GetPercentage");
             int newProgressPosition = (aCurProgress.Length > 1 && aCurProgress[1] != "Error") ? Convert.ToInt32(aCurProgress[1]) : 1;
@@ -166,7 +160,18 @@ namespace XBMControl
             XBMC.Request("SeekPercentage", Convert.ToString(tbProgress.Value));    
         }
 
-        private void SetVolumePosition()
+        private bool IsNewMediaPlaying()
+        {
+            if (mediaCurrentlyPlaying == XBMC.GetNowPlayingInfo("filename"))
+                return false;
+            else
+            {
+                mediaCurrentlyPlaying = XBMC.GetNowPlayingInfo("filename");
+                return true;
+            }
+        }
+
+        private void GetVolumePosition()
         {
             string[] aCurVolume = XBMC.Request("GetVolume");
             int newVolumePosition = (aCurVolume.Length > 1 && aCurVolume[1] != "Error") ? Convert.ToInt32(aCurVolume[1]) : 0 ;
@@ -180,60 +185,41 @@ namespace XBMControl
 
         private void SetNowPlayingTimePlayed(bool resetToDefault)
         {
-            lTimePlayed.Text = (resetToDefault)? "00:00" : XBMC.GetNowPlayingInfo("time");
+            lTimePlayed.Text = (resetToDefault) ? "00:00" : XBMC.GetNowPlayingInfo("time");
         }
 
-        private void SetNowPlayingBitrate(bool resetToDefault)
-        {
-            lBitrate.Text = (resetToDefault) ? "" : XBMC.GetNowPlayingInfo("bitrate");
-        }
-
-        private void SetNowPlayingSamplerate(bool resetToDefault)
-        {
-            lSamplerate.Text = (resetToDefault) ? "" : XBMC.GetNowPlayingInfo("samplerate");
-        }
-
-        private void SetNowPlayingThumbnail(bool resetToDefault)
-        {
-            MemoryStream thumbNailStream = XBMC.GetThumbnail();
-            pbThumbnail.Image = (resetToDefault || thumbNailStream == null) ? Properties.Resources.XBMClogo : new Bitmap(thumbNailStream);
-        }
-
-        private void SetNowPlayingSongInfo(bool resetToDefault)
+        private void GetNowPlayingSongInfo(bool resetToDefault)
         {
             if (resetToDefault)
             {
                 lArtistSong.Text = Language.GetString("mainform/playing/nothing");
-                lArtist.Text     = "";
-                lTitle.Text      = "";
-                lDuration.Text   = "";
-                lAlbum.Text      = "";
+                pbThumbnail.Image = Properties.Resources.XBMClogo;
+                lBitrate.Text = "";
+                lSamplerate.Text = "";
+                lArtist.Text = "";
+                lTitle.Text = "";
+                lDuration.Text = "";
+                lAlbum.Text = "";
             }
             else
             {
-                string year      = (XBMC.GetNowPlayingInfo("year") == null) ? "" : " (" + XBMC.GetNowPlayingInfo("year") + ")";
+                MemoryStream thumbNailStream = XBMC.GetThumbnail();
+                pbThumbnail.Image = (thumbNailStream == null)? Properties.Resources.XBMClogo : new Bitmap(thumbNailStream);
+
+                string year = (XBMC.GetNowPlayingInfo("year") == null) ? "" : " (" + XBMC.GetNowPlayingInfo("year") + ")";
+                lBitrate.Text = XBMC.GetNowPlayingInfo("bitrate");
+                lSamplerate.Text = XBMC.GetNowPlayingInfo("samplerate");
                 lArtistSong.Text = XBMC.GetNowPlayingInfo("artist") + " - " + XBMC.GetNowPlayingInfo("title");
-                lArtist.Text     = XBMC.GetNowPlayingInfo("artist");
-                lTitle.Text      = XBMC.GetNowPlayingInfo("title");
-                lDuration.Text   = XBMC.GetNowPlayingInfo("duration");
-                lAlbum.Text      = XBMC.GetNowPlayingInfo("album") + year;
+                lArtist.Text = XBMC.GetNowPlayingInfo("artist");
+                lTitle.Text = XBMC.GetNowPlayingInfo("title");
+                lDuration.Text = XBMC.GetNowPlayingInfo("duration");
+                lAlbum.Text = XBMC.GetNowPlayingInfo("album") + year;
             }
-        }
 
-        public void SetConfigFormClosed(object sender, EventArgs e)
-        {
-            configFormOpened = false;
-            this.Enabled     = true;
-            ApplyApplicationSettings();
-            Initialize();
-        }
-
-        private void ShowMediaTypeImage(bool resetToDefault)
-        {
             string mediaType = XBMC.GetNowPlayingInfo("type");
             string mediaFile = XBMC.GetNowPlayingInfo("filename");
 
-            pbLastFM.Visible    = (mediaFile.Substring(0, 6) == "lastfm") ? true : false;
+            pbLastFM.Visible = (mediaFile.Substring(0, 6) == "lastfm") ? true : false;
             pbMediaType.Visible = (resetToDefault) ? false : true;
 
             if (mediaType == "Audio")
@@ -244,19 +230,33 @@ namespace XBMControl
                 pbMediaType.Image = Properties.Resources.pictures_32x32;
         }
 
-        private void ShowNowPlayingBalloonTip()
+        public void SetConfigFormClosed(object sender, EventArgs e)
         {
-            if (resetToDefault && !notPlayingMessageShowed)
+            if (Properties.Settings.Default.Ip == "")
+                Close();
+            else
             {
-                notifyIcon1.ShowBalloonTip(2000, Language.GetString("global/appName"), Language.GetString("mainform/playing/nothing"), ToolTipIcon.Info);
-                notPlayingMessageShowed = true;
+                configFormOpened = false;
+                this.Enabled = true;
+                ApplyApplicationSettings();
+                Initialize();
             }
-            else if (mediaCurrentlyPlaying != XBMC.GetNowPlayingInfo("filename") && XBMC.GetNowPlayingInfo("type") == "Audio")
+        }
+
+        private void ShowNowPlayingBalloonTip(bool resetToDefault)
+        {
+            if (resetToDefault)
             {
-                notPlayingMessageShowed = false;
-                mediaCurrentlyPlaying = XBMC.GetNowPlayingInfo("filename");
+                notifyIcon1.BalloonTipIcon = ToolTipIcon.Info;
+                notifyIcon1.ShowBalloonTip(2000, Language.GetString("global/appName"), Language.GetString("mainform/playing/nothing"), ToolTipIcon.Info);
+            }
+            else
+            {
+                string artist = XBMC.GetNowPlayingInfo("artist") + "\n";
+                string title  = XBMC.GetNowPlayingInfo("title") + " (" + XBMC.GetNowPlayingInfo("duration") + ")\n";
+                string album  = XBMC.GetNowPlayingInfo("album");
                 string lastFM = (mediaCurrentlyPlaying.Substring(0, 6) == "lastfm") ? "(Last.FM)" : "";
-                notifyIcon1.ShowBalloonTip(2000, "XBMControl : " + Language.GetString("mainform/playing/now") + lastFM, XBMC.GetNowPlayingInfo("artist") + " ~ " + XBMC.GetNowPlayingInfo("title"), ToolTipIcon.Info);
+                notifyIcon1.ShowBalloonTip(2000, "XBMControl : " + Language.GetString("mainform/playing/now") + lastFM, artist + title + album, ToolTipIcon.Info);
             }
         }
 
@@ -269,6 +269,24 @@ namespace XBMControl
             }
             else if (XBMC.GetNowPlayingInfo("playstatus") == "Playing")
                 pausedMessageShowed = false;
+        }
+
+        private void ShowConnectionStatus() 
+        {
+            if (!connected && !showedConnectionStatus)
+            {
+                if (Properties.Settings.Default.ShowConnectionStatusBalloonTip)
+                {
+                    notifyIcon1.ShowBalloonTip(2000, Language.GetString("global/appName"), Language.GetString("mainform/connection/none"), ToolTipIcon.Info);
+                    notifyIcon1.BalloonTipIcon = ToolTipIcon.Error;
+                }
+                else
+                    MessageBox.Show(Language.GetString("mainform/connection/none"));
+
+                showedConnectionStatus  = true;
+            }
+            else if (connected)
+                showedConnectionStatus = false;
         }
 
         private void ShowConfigurationForm()
@@ -285,11 +303,6 @@ namespace XBMControl
 
 //------------------START EVENTS-------------------------
 
-        private void timerLong_Tick(object sender, EventArgs e)
-        {
-            UpdateDataLong();
-        }
-
         private void timerShort_Tick(object sender, EventArgs e)
         {
             UpdateData();
@@ -298,12 +311,12 @@ namespace XBMControl
         private void tbProgress_MouseUp(object sender, MouseEventArgs e)
         {
             SetProgress();
-            timerLong.Enabled = true;
+            updateTimer.Enabled = true;
         }
 
         private void tbProgress_MouseDown(object sender, MouseEventArgs e)
         {
-            timerLong.Enabled = false;
+            updateTimer.Enabled = false;
         }
 
         private void tbVolume_ValueChanged(object sender, EventArgs e)
@@ -406,6 +419,7 @@ namespace XBMControl
         {
             this.Visible = true;
             this.WindowState = System.Windows.Forms.FormWindowState.Normal;
+            this.Focus();
         }
 
         private void cmsNotifyHide_Click(object sender, EventArgs e)
@@ -428,6 +442,24 @@ namespace XBMControl
         private void cmsConfigure_Click(object sender, EventArgs e)
         {
             ShowConfigurationForm();    
+        }
+
+        private void cmsXBMCrebootComputer_Click(object sender, EventArgs e)
+        {
+            if (MessageBox.Show(Language.GetString("configuration/ipAddress/proceedMessage"), Language.GetString("contextMenu/xbmc/reboot"), MessageBoxButtons.YesNo) == DialogResult.Yes)
+                XBMC.Request("Restart");
+        }
+
+        private void cmsXBMCrebootXBMC_Click(object sender, EventArgs e)
+        {
+            if (MessageBox.Show(Language.GetString("configuration/ipAddress/proceedMessage"), Language.GetString("contextMenu/xbmc/restart"), MessageBoxButtons.YesNo) == DialogResult.Yes)
+                XBMC.Request("RestartApp");
+        }
+
+        private void cmsXBMCshutdown_Click(object sender, EventArgs e)
+        {
+            if (MessageBox.Show(Language.GetString("configuration/ipAddress/proceedMessage"), Language.GetString("contextMenu/xbmc/shutdown"), MessageBoxButtons.YesNo) == DialogResult.Yes)
+                XBMC.Request("Shutdown");
         }
     }
 }

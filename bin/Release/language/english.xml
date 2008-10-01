@@ -1,9 +1,7 @@
 <language>
 	<mainform>
 		<connection>
-			<none>Could not connect to XBMC</none>
-			<reastablished>Connection with XBMC reastablished</reastablished>
-			<lost>Lost connection with XBMC</lost>
+			<none>Can't connect with XBMC</none>
 		</connection>
 		<label>
 			<artist>artist</artist>
@@ -29,24 +27,33 @@
 			<showNowPlayingBalloonTip>Show 'Now playing' balloon tips</showNowPlayingBalloonTip>
 			<showPlayStatusBalloonTip>Show play staus balloon tips</showPlayStatusBalloonTip>
 			<showConnectionStatusBalloonTip>Show connection status balloon tips</showConnectionStatusBalloonTip>
+			<runAtStartup>Run at windows startup</runAtStartup>
 		</label>
 		<language>
 			<noLanguages>No language files found</noLanguages>
 		</language>
 		<ipAddress>
 			<required>Entering a valid ip address is mendatory</required>
-			<invalid>Invalid ip address\nCould not connect to XBMC</invalid>
-			<proceedMessage>Can't connect to XBMC with the current ip address configuration.\n\nAre you sure you want to proceed?</proceedMessage>
+			<invalid>Can't connect with the current ip address</invalid>
+			<proceedMessage>Are you sure you want to proceed?</proceedMessage>
 		</ipAddress>
 	</configuration>
 	<contextMenu>
-		<previous>Previous</previous>
-		<play>Play</play>
-		<pause>Pause</pause>
-		<stop>Stop</stop>
-		<next>Next</next>
-		<mute>Mute</mute>
-		<controls>Controls</controls>
+		<controls>
+			<title>Controls</title>
+			<previous>Previous</previous>
+			<play>Play</play>
+			<pause>Pause</pause>
+			<stop>Stop</stop>
+			<next>Next</next>
+			<mute>Mute</mute>
+		</controls>
+		<xbmc>
+			<title>XBMC</title>
+			<reboot>Reboot Computer</reboot>
+			<restart>Restart XBMC</restart>
+			<shutdown>Shutdown</shutdown>
+		</xbmc>
 		<show>Show</show>
 		<hide>Hide</hide>
 		<configure>Configure</configure>
