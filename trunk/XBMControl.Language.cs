@@ -1,5 +1,5 @@
 ﻿// ------------------------------------------------------------------------
-//    XBMControl - A compact remote controller for XBMC (.NET 2.0)
+//    XBMControl - A compact remote controller for XBMC (.NET 3.5)
 //    Copyright (C) 2008  Bram van Oploo (bramvano@gmail.com)
 //
 //    This program is free software: you can redistribute it and/or modify

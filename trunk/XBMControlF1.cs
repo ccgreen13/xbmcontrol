@@ -1,5 +1,5 @@
 ﻿// ------------------------------------------------------------------------
-//    XBMControl - A compact remote controller for XBMC (.NET 2.0)
+//    XBMControl - A compact remote controller for XBMC (.NET 3.5)
 //    Copyright (C) 2008  Bram van Oploo (bramvano@gmail.com)
 //
 //    This program is free software: you can redistribute it and/or modify
@@ -34,17 +34,19 @@ namespace XBMControl
 {
     public partial class MainForm : Form
     {
-        private const int updateIntervalShort = 1000;
-        private const int updateIntervalLong  = 5000; 
         private XBMCcomm XBMC;
         private XBMCLanguage Language;
-        private string[,] maNowPlayingInfo = new string[50, 2];
-        private string mediaCurrentlyPlaying = null;
-        private bool pausedMessageShowed = false;
-        private bool configFormOpened = false;
-        private bool connected = false;
-        private bool configured;
-        private bool showedConnectionStatus = false;
+        private ConfigurationF1 ConfigForm;
+        private FullSizeImageF1 fullSizeImage;
+        private const int updateIntervalShort   = 1000;
+        private const int updateIntervalLong    = 5000; 
+        private string[,] maNowPlayingInfo      = new string[50, 2];
+        private string mediaCurrentlyPlaying    = null;
+        private bool pausedMessageShowed        = false;
+        private bool configFormOpened           = false;
+        private bool fullSizeImageOpened        = false;
+        private bool connected                  = false;
+        private bool showedConnectionStatus     = false;
 
         public MainForm()
         {
@@ -59,26 +61,24 @@ namespace XBMControl
         {
             if (Properties.Settings.Default.Ip == "")
             {
-                configured = false;
+                updateTimer.Enabled = false;
                 ShowConfigurationForm();
             }
             else if (XBMC.IsConnected())
             {
                 XBMC.Request("SetResponseFormat");
-                configured           = true;
-                connected            = true;
+                updateTimer.Enabled = true;
+                connected = true;
                 updateTimer.Interval = updateIntervalShort;
             }
             else
             {
-                configured           = true;
-                connected            = false;
-                this.Enabled         = false;
+                updateTimer.Enabled = true;
+                connected = false;
+                this.Enabled = false;
                 updateTimer.Interval = updateIntervalLong;
                 ShowConnectionStatus();
             }
-
-            updateTimer.Enabled = (configured) ? true : false ;
         }
 
         private void ApplyApplicationSettings()
@@ -120,7 +120,7 @@ namespace XBMControl
         {
             if (XBMC.IsConnected())
             {
-                if (this.Enabled == false) this.Enabled = true;
+                if (this.Enabled == false && !configFormOpened && !fullSizeImageOpened) this.Enabled = true;
                 bool resetToDefault = (XBMC.IsPlaying()) ? false : true;
                 updateTimer.Interval = updateIntervalShort;
 
@@ -202,7 +202,7 @@ namespace XBMControl
             }
             else
             {
-                MemoryStream thumbNailStream = XBMC.GetThumbnail();
+                MemoryStream thumbNailStream = XBMC.GetFileFromXbmc();
                 pbThumbnail.Image = (thumbNailStream == null)? Properties.Resources.XBMClogo : new Bitmap(thumbNailStream);
 
                 string year = (XBMC.GetNowPlayingInfo("year") == null) ? "" : " (" + XBMC.GetNowPlayingInfo("year") + ")";
@@ -227,19 +227,6 @@ namespace XBMControl
                 pbMediaType.Image = Properties.Resources.video_32x32;
             else if (mediaType == "Picture")
                 pbMediaType.Image = Properties.Resources.pictures_32x32;
-        }
-
-        public void SetConfigFormClosed(object sender, EventArgs e)
-        {
-            if (Properties.Settings.Default.Ip == "")
-                Close();
-            else
-            {
-                configFormOpened = false;
-                this.Enabled = true;
-                ApplyApplicationSettings();
-                Initialize();
-            }
         }
 
         private void ShowNowPlayingBalloonTip(bool resetToDefault)
@@ -288,16 +275,35 @@ namespace XBMControl
                 showedConnectionStatus = false;
         }
 
+        public void SetConfigFormClosed(object sender, EventArgs e)
+        {
+            if (Properties.Settings.Default.Ip == "")
+                Close();
+            else
+            {
+                configFormOpened = false;
+                this.Enabled = true;
+                ApplyApplicationSettings();
+                Initialize();
+            }
+        }
+
         private void ShowConfigurationForm()
         {
             if (!configFormOpened)
             {
                 configFormOpened = true;
-                ConfigurationF1 ConfigForm = new ConfigurationF1();
+                ConfigForm = new ConfigurationF1();
                 ConfigForm.FormClosed += new System.Windows.Forms.FormClosedEventHandler(SetConfigFormClosed);
                 ConfigForm.Show();
                 this.Enabled = false;
             }
+        }
+
+        public void EnableMainForm(object sender, EventArgs e)
+        {
+            this.Enabled = true;
+            fullSizeImageOpened = false;
         }
 
 //------------------START EVENTS-------------------------
@@ -459,6 +465,25 @@ namespace XBMControl
         {
             if (MessageBox.Show(Language.GetString("configuration/ipAddress/proceedMessage"), Language.GetString("contextMenu/xbmc/shutdown"), MessageBoxButtons.YesNo) == DialogResult.Yes)
                 XBMC.Request("Shutdown");
+        }
+
+        private void pbThumbnail_Click(object sender, EventArgs e)
+        {
+            fullSizeImage = new FullSizeImageF1(XBMC.GetNowPlayingInfo("thumb"));
+            fullSizeImage.FormClosed += new FormClosedEventHandler(EnableMainForm);
+            fullSizeImage.Show();
+            this.Enabled = false;
+            fullSizeImageOpened = true;
+        }
+
+        private void pbThumbnail_MouseHover(object sender, EventArgs e)
+        {
+            pbThumbnail.Cursor = Cursors.Hand;
+        }
+
+        private void pbThumbnail_MouseLeave(object sender, EventArgs e)
+        {
+            pbThumbnail.Cursor = Cursors.Default;
         }
     }
 }

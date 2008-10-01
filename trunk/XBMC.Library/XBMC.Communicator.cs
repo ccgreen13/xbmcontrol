@@ -1,5 +1,5 @@
 ﻿// ------------------------------------------------------------------------
-//    XBMControl - A compact remote controller for XBMC (.NET 2.0)
+//    XBMControl - A compact remote controller for XBMC (.NET 3.5)
 //    Copyright (C) 2008  Bram van Oploo (bramvano@gmail.com)
 //
 //    This program is free software: you can redistribute it and/or modify
@@ -133,16 +133,21 @@ namespace XBMC.Communicator
             return this.GetNowPlayingInfo(field, false);
         }
 
-        public MemoryStream GetThumbnail()
+        public MemoryStream GetFileFromXbmc(string xbmcFilePath)
         {
-            MemoryStream thumb = null;
-            WebClient client   = new WebClient();
-            string thumbUrl    = "http://" + Settings.Default.Ip + "/thumb.jpg";
+            MemoryStream file = null;
+            WebClient client  = new WebClient();
+            Uri xbmcUri;
+            if (xbmcFilePath == null)
+                xbmcUri = new Uri("http://" + Settings.Default.Ip + "/thumb.jpg");
+            else
+                xbmcUri = new Uri("http://" + Settings.Default.Ip + "/xbmcCmds/xbmcHttp?command=FileDownload&parameter=" + xbmcFilePath);
+
             this.Request("GetCurrentlyPlaying", "q:\\web\\thumb.jpg");
 
             try
             {
-                thumb = new MemoryStream(client.DownloadData(thumbUrl));
+                file = new MemoryStream(client.DownloadData(xbmcUri));
             }
             catch (Exception e)
             { 
@@ -152,7 +157,12 @@ namespace XBMC.Communicator
                 client.Dispose();
             }
 
-            return thumb;
+            return file;
+        }
+
+        public MemoryStream GetFileFromXbmc()
+        {
+            return GetFileFromXbmc(null);       
         }
     }
 }
