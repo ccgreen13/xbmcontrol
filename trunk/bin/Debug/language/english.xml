@@ -1,0 +1,62 @@
+<language>
+	<mainform>
+		<connection>
+			<none>Could not connect to XBMC</none>
+			<reastablished>Connection with XBMC reastablished</reastablished>
+			<lost>Lost connection with XBMC</lost>
+		</connection>
+		<label>
+			<artist>artist</artist>
+			<title>titel</title>
+			<duration>time</duration>
+			<album>album</album>
+		</label>
+		<playing>
+			<nothing>No media playing</nothing>
+			<now>Now playing </now>
+			<paused>Playback paused</paused>
+		</playing>
+	</mainform>
+	<configuration>
+		<title>Configuration</title>
+		<label>
+			<language>language</language>
+			<ip>ip address</ip>
+			<username>username</username>
+			<password>password</password>
+			<showInTray>SHow in systemtray</showInTray>
+			<showInTaskbar>Show in taskbar</showInTaskbar>
+			<showNowPlayingBalloonTip>Show 'Now playing' balloon tips</showNowPlayingBalloonTip>
+			<showPlayStatusBalloonTip>Show play staus balloon tips</showPlayStatusBalloonTip>
+			<showConnectionStatusBalloonTip>Show connection status balloon tips</showConnectionStatusBalloonTip>
+		</label>
+		<language>
+			<noLanguages>No language files found</noLanguages>
+		</language>
+		<ipAddress>
+			<required>Entering a valid ip address is mendatory</required>
+			<invalid>Invalid ip address\nCould not connect to XBMC</invalid>
+			<proceedMessage>Can't connect to XBMC with the current ip address configuration.\n\nAre you sure you want to proceed?</proceedMessage>
+		</ipAddress>
+	</configuration>
+	<contextMenu>
+		<previous>Previous</previous>
+		<play>Play</play>
+		<pause>Pause</pause>
+		<stop>Stop</stop>
+		<next>Next</next>
+		<mute>Mute</mute>
+		<controls>Controls</controls>
+		<show>Show</show>
+		<hide>Hide</hide>
+		<configure>Configure</configure>
+		<exit>Exit</exit>
+	</contextMenu>
+	<global>
+		<appName>XBMControl</appName>
+		<button>
+			<confirm>OK</confirm>
+			<cancel>Cancel</cancel>
+		</button>
+	</global>
+</language>
