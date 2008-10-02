@@ -60,6 +60,13 @@ namespace XBMControl.Properties {
             }
         }
         
+        internal static System.Drawing.Bitmap arrow_down___12x11 {
+            get {
+                object obj = ResourceManager.GetObject("arrow_down - 12x11", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
         internal static System.Drawing.Bitmap audio_cd_32x32 {
             get {
                 object obj = ResourceManager.GetObject("audio-cd-32x32", resourceCulture);
@@ -91,6 +98,13 @@ namespace XBMControl.Properties {
         internal static System.Drawing.Bitmap hide_16x16 {
             get {
                 object obj = ResourceManager.GetObject("hide-16x16", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap image_16x16 {
+            get {
+                object obj = ResourceManager.GetObject("image-16x16", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -203,6 +217,13 @@ namespace XBMControl.Properties {
         internal static System.Drawing.Bitmap restart_16x16 {
             get {
                 object obj = ResourceManager.GetObject("restart-16x16", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap save_16x16 {
+            get {
+                object obj = ResourceManager.GetObject("save-16x16", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

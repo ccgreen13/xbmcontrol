@@ -9,3 +9,4 @@ E:\Programming\C#\XBMControl\XBMControl\obj\Debug\XBMControl.ConfigurationF1.res
 E:\Programming\C#\XBMControl\XBMControl\obj\Debug\XBMControl.MainForm.resources
 E:\Programming\C#\XBMControl\XBMControl\obj\Debug\XBMControl.Properties.Resources.resources
 E:\Programming\C#\XBMControl\XBMControl\obj\Debug\XBMControl.FullSizeImageF1.resources
+E:\Programming\C#\XBMControl\XBMControl\obj\Debug\XBMControl.VolumeControlF1.resources

@@ -24,6 +24,7 @@ using System.Net;
 using System.IO;
 using XBMControl.Properties;
 using System.Windows.Forms;
+using System.Drawing;
 
 namespace XBMC.Communicator
 {
@@ -44,7 +45,7 @@ namespace XBMC.Communicator
 
             HttpWebRequest connection = (HttpWebRequest)WebRequest.Create("http://" + xbmcIp);
             connection.Method = "GET";
-            connection.Timeout = 1000;
+            connection.Timeout = XBMControl.Properties.Settings.Default.ConnectionTimeout;
             try
             {
                 response = (HttpWebResponse)connection.GetResponse();
@@ -90,7 +91,7 @@ namespace XBMC.Communicator
             }
             finally
             {
-                response.Close();
+                if(response.StatusCode == HttpStatusCode.OK) response.Close();
                 reader.Close();
             }
 
@@ -128,26 +129,38 @@ namespace XBMC.Communicator
             return returnValue;
         }
 
+        public string GetGuiDescription(string field)
+        {
+            string returnValue = null;
+            string[] aGuiDescription = this.Request("GetGUIDescription");
+            for (int x = 0; x < aGuiDescription.Length; x++)
+            {
+                int splitIndex = aGuiDescription[x].IndexOf(':') + 1;
+                if (splitIndex > 1)
+                {
+                    string resultField = aGuiDescription[x].Substring(0, splitIndex - 1).Replace(" ", "").ToLower();
+                    if( resultField == field) returnValue = aGuiDescription[x].Substring(splitIndex, aGuiDescription[x].Length - splitIndex);
+                }
+            }
+
+            return returnValue;
+        }
+
         public string GetNowPlayingInfo(string field)
         {
             return this.GetNowPlayingInfo(field, false);
         }
 
-        public MemoryStream GetFileFromXbmc(string xbmcFilePath)
+        public MemoryStream GetImageFromXbmc(string xbmcFilePath)
         {
-            MemoryStream file = null;
-            WebClient client  = new WebClient();
-            Uri xbmcUri;
-            if (xbmcFilePath == null)
-                xbmcUri = new Uri("http://" + Settings.Default.Ip + "/thumb.jpg");
-            else
-                xbmcUri = new Uri("http://" + Settings.Default.Ip + "/xbmcCmds/xbmcHttp?command=FileDownload&parameter=" + xbmcFilePath);
-
-            this.Request("GetCurrentlyPlaying", "q:\\web\\thumb.jpg");
+            //Image imageFile       = null;
+            MemoryStream stream   = null;
+            WebClient client      = new WebClient();
+            Uri xbmcUri           = new Uri("http://" + Settings.Default.Ip + "/xbmcCmds/xbmcHttp?command=FileDownload&parameter=" + xbmcFilePath);
 
             try
             {
-                file = new MemoryStream(client.DownloadData(xbmcUri));
+                stream = new MemoryStream(client.DownloadData(xbmcUri));
             }
             catch (Exception e)
             { 
@@ -157,12 +170,54 @@ namespace XBMC.Communicator
                 client.Dispose();
             }
 
+            return stream;
+        }
+
+        public Image GetNowPlayingCoverArt()
+        {
+            MemoryStream stream = null;
+            Image thumbnail = null;
+            WebClient client = new WebClient();
+            Uri xbmcUri = new Uri("http://" + Settings.Default.Ip + "/thumb.jpg");
+            this.Request("GetCurrentlyPlaying", "q:\\web\\thumb.jpg");
+
+            try
+            {
+                stream    = new MemoryStream(client.DownloadData(xbmcUri));
+                thumbnail = new Bitmap(Image.FromStream(stream));
+            }
+            catch (Exception e)
+            {
+            }
+            finally
+            {
+                client.Dispose();
+            }
+
+            return thumbnail;   
+        }
+
+        public Image Base64StringToImage(string base64String, string fileType)
+        {
+            Bitmap file = null;
+
+            byte[] bytes = Convert.FromBase64String(base64String);
+            MemoryStream stream = new MemoryStream(bytes);
+
+            if (base64String != null && base64String != "")
+            {
+                if (fileType == "image") file = new Bitmap(Image.FromStream(stream));
+            }
+                
             return file;
         }
 
-        public MemoryStream GetFileFromXbmc()
+        public Image TakeScreenshot()
         {
-            return GetFileFromXbmc(null);       
+            string[] aRequestData = this.Request("takescreenshot", "screenshot.jpg;false;0;" + this.GetGuiDescription("width") + ";" + this.GetGuiDescription("height") + ";90;true;");
+            Image screenshot      = this.Base64StringToImage(aRequestData[0], "image");
+
+            return screenshot;
         }
     }
 }

@@ -28,6 +28,7 @@
 			<showPlayStatusBalloonTip>Laat afspeelstatus in ballontips zien</showPlayStatusBalloonTip>
 			<showConnectionStatusBalloonTip>Laat verbindingsstatus in ballontips zien</showConnectionStatusBalloonTip>
 			<runAtStartup>Uitvoeren bij opstarten Windows</runAtStartup>
+			<connectionTimeout>Verbinding timeout</connectionTimeout>
 		</label>
 		<language>
 			<noLanguages>Geen taalbestanden gevonden</noLanguages>
@@ -50,10 +51,12 @@
 		</controls>
 		<xbmc>
 			<title>XBMC</title>
+			<showScreenshot>Laat schermafdruk zien</showScreenshot>
 			<reboot>Herstart Computer</reboot>
 			<restart>Herstart XBMC</restart>
 			<shutdown>Uitzetten</shutdown>
 		</xbmc>
+		<saveMedia>Media opslaan</saveMedia>
 		<show>Weergeven</show>
 		<hide>Verbergen</hide>
 		<configure>Configureren</configure>

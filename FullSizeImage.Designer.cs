@@ -48,16 +48,19 @@
             // 
             // FullSizeImageF1
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AccessibleRole = System.Windows.Forms.AccessibleRole.None;
+            this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.AutoSize = true;
-            this.ClientSize = new System.Drawing.Size(21, 18);
+            this.ClientSize = new System.Drawing.Size(0, 0);
+            this.ControlBox = false;
             this.Controls.Add(this.pbFullSizeImage);
             this.Cursor = System.Windows.Forms.Cursors.Default;
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "FullSizeImageF1";
+            this.ShowIcon = false;
             this.ShowInTaskbar = false;
             this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Hide;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;

@@ -133,10 +133,22 @@ namespace XBMControl.Properties {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("0.2.7a")]
+        [global::System.Configuration.DefaultSettingValueAttribute("0.2.8")]
         public string Version {
             get {
                 return ((string)(this["Version"]));
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("1500")]
+        public int ConnectionTimeout {
+            get {
+                return ((int)(this["ConnectionTimeout"]));
+            }
+            set {
+                this["ConnectionTimeout"] = value;
             }
         }
     }
