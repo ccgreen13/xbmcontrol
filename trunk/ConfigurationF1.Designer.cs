@@ -46,6 +46,9 @@
             this.cbLanguage = new System.Windows.Forms.ComboBox();
             this.pbXBMCLogo = new System.Windows.Forms.PictureBox();
             this.cbRunAtStartup = new System.Windows.Forms.CheckBox();
+            this.cbConnectionTimeout = new System.Windows.Forms.ComboBox();
+            this.lConnectionTimeout = new System.Windows.Forms.Label();
+            this.lMs = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.pbXBMCLogo)).BeginInit();
             this.SuspendLayout();
             // 
@@ -53,7 +56,7 @@
             // 
             this.bCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.bCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.bCancel.Location = new System.Drawing.Point(305, 256);
+            this.bCancel.Location = new System.Drawing.Point(305, 283);
             this.bCancel.Name = "bCancel";
             this.bCancel.Size = new System.Drawing.Size(72, 23);
             this.bCancel.TabIndex = 0;
@@ -64,7 +67,7 @@
             // bConfirm
             // 
             this.bConfirm.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.bConfirm.Location = new System.Drawing.Point(227, 256);
+            this.bConfirm.Location = new System.Drawing.Point(227, 283);
             this.bConfirm.Name = "bConfirm";
             this.bConfirm.Size = new System.Drawing.Size(72, 23);
             this.bConfirm.TabIndex = 1;
@@ -84,9 +87,9 @@
             // lIpTitle
             // 
             this.lIpTitle.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.lIpTitle.Location = new System.Drawing.Point(143, 42);
+            this.lIpTitle.Location = new System.Drawing.Point(138, 42);
             this.lIpTitle.Name = "lIpTitle";
-            this.lIpTitle.Size = new System.Drawing.Size(92, 18);
+            this.lIpTitle.Size = new System.Drawing.Size(100, 18);
             this.lIpTitle.TabIndex = 8;
             this.lIpTitle.TextAlign = System.Drawing.ContentAlignment.TopRight;
             // 
@@ -112,25 +115,26 @@
             // lUsernameTitle
             // 
             this.lUsernameTitle.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.lUsernameTitle.Location = new System.Drawing.Point(143, 69);
+            this.lUsernameTitle.Location = new System.Drawing.Point(138, 69);
             this.lUsernameTitle.Name = "lUsernameTitle";
-            this.lUsernameTitle.Size = new System.Drawing.Size(92, 18);
+            this.lUsernameTitle.Size = new System.Drawing.Size(100, 18);
             this.lUsernameTitle.TabIndex = 11;
             this.lUsernameTitle.TextAlign = System.Drawing.ContentAlignment.TopRight;
             // 
             // lPasswordTitle
             // 
             this.lPasswordTitle.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.lPasswordTitle.Location = new System.Drawing.Point(143, 96);
+            this.lPasswordTitle.Location = new System.Drawing.Point(24, 96);
             this.lPasswordTitle.Name = "lPasswordTitle";
-            this.lPasswordTitle.Size = new System.Drawing.Size(92, 18);
+            this.lPasswordTitle.Size = new System.Drawing.Size(211, 18);
             this.lPasswordTitle.TabIndex = 12;
             this.lPasswordTitle.TextAlign = System.Drawing.ContentAlignment.TopRight;
             // 
             // cbShowInTray
             // 
+            this.cbShowInTray.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.cbShowInTray.AutoSize = true;
-            this.cbShowInTray.Location = new System.Drawing.Point(24, 135);
+            this.cbShowInTray.Location = new System.Drawing.Point(24, 157);
             this.cbShowInTray.Name = "cbShowInTray";
             this.cbShowInTray.Size = new System.Drawing.Size(13, 12);
             this.cbShowInTray.TabIndex = 13;
@@ -139,9 +143,10 @@
             // 
             // cbShowNowPlayingBalloonTip
             // 
+            this.cbShowNowPlayingBalloonTip.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.cbShowNowPlayingBalloonTip.AutoSize = true;
             this.cbShowNowPlayingBalloonTip.Enabled = false;
-            this.cbShowNowPlayingBalloonTip.Location = new System.Drawing.Point(24, 171);
+            this.cbShowNowPlayingBalloonTip.Location = new System.Drawing.Point(24, 193);
             this.cbShowNowPlayingBalloonTip.Name = "cbShowNowPlayingBalloonTip";
             this.cbShowNowPlayingBalloonTip.Size = new System.Drawing.Size(13, 12);
             this.cbShowNowPlayingBalloonTip.TabIndex = 14;
@@ -149,9 +154,10 @@
             // 
             // cbShowPlayStatusBalloonTip
             // 
+            this.cbShowPlayStatusBalloonTip.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.cbShowPlayStatusBalloonTip.AutoSize = true;
             this.cbShowPlayStatusBalloonTip.Enabled = false;
-            this.cbShowPlayStatusBalloonTip.Location = new System.Drawing.Point(24, 189);
+            this.cbShowPlayStatusBalloonTip.Location = new System.Drawing.Point(24, 211);
             this.cbShowPlayStatusBalloonTip.Name = "cbShowPlayStatusBalloonTip";
             this.cbShowPlayStatusBalloonTip.Size = new System.Drawing.Size(13, 12);
             this.cbShowPlayStatusBalloonTip.TabIndex = 15;
@@ -159,9 +165,10 @@
             // 
             // cbShowInTaskbar
             // 
+            this.cbShowInTaskbar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.cbShowInTaskbar.AutoSize = true;
             this.cbShowInTaskbar.Enabled = false;
-            this.cbShowInTaskbar.Location = new System.Drawing.Point(24, 153);
+            this.cbShowInTaskbar.Location = new System.Drawing.Point(24, 175);
             this.cbShowInTaskbar.Name = "cbShowInTaskbar";
             this.cbShowInTaskbar.Size = new System.Drawing.Size(13, 12);
             this.cbShowInTaskbar.TabIndex = 16;
@@ -169,9 +176,10 @@
             // 
             // cbShowConnectionStatusBalloonTip
             // 
+            this.cbShowConnectionStatusBalloonTip.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.cbShowConnectionStatusBalloonTip.AutoSize = true;
             this.cbShowConnectionStatusBalloonTip.Enabled = false;
-            this.cbShowConnectionStatusBalloonTip.Location = new System.Drawing.Point(24, 207);
+            this.cbShowConnectionStatusBalloonTip.Location = new System.Drawing.Point(24, 229);
             this.cbShowConnectionStatusBalloonTip.Name = "cbShowConnectionStatusBalloonTip";
             this.cbShowConnectionStatusBalloonTip.Size = new System.Drawing.Size(13, 12);
             this.cbShowConnectionStatusBalloonTip.TabIndex = 17;
@@ -180,26 +188,28 @@
             // lLanguageTitle
             // 
             this.lLanguageTitle.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.lLanguageTitle.Location = new System.Drawing.Point(143, 15);
+            this.lLanguageTitle.Location = new System.Drawing.Point(138, 15);
             this.lLanguageTitle.Name = "lLanguageTitle";
-            this.lLanguageTitle.Size = new System.Drawing.Size(92, 18);
+            this.lLanguageTitle.Size = new System.Drawing.Size(100, 18);
             this.lLanguageTitle.TabIndex = 18;
             this.lLanguageTitle.TextAlign = System.Drawing.ContentAlignment.TopRight;
             // 
             // cbLanguage
             // 
+            this.cbLanguage.AccessibleRole = System.Windows.Forms.AccessibleRole.None;
             this.cbLanguage.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.cbLanguage.FormattingEnabled = true;
             this.cbLanguage.Location = new System.Drawing.Point(241, 12);
             this.cbLanguage.Name = "cbLanguage";
             this.cbLanguage.Size = new System.Drawing.Size(136, 21);
+            this.cbLanguage.Sorted = true;
             this.cbLanguage.TabIndex = 19;
             this.cbLanguage.TextChanged += new System.EventHandler(this.cbLanguage_TextChanged);
             // 
             // pbXBMCLogo
             // 
             this.pbXBMCLogo.Image = global::XBMControl.Properties.Resources.XBMClogo;
-            this.pbXBMCLogo.Location = new System.Drawing.Point(12, 25);
+            this.pbXBMCLogo.Location = new System.Drawing.Point(11, 12);
             this.pbXBMCLogo.Name = "pbXBMCLogo";
             this.pbXBMCLogo.Size = new System.Drawing.Size(124, 72);
             this.pbXBMCLogo.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
@@ -208,12 +218,61 @@
             // 
             // cbRunAtStartup
             // 
+            this.cbRunAtStartup.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.cbRunAtStartup.AutoSize = true;
-            this.cbRunAtStartup.Location = new System.Drawing.Point(24, 225);
+            this.cbRunAtStartup.Location = new System.Drawing.Point(24, 247);
             this.cbRunAtStartup.Name = "cbRunAtStartup";
             this.cbRunAtStartup.Size = new System.Drawing.Size(13, 12);
             this.cbRunAtStartup.TabIndex = 21;
             this.cbRunAtStartup.UseVisualStyleBackColor = true;
+            // 
+            // cbConnectionTimeout
+            // 
+            this.cbConnectionTimeout.FormattingEnabled = true;
+            this.cbConnectionTimeout.Items.AddRange(new object[] {
+            "5",
+            "10",
+            "25",
+            "50",
+            "100",
+            "250",
+            "500",
+            "750",
+            "1000",
+            "1250",
+            "1500",
+            "1750",
+            "2000",
+            "2250",
+            "2500",
+            "2750",
+            "3000",
+            "3250",
+            "3500",
+            "3750",
+            "4000"});
+            this.cbConnectionTimeout.Location = new System.Drawing.Point(241, 120);
+            this.cbConnectionTimeout.Name = "cbConnectionTimeout";
+            this.cbConnectionTimeout.Size = new System.Drawing.Size(105, 21);
+            this.cbConnectionTimeout.TabIndex = 22;
+            this.cbConnectionTimeout.SelectedValueChanged += new System.EventHandler(this.cbConnectionTimeout_SelectedValueChanged);
+            // 
+            // lConnectionTimeout
+            // 
+            this.lConnectionTimeout.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.lConnectionTimeout.Location = new System.Drawing.Point(24, 123);
+            this.lConnectionTimeout.Name = "lConnectionTimeout";
+            this.lConnectionTimeout.Size = new System.Drawing.Size(211, 18);
+            this.lConnectionTimeout.TabIndex = 23;
+            this.lConnectionTimeout.TextAlign = System.Drawing.ContentAlignment.TopRight;
+            // 
+            // lMs
+            // 
+            this.lMs.Location = new System.Drawing.Point(355, 123);
+            this.lMs.Name = "lMs";
+            this.lMs.Size = new System.Drawing.Size(22, 23);
+            this.lMs.TabIndex = 24;
+            this.lMs.Text = "ms";
             // 
             // ConfigurationF1
             // 
@@ -223,7 +282,10 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.bCancel;
-            this.ClientSize = new System.Drawing.Size(389, 291);
+            this.ClientSize = new System.Drawing.Size(389, 318);
+            this.Controls.Add(this.lMs);
+            this.Controls.Add(this.lConnectionTimeout);
+            this.Controls.Add(this.cbConnectionTimeout);
             this.Controls.Add(this.cbRunAtStartup);
             this.Controls.Add(this.pbXBMCLogo);
             this.Controls.Add(this.cbLanguage);
@@ -276,5 +338,8 @@
         private System.Windows.Forms.ComboBox cbLanguage;
         private System.Windows.Forms.PictureBox pbXBMCLogo;
         private System.Windows.Forms.CheckBox cbRunAtStartup;
+        private System.Windows.Forms.ComboBox cbConnectionTimeout;
+        private System.Windows.Forms.Label lConnectionTimeout;
+        private System.Windows.Forms.Label lMs;
     }
 }

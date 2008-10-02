@@ -50,11 +50,14 @@ namespace XBMControl
             LoadConfiguration();
             Language.SetLanguage(XBMControl.Properties.Settings.Default.Language);
             SetLanguageStrings();
+            cbLanguage.DropDownStyle          = ComboBoxStyle.DropDownList;
+            cbConnectionTimeout.DropDownStyle = ComboBoxStyle.DropDownList; ;
         }
 
         private void SetLanguageStrings()
         {
             this.Text                               = Language.GetString("global/appName") + " " + Language.GetString("configuration/title");
+            lConnectionTimeout.Text                 = Language.GetString("configuration/label/connectionTimeout");
             lLanguageTitle.Text                     = Language.GetString("configuration/label/language");
             lIpTitle.Text                           = Language.GetString("configuration/label/ip");
             lUsernameTitle.Text                     = Language.GetString("configuration/label/username");
@@ -71,15 +74,18 @@ namespace XBMControl
 
         private void SaveConfiguration()
         {
+            XBMControl.Properties.Settings.Default.Language                       = cbLanguage.Text;
             XBMControl.Properties.Settings.Default.Ip                             = tbIp.Text;
             XBMControl.Properties.Settings.Default.Username                       = tbUsername.Text;
             XBMControl.Properties.Settings.Default.Password                       = tbPassword.Text;
+            XBMControl.Properties.Settings.Default.ConnectionTimeout              = Convert.ToInt32(cbConnectionTimeout.Text); 
+
             XBMControl.Properties.Settings.Default.ShowInSystemTray               = cbShowInTray.Checked;
             XBMControl.Properties.Settings.Default.ShowNowPlayingBalloonTips      = cbShowNowPlayingBalloonTip.Checked;
             XBMControl.Properties.Settings.Default.ShowPlayStausBalloonTips       = cbShowPlayStatusBalloonTip.Checked;
             XBMControl.Properties.Settings.Default.ShowInTaskbar                  = cbShowInTaskbar.Checked;
             XBMControl.Properties.Settings.Default.ShowConnectionStatusBalloonTip = cbShowConnectionStatusBalloonTip.Checked;
-            XBMControl.Properties.Settings.Default.Language                       = cbLanguage.Text;
+            
             if (!XBMControl.Properties.Settings.Default.ShowInSystemTray) XBMControl.Properties.Settings.Default.ShowInTaskbar = true;
 
             if( cbRunAtStartup.Checked )
@@ -94,15 +100,17 @@ namespace XBMControl
         {
             ShowAvailableLanguages();
             SetSystrayChackboxesEnabled(XBMControl.Properties.Settings.Default.ShowInSystemTray);
+            cbLanguage.Text                          = XBMControl.Properties.Settings.Default.Language;
             tbIp.Text                                = XBMControl.Properties.Settings.Default.Ip;
             tbUsername.Text                          = XBMControl.Properties.Settings.Default.Username;
             tbPassword.Text                          = XBMControl.Properties.Settings.Default.Password;
+            cbConnectionTimeout.Text                 = XBMControl.Properties.Settings.Default.ConnectionTimeout.ToString();
+
             cbShowInTray.Checked                     = XBMControl.Properties.Settings.Default.ShowInSystemTray;
             cbShowNowPlayingBalloonTip.Checked       = XBMControl.Properties.Settings.Default.ShowNowPlayingBalloonTips;
             cbShowPlayStatusBalloonTip.Checked       = XBMControl.Properties.Settings.Default.ShowPlayStausBalloonTips;
             cbShowInTaskbar.Checked                  = XBMControl.Properties.Settings.Default.ShowInTaskbar;
             cbShowConnectionStatusBalloonTip.Checked = XBMControl.Properties.Settings.Default.ShowConnectionStatusBalloonTip;
-            cbLanguage.Text                          = XBMControl.Properties.Settings.Default.Language;
             cbRunAtStartup.Checked                   = (regRunAtStartup.GetValue(Language.GetString("global/appName")) == null) ? false : true;
         }
 
@@ -177,6 +185,11 @@ namespace XBMControl
         {
             Language.SetLanguage(cbLanguage.Text);
             SetLanguageStrings();
+        }
+
+        private void cbConnectionTimeout_SelectedValueChanged(object sender, EventArgs e)
+        {
+            XBMControl.Properties.Settings.Default.ConnectionTimeout = Convert.ToInt32(cbConnectionTimeout.Text); 
         }
     }
 }

@@ -28,6 +28,7 @@
 			<showPlayStatusBalloonTip>Afficher une bulle d'information montrant l'état de lecture</showPlayStatusBalloonTip>
 			<showConnectionStatusBalloonTip>Afficher une bulle d'information montrant l'état de la connexion à XBMC</showConnectionStatusBalloonTip>
 			<runAtStartup>Run at windows startup</runAtStartup>
+			<connectionTimeout>Connexion timeout</connectionTimeout>
 		</label>
 		<language>
 			<noLanguages>Aucun fichier de langue trouvé</noLanguages>
@@ -50,10 +51,12 @@
 		</controls>
 		<xbmc>
 			<title>XBMC</title>
+			<showScreenshot>Show screenshot</showScreenshot>
 			<reboot>Reboot Computer</reboot>
 			<restart>Restart XBMC</restart>
 			<shutdown>Shutdown</shutdown>
 		</xbmc>
+		<saveMedia>Save media</saveMedia>
 		<show>Afficher</show>
 		<hide>Cacher</hide>
 		<configure>Configurer</configure>

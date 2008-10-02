@@ -104,6 +104,9 @@
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
     </EmbeddedResource>
+    <EmbeddedResource Include="VolumeControlF1.resx">
+      <DependentUpon>VolumeControlF1.cs</DependentUpon>
+    </EmbeddedResource>
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
@@ -120,6 +123,12 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
     <Compile Include="Settings.cs" />
+    <Compile Include="VolumeControlF1.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="VolumeControlF1.Designer.cs">
+      <DependentUpon>VolumeControlF1.cs</DependentUpon>
+    </Compile>
     <Compile Include="XBMC.Library\XBMC.Communicator.cs" />
     <Compile Include="XBMControl.Language.cs" />
   </ItemGroup>
@@ -167,6 +176,9 @@
     <None Include="Resources\shutdown-16x16.png" />
     <None Include="Resources\restart-16x16.png" />
     <None Include="Resources\reboot-16x16.png" />
+    <None Include="Resources\arrow_down - 12x11.gif" />
+    <None Include="Resources\save-16x16.png" />
+    <None Include="Resources\image-16x16.png" />
     <Content Include="XBMC.ico" />
     <Content Include="Xbox.ico" />
   </ItemGroup>

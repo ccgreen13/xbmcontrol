@@ -15,34 +15,16 @@ namespace XBMControl
     {
         private XBMCcomm XBMC;
 
-        public FullSizeImageF1(string imageUri)
+        public FullSizeImageF1(Image fImage)
         {
             XBMC = new XBMCcomm();
             InitializeComponent();
-            GetImage(imageUri);
+            ShowImage(fImage);
         }
 
-        private Image Base64StringToImage(string base64ImageString)
+        private void ShowImage(Image fImage)
         {
-            byte[] imageBytes = Convert.FromBase64String(base64ImageString.ToString());
-            MemoryStream imageStream = new MemoryStream(imageBytes);
-            Bitmap image = new Bitmap(Image.FromStream(imageStream));
-
-            return image;
-        }
-
-        private void GetImage(string imageUri)
-        {
-            MemoryStream xbmcImageStream = XBMC.GetFileFromXbmc(imageUri);
-            
-            if(xbmcImageStream == null)
-                pbFullSizeImage.Image = Properties.Resources.XBMClogo;
-            else
-            {
-                StreamReader reader = new StreamReader(xbmcImageStream);
-                string imageBase64String = reader.ReadToEnd().Replace("<html>\n", "").Replace("\n</html>", "");
-                pbFullSizeImage.Image = Base64StringToImage(imageBase64String);
-            }
+            pbFullSizeImage.Image = (fImage == null)? Properties.Resources.XBMClogo : fImage;
         }
 
         private void pbFullSizeImage_Click(object sender, EventArgs e)

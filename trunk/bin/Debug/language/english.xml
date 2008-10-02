@@ -5,7 +5,7 @@
 		</connection>
 		<label>
 			<artist>artist</artist>
-			<title>titel</title>
+			<title>title</title>
 			<duration>time</duration>
 			<album>album</album>
 		</label>
@@ -22,12 +22,13 @@
 			<ip>ip address</ip>
 			<username>username</username>
 			<password>password</password>
-			<showInTray>SHow in systemtray</showInTray>
+			<showInTray>Show in systemtray</showInTray>
 			<showInTaskbar>Show in taskbar</showInTaskbar>
 			<showNowPlayingBalloonTip>Show 'Now playing' balloon tips</showNowPlayingBalloonTip>
 			<showPlayStatusBalloonTip>Show play staus balloon tips</showPlayStatusBalloonTip>
 			<showConnectionStatusBalloonTip>Show connection status balloon tips</showConnectionStatusBalloonTip>
 			<runAtStartup>Run at windows startup</runAtStartup>
+			<connectionTimeout>Connetion timeout</connectionTimeout>
 		</label>
 		<language>
 			<noLanguages>No language files found</noLanguages>
@@ -50,10 +51,12 @@
 		</controls>
 		<xbmc>
 			<title>XBMC</title>
+			<showScreenshot>Show screenshot</showScreenshot>
 			<reboot>Reboot Computer</reboot>
 			<restart>Restart XBMC</restart>
 			<shutdown>Shutdown</shutdown>
 		</xbmc>
+		<saveMedia>Save media</saveMedia>
 		<show>Show</show>
 		<hide>Hide</hide>
 		<configure>Configure</configure>
