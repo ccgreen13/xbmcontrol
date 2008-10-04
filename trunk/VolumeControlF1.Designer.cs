@@ -34,17 +34,20 @@
             // 
             // tbVolumeSysTray
             // 
-            this.tbVolumeSysTray.Location = new System.Drawing.Point(2, 2);
+            this.tbVolumeSysTray.AutoSize = false;
+            this.tbVolumeSysTray.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(248)))), ((int)(((byte)(245)))), ((int)(((byte)(242)))));
+            this.tbVolumeSysTray.Location = new System.Drawing.Point(3, 2);
             this.tbVolumeSysTray.Maximum = 100;
             this.tbVolumeSysTray.Name = "tbVolumeSysTray";
             this.tbVolumeSysTray.Orientation = System.Windows.Forms.Orientation.Vertical;
-            this.tbVolumeSysTray.Size = new System.Drawing.Size(42, 134);
+            this.tbVolumeSysTray.Size = new System.Drawing.Size(23, 134);
             this.tbVolumeSysTray.TabIndex = 2;
-            this.tbVolumeSysTray.TickStyle = System.Windows.Forms.TickStyle.Both;
+            this.tbVolumeSysTray.TickStyle = System.Windows.Forms.TickStyle.None;
             this.tbVolumeSysTray.MouseLeave += new System.EventHandler(this.tbVolumeSysTray_MouseLeave);
             this.tbVolumeSysTray.ValueChanged += new System.EventHandler(this.trackBar1_ValueChanged);
             this.tbVolumeSysTray.LostFocus += new System.EventHandler(this.tbVolumeSysTray_LostFocus);
             this.tbVolumeSysTray.MouseHover += new System.EventHandler(this.tbVolumeSysTray_MouseHover);
+            this.tbVolumeSysTray.MouseEnter += new System.EventHandler(this.tbVolumeSysTray_MouseEnter);
             // 
             // VolumeControlF1
             // 
@@ -52,9 +55,13 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.AutoSize = true;
-            this.ClientSize = new System.Drawing.Size(47, 139);
+            this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.AutoValidate = System.Windows.Forms.AutoValidate.EnablePreventFocusChange;
+            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(248)))), ((int)(((byte)(245)))), ((int)(((byte)(242)))));
+            this.ClientSize = new System.Drawing.Size(28, 139);
             this.ControlBox = false;
             this.Controls.Add(this.tbVolumeSysTray);
+            this.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(95)))), ((int)(((byte)(95)))), ((int)(((byte)(95)))));
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
             this.MaximizeBox = false;
             this.MinimizeBox = false;
@@ -68,7 +75,6 @@
             this.MouseHover += new System.EventHandler(this.VolumeControlF1_MouseHover);
             ((System.ComponentModel.ISupportInitialize)(this.tbVolumeSysTray)).EndInit();
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 

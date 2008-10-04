@@ -74,6 +74,83 @@ namespace XBMControl.Properties {
             }
         }
         
+        internal static System.Drawing.Bitmap background_controls {
+            get {
+                object obj = ResourceManager.GetObject("background_controls", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap background_controls1 {
+            get {
+                object obj = ResourceManager.GetObject("background_controls1", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap background_controls2 {
+            get {
+                object obj = ResourceManager.GetObject("background_controls2", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap background_details {
+            get {
+                object obj = ResourceManager.GetObject("background_details", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap background_details1 {
+            get {
+                object obj = ResourceManager.GetObject("background_details1", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap background_details2 {
+            get {
+                object obj = ResourceManager.GetObject("background_details2", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap background_details3 {
+            get {
+                object obj = ResourceManager.GetObject("background_details3", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap close {
+            get {
+                object obj = ResourceManager.GetObject("close", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap close_hover {
+            get {
+                object obj = ResourceManager.GetObject("close_hover", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap close1 {
+            get {
+                object obj = ResourceManager.GetObject("close1", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap close1_hover {
+            get {
+                object obj = ResourceManager.GetObject("close1_hover", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
         internal static System.Drawing.Bitmap configure_16x16 {
             get {
                 object obj = ResourceManager.GetObject("configure-16x16", resourceCulture);
@@ -109,6 +186,13 @@ namespace XBMControl.Properties {
             }
         }
         
+        internal static System.Drawing.Bitmap last_fm_16x16 {
+            get {
+                object obj = ResourceManager.GetObject("last.fm_16x16", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
         internal static System.Drawing.Bitmap lastfm {
             get {
                 object obj = ResourceManager.GetObject("lastfm", resourceCulture);
@@ -119,6 +203,55 @@ namespace XBMControl.Properties {
         internal static System.Drawing.Bitmap lastfm1 {
             get {
                 object obj = ResourceManager.GetObject("lastfm1", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap lastfm2 {
+            get {
+                object obj = ResourceManager.GetObject("lastfm2", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap MainFormBackground {
+            get {
+                object obj = ResourceManager.GetObject("MainFormBackground", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap MainFormBackground1 {
+            get {
+                object obj = ResourceManager.GetObject("MainFormBackground1", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap minimize {
+            get {
+                object obj = ResourceManager.GetObject("minimize", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap minimize_hover {
+            get {
+                object obj = ResourceManager.GetObject("minimize_hover", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap minimize1 {
+            get {
+                object obj = ResourceManager.GetObject("minimize1", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap minimize1_hover {
+            get {
+                object obj = ResourceManager.GetObject("minimize1_hover", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -144,6 +277,13 @@ namespace XBMControl.Properties {
             }
         }
         
+        internal static System.Drawing.Bitmap next {
+            get {
+                object obj = ResourceManager.GetObject("next", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
         internal static System.Drawing.Bitmap next_16x16 {
             get {
                 object obj = ResourceManager.GetObject("next-16x16", resourceCulture);
@@ -151,9 +291,23 @@ namespace XBMControl.Properties {
             }
         }
         
-        internal static System.Drawing.Bitmap next2_32x32 {
+        internal static System.Drawing.Bitmap openContextMenuArrow {
             get {
-                object obj = ResourceManager.GetObject("next2-32x32", resourceCulture);
+                object obj = ResourceManager.GetObject("openContextMenuArrow", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap openContextMenuArrow1 {
+            get {
+                object obj = ResourceManager.GetObject("openContextMenuArrow1", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap pause {
+            get {
+                object obj = ResourceManager.GetObject("pause", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -165,16 +319,16 @@ namespace XBMControl.Properties {
             }
         }
         
-        internal static System.Drawing.Bitmap pause2_32x32 {
+        internal static System.Drawing.Bitmap pictures_32x32 {
             get {
-                object obj = ResourceManager.GetObject("pause2-32x32", resourceCulture);
+                object obj = ResourceManager.GetObject("pictures-32x32", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
         
-        internal static System.Drawing.Bitmap pictures_32x32 {
+        internal static System.Drawing.Bitmap play {
             get {
-                object obj = ResourceManager.GetObject("pictures-32x32", resourceCulture);
+                object obj = ResourceManager.GetObject("play", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -186,9 +340,9 @@ namespace XBMControl.Properties {
             }
         }
         
-        internal static System.Drawing.Bitmap play2_32x32 {
+        internal static System.Drawing.Bitmap previous {
             get {
-                object obj = ResourceManager.GetObject("play2-32x32", resourceCulture);
+                object obj = ResourceManager.GetObject("previous", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -196,13 +350,6 @@ namespace XBMControl.Properties {
         internal static System.Drawing.Bitmap previous_16x16 {
             get {
                 object obj = ResourceManager.GetObject("previous-16x16", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        internal static System.Drawing.Bitmap previous_32x32 {
-            get {
-                object obj = ResourceManager.GetObject("previous-32x32", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -242,6 +389,13 @@ namespace XBMControl.Properties {
             }
         }
         
+        internal static System.Drawing.Bitmap stop {
+            get {
+                object obj = ResourceManager.GetObject("stop", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
         internal static System.Drawing.Bitmap stop_16x16 {
             get {
                 object obj = ResourceManager.GetObject("stop-16x16", resourceCulture);
@@ -249,9 +403,16 @@ namespace XBMControl.Properties {
             }
         }
         
-        internal static System.Drawing.Bitmap stop2_32x32 {
+        internal static System.Drawing.Bitmap toolbar {
             get {
-                object obj = ResourceManager.GetObject("stop2-32x32", resourceCulture);
+                object obj = ResourceManager.GetObject("toolbar", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap toolbar1 {
+            get {
+                object obj = ResourceManager.GetObject("toolbar1", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -263,9 +424,23 @@ namespace XBMControl.Properties {
             }
         }
         
+        internal static System.Drawing.Bitmap XBMC {
+            get {
+                object obj = ResourceManager.GetObject("XBMC", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
         internal static System.Drawing.Bitmap XBMClogo {
             get {
                 object obj = ResourceManager.GetObject("XBMClogo", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap XBMClogo_90x90 {
+            get {
+                object obj = ResourceManager.GetObject("XBMClogo 90x90", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

@@ -44,11 +44,11 @@
             this.cbShowConnectionStatusBalloonTip = new System.Windows.Forms.CheckBox();
             this.lLanguageTitle = new System.Windows.Forms.Label();
             this.cbLanguage = new System.Windows.Forms.ComboBox();
-            this.pbXBMCLogo = new System.Windows.Forms.PictureBox();
             this.cbRunAtStartup = new System.Windows.Forms.CheckBox();
             this.cbConnectionTimeout = new System.Windows.Forms.ComboBox();
             this.lConnectionTimeout = new System.Windows.Forms.Label();
             this.lMs = new System.Windows.Forms.Label();
+            this.pbXBMCLogo = new System.Windows.Forms.PictureBox();
             ((System.ComponentModel.ISupportInitialize)(this.pbXBMCLogo)).BeginInit();
             this.SuspendLayout();
             // 
@@ -206,16 +206,6 @@
             this.cbLanguage.TabIndex = 19;
             this.cbLanguage.TextChanged += new System.EventHandler(this.cbLanguage_TextChanged);
             // 
-            // pbXBMCLogo
-            // 
-            this.pbXBMCLogo.Image = global::XBMControl.Properties.Resources.XBMClogo;
-            this.pbXBMCLogo.Location = new System.Drawing.Point(11, 12);
-            this.pbXBMCLogo.Name = "pbXBMCLogo";
-            this.pbXBMCLogo.Size = new System.Drawing.Size(124, 72);
-            this.pbXBMCLogo.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
-            this.pbXBMCLogo.TabIndex = 20;
-            this.pbXBMCLogo.TabStop = false;
-            // 
             // cbRunAtStartup
             // 
             this.cbRunAtStartup.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
@@ -274,6 +264,16 @@
             this.lMs.TabIndex = 24;
             this.lMs.Text = "ms";
             // 
+            // pbXBMCLogo
+            // 
+            this.pbXBMCLogo.Image = global::XBMControl.Properties.Resources.XBMClogo;
+            this.pbXBMCLogo.Location = new System.Drawing.Point(11, 12);
+            this.pbXBMCLogo.Name = "pbXBMCLogo";
+            this.pbXBMCLogo.Size = new System.Drawing.Size(124, 72);
+            this.pbXBMCLogo.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
+            this.pbXBMCLogo.TabIndex = 20;
+            this.pbXBMCLogo.TabStop = false;
+            // 
             // ConfigurationF1
             // 
             this.AcceptButton = this.bConfirm;
@@ -281,6 +281,7 @@
             this.AccessibleRole = System.Windows.Forms.AccessibleRole.PropertyPage;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(248)))), ((int)(((byte)(245)))), ((int)(((byte)(242)))));
             this.CancelButton = this.bCancel;
             this.ClientSize = new System.Drawing.Size(389, 318);
             this.Controls.Add(this.lMs);
@@ -303,7 +304,7 @@
             this.Controls.Add(this.tbIp);
             this.Controls.Add(this.bConfirm);
             this.Controls.Add(this.bCancel);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
             this.MinimizeBox = false;

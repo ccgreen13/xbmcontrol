@@ -2,7 +2,7 @@
 
 ; HM NIS Edit Wizard helper defines
 !define PRODUCT_NAME "XBMControl"
-!define PRODUCT_VERSION "0.2.8"
+!define PRODUCT_VERSION "0.3.0"
 !define PRODUCT_PUBLISHER "Bram van Oploo"
 !define PRODUCT_WEB_SITE "http://code.google.com/p/xbmcontrol/"
 !define PRODUCT_DIR_REGKEY "Software\Microsoft\Windows\CurrentVersion\App Paths\XBMControl.exe"

@@ -6,7 +6,6 @@
 		<label>
 			<artist>artiste</artist>
 			<title>titre</title>
-			<duration>durée</duration>
 			<album>album</album>
 		</label>
 		<playing>
