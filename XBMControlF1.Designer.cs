@@ -75,6 +75,7 @@
             this.lBitrateTitle = new System.Windows.Forms.Label();
             this.lTimePlayed = new System.Windows.Forms.Label();
             this.pControls = new System.Windows.Forms.Panel();
+            this.tbVolume = new System.Windows.Forms.TrackBar();
             this.bMute = new System.Windows.Forms.Button();
             this.bOpen = new System.Windows.Forms.Button();
             this.tbProgress = new System.Windows.Forms.TrackBar();
@@ -89,7 +90,6 @@
             this.pictureBox2 = new System.Windows.Forms.PictureBox();
             this.pbMinimize = new System.Windows.Forms.PictureBox();
             this.pbClose = new System.Windows.Forms.PictureBox();
-            this.tbVolume = new System.Windows.Forms.TrackBar();
             this.MainContextMenu.SuspendLayout();
             this.pDetails.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbLastFM)).BeginInit();
@@ -97,13 +97,13 @@
             this.pNowPlayingInfo.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbMediaType)).BeginInit();
             this.pControls.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.tbVolume)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.tbProgress)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.pToolbar.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbMinimize)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbClose)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.tbVolume)).BeginInit();
             this.SuspendLayout();
             // 
             // updateTimer
@@ -554,6 +554,21 @@
             this.pControls.Size = new System.Drawing.Size(264, 50);
             this.pControls.TabIndex = 16;
             // 
+            // tbVolume
+            // 
+            this.tbVolume.AutoSize = false;
+            this.tbVolume.LargeChange = 2;
+            this.tbVolume.Location = new System.Drawing.Point(172, 2);
+            this.tbVolume.Maximum = 100;
+            this.tbVolume.MaximumSize = new System.Drawing.Size(200, 21);
+            this.tbVolume.MinimumSize = new System.Drawing.Size(1, 1);
+            this.tbVolume.Name = "tbVolume";
+            this.tbVolume.Size = new System.Drawing.Size(65, 18);
+            this.tbVolume.TabIndex = 22;
+            this.tbVolume.TickStyle = System.Windows.Forms.TickStyle.None;
+            this.tbVolume.ValueChanged += new System.EventHandler(this.tbVolume_ValueChanged);
+            this.tbVolume.MouseHover += new System.EventHandler(this.tbVolume_MouseHover);
+            // 
             // bMute
             // 
             this.bMute.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
@@ -615,6 +630,8 @@
             this.tbProgress.TabIndex = 19;
             this.tbProgress.TickStyle = System.Windows.Forms.TickStyle.None;
             this.tbProgress.Value = 1;
+            this.tbProgress.MouseDown += new System.Windows.Forms.MouseEventHandler(this.tbProgress_MouseDown);
+            this.tbProgress.MouseUp += new System.Windows.Forms.MouseEventHandler(this.tbProgress_MouseUp);
             // 
             // pictureBox1
             // 
@@ -819,19 +836,6 @@
             this.pbClose.MouseUp += new System.Windows.Forms.MouseEventHandler(this.pbClose_MouseUp);
             this.pbClose.MouseEnter += new System.EventHandler(this.pbClose_MouseEnter);
             // 
-            // tbVolume
-            // 
-            this.tbVolume.AutoSize = false;
-            this.tbVolume.LargeChange = 2;
-            this.tbVolume.Location = new System.Drawing.Point(172, 2);
-            this.tbVolume.Maximum = 100;
-            this.tbVolume.MaximumSize = new System.Drawing.Size(200, 21);
-            this.tbVolume.MinimumSize = new System.Drawing.Size(1, 1);
-            this.tbVolume.Name = "tbVolume";
-            this.tbVolume.Size = new System.Drawing.Size(65, 18);
-            this.tbVolume.TabIndex = 22;
-            this.tbVolume.TickStyle = System.Windows.Forms.TickStyle.None;
-            // 
             // MainForm
             // 
             this.AccessibleName = "MainForm";
@@ -866,13 +870,13 @@
             this.pNowPlayingInfo.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbMediaType)).EndInit();
             this.pControls.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.tbVolume)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.tbProgress)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.pToolbar.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbMinimize)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbClose)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.tbVolume)).EndInit();
             this.ResumeLayout(false);
 
         }
