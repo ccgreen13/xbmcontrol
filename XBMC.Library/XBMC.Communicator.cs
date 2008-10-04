@@ -67,7 +67,18 @@ namespace XBMC.Communicator
 
         public bool IsPlaying()
         {
-            return (this.GetNowPlayingInfo("filename", true) == "[Nothing Playing]") ? false : true;
+            return (this.GetNowPlayingInfo("playstatus", true) == "Playing") ? true : false;
+        }
+
+        public bool IsPaused()
+        {
+            return (this.GetNowPlayingInfo("playstatus", true) == "Paused") ? true : false;
+        }
+
+        public bool IsMuted()
+        {
+            string[] aGetVolume = this.Request("GetVolume");
+            return (aGetVolume[1] == "0") ? true : false;
         }
 
         public string[] Request(string command, string parameter)

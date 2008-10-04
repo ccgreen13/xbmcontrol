@@ -37,7 +37,7 @@ namespace XBMControl
 
         private void tbVolumeSysTray_LostFocus(object sender, EventArgs e)
         {
-            if (hadFocus) this.Close();   
+            if (hadFocus) this.Dispose();   
         }
 
         private void VolumeControlF1_MouseLeave(object sender, EventArgs e)
@@ -52,11 +52,19 @@ namespace XBMControl
 
         private void tbVolumeSysTray_MouseHover(object sender, EventArgs e)
         {
+            tbVolumeSysTray.Focus();
             this.hadFocus = true;
         }
 
         private void VolumeControlF1_MouseHover(object sender, EventArgs e)
         {
+            tbVolumeSysTray.Focus();
+            this.hadFocus = true;
+        }
+
+        private void tbVolumeSysTray_MouseEnter(object sender, EventArgs e)
+        {
+            tbVolumeSysTray.Focus();
             this.hadFocus = true;
         }
 

@@ -45,12 +45,16 @@ namespace XBMControl
         private const int updateIntervalLong    = 5000; 
         private string[,] maNowPlayingInfo      = new string[50, 2];
         private string mediaCurrentlyPlaying    = null;
-        private bool pausedMessageShowed        = false;
+        private bool playStatusMessageShowed    = false;
         private bool configFormOpened           = false;
         private bool fullSizeImageOpened        = false;
         private bool volumeControlOpened        = false;
         private bool connected                  = false;
         private bool showedConnectionStatus     = false;
+        private bool resetToDefault             = false;
+        private bool isDragging                 = false;
+        private int clickOffsetX, clickOffsetY;
+        private int originalWindowHeight;
 
         public MainForm()
         {
@@ -59,6 +63,8 @@ namespace XBMControl
             InitializeComponent();
             ApplyApplicationSettings();
             Initialize();
+            originalWindowHeight = this.Height;
+            ToggleShowDetails();
         }
 
         private void Initialize()
@@ -83,6 +89,11 @@ namespace XBMControl
                 updateTimer.Interval = updateIntervalLong;
                 ShowConnectionStatus();
             }
+
+            //Set control button states
+            if (XBMC.IsPlaying()) bPlay.ImageIndex = 5;
+            if (XBMC.IsPaused()) bPause.ImageIndex = 8;
+            if (XBMC.IsMuted()) bMute.ImageIndex = 20;
         }
 
         private void ApplyApplicationSettings()
@@ -97,9 +108,9 @@ namespace XBMControl
         {
             //MainForm
             this.Text           = Language.GetString("global/appName") + " v" + Properties.Settings.Default.Version;
+            lMainTitle.Text     = Language.GetString("global/appName") + " v" + Properties.Settings.Default.Version;
             lArtistTitle.Text   = Language.GetString("mainform/label/artist");
             lTitleTitle.Text    = Language.GetString("mainform/label/title");
-            lDurationTitle.Text = Language.GetString("mainform/label/duration");
             lAlbumTitle.Text    = Language.GetString("mainform/label/album");
 
             //Context Menu
@@ -127,7 +138,7 @@ namespace XBMControl
             if (XBMC.IsConnected())
             {
                 if (this.Enabled == false && !configFormOpened && !fullSizeImageOpened) this.Enabled = true;
-                bool resetToDefault = (XBMC.IsPlaying()) ? false : true;
+                resetToDefault = (XBMC.IsPlaying() && !XBMC.IsPaused()) ? false : true;
                 updateTimer.Interval = updateIntervalShort;
 
                 if (IsNewMediaPlaying() || !connected)
@@ -150,6 +161,10 @@ namespace XBMControl
                 this.Enabled             = false;
                 ShowConnectionStatus();
             }
+
+            //Set control button states
+            bPause.ImageIndex = (XBMC.IsPaused())? 8 : 6 ;
+            bPlay.ImageIndex = (XBMC.IsPlaying())? 5 : 3;
         }
 
         private void GetProgressPosition()
@@ -198,7 +213,6 @@ namespace XBMControl
                 lSamplerate.Text = "";
                 lArtist.Text = "";
                 lTitle.Text = "";
-                lDuration.Text = "";
                 lAlbum.Text = "";
             }
             else
@@ -206,13 +220,12 @@ namespace XBMControl
                 Image coverArt = XBMC.GetNowPlayingCoverArt();
                 pbThumbnail.Image = (coverArt == null) ? Properties.Resources.XBMClogo : coverArt;
 
-                string year = (XBMC.GetNowPlayingInfo("year") == null) ? "" : " (" + XBMC.GetNowPlayingInfo("year") + ")";
+                string year = (XBMC.GetNowPlayingInfo("year") == null) ? "" : " [" + XBMC.GetNowPlayingInfo("year") + "]";
                 lBitrate.Text = XBMC.GetNowPlayingInfo("bitrate");
                 lSamplerate.Text = XBMC.GetNowPlayingInfo("samplerate");
                 lArtistSong.Text = XBMC.GetNowPlayingInfo("artist") + " - " + XBMC.GetNowPlayingInfo("title");
                 lArtist.Text = XBMC.GetNowPlayingInfo("artist");
-                lTitle.Text = XBMC.GetNowPlayingInfo("title");
-                lDuration.Text = XBMC.GetNowPlayingInfo("duration");
+                lTitle.Text = XBMC.GetNowPlayingInfo("title") + " [" + XBMC.GetNowPlayingInfo("duration") + "]";
                 lAlbum.Text = XBMC.GetNowPlayingInfo("album") + year;
             }
 
@@ -233,10 +246,7 @@ namespace XBMControl
         private void ShowNowPlayingBalloonTip(bool resetToDefault)
         {
             if (resetToDefault)
-            {
-                notifyIcon1.BalloonTipIcon = ToolTipIcon.Info;
-                notifyIcon1.ShowBalloonTip(2000, Language.GetString("global/appName"), Language.GetString("mainform/playing/nothing"), ToolTipIcon.Info);
-            }
+                ShowPlayStausBalloonTip();
             else
             {
                 string artist = XBMC.GetNowPlayingInfo("artist") + "\n";
@@ -251,18 +261,24 @@ namespace XBMControl
 
         private void ShowPlayStausBalloonTip()
         {
-            if (XBMC.GetNowPlayingInfo("playstatus") == "Paused" && !pausedMessageShowed)
+            notifyIcon1.BalloonTipIcon = ToolTipIcon.Info;
+            if (!XBMC.IsPlaying() && !playStatusMessageShowed)
+            {
+                notifyIcon1.ShowBalloonTip(2000, Language.GetString("global/appName"), Language.GetString("mainform/playing/nothing"), ToolTipIcon.Info);
+                playStatusMessageShowed = true;
+            }
+            else if (XBMC.GetNowPlayingInfo("playstatus") == "Paused" && !playStatusMessageShowed)
             {
                 notifyIcon1.ShowBalloonTip(2000, Language.GetString("global/appName"), Language.GetString("mainform/playing/paused"), ToolTipIcon.Info);
-                pausedMessageShowed = true;
+                playStatusMessageShowed = true;
             }
-            else if (XBMC.GetNowPlayingInfo("playstatus") == "Playing")
-                pausedMessageShowed = false;
+            else if (XBMC.IsPlaying())
+                playStatusMessageShowed = false;
         }
 
         private void ShowConnectionStatus() 
         {
-            if (!connected && !showedConnectionStatus)
+            if (!XBMC.IsConnected() && !showedConnectionStatus)
             {
                 if (Properties.Settings.Default.ShowConnectionStatusBalloonTip)
                 {
@@ -347,6 +363,24 @@ namespace XBMControl
             }
         }
 
+        private void ToggleShowDetails()
+        {
+            if (this.Height == originalWindowHeight)
+            {
+                this.Height = (this.Height - pDetails.Height);
+                pDetails.Height = 0;
+            }
+            else
+            {
+                pDetails.Height = (originalWindowHeight - this.Height);
+                this.Height = originalWindowHeight;
+            }
+        }
+
+        private void ToggelHoverImage(Button target)
+        {
+            target.ImageIndex = ((target.ImageIndex % 2) == 0) ? target.ImageIndex-- : target.ImageIndex++;  
+        }
 
 //------------------START EVENTS-------------------------
 
@@ -384,22 +418,6 @@ namespace XBMControl
         private void bStop_Click(object sender, EventArgs e)
         {
             XBMC.Request("Stop");
-        }
-
-        private void bPause_Click(object sender, EventArgs e)
-        {
-            XBMC.Request("Pause");
-        }
-
-        private void bMute_Click(object sender, EventArgs e)
-        {
-            XBMC.Request("Mute");
-        }
-
-        private void bPlay_Click(object sender, EventArgs e)
-        {
-            if (XBMC.GetNowPlayingInfo("playstatus") == "Paused")
-                XBMC.Request("Pause");
         }
 
         private void tbVolume_MouseHover(object sender, EventArgs e)
@@ -559,7 +577,12 @@ namespace XBMControl
         {
             if (e.Button == MouseButtons.Left && e.Clicks == 1)
             {
-                ShowNowPlayingBalloonTip(false);
+                if (!XBMC.IsConnected())
+                    ShowConnectionStatus();
+                else if (!XBMC.IsPlaying())
+                    ShowPlayStausBalloonTip();
+                else
+                    ShowNowPlayingBalloonTip(false);
             }
             else if (e.Button == MouseButtons.Left && e.Clicks == 2)
             {
@@ -576,5 +599,242 @@ namespace XBMControl
             if (e.Button == MouseButtons.Middle && volumeControlOpened)
                 sysTrayVolumeControl.Focus();
         }
+
+        private void lArtistSong_Click(object sender, EventArgs e)
+        {
+            if (XBMC.IsPlaying() || XBMC.IsPaused())  ToggleShowDetails();   
+        }
+
+        private void lArtistSong_MouseEnter(object sender, EventArgs e)
+        {
+            if(XBMC.IsPlaying() || XBMC.IsPaused()) this.Cursor = Cursors.Hand;
+        }
+
+        private void lArtistSong_MouseLeave(object sender, EventArgs e)
+        {
+            if (XBMC.IsPlaying() || XBMC.IsPaused()) this.Cursor = Cursors.Default;
+        }
+
+
+//START PREVIOUS BUTTON
+        private void bPrevious_MouseEnter(object sender, EventArgs e)
+        {
+            bPrevious.ImageIndex = 1;
+            //ToggelHoverImage(bPrevious);
+        }
+
+        private void bPrevious_MouseLeave(object sender, EventArgs e)
+        {
+            bPrevious.ImageIndex = 0;
+        }
+
+        private void bPrevious_MouseDown(object sender, MouseEventArgs e)
+        {
+            bPrevious.ImageIndex = 2;
+        }
+
+        private void bPrevious_MouseUp(object sender, MouseEventArgs e)
+        {
+            bPrevious.ImageIndex = 1;
+        }
+//END PREVIOUS BUTTON
+
+//START PLAY BUTTON
+        private void bPlay_MouseEnter(object sender, EventArgs e)
+        {
+            if (!XBMC.IsPlaying()) bPlay.ImageIndex = 4;
+        }
+
+        private void bPlay_MouseLeave(object sender, EventArgs e)
+        {
+            if (!XBMC.IsPlaying()) bPlay.ImageIndex = 3;
+        }
+
+        private void bPlay_MouseDown(object sender, MouseEventArgs e)
+        {
+            bPlay.ImageIndex = 5;
+            if (XBMC.IsPaused()) XBMC.Request("Pause");
+        }
+
+        private void bPlay_MouseUp(object sender, MouseEventArgs e)
+        {
+            if (!XBMC.IsPlaying()) bPlay.ImageIndex = 4;
+            bPause.ImageIndex = (XBMC.IsPaused()) ? 8 : 6;
+            bPlay.ImageIndex = (XBMC.IsPlaying()) ? 5 : 3;
+        }
+//END PLAY BUTTON
+
+//START PAUSE BUTTON
+        private void bPause_MouseEnter(object sender, EventArgs e)
+        {
+            if (!XBMC.IsPaused()) bPause.ImageIndex = 7;
+        }
+
+        private void bPause_MouseLeave(object sender, EventArgs e)
+        {
+            if (!XBMC.IsPaused()) bPause.ImageIndex = 6;
+        }
+
+        private void bPause_MouseDown(object sender, MouseEventArgs e)
+        {
+            bPause.ImageIndex = 8;
+            XBMC.Request("Pause");
+        }
+
+        private void bPause_MouseUp(object sender, MouseEventArgs e)
+        {
+            if (!XBMC.IsPaused()) bPause.ImageIndex = 7;
+            bPause.ImageIndex = (XBMC.IsPaused()) ? 8 : 6;
+            bPlay.ImageIndex = (XBMC.IsPlaying()) ? 5 : 3;
+        }
+//END PAUSE BUTTON
+
+//START STOP BUTTON
+        private void bStop_MouseEnter(object sender, EventArgs e)
+        {
+            bStop.ImageIndex = 10;
+        }
+
+        private void bStop_MouseLeave(object sender, EventArgs e)
+        {
+            bStop.ImageIndex = 9;
+        }
+
+        private void bStop_MouseDown(object sender, MouseEventArgs e)
+        {
+            bStop.ImageIndex = 11;
+        }
+
+        private void bStop_MouseUp(object sender, MouseEventArgs e)
+        {
+            bStop.ImageIndex = 10;
+        }
+//END STOP BUTTON
+
+//START NEXT BUTTON
+        private void bNext_MouseEnter(object sender, EventArgs e)
+        {
+            bNext.ImageIndex = 13;
+        }
+
+        private void bNext_MouseLeave(object sender, EventArgs e)
+        {
+            bNext.ImageIndex = 12;
+        }
+
+        private void bNext_MouseDown(object sender, MouseEventArgs e)
+        {
+            bNext.ImageIndex = 14;
+        }
+
+        private void bNext_MouseUp(object sender, MouseEventArgs e)
+        {
+            bNext.ImageIndex = 13;
+        }
+
+//END NEXT BUTTON
+
+//START OPEN BUTTON
+        private void bOpen_MouseEnter(object sender, EventArgs e)
+        {
+            bOpen.ImageIndex = 16;
+        }
+
+        private void bOpen_MouseLeave(object sender, EventArgs e)
+        {
+            bOpen.ImageIndex = 15;
+        }
+
+        private void bOpen_MouseDown(object sender, MouseEventArgs e)
+        {
+
+        }
+
+        private void bOpen_MouseUp(object sender, MouseEventArgs e)
+        {
+
+        }
+
+//END OPEN BUTTON
+
+//START MUTE BUTTON
+        private void bMute_MouseEnter(object sender, EventArgs e)
+        {
+            if (!XBMC.IsMuted()) bMute.ImageIndex = 19;
+        }
+
+        private void bMute_MouseLeave(object sender, EventArgs e)
+        {
+            if (!XBMC.IsMuted()) bMute.ImageIndex = 18;
+        }
+
+        private void bMute_MouseDown(object sender, MouseEventArgs e)
+        {
+            bMute.ImageIndex = 20;
+            XBMC.Request("Mute");
+        }
+
+        private void bMute_MouseUp(object sender, MouseEventArgs e)
+        {
+            if (!XBMC.IsMuted()) bMute.ImageIndex = 18;
+        }
+//END MUTE BUTTON
+
+//START MINIMIZE BUTTON
+        private void pbMinimize_MouseEnter(object sender, EventArgs e)
+        {
+            pbMinimize.BackgroundImage = Resources.minimize1_hover;
+        }
+
+        private void pbMinimize_MouseLeave(object sender, EventArgs e)
+        {
+            pbMinimize.BackgroundImage = Resources.minimize1;
+        }
+
+        private void pbMinimize_MouseUp(object sender, MouseEventArgs e)
+        {
+            this.WindowState = FormWindowState.Minimized;
+        }
+//END MINIMIZE BUTTON
+
+//START CLOSE BUTTON
+        private void pbClose_MouseEnter(object sender, EventArgs e)
+        {
+            pbClose.BackgroundImage = Resources.close1_hover;
+        }
+
+        private void pbClose_MouseLeave(object sender, EventArgs e)
+        {
+            pbClose.BackgroundImage = Resources.close1;
+        }
+
+        private void pbClose_MouseUp(object sender, MouseEventArgs e)
+        {
+            this.Dispose();
+        }
+//END CLOSE BUTTON
+
+//START FAKE DRAG DROP
+        private void pToolbar_MouseDown(object sender, MouseEventArgs e)
+        {
+            isDragging = true;
+            clickOffsetX = e.X;
+            clickOffsetY = e.Y;
+        }
+
+        private void pToolbar_MouseUp(object sender, MouseEventArgs e)
+        {
+            isDragging = false;
+        }
+
+        private void pToolbar_MouseMove(object sender, MouseEventArgs e)
+        {
+            if (isDragging == true)
+            {
+                this.Left = e.X + this.Left - clickOffsetX;
+                this.Top = e.Y + this.Top - clickOffsetY;
+            }
+        }
+//END FAKE DRAG DROP
     }
 }
