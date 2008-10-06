@@ -123,6 +123,174 @@ namespace XBMControl.Properties {
             }
         }
         
+        internal static System.Drawing.Bitmap background_pTime {
+            get {
+                object obj = ResourceManager.GetObject("background_pTime", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap background_pTime1 {
+            get {
+                object obj = ResourceManager.GetObject("background_pTime1", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap button_mute {
+            get {
+                object obj = ResourceManager.GetObject("button_mute", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap button_mute_click {
+            get {
+                object obj = ResourceManager.GetObject("button_mute_click", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap button_mute_hover {
+            get {
+                object obj = ResourceManager.GetObject("button_mute_hover", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap button_next {
+            get {
+                object obj = ResourceManager.GetObject("button_next", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap button_next_click {
+            get {
+                object obj = ResourceManager.GetObject("button_next_click", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap button_next_hover {
+            get {
+                object obj = ResourceManager.GetObject("button_next_hover", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap button_open {
+            get {
+                object obj = ResourceManager.GetObject("button_open", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap button_open_click {
+            get {
+                object obj = ResourceManager.GetObject("button_open_click", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap button_open_hover {
+            get {
+                object obj = ResourceManager.GetObject("button_open_hover", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap button_pause {
+            get {
+                object obj = ResourceManager.GetObject("button_pause", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap button_pause_click {
+            get {
+                object obj = ResourceManager.GetObject("button_pause_click", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap button_pause_hover {
+            get {
+                object obj = ResourceManager.GetObject("button_pause_hover", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap button_pause_hover1 {
+            get {
+                object obj = ResourceManager.GetObject("button_pause_hover1", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap button_play {
+            get {
+                object obj = ResourceManager.GetObject("button_play", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap button_play_click {
+            get {
+                object obj = ResourceManager.GetObject("button_play_click", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap button_play_hover {
+            get {
+                object obj = ResourceManager.GetObject("button_play_hover", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap button_previous {
+            get {
+                object obj = ResourceManager.GetObject("button_previous", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap button_previous_click {
+            get {
+                object obj = ResourceManager.GetObject("button_previous_click", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap button_previous_hover {
+            get {
+                object obj = ResourceManager.GetObject("button_previous_hover", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap button_stop {
+            get {
+                object obj = ResourceManager.GetObject("button_stop", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap button_stop_click {
+            get {
+                object obj = ResourceManager.GetObject("button_stop_click", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap button_stop_hover {
+            get {
+                object obj = ResourceManager.GetObject("button_stop_hover", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
         internal static System.Drawing.Bitmap close {
             get {
                 object obj = ResourceManager.GetObject("close", resourceCulture);
@@ -224,6 +392,13 @@ namespace XBMControl.Properties {
         internal static System.Drawing.Bitmap MainFormBackground1 {
             get {
                 object obj = ResourceManager.GetObject("MainFormBackground1", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap MainFormBackground2 {
+            get {
+                object obj = ResourceManager.GetObject("MainFormBackground2", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
