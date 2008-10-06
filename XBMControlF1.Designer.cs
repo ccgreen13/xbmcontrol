@@ -32,7 +32,6 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.updateTimer = new System.Windows.Forms.Timer(this.components);
             this.ilMediaType = new System.Windows.Forms.ImageList(this.components);
-            this.ilButtons = new System.Windows.Forms.ImageList(this.components);
             this.notifyIcon1 = new System.Windows.Forms.NotifyIcon(this.components);
             this.MainContextMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.cmsControls = new System.Windows.Forms.ToolStripMenuItem();
@@ -48,7 +47,7 @@
             this.cmsXBMCrestart = new System.Windows.Forms.ToolStripMenuItem();
             this.cmsXBMCreboot = new System.Windows.Forms.ToolStripMenuItem();
             this.cmsXBMCshutdown = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
+            this.cmsSeperatorFolders = new System.Windows.Forms.ToolStripSeparator();
             this.cmsSaveMedia = new System.Windows.Forms.ToolStripMenuItem();
             this.cmsSeperatorSaveMedia = new System.Windows.Forms.ToolStripSeparator();
             this.cmsShow = new System.Windows.Forms.ToolStripMenuItem();
@@ -67,13 +66,14 @@
             this.lAlbum = new System.Windows.Forms.Label();
             this.lArtistTitle = new System.Windows.Forms.Label();
             this.pNowPlayingInfo = new System.Windows.Forms.Panel();
+            this.pTime = new System.Windows.Forms.Panel();
+            this.lTimePlayed = new System.Windows.Forms.Label();
             this.lArtistSong = new System.Windows.Forms.Label();
             this.pbMediaType = new System.Windows.Forms.PictureBox();
             this.lSamplerate = new System.Windows.Forms.Label();
             this.lSamplerateTitle = new System.Windows.Forms.Label();
             this.lBitrate = new System.Windows.Forms.Label();
             this.lBitrateTitle = new System.Windows.Forms.Label();
-            this.lTimePlayed = new System.Windows.Forms.Label();
             this.pControls = new System.Windows.Forms.Panel();
             this.tbVolume = new System.Windows.Forms.TrackBar();
             this.bMute = new System.Windows.Forms.Button();
@@ -95,6 +95,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.pbLastFM)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbThumbnail)).BeginInit();
             this.pNowPlayingInfo.SuspendLayout();
+            this.pTime.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbMediaType)).BeginInit();
             this.pControls.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.tbVolume)).BeginInit();
@@ -109,7 +110,7 @@
             // updateTimer
             // 
             this.updateTimer.Interval = 1000;
-            this.updateTimer.Tick += new System.EventHandler(this.timerShort_Tick);
+            this.updateTimer.Tick += new System.EventHandler(this.updateTimer_Tick);
             // 
             // ilMediaType
             // 
@@ -118,32 +119,6 @@
             this.ilMediaType.Images.SetKeyName(0, "video-32x32.png");
             this.ilMediaType.Images.SetKeyName(1, "audio-cd-32x32.png");
             this.ilMediaType.Images.SetKeyName(2, "pictures-32x32.png");
-            // 
-            // ilButtons
-            // 
-            this.ilButtons.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("ilButtons.ImageStream")));
-            this.ilButtons.TransparentColor = System.Drawing.Color.Transparent;
-            this.ilButtons.Images.SetKeyName(0, "previous.png");
-            this.ilButtons.Images.SetKeyName(1, "previous_hover.png");
-            this.ilButtons.Images.SetKeyName(2, "previous_click.png");
-            this.ilButtons.Images.SetKeyName(3, "play.png");
-            this.ilButtons.Images.SetKeyName(4, "play_hover.png");
-            this.ilButtons.Images.SetKeyName(5, "play_click.png");
-            this.ilButtons.Images.SetKeyName(6, "pause.png");
-            this.ilButtons.Images.SetKeyName(7, "pause_hover.png");
-            this.ilButtons.Images.SetKeyName(8, "pause_click.png");
-            this.ilButtons.Images.SetKeyName(9, "stop.png");
-            this.ilButtons.Images.SetKeyName(10, "stop_hover.png");
-            this.ilButtons.Images.SetKeyName(11, "stop_click.png");
-            this.ilButtons.Images.SetKeyName(12, "next.png");
-            this.ilButtons.Images.SetKeyName(13, "next_hover.png");
-            this.ilButtons.Images.SetKeyName(14, "next_click.png");
-            this.ilButtons.Images.SetKeyName(15, "open.png");
-            this.ilButtons.Images.SetKeyName(16, "open_hover.png");
-            this.ilButtons.Images.SetKeyName(17, "open_click.png");
-            this.ilButtons.Images.SetKeyName(18, "mute.png");
-            this.ilButtons.Images.SetKeyName(19, "mute_hover.png");
-            this.ilButtons.Images.SetKeyName(20, "mute_click.png");
             // 
             // notifyIcon1
             // 
@@ -161,7 +136,7 @@
             this.MainContextMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.cmsControls,
             this.cmsXBMC,
-            this.toolStripSeparator2,
+            this.cmsSeperatorFolders,
             this.cmsSaveMedia,
             this.cmsSeperatorSaveMedia,
             this.cmsShow,
@@ -192,7 +167,6 @@
             this.cmsPrevious.Image = global::XBMControl.Properties.Resources.previous_16x16;
             this.cmsPrevious.Name = "cmsPrevious";
             this.cmsPrevious.Size = new System.Drawing.Size(78, 22);
-            this.cmsPrevious.Click += new System.EventHandler(this.bPrevious_Click);
             // 
             // cmsPlay
             // 
@@ -211,14 +185,12 @@
             this.cmsStop.Image = global::XBMControl.Properties.Resources.stop_16x16;
             this.cmsStop.Name = "cmsStop";
             this.cmsStop.Size = new System.Drawing.Size(78, 22);
-            this.cmsStop.Click += new System.EventHandler(this.bStop_Click);
             // 
             // cmsNext
             // 
             this.cmsNext.Image = global::XBMControl.Properties.Resources.next_16x16;
             this.cmsNext.Name = "cmsNext";
             this.cmsNext.Size = new System.Drawing.Size(78, 22);
-            this.cmsNext.Click += new System.EventHandler(this.bNext_Click);
             // 
             // cmsMute
             // 
@@ -271,10 +243,10 @@
             this.cmsXBMCshutdown.Size = new System.Drawing.Size(78, 22);
             this.cmsXBMCshutdown.Click += new System.EventHandler(this.cmsXBMCshutdown_Click);
             // 
-            // toolStripSeparator2
+            // cmsSeperatorFolders
             // 
-            this.toolStripSeparator2.Name = "toolStripSeparator2";
-            this.toolStripSeparator2.Size = new System.Drawing.Size(75, 6);
+            this.cmsSeperatorFolders.Name = "cmsSeperatorFolders";
+            this.cmsSeperatorFolders.Size = new System.Drawing.Size(75, 6);
             // 
             // cmsSaveMedia
             // 
@@ -440,17 +412,38 @@
             // 
             this.pNowPlayingInfo.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.pNowPlayingInfo.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(248)))), ((int)(((byte)(245)))), ((int)(((byte)(242)))));
+            this.pNowPlayingInfo.Controls.Add(this.pTime);
             this.pNowPlayingInfo.Controls.Add(this.lArtistSong);
             this.pNowPlayingInfo.Controls.Add(this.pbMediaType);
             this.pNowPlayingInfo.Controls.Add(this.lSamplerate);
             this.pNowPlayingInfo.Controls.Add(this.lSamplerateTitle);
             this.pNowPlayingInfo.Controls.Add(this.lBitrate);
             this.pNowPlayingInfo.Controls.Add(this.lBitrateTitle);
-            this.pNowPlayingInfo.Controls.Add(this.lTimePlayed);
             this.pNowPlayingInfo.Location = new System.Drawing.Point(2, 22);
             this.pNowPlayingInfo.Name = "pNowPlayingInfo";
             this.pNowPlayingInfo.Size = new System.Drawing.Size(264, 57);
             this.pNowPlayingInfo.TabIndex = 21;
+            // 
+            // pTime
+            // 
+            this.pTime.BackgroundImage = global::XBMControl.Properties.Resources.background_pTime1;
+            this.pTime.Controls.Add(this.lTimePlayed);
+            this.pTime.Location = new System.Drawing.Point(4, 0);
+            this.pTime.Name = "pTime";
+            this.pTime.Size = new System.Drawing.Size(173, 34);
+            this.pTime.TabIndex = 8;
+            // 
+            // lTimePlayed
+            // 
+            this.lTimePlayed.AutoSize = true;
+            this.lTimePlayed.BackColor = System.Drawing.Color.Transparent;
+            this.lTimePlayed.Font = new System.Drawing.Font("Tahoma", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lTimePlayed.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(95)))), ((int)(((byte)(95)))), ((int)(((byte)(95)))));
+            this.lTimePlayed.Location = new System.Drawing.Point(1, 0);
+            this.lTimePlayed.Name = "lTimePlayed";
+            this.lTimePlayed.Size = new System.Drawing.Size(93, 33);
+            this.lTimePlayed.TabIndex = 1;
+            this.lTimePlayed.Text = "00:00";
             // 
             // lArtistSong
             // 
@@ -522,17 +515,6 @@
             this.lBitrateTitle.TabIndex = 1;
             this.lBitrateTitle.Text = "kbps";
             // 
-            // lTimePlayed
-            // 
-            this.lTimePlayed.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(248)))), ((int)(((byte)(245)))), ((int)(((byte)(242)))));
-            this.lTimePlayed.Font = new System.Drawing.Font("Tahoma", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lTimePlayed.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(95)))), ((int)(((byte)(95)))), ((int)(((byte)(95)))));
-            this.lTimePlayed.Location = new System.Drawing.Point(10, 0);
-            this.lTimePlayed.Name = "lTimePlayed";
-            this.lTimePlayed.Size = new System.Drawing.Size(163, 32);
-            this.lTimePlayed.TabIndex = 0;
-            this.lTimePlayed.Text = "00:00";
-            // 
             // pControls
             // 
             this.pControls.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
@@ -549,9 +531,9 @@
             this.pControls.Controls.Add(this.bPause);
             this.pControls.Controls.Add(this.bPlay);
             this.pControls.Controls.Add(this.bPrevious);
-            this.pControls.Location = new System.Drawing.Point(2, 133);
+            this.pControls.Location = new System.Drawing.Point(1, 133);
             this.pControls.Name = "pControls";
-            this.pControls.Size = new System.Drawing.Size(264, 50);
+            this.pControls.Size = new System.Drawing.Size(266, 50);
             this.pControls.TabIndex = 16;
             // 
             // tbVolume
@@ -573,6 +555,7 @@
             // 
             this.bMute.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.bMute.BackColor = System.Drawing.Color.Transparent;
+            this.bMute.BackgroundImage = global::XBMControl.Properties.Resources.button_mute;
             this.bMute.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
             this.bMute.FlatAppearance.BorderColor = System.Drawing.SystemColors.Control;
             this.bMute.FlatAppearance.BorderSize = 0;
@@ -581,9 +564,8 @@
             this.bMute.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
             this.bMute.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.bMute.ForeColor = System.Drawing.Color.Transparent;
-            this.bMute.ImageIndex = 18;
-            this.bMute.ImageList = this.ilButtons;
-            this.bMute.Location = new System.Drawing.Point(235, 2);
+            this.bMute.Location = new System.Drawing.Point(236, 2);
+            this.bMute.Margin = new System.Windows.Forms.Padding(0);
             this.bMute.Name = "bMute";
             this.bMute.Size = new System.Drawing.Size(24, 18);
             this.bMute.TabIndex = 21;
@@ -597,6 +579,7 @@
             // 
             this.bOpen.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.bOpen.BackColor = System.Drawing.Color.Transparent;
+            this.bOpen.BackgroundImage = global::XBMControl.Properties.Resources.button_open;
             this.bOpen.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
             this.bOpen.FlatAppearance.BorderColor = System.Drawing.SystemColors.Control;
             this.bOpen.FlatAppearance.BorderSize = 0;
@@ -605,9 +588,7 @@
             this.bOpen.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
             this.bOpen.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.bOpen.ForeColor = System.Drawing.Color.Transparent;
-            this.bOpen.ImageIndex = 15;
-            this.bOpen.ImageList = this.ilButtons;
-            this.bOpen.Location = new System.Drawing.Point(137, 22);
+            this.bOpen.Location = new System.Drawing.Point(136, 22);
             this.bOpen.Name = "bOpen";
             this.bOpen.Size = new System.Drawing.Size(24, 18);
             this.bOpen.TabIndex = 20;
@@ -636,7 +617,7 @@
             // pictureBox1
             // 
             this.pictureBox1.Image = global::XBMControl.Properties.Resources.openContextMenuArrow1;
-            this.pictureBox1.Location = new System.Drawing.Point(252, 38);
+            this.pictureBox1.Location = new System.Drawing.Point(254, 38);
             this.pictureBox1.Name = "pictureBox1";
             this.pictureBox1.Size = new System.Drawing.Size(12, 12);
             this.pictureBox1.TabIndex = 17;
@@ -647,6 +628,7 @@
             // 
             this.bNext.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.bNext.BackColor = System.Drawing.Color.Transparent;
+            this.bNext.BackgroundImage = global::XBMControl.Properties.Resources.button_next;
             this.bNext.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
             this.bNext.FlatAppearance.BorderColor = System.Drawing.SystemColors.Control;
             this.bNext.FlatAppearance.BorderSize = 0;
@@ -655,15 +637,12 @@
             this.bNext.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
             this.bNext.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.bNext.ForeColor = System.Drawing.Color.Transparent;
-            this.bNext.ImageIndex = 12;
-            this.bNext.ImageList = this.ilButtons;
-            this.bNext.Location = new System.Drawing.Point(109, 22);
+            this.bNext.Location = new System.Drawing.Point(104, 22);
             this.bNext.Name = "bNext";
             this.bNext.Size = new System.Drawing.Size(24, 18);
             this.bNext.TabIndex = 16;
             this.bNext.UseVisualStyleBackColor = false;
             this.bNext.MouseLeave += new System.EventHandler(this.bNext_MouseLeave);
-            this.bNext.Click += new System.EventHandler(this.bNext_Click);
             this.bNext.MouseDown += new System.Windows.Forms.MouseEventHandler(this.bNext_MouseDown);
             this.bNext.MouseUp += new System.Windows.Forms.MouseEventHandler(this.bNext_MouseUp);
             this.bNext.MouseEnter += new System.EventHandler(this.bNext_MouseEnter);
@@ -672,6 +651,7 @@
             // 
             this.bStop.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.bStop.BackColor = System.Drawing.Color.Transparent;
+            this.bStop.BackgroundImage = global::XBMControl.Properties.Resources.button_stop;
             this.bStop.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
             this.bStop.FlatAppearance.BorderColor = System.Drawing.SystemColors.Control;
             this.bStop.FlatAppearance.BorderSize = 0;
@@ -680,15 +660,12 @@
             this.bStop.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
             this.bStop.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.bStop.ForeColor = System.Drawing.Color.Transparent;
-            this.bStop.ImageIndex = 9;
-            this.bStop.ImageList = this.ilButtons;
-            this.bStop.Location = new System.Drawing.Point(85, 22);
+            this.bStop.Location = new System.Drawing.Point(81, 22);
             this.bStop.Name = "bStop";
             this.bStop.Size = new System.Drawing.Size(24, 18);
             this.bStop.TabIndex = 15;
             this.bStop.UseVisualStyleBackColor = false;
             this.bStop.MouseLeave += new System.EventHandler(this.bStop_MouseLeave);
-            this.bStop.Click += new System.EventHandler(this.bStop_Click);
             this.bStop.MouseDown += new System.Windows.Forms.MouseEventHandler(this.bStop_MouseDown);
             this.bStop.MouseUp += new System.Windows.Forms.MouseEventHandler(this.bStop_MouseUp);
             this.bStop.MouseEnter += new System.EventHandler(this.bStop_MouseEnter);
@@ -696,6 +673,7 @@
             // bPause
             // 
             this.bPause.BackColor = System.Drawing.Color.Transparent;
+            this.bPause.BackgroundImage = global::XBMControl.Properties.Resources.button_pause;
             this.bPause.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
             this.bPause.FlatAppearance.BorderColor = System.Drawing.SystemColors.Control;
             this.bPause.FlatAppearance.BorderSize = 0;
@@ -704,9 +682,7 @@
             this.bPause.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
             this.bPause.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.bPause.ForeColor = System.Drawing.Color.Transparent;
-            this.bPause.ImageIndex = 6;
-            this.bPause.ImageList = this.ilButtons;
-            this.bPause.Location = new System.Drawing.Point(61, 22);
+            this.bPause.Location = new System.Drawing.Point(58, 22);
             this.bPause.Name = "bPause";
             this.bPause.Size = new System.Drawing.Size(24, 18);
             this.bPause.TabIndex = 14;
@@ -720,21 +696,20 @@
             // 
             this.bPlay.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.bPlay.BackColor = System.Drawing.Color.Transparent;
+            this.bPlay.BackgroundImage = global::XBMControl.Properties.Resources.button_play;
             this.bPlay.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
-            this.bPlay.FlatAppearance.BorderColor = System.Drawing.SystemColors.Control;
+            this.bPlay.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(248)))), ((int)(((byte)(245)))), ((int)(((byte)(242)))));
             this.bPlay.FlatAppearance.BorderSize = 0;
             this.bPlay.FlatAppearance.CheckedBackColor = System.Drawing.SystemColors.ControlLight;
             this.bPlay.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
             this.bPlay.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
             this.bPlay.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.bPlay.ForeColor = System.Drawing.Color.Transparent;
-            this.bPlay.ImageIndex = 3;
-            this.bPlay.ImageList = this.ilButtons;
-            this.bPlay.Location = new System.Drawing.Point(37, 22);
+            this.bPlay.Location = new System.Drawing.Point(35, 22);
             this.bPlay.Margin = new System.Windows.Forms.Padding(0);
             this.bPlay.Name = "bPlay";
             this.bPlay.Size = new System.Drawing.Size(24, 18);
-            this.bPlay.TabIndex = 13;
+            this.bPlay.TabIndex = 1;
             this.bPlay.UseVisualStyleBackColor = false;
             this.bPlay.MouseLeave += new System.EventHandler(this.bPlay_MouseLeave);
             this.bPlay.MouseDown += new System.Windows.Forms.MouseEventHandler(this.bPlay_MouseDown);
@@ -745,7 +720,7 @@
             // 
             this.bPrevious.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.bPrevious.BackColor = System.Drawing.Color.Transparent;
-            this.bPrevious.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.bPrevious.BackgroundImage = global::XBMControl.Properties.Resources.button_previous;
             this.bPrevious.FlatAppearance.BorderColor = System.Drawing.SystemColors.Control;
             this.bPrevious.FlatAppearance.BorderSize = 0;
             this.bPrevious.FlatAppearance.CheckedBackColor = System.Drawing.SystemColors.ControlLight;
@@ -754,16 +729,14 @@
             this.bPrevious.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.bPrevious.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel, ((byte)(0)));
             this.bPrevious.ForeColor = System.Drawing.Color.Transparent;
-            this.bPrevious.ImageIndex = 0;
-            this.bPrevious.ImageList = this.ilButtons;
-            this.bPrevious.Location = new System.Drawing.Point(13, 22);
+            this.bPrevious.Location = new System.Drawing.Point(12, 22);
             this.bPrevious.Margin = new System.Windows.Forms.Padding(0);
             this.bPrevious.Name = "bPrevious";
-            this.bPrevious.Size = new System.Drawing.Size(24, 18);
-            this.bPrevious.TabIndex = 12;
+            this.bPrevious.Size = new System.Drawing.Size(23, 17);
+            this.bPrevious.TabIndex = 1;
+            this.bPrevious.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.bPrevious.UseVisualStyleBackColor = false;
             this.bPrevious.MouseLeave += new System.EventHandler(this.bPrevious_MouseLeave);
-            this.bPrevious.Click += new System.EventHandler(this.bPrevious_Click);
             this.bPrevious.MouseDown += new System.Windows.Forms.MouseEventHandler(this.bPrevious_MouseDown);
             this.bPrevious.MouseUp += new System.Windows.Forms.MouseEventHandler(this.bPrevious_MouseUp);
             this.bPrevious.MouseEnter += new System.EventHandler(this.bPrevious_MouseEnter);
@@ -843,7 +816,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.AutoValidate = System.Windows.Forms.AutoValidate.EnableAllowFocusChange;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(248)))), ((int)(((byte)(245)))), ((int)(((byte)(242)))));
-            this.BackgroundImage = global::XBMControl.Properties.Resources.MainFormBackground1;
+            this.BackgroundImage = global::XBMControl.Properties.Resources.MainFormBackground2;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.ClientSize = new System.Drawing.Size(268, 184);
             this.ControlBox = false;
@@ -868,6 +841,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.pbThumbnail)).EndInit();
             this.pNowPlayingInfo.ResumeLayout(false);
             this.pNowPlayingInfo.PerformLayout();
+            this.pTime.ResumeLayout(false);
+            this.pTime.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbMediaType)).EndInit();
             this.pControls.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.tbVolume)).EndInit();
@@ -893,7 +868,7 @@
         private System.Windows.Forms.ContextMenuStrip MainContextMenu;
         private System.Windows.Forms.ToolStripMenuItem cmsExit;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
-        private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
+        private System.Windows.Forms.ToolStripSeparator cmsSeperatorFolders;
         private System.Windows.Forms.ToolStripMenuItem cmsShow;
         private System.Windows.Forms.ToolStripMenuItem cmsHide;
         private System.Windows.Forms.ToolStripMenuItem cmsConfigure;
@@ -922,18 +897,12 @@
         private System.Windows.Forms.Label lTitleTitle;
         private System.Windows.Forms.Label lAlbum;
         private System.Windows.Forms.Label lArtistTitle;
-        private System.Windows.Forms.ImageList ilButtons;
         private System.Windows.Forms.Button bPrevious;
         private System.Windows.Forms.Button bPlay;
         private System.Windows.Forms.PictureBox pbThumbnail;
         private System.Windows.Forms.Panel pNowPlayingInfo;
         private System.Windows.Forms.PictureBox pbLastFM;
         private System.Windows.Forms.PictureBox pbMediaType;
-        private System.Windows.Forms.Label lSamplerate;
-        private System.Windows.Forms.Label lSamplerateTitle;
-        private System.Windows.Forms.Label lBitrate;
-        private System.Windows.Forms.Label lBitrateTitle;
-        private System.Windows.Forms.Label lTimePlayed;
         private System.Windows.Forms.Button bOpen;
         private System.Windows.Forms.Label lArtistSong;
         private System.Windows.Forms.Panel pToolbar;
@@ -943,6 +912,12 @@
         private System.Windows.Forms.Label lMainTitle;
         private System.Windows.Forms.Button bMute;
         private System.Windows.Forms.TrackBar tbVolume;
+        private System.Windows.Forms.Panel pTime;
+        private System.Windows.Forms.Label lTimePlayed;
+        private System.Windows.Forms.Label lSamplerate;
+        private System.Windows.Forms.Label lSamplerateTitle;
+        private System.Windows.Forms.Label lBitrate;
+        private System.Windows.Forms.Label lBitrateTitle;
     }
 }
 
