@@ -30,34 +30,89 @@ namespace XBMC.Communicator
 {
     class XBMCcomm
     {
+        private string configuredXbmcIp     = Settings.Default.Ip;
         private string _ApiPath             = "/xbmcCmds/xbmcHttp";
         private string[,] maNowPlayingInfo  = new string[50, 2];
+
+        //XBMC Properties
+        private bool isConnected             = false;
+        private bool isPlaying               = false;
+        private bool isPaused                = false;
+        private bool isMuted                 = false;
+        private int volume                   = 0;
+        private int progress                 = 0;
+        private string mediaCurrentlyPlaying = null;
 
         public XBMCcomm()
         {
         }
 
-        public bool IsConnected(string ip)
+        public string[] Request(string command, string parameter, string ip)
         {
-            bool connected           = true;
-            string xbmcIp            = (ip == null) ? Settings.Default.Ip : ip;
-            HttpWebResponse response = null;
+            HttpWebRequest request      = null;
+            HttpWebResponse response    = null;
+            StreamReader reader         = null;
+            string[] pageContent        = null;
+            string param                = "?command=" + command;
+            string ipAddress            = (ip == null) ? configuredXbmcIp : ip;
+            if (parameter != null) param += "&parameter=" + parameter;
 
-            HttpWebRequest connection = (HttpWebRequest)WebRequest.Create("http://" + xbmcIp);
-            connection.Method = "GET";
-            connection.Timeout = XBMControl.Properties.Settings.Default.ConnectionTimeout;
             try
             {
-                response = (HttpWebResponse)connection.GetResponse();
+                request         = (HttpWebRequest)WebRequest.Create("http://" + ipAddress + this._ApiPath + param);
+                request.Method  = "GET";
+                request.Timeout = XBMControl.Properties.Settings.Default.ConnectionTimeout;
+                response        = (HttpWebResponse)request.GetResponse();
+                reader          = new StreamReader(response.GetResponseStream(), Encoding.UTF8);
+                pageContent     = reader.ReadToEnd().Replace("<li>", "|").Replace("\n", "").Replace("<html>", "").Replace("</html>", "").Split('|');
             }
             catch (Exception e)
             {
-                connected = false;
+            }
+            finally
+            {
+                if (response != null) response.Close();
+                if (reader != null) reader.Close();
             }
 
-            if (response != null) response.Close();
+            return pageContent;
+        }
 
-            return connected;
+        public string[] Request(string command, string parameter)
+        {
+            return this.Request(command, parameter, null);
+        }
+
+        public string[] Request(string command)
+        {
+            return this.Request(command, null, null);
+        }
+
+        public void GetXbmcProperties()
+        {
+            string[] aVolume = this.Request("GetVolume"); //request a value that should always be available
+            isConnected      = (aVolume == null) ? false : true;
+
+            if (isConnected)
+            {
+                isPlaying           = (this.GetNowPlayingInfo("playstatus", true) == "Playing") ? true : false;
+                isPaused            = (this.GetNowPlayingInfo("playstatus", true) == "Paused") ? true : false;
+                volume              = (aVolume[1] == "Error") ? 0 : Convert.ToInt32(aVolume[1]);
+                isMuted             = (volume == 0) ? true : false;
+                string[] aProgress  = this.Request("GetPercentage");
+                progress            = (aProgress[1] == "Error" || aProgress[1] == "0" || Convert.ToInt32(aProgress[1]) > 99) ? 1 : Convert.ToInt32(aProgress[1]);
+            }
+        }
+
+        public bool IsConnected(string ip)
+        {
+            if(ip == null)
+                return isConnected;
+            else
+            {
+                string[] connected = this.Request("GetVolume", null, ip);
+                return (connected == null)? false : true;
+            }
         }
 
         public bool IsConnected()
@@ -65,53 +120,40 @@ namespace XBMC.Communicator
             return IsConnected(null);
         }
 
+        public bool IsNewMediaPlaying()
+        {
+            if (mediaCurrentlyPlaying == this.GetNowPlayingInfo("filename"))
+                return false;
+            else
+            {
+                mediaCurrentlyPlaying = this.GetNowPlayingInfo("filename");
+                return true;
+            }
+        }
+
         public bool IsPlaying()
         {
-            return (this.GetNowPlayingInfo("playstatus", true) == "Playing") ? true : false;
+            return isPlaying;
         }
 
         public bool IsPaused()
         {
-            return (this.GetNowPlayingInfo("playstatus", true) == "Paused") ? true : false;
+            return isPaused;
         }
 
         public bool IsMuted()
         {
-            string[] aGetVolume = this.Request("GetVolume");
-            return (aGetVolume[1] == "0") ? true : false;
+            return isMuted;
         }
 
-        public string[] Request(string command, string parameter)
+        public int GetVolume()
         {
-            HttpWebResponse response    = null;
-            StreamReader reader         = null;
-            string[] pageContent        = null;
-            string param                = "?command=" + command;
-            if (parameter != null) param += "&parameter=" + parameter;
-
-            try
-            {
-                HttpWebRequest request = (HttpWebRequest)WebRequest.Create("http://" + Settings.Default.Ip + this._ApiPath + param);
-                request.Method = "GET";
-                response = (HttpWebResponse)request.GetResponse();
-                reader = new StreamReader(response.GetResponseStream(), Encoding.UTF8);
-                pageContent = reader.ReadToEnd().Replace("<li>", "|").Replace("\n", "").Replace("<html>", "").Replace("</html>", "").Split('|');
-            }
-            catch (Exception e)
-            {
-            }
-            finally
-            {
-                if(response.StatusCode == HttpStatusCode.OK) response.Close();
-                reader.Close();
-            }
-
-            return pageContent;
+            return volume;
         }
 
-        public string[] Request(string command)
+        public int GetProgress()
         {
-            return this.Request(command, null);
+            return progress;
         }
 
         public string GetNowPlayingInfo(string field, bool refresh)
@@ -140,10 +182,16 @@ namespace XBMC.Communicator
             return returnValue;
         }
 
+        public string GetNowPlayingInfo(string field)
+        {
+            return this.GetNowPlayingInfo(field, false);
+        }
+
         public string GetGuiDescription(string field)
         {
-            string returnValue = null;
+            string returnValue       = null;
             string[] aGuiDescription = this.Request("GetGUIDescription");
+
             for (int x = 0; x < aGuiDescription.Length; x++)
             {
                 int splitIndex = aGuiDescription[x].IndexOf(':') + 1;
@@ -155,11 +203,6 @@ namespace XBMC.Communicator
             }
 
             return returnValue;
-        }
-
-        public string GetNowPlayingInfo(string field)
-        {
-            return this.GetNowPlayingInfo(field, false);
         }
 
         public MemoryStream GetImageFromXbmc(string xbmcFilePath)
@@ -186,10 +229,10 @@ namespace XBMC.Communicator
 
         public Image GetNowPlayingCoverArt()
         {
-            MemoryStream stream = null;
-            Image thumbnail = null;
-            WebClient client = new WebClient();
-            Uri xbmcUri = new Uri("http://" + Settings.Default.Ip + "/thumb.jpg");
+            MemoryStream stream     = null;
+            Image thumbnail         = null;
+            WebClient client        = new WebClient();
+            Uri xbmcUri             = new Uri("http://" + Settings.Default.Ip + "/thumb.jpg");
             this.Request("GetCurrentlyPlaying", "q:\\web\\thumb.jpg");
 
             try
@@ -210,20 +253,17 @@ namespace XBMC.Communicator
 
         public Image Base64StringToImage(string base64String, string fileType)
         {
-            Bitmap file = null;
-
-            byte[] bytes = Convert.FromBase64String(base64String);
+            Bitmap file         = null;
+            byte[] bytes        = Convert.FromBase64String(base64String);
             MemoryStream stream = new MemoryStream(bytes);
 
             if (base64String != null && base64String != "")
-            {
                 if (fileType == "image") file = new Bitmap(Image.FromStream(stream));
-            }
                 
             return file;
         }
 
-        public Image TakeScreenshot()
+        public Image GetScreenshot()
         {
             string[] aRequestData = this.Request("takescreenshot", "screenshot.jpg;false;0;" + this.GetGuiDescription("width") + ";" + this.GetGuiDescription("height") + ";90;true;");
             Image screenshot      = this.Base64StringToImage(aRequestData[0], "image");

@@ -204,6 +204,31 @@
     <None Include="Resources\background_details2.png" />
     <None Include="Resources\background_details3.png" />
     <None Include="Resources\XBMC.ico" />
+    <None Include="Resources\background_pTime.png" />
+    <None Include="Resources\background_pTime1.png" />
+    <None Include="Resources\MainFormBackground2.png" />
+    <None Include="Resources\button_previous.png" />
+    <None Include="Resources\button_play.png" />
+    <None Include="Resources\button_pause.png" />
+    <None Include="Resources\button_stop.png" />
+    <None Include="Resources\button_next.png" />
+    <None Include="Resources\button_open.png" />
+    <None Include="Resources\button_mute.png" />
+    <None Include="Resources\button_previous_hover.png" />
+    <None Include="Resources\button_previous_click.png" />
+    <None Include="Resources\button_play_hover.png" />
+    <None Include="Resources\button_play_click.png" />
+    <None Include="Resources\button_pause_hover.png" />
+    <None Include="Resources\button_pause_hover1.png" />
+    <None Include="Resources\button_pause_click.png" />
+    <None Include="Resources\button_stop_hover.png" />
+    <None Include="Resources\button_stop_click.png" />
+    <None Include="Resources\button_next_hover.png" />
+    <None Include="Resources\button_next_click.png" />
+    <None Include="Resources\button_open_hover.png" />
+    <None Include="Resources\button_open_click.png" />
+    <None Include="Resources\button_mute_hover.png" />
+    <None Include="Resources\button_mute_click.png" />
     <Content Include="XBMC.ico" />
     <Content Include="Xbox.ico" />
   </ItemGroup>
@@ -238,6 +263,9 @@
       <ProductName>Windows Installer 3.1</ProductName>
       <Install>true</Install>
     </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Resources\controls\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
