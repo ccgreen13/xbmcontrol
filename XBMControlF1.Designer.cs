@@ -144,7 +144,7 @@
             this.toolStripSeparator3,
             this.cmsExit});
             this.MainContextMenu.Name = "cmsNotifyIcon";
-            this.MainContextMenu.Size = new System.Drawing.Size(153, 204);
+            this.MainContextMenu.Size = new System.Drawing.Size(79, 182);
             this.MainContextMenu.Opening += new System.ComponentModel.CancelEventHandler(this.MainContextMenu_Opening);
             // 
             // cmsControls

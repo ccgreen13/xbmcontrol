@@ -567,7 +567,7 @@ namespace XBMControl
 
         private void lArtistSong_MouseHover(object sender, EventArgs e)
         {
-            if (XBMC.IsPlaying() || XBMC.IsPaused()) lArtistSong.Cursor = Cursors.Help;
+
         }
 
 //START PREVIOUS BUTTON
