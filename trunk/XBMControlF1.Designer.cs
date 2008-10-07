@@ -144,7 +144,7 @@
             this.toolStripSeparator3,
             this.cmsExit});
             this.MainContextMenu.Name = "cmsNotifyIcon";
-            this.MainContextMenu.Size = new System.Drawing.Size(79, 182);
+            this.MainContextMenu.Size = new System.Drawing.Size(153, 204);
             this.MainContextMenu.Opening += new System.ComponentModel.CancelEventHandler(this.MainContextMenu_Opening);
             // 
             // cmsControls
@@ -158,43 +158,49 @@
             this.cmsMute});
             this.cmsControls.Image = global::XBMControl.Properties.Resources.folder_16x16;
             this.cmsControls.Name = "cmsControls";
-            this.cmsControls.Size = new System.Drawing.Size(78, 22);
+            this.cmsControls.Size = new System.Drawing.Size(152, 22);
             // 
             // cmsPrevious
             // 
             this.cmsPrevious.Image = global::XBMControl.Properties.Resources.previous_16x16;
             this.cmsPrevious.Name = "cmsPrevious";
-            this.cmsPrevious.Size = new System.Drawing.Size(78, 22);
+            this.cmsPrevious.Size = new System.Drawing.Size(152, 22);
+            this.cmsPrevious.Click += new System.EventHandler(this.cmsNotifyPrevious_Click);
             // 
             // cmsPlay
             // 
             this.cmsPlay.Image = global::XBMControl.Properties.Resources.play2_16x16;
             this.cmsPlay.Name = "cmsPlay";
-            this.cmsPlay.Size = new System.Drawing.Size(78, 22);
+            this.cmsPlay.Size = new System.Drawing.Size(152, 22);
+            this.cmsPlay.Click += new System.EventHandler(this.cmsNotifyPlay_Click);
             // 
             // cmsPause
             // 
             this.cmsPause.Image = global::XBMControl.Properties.Resources.pause_16x16;
             this.cmsPause.Name = "cmsPause";
-            this.cmsPause.Size = new System.Drawing.Size(78, 22);
+            this.cmsPause.Size = new System.Drawing.Size(152, 22);
+            this.cmsPause.Click += new System.EventHandler(this.cmsNotifyPause_Click);
             // 
             // cmsStop
             // 
             this.cmsStop.Image = global::XBMControl.Properties.Resources.stop_16x16;
             this.cmsStop.Name = "cmsStop";
-            this.cmsStop.Size = new System.Drawing.Size(78, 22);
+            this.cmsStop.Size = new System.Drawing.Size(152, 22);
+            this.cmsStop.Click += new System.EventHandler(this.cmsNotifyStop_Click);
             // 
             // cmsNext
             // 
             this.cmsNext.Image = global::XBMControl.Properties.Resources.next_16x16;
             this.cmsNext.Name = "cmsNext";
-            this.cmsNext.Size = new System.Drawing.Size(78, 22);
+            this.cmsNext.Size = new System.Drawing.Size(152, 22);
+            this.cmsNext.Click += new System.EventHandler(this.cmsNotifyNext_Click);
             // 
             // cmsMute
             // 
             this.cmsMute.Image = global::XBMControl.Properties.Resources.mute_16x16;
             this.cmsMute.Name = "cmsMute";
-            this.cmsMute.Size = new System.Drawing.Size(78, 22);
+            this.cmsMute.Size = new System.Drawing.Size(152, 22);
+            this.cmsMute.Click += new System.EventHandler(this.cmsNotifyMute_Click);
             // 
             // cmsXBMC
             // 
@@ -206,96 +212,96 @@
             this.cmsXBMCshutdown});
             this.cmsXBMC.Image = global::XBMControl.Properties.Resources.folder_16x16;
             this.cmsXBMC.Name = "cmsXBMC";
-            this.cmsXBMC.Size = new System.Drawing.Size(78, 22);
+            this.cmsXBMC.Size = new System.Drawing.Size(152, 22);
             // 
             // cmsShowScreenshot
             // 
             this.cmsShowScreenshot.Image = global::XBMControl.Properties.Resources.image_16x16;
             this.cmsShowScreenshot.Name = "cmsShowScreenshot";
-            this.cmsShowScreenshot.Size = new System.Drawing.Size(78, 22);
+            this.cmsShowScreenshot.Size = new System.Drawing.Size(152, 22);
             this.cmsShowScreenshot.Click += new System.EventHandler(this.cmsShowScreenshot_Click);
             // 
             // toolStripSeparator4
             // 
             this.toolStripSeparator4.Name = "toolStripSeparator4";
-            this.toolStripSeparator4.Size = new System.Drawing.Size(75, 6);
+            this.toolStripSeparator4.Size = new System.Drawing.Size(149, 6);
             // 
             // cmsXBMCrestart
             // 
             this.cmsXBMCrestart.Image = global::XBMControl.Properties.Resources.restart_16x16;
             this.cmsXBMCrestart.Name = "cmsXBMCrestart";
-            this.cmsXBMCrestart.Size = new System.Drawing.Size(78, 22);
+            this.cmsXBMCrestart.Size = new System.Drawing.Size(152, 22);
             this.cmsXBMCrestart.Click += new System.EventHandler(this.cmsXBMCrebootXBMC_Click);
             // 
             // cmsXBMCreboot
             // 
             this.cmsXBMCreboot.Image = global::XBMControl.Properties.Resources.reboot_16x16;
             this.cmsXBMCreboot.Name = "cmsXBMCreboot";
-            this.cmsXBMCreboot.Size = new System.Drawing.Size(78, 22);
+            this.cmsXBMCreboot.Size = new System.Drawing.Size(152, 22);
             this.cmsXBMCreboot.Click += new System.EventHandler(this.cmsXBMCrebootComputer_Click);
             // 
             // cmsXBMCshutdown
             // 
             this.cmsXBMCshutdown.Image = global::XBMControl.Properties.Resources.shutdown_16x16;
             this.cmsXBMCshutdown.Name = "cmsXBMCshutdown";
-            this.cmsXBMCshutdown.Size = new System.Drawing.Size(78, 22);
+            this.cmsXBMCshutdown.Size = new System.Drawing.Size(152, 22);
             this.cmsXBMCshutdown.Click += new System.EventHandler(this.cmsXBMCshutdown_Click);
             // 
             // cmsSeperatorFolders
             // 
             this.cmsSeperatorFolders.Name = "cmsSeperatorFolders";
-            this.cmsSeperatorFolders.Size = new System.Drawing.Size(75, 6);
+            this.cmsSeperatorFolders.Size = new System.Drawing.Size(149, 6);
             // 
             // cmsSaveMedia
             // 
             this.cmsSaveMedia.Image = global::XBMControl.Properties.Resources.save_16x16;
             this.cmsSaveMedia.Name = "cmsSaveMedia";
-            this.cmsSaveMedia.Size = new System.Drawing.Size(78, 22);
+            this.cmsSaveMedia.Size = new System.Drawing.Size(152, 22);
             this.cmsSaveMedia.Visible = false;
             this.cmsSaveMedia.Click += new System.EventHandler(this.cmsSaveMedia_Click);
             // 
             // cmsSeperatorSaveMedia
             // 
             this.cmsSeperatorSaveMedia.Name = "cmsSeperatorSaveMedia";
-            this.cmsSeperatorSaveMedia.Size = new System.Drawing.Size(75, 6);
+            this.cmsSeperatorSaveMedia.Size = new System.Drawing.Size(149, 6);
             this.cmsSeperatorSaveMedia.Visible = false;
             // 
             // cmsShow
             // 
             this.cmsShow.Image = global::XBMControl.Properties.Resources.show_16x16;
             this.cmsShow.Name = "cmsShow";
-            this.cmsShow.Size = new System.Drawing.Size(78, 22);
+            this.cmsShow.Size = new System.Drawing.Size(152, 22);
             this.cmsShow.Click += new System.EventHandler(this.cmsNotifyShow_Click);
             // 
             // cmsHide
             // 
             this.cmsHide.Image = global::XBMControl.Properties.Resources.hide_16x16;
             this.cmsHide.Name = "cmsHide";
-            this.cmsHide.Size = new System.Drawing.Size(78, 22);
+            this.cmsHide.Size = new System.Drawing.Size(152, 22);
             this.cmsHide.Click += new System.EventHandler(this.cmsNotifyHide_Click);
             // 
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(75, 6);
+            this.toolStripSeparator1.Size = new System.Drawing.Size(149, 6);
             // 
             // cmsConfigure
             // 
             this.cmsConfigure.Image = global::XBMControl.Properties.Resources.configure_16x16;
             this.cmsConfigure.Name = "cmsConfigure";
-            this.cmsConfigure.Size = new System.Drawing.Size(78, 22);
+            this.cmsConfigure.Size = new System.Drawing.Size(152, 22);
             this.cmsConfigure.Click += new System.EventHandler(this.cmsConfigure_Click);
             // 
             // toolStripSeparator3
             // 
             this.toolStripSeparator3.Name = "toolStripSeparator3";
-            this.toolStripSeparator3.Size = new System.Drawing.Size(75, 6);
+            this.toolStripSeparator3.Size = new System.Drawing.Size(149, 6);
             // 
             // cmsExit
             // 
             this.cmsExit.Image = global::XBMControl.Properties.Resources.exit_16x16;
             this.cmsExit.Name = "cmsExit";
-            this.cmsExit.Size = new System.Drawing.Size(78, 22);
+            this.cmsExit.Size = new System.Drawing.Size(152, 22);
             this.cmsExit.Click += new System.EventHandler(this.cmsNotifyExit_Click);
             // 
             // pDetails

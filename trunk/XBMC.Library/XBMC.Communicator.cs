@@ -113,7 +113,7 @@ namespace XBMC.Communicator
                 isMuted               = (volume == 0) ? true : false;
                 nowPlayingMediaType   = this.GetNowPlayingInfo("type");
                 string[] aProgress    = this.Request("GetPercentage");
-                progress              = (aProgress[1] == "Error" || aProgress[1] == "0" || Convert.ToInt32(aProgress[1]) > 99) ? 1 : Convert.ToInt32(aProgress[1]);
+                progress              = (aProgress.Length < 1 || aProgress[1] == "Error" || aProgress[1] == "0" || Convert.ToInt32(aProgress[1]) > 99) ? 1 : Convert.ToInt32(aProgress[1]);
             }
         }
 
@@ -222,6 +222,7 @@ namespace XBMC.Communicator
             return returnValue;
         }
 
+        /*
         public MemoryStream GetImageFromXbmc(string xbmcFilePath)
         {
             //Image imageFile       = null;
@@ -243,7 +244,8 @@ namespace XBMC.Communicator
 
             return stream;
         }
-
+        */
+         
         public Image GetNowPlayingCoverArt()
         {
             MemoryStream stream     = null;

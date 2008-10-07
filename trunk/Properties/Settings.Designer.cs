@@ -133,7 +133,7 @@ namespace XBMControl.Properties {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("0.3.1a")]
+        [global::System.Configuration.DefaultSettingValueAttribute("0.3.1b")]
         public string Version {
             get {
                 return ((string)(this["Version"]));
