@@ -57,7 +57,6 @@
             this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
             this.cmsExit = new System.Windows.Forms.ToolStripMenuItem();
             this.pDetails = new System.Windows.Forms.Panel();
-            this.pbLastFM = new System.Windows.Forms.PictureBox();
             this.pbThumbnail = new System.Windows.Forms.PictureBox();
             this.lTitle = new System.Windows.Forms.Label();
             this.lAlbumTitle = new System.Windows.Forms.Label();
@@ -92,7 +91,6 @@
             this.pbClose = new System.Windows.Forms.PictureBox();
             this.MainContextMenu.SuspendLayout();
             this.pDetails.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pbLastFM)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbThumbnail)).BeginInit();
             this.pNowPlayingInfo.SuspendLayout();
             this.pTime.SuspendLayout();
@@ -305,7 +303,6 @@
             this.pDetails.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
             this.pDetails.BackColor = System.Drawing.Color.Transparent;
             this.pDetails.BackgroundImage = global::XBMControl.Properties.Resources.background_details3;
-            this.pDetails.Controls.Add(this.pbLastFM);
             this.pDetails.Controls.Add(this.pbThumbnail);
             this.pDetails.Controls.Add(this.lTitle);
             this.pDetails.Controls.Add(this.lAlbumTitle);
@@ -318,19 +315,10 @@
             this.pDetails.Size = new System.Drawing.Size(264, 54);
             this.pDetails.TabIndex = 18;
             // 
-            // pbLastFM
-            // 
-            this.pbLastFM.Image = global::XBMControl.Properties.Resources.last_fm_16x16;
-            this.pbLastFM.Location = new System.Drawing.Point(247, 36);
-            this.pbLastFM.Name = "pbLastFM";
-            this.pbLastFM.Size = new System.Drawing.Size(16, 16);
-            this.pbLastFM.TabIndex = 33;
-            this.pbLastFM.TabStop = false;
-            this.pbLastFM.Visible = false;
-            // 
             // pbThumbnail
             // 
             this.pbThumbnail.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.pbThumbnail.Cursor = System.Windows.Forms.Cursors.Help;
             this.pbThumbnail.ErrorImage = null;
             this.pbThumbnail.Image = global::XBMControl.Properties.Resources.XBMClogo_90x90;
             this.pbThumbnail.InitialImage = global::XBMControl.Properties.Resources.XBMClogo_90x90;
@@ -448,6 +436,7 @@
             // lArtistSong
             // 
             this.lArtistSong.BackColor = System.Drawing.Color.Transparent;
+            this.lArtistSong.Cursor = System.Windows.Forms.Cursors.Arrow;
             this.lArtistSong.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lArtistSong.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(95)))), ((int)(((byte)(95)))), ((int)(((byte)(95)))));
             this.lArtistSong.Location = new System.Drawing.Point(2, 37);
@@ -457,19 +446,18 @@
             this.lArtistSong.Size = new System.Drawing.Size(259, 19);
             this.lArtistSong.TabIndex = 7;
             this.lArtistSong.TextAlign = System.Drawing.ContentAlignment.TopCenter;
-            this.lArtistSong.MouseLeave += new System.EventHandler(this.lArtistSong_MouseLeave);
             this.lArtistSong.Click += new System.EventHandler(this.lArtistSong_Click);
-            this.lArtistSong.MouseHover += new System.EventHandler(this.lArtistSong_MouseEnter);
+            this.lArtistSong.MouseHover += new System.EventHandler(this.lArtistSong_MouseHover);
             // 
             // pbMediaType
             // 
-            this.pbMediaType.Image = global::XBMControl.Properties.Resources.audio_cd_32x32;
             this.pbMediaType.Location = new System.Drawing.Point(228, 1);
             this.pbMediaType.Name = "pbMediaType";
             this.pbMediaType.Size = new System.Drawing.Size(32, 32);
             this.pbMediaType.TabIndex = 6;
             this.pbMediaType.TabStop = false;
             this.pbMediaType.Visible = false;
+            this.pbMediaType.Click += new System.EventHandler(this.pbMediaType_Click);
             // 
             // lSamplerate
             // 
@@ -837,7 +825,6 @@
             this.Resize += new System.EventHandler(this.MainForm_Resize);
             this.MainContextMenu.ResumeLayout(false);
             this.pDetails.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.pbLastFM)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbThumbnail)).EndInit();
             this.pNowPlayingInfo.ResumeLayout(false);
             this.pNowPlayingInfo.PerformLayout();
@@ -901,7 +888,6 @@
         private System.Windows.Forms.Button bPlay;
         private System.Windows.Forms.PictureBox pbThumbnail;
         private System.Windows.Forms.Panel pNowPlayingInfo;
-        private System.Windows.Forms.PictureBox pbLastFM;
         private System.Windows.Forms.PictureBox pbMediaType;
         private System.Windows.Forms.Button bOpen;
         private System.Windows.Forms.Label lArtistSong;

@@ -28,35 +28,20 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.pbFullSizeImage = new System.Windows.Forms.PictureBox();
-            ((System.ComponentModel.ISupportInitialize)(this.pbFullSizeImage)).BeginInit();
             this.SuspendLayout();
-            // 
-            // pbFullSizeImage
-            // 
-            this.pbFullSizeImage.ErrorImage = global::XBMControl.Properties.Resources.XBMClogo;
-            this.pbFullSizeImage.InitialImage = global::XBMControl.Properties.Resources.XBMClogo;
-            this.pbFullSizeImage.Location = new System.Drawing.Point(0, 0);
-            this.pbFullSizeImage.Name = "pbFullSizeImage";
-            this.pbFullSizeImage.Size = new System.Drawing.Size(2, 2);
-            this.pbFullSizeImage.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
-            this.pbFullSizeImage.TabIndex = 0;
-            this.pbFullSizeImage.TabStop = false;
-            this.pbFullSizeImage.MouseLeave += new System.EventHandler(this.pbFullSizeImage_MouseLeave);
-            this.pbFullSizeImage.Click += new System.EventHandler(this.pbFullSizeImage_Click);
-            this.pbFullSizeImage.MouseEnter += new System.EventHandler(this.pbFullSizeImage_MouseEnter);
             // 
             // FullSizeImageF1
             // 
             this.AccessibleRole = System.Windows.Forms.AccessibleRole.None;
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
-            this.AutoSize = true;
-            this.ClientSize = new System.Drawing.Size(0, 0);
+            this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(248)))), ((int)(((byte)(245)))), ((int)(((byte)(242)))));
+            this.ClientSize = new System.Drawing.Size(4, 4);
             this.ControlBox = false;
-            this.Controls.Add(this.pbFullSizeImage);
-            this.Cursor = System.Windows.Forms.Cursors.Default;
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
+            this.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(248)))), ((int)(((byte)(245)))), ((int)(((byte)(242)))));
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "FullSizeImageF1";
@@ -66,15 +51,12 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.TopMost = true;
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.FullSizeImageF1_FormClosed);
-            this.Click += new System.EventHandler(this.pbFullSizeImage_Click);
-            ((System.ComponentModel.ISupportInitialize)(this.pbFullSizeImage)).EndInit();
+            this.Click += new System.EventHandler(this.FullSizeImageF1_Click);
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 
         #endregion
 
-        private System.Windows.Forms.PictureBox pbFullSizeImage;
     }
 }
