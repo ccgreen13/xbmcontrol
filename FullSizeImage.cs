@@ -24,26 +24,18 @@ namespace XBMControl
 
         private void ShowImage(Image fImage)
         {
-            pbFullSizeImage.Image = (fImage == null)? Properties.Resources.XBMClogo : fImage;
-        }
-
-        private void pbFullSizeImage_Click(object sender, EventArgs e)
-        {
-            Close();
+            this.BackgroundImage = (fImage == null)? Properties.Resources.XBMClogo : fImage;
+            this.Width = fImage.Width;
+            this.Height = fImage.Height;
         }
 
         private void FullSizeImageF1_FormClosed(object sender, FormClosedEventArgs e)
         {
         }
 
-        private void pbFullSizeImage_MouseEnter(object sender, EventArgs e)
+        private void FullSizeImageF1_Click(object sender, EventArgs e)
         {
-            pbFullSizeImage.Cursor = Cursors.Hand;
-        }
-
-        private void pbFullSizeImage_MouseLeave(object sender, EventArgs e)
-        {
-            pbFullSizeImage.Cursor = Cursors.Default;
+            Close();
         }
     }
 }

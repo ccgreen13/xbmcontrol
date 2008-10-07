@@ -80,6 +80,9 @@ namespace XBMControl
             }
             else
                 updateTimer.Enabled = true;
+
+            GetNowPlayingSongInfo(resetToDefault);
+            if (Properties.Settings.Default.ShowNowPlayingBalloonTips) ShowNowPlayingBalloonTip(resetToDefault);
         }
 
         private void ApplyApplicationSettings()
@@ -203,17 +206,24 @@ namespace XBMControl
                 lAlbum.Text         = XBMC.GetNowPlayingInfo("album") + year;
             }
 
-            string mediaType    = XBMC.GetNowPlayingInfo("type");
             string mediaFile    = XBMC.GetNowPlayingInfo("filename");
-            pbLastFM.Visible    = (mediaFile.Substring(0, 6) == "lastfm") ? true : false;
             pbMediaType.Visible = (resetToDefault) ? false : true;
 
-            if (mediaType == "Audio")
-                pbMediaType.Image = Properties.Resources.audio_cd_32x32;
-            else if (mediaType == "Video")
+            if (XBMC.GetNowPlayingMediaType() == "Audio" || XBMC.IsPlaying("lastfm"))
+            {
+                pbMediaType.Cursor = Cursors.Hand;
+                pbMediaType.Image = (XBMC.IsPlaying("lastfm")) ? Resources.lastfm_32x32 : Properties.Resources.audio_cd_32x32;
+            }
+            else if (XBMC.GetNowPlayingMediaType() == "Video")
+            {
+                pbMediaType.Cursor = Cursors.Default;
                 pbMediaType.Image = Properties.Resources.video_32x32;
-            else if (mediaType == "Picture")
+            }
+            else if (XBMC.GetNowPlayingMediaType() == "Picture")
+            {
+                pbMediaType.Cursor = Cursors.Default;
                 pbMediaType.Image = Properties.Resources.pictures_32x32;
+            }
         }
 
         private void ShowNowPlayingBalloonTip(bool resetToDefault)
@@ -291,6 +301,12 @@ namespace XBMControl
                 ConfigForm.Show();
                 this.Enabled = false;
             }
+        }
+
+        private void pbLastFM_Click()
+        {
+            string lastFmUrl = "http://www.last.fm/music/" + XBMC.GetNowPlayingInfo("artist").Replace(" ", "+");
+            Help.ShowHelp(this, lastFmUrl);
         }
 
         public void VolumeControlClosed(object sender, EventArgs e)
@@ -548,16 +564,10 @@ namespace XBMControl
             if (XBMC.IsPlaying() || XBMC.IsPaused())  ToggleShowDetails();   
         }
 
-        private void lArtistSong_MouseEnter(object sender, EventArgs e)
+        private void lArtistSong_MouseHover(object sender, EventArgs e)
         {
-            if(XBMC.IsPlaying() || XBMC.IsPaused()) this.Cursor = Cursors.Hand;
+            if (XBMC.IsPlaying() || XBMC.IsPaused()) lArtistSong.Cursor = Cursors.Help;
         }
-
-        private void lArtistSong_MouseLeave(object sender, EventArgs e)
-        {
-            if (XBMC.IsPlaying() || XBMC.IsPaused()) this.Cursor = Cursors.Default;
-        }
-
 
 //START PREVIOUS BUTTON
         private void bPrevious_MouseEnter(object sender, EventArgs e)
@@ -586,23 +596,23 @@ namespace XBMControl
 //START PLAY BUTTON
         private void bPlay_MouseEnter(object sender, EventArgs e)
         {
-            bPlay.BackgroundImage = Resources.button_play_hover;
+            if (!XBMC.IsPlaying()) bPlay.BackgroundImage = Resources.button_play_hover;
         }
 
         private void bPlay_MouseLeave(object sender, EventArgs e)
         {
-            bPlay.BackgroundImage = Resources.button_play_hover;
+            if (!XBMC.IsPlaying()) bPlay.BackgroundImage = Resources.button_play_hover;
         }
 
         private void bPlay_MouseDown(object sender, MouseEventArgs e)
         {
             bPlay.BackgroundImage = Resources.button_play_click;
-            XBMC.Request("Pause");
+            if (XBMC.IsPaused()) XBMC.Request("Pause");
         }
 
         private void bPlay_MouseUp(object sender, MouseEventArgs e)
         {
-            bPlay.BackgroundImage = Resources.button_play_hover;
+            if (!XBMC.IsPlaying()) bPlay.BackgroundImage = Resources.button_play_hover;
         }
 //END PLAY BUTTON
 
@@ -632,12 +642,12 @@ namespace XBMControl
 //START STOP BUTTON
         private void bStop_MouseEnter(object sender, EventArgs e)
         {
-            bStop.BackgroundImage = Resources.button_stop_hover;
+            if(XBMC.IsPlaying() || XBMC.IsPaused()) bStop.BackgroundImage = Resources.button_stop_hover;
         }
 
         private void bStop_MouseLeave(object sender, EventArgs e)
         {
-            bStop.BackgroundImage = Resources.button_stop;
+            if (XBMC.IsPlaying() || XBMC.IsPaused()) bStop.BackgroundImage = Resources.button_stop;
         }
 
         private void bStop_MouseDown(object sender, MouseEventArgs e)
@@ -648,7 +658,7 @@ namespace XBMControl
 
         private void bStop_MouseUp(object sender, MouseEventArgs e)
         {
-            bStop.BackgroundImage = Resources.button_stop_hover;
+            if (XBMC.IsPlaying() || XBMC.IsPaused()) bStop.BackgroundImage = Resources.button_stop_hover;
         }
 //END STOP BUTTON
 
@@ -702,12 +712,12 @@ namespace XBMControl
 //START MUTE BUTTON
         private void bMute_MouseEnter(object sender, EventArgs e)
         {
-            bMute.BackgroundImage = Resources.button_mute_hover;
+            if (!XBMC.IsPaused()) bMute.BackgroundImage = Resources.button_mute_hover;
         }
 
         private void bMute_MouseLeave(object sender, EventArgs e)
         {
-            bMute.BackgroundImage = Resources.button_mute;
+            if (!XBMC.IsPaused()) bMute.BackgroundImage = Resources.button_mute;
         }
 
         private void bMute_MouseDown(object sender, MouseEventArgs e)
@@ -718,7 +728,7 @@ namespace XBMControl
 
         private void bMute_MouseUp(object sender, MouseEventArgs e)
         {
-            bMute.BackgroundImage = Resources.button_mute_hover;
+            if (!XBMC.IsPaused()) bMute.BackgroundImage = Resources.button_mute_hover;
         }
 //END MUTE BUTTON
 
@@ -776,6 +786,11 @@ namespace XBMControl
                 this.Left = e.X + this.Left - clickOffsetX;
                 this.Top  = e.Y + this.Top - clickOffsetY;
             }
+        }
+
+        private void pbMediaType_Click(object sender, EventArgs e)
+        {
+            if (XBMC.GetNowPlayingMediaType() == "Audio" || XBMC.IsPlaying("lastfm")) pbLastFM_Click();
         }
 //END FAKE DRAG DROP
     }

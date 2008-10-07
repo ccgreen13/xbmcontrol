@@ -35,13 +35,16 @@ namespace XBMC.Communicator
         private string[,] maNowPlayingInfo  = new string[50, 2];
 
         //XBMC Properties
-        private bool isConnected             = false;
-        private bool isPlaying               = false;
-        private bool isPaused                = false;
-        private bool isMuted                 = false;
-        private int volume                   = 0;
-        private int progress                 = 0;
-        private string mediaCurrentlyPlaying = null;
+        private bool isConnected           = false;
+        private bool isPlaying             = false;
+        private bool isPlayingLastFm       = false;
+        private bool isPaused              = false;
+        private bool isMuted               = false;
+        private int volume                 = 0;
+        private int progress               = 0;
+        private string mediaNowPlaying     = null;
+        private bool newMediaPlaying       = true;
+        private string nowPlayingMediaType = null;
 
         public XBMCcomm()
         {
@@ -91,16 +94,26 @@ namespace XBMC.Communicator
         public void GetXbmcProperties()
         {
             string[] aVolume = this.Request("GetVolume"); //request a value that should always be available
-            isConnected      = (aVolume == null) ? false : true;
+            isConnected      = (aVolume.Length > 1) ? true : false;
 
             if (isConnected)
             {
-                isPlaying           = (this.GetNowPlayingInfo("playstatus", true) == "Playing") ? true : false;
-                isPaused            = (this.GetNowPlayingInfo("playstatus", true) == "Paused") ? true : false;
-                volume              = (aVolume[1] == "Error") ? 0 : Convert.ToInt32(aVolume[1]);
-                isMuted             = (volume == 0) ? true : false;
-                string[] aProgress  = this.Request("GetPercentage");
-                progress            = (aProgress[1] == "Error" || aProgress[1] == "0" || Convert.ToInt32(aProgress[1]) > 99) ? 1 : Convert.ToInt32(aProgress[1]);
+                if (mediaNowPlaying != this.GetNowPlayingInfo("filename", true) || mediaNowPlaying == null)
+                {
+                    mediaNowPlaying = this.GetNowPlayingInfo("filename");
+                    newMediaPlaying = true;
+                }
+                else
+                    newMediaPlaying = false;
+
+                isPlaying             = (this.GetNowPlayingInfo("playstatus") == "Playing") ? true : false;
+                isPlayingLastFm       = (this.GetNowPlayingInfo("filename").Substring(0, 6) == "lastfm") ? true : false;
+                isPaused              = (this.GetNowPlayingInfo("playstatus") == "Paused") ? true : false;
+                volume                = (aVolume[1] == "Error") ? 0 : Convert.ToInt32(aVolume[1]);
+                isMuted               = (volume == 0) ? true : false;
+                nowPlayingMediaType   = this.GetNowPlayingInfo("type");
+                string[] aProgress    = this.Request("GetPercentage");
+                progress              = (aProgress[1] == "Error" || aProgress[1] == "0" || Convert.ToInt32(aProgress[1]) > 99) ? 1 : Convert.ToInt32(aProgress[1]);
             }
         }
 
@@ -122,18 +135,17 @@ namespace XBMC.Communicator
 
         public bool IsNewMediaPlaying()
         {
-            if (mediaCurrentlyPlaying == this.GetNowPlayingInfo("filename"))
-                return false;
-            else
-            {
-                mediaCurrentlyPlaying = this.GetNowPlayingInfo("filename");
-                return true;
-            }
+            return newMediaPlaying;
+        }
+
+        public bool IsPlaying(string lastfm)
+        {
+            return (lastfm != null )? isPlayingLastFm : isPlaying ;
         }
 
         public bool IsPlaying()
         {
-            return isPlaying;
+            return this.IsPlaying(null);
         }
 
         public bool IsPaused()
@@ -154,6 +166,11 @@ namespace XBMC.Communicator
         public int GetProgress()
         {
             return progress;
+        }
+
+        public string GetNowPlayingMediaType()
+        {
+            return nowPlayingMediaType;
         }
 
         public string GetNowPlayingInfo(string field, bool refresh)

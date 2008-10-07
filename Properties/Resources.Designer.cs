@@ -361,9 +361,23 @@ namespace XBMControl.Properties {
             }
         }
         
+        internal static System.Drawing.Bitmap last1 {
+            get {
+                object obj = ResourceManager.GetObject("last1", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
         internal static System.Drawing.Bitmap lastfm {
             get {
                 object obj = ResourceManager.GetObject("lastfm", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap lastfm_32x32 {
+            get {
+                object obj = ResourceManager.GetObject("lastfm_32x32", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
