@@ -129,7 +129,7 @@ namespace XBMControl
             if (XBMC.IsConnected())
             {
                 SetControlsEnabled(true);
-                resetToDefault = (XBMC.IsPlaying() && !XBMC.IsPaused()) ? false : true;
+                resetToDefault = (XBMC.IsPlaying() || XBMC.IsPaused()) ? false : true;
                 updateTimer.Interval = updateIntervalShort;
 
                 if (XBMC.IsNewMediaPlaying())
@@ -247,14 +247,15 @@ namespace XBMControl
         private void ShowPlayStausBalloonTip()
         {
             notifyIcon1.BalloonTipIcon = ToolTipIcon.Info;
-            if (!XBMC.IsPlaying() && !playStatusMessageShowed)
-            {
-                notifyIcon1.ShowBalloonTip(2000, Language.GetString("global/appName"), Language.GetString("mainform/playing/nothing"), ToolTipIcon.Info);
-                playStatusMessageShowed = true;
-            }
-            else if (XBMC.GetNowPlayingInfo("playstatus") == "Paused" && !playStatusMessageShowed)
+
+            if (XBMC.IsPaused() && !playStatusMessageShowed)
             {
                 notifyIcon1.ShowBalloonTip(2000, Language.GetString("global/appName"), Language.GetString("mainform/playing/paused"), ToolTipIcon.Info);
+                playStatusMessageShowed = true;
+            }
+            else if (!XBMC.IsPlaying() && !playStatusMessageShowed)
+            {
+                notifyIcon1.ShowBalloonTip(2000, Language.GetString("global/appName"), Language.GetString("mainform/playing/nothing"), ToolTipIcon.Info);
                 playStatusMessageShowed = true;
             }
             else if (XBMC.IsPlaying())
