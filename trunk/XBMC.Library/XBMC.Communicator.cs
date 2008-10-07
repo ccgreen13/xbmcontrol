@@ -93,10 +93,7 @@ namespace XBMC.Communicator
 
         public void GetXbmcProperties()
         {
-            string[] aVolume = this.Request("GetVolume"); //request a value that should always be available
-            isConnected      = (aVolume.Length > 1) ? true : false;
-
-            if (isConnected)
+            if (this.IsConnected())
             {
                 if (mediaNowPlaying != this.GetNowPlayingInfo("filename", true) || mediaNowPlaying == null)
                 {
@@ -109,7 +106,8 @@ namespace XBMC.Communicator
                 isPlaying             = (this.GetNowPlayingInfo("playstatus") == "Playing") ? true : false;
                 isPlayingLastFm       = (this.GetNowPlayingInfo("filename").Substring(0, 6) == "lastfm") ? true : false;
                 isPaused              = (this.GetNowPlayingInfo("playstatus") == "Paused") ? true : false;
-                volume                = (aVolume[1] == "Error") ? 0 : Convert.ToInt32(aVolume[1]);
+                string[] aVolume      = this.Request("GetVolume");
+                volume                = (aVolume.Length < 1 || aVolume[1] == "Error") ? 0 : Convert.ToInt32(aVolume[1]);
                 isMuted               = (volume == 0) ? true : false;
                 nowPlayingMediaType   = this.GetNowPlayingInfo("type");
                 string[] aProgress    = this.Request("GetPercentage");
@@ -119,13 +117,27 @@ namespace XBMC.Communicator
 
         public bool IsConnected(string ip)
         {
-            if(ip == null)
-                return isConnected;
-            else
+            HttpWebRequest request   = null;
+            HttpWebResponse response = null;
+            string ipAddress         = (ip == null) ? configuredXbmcIp : ip;
+
+            try
             {
-                string[] connected = this.Request("GetVolume", null, ip);
-                return (connected == null)? false : true;
+                request = (HttpWebRequest)WebRequest.Create("http://" + ipAddress);
+                request.Method = "GET";
+                request.Timeout = XBMControl.Properties.Settings.Default.ConnectionTimeout;
+                response = (HttpWebResponse)request.GetResponse();
             }
+            catch (Exception e)
+            {
+                return false;
+            }
+            finally
+            {
+                if (response != null) response.Close();
+            }
+
+            return true;
         }
 
         public bool IsConnected()
