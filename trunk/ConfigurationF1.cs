@@ -68,6 +68,7 @@ namespace XBMControl
             cbShowPlayStatusBalloonTip.Text         = Language.GetString("configuration/label/showPlayStatusBalloonTip");
             cbShowConnectionStatusBalloonTip.Text   = Language.GetString("configuration/label/showConnectionStatusBalloonTip");
             cbRunAtStartup.Text                     = Language.GetString("configuration/label/runAtStartup");
+            cbShowPlayStatusWindow.Text             = Language.GetString("configuration/label/showPlayStatusWindow");
             bConfirm.Text                           = Language.GetString("global/button/confirm");
             bCancel.Text                            = Language.GetString("global/button/cancel");
         }
@@ -82,9 +83,10 @@ namespace XBMControl
 
             XBMControl.Properties.Settings.Default.ShowInSystemTray               = cbShowInTray.Checked;
             XBMControl.Properties.Settings.Default.ShowNowPlayingBalloonTips      = cbShowNowPlayingBalloonTip.Checked;
-            XBMControl.Properties.Settings.Default.ShowPlayStausBalloonTips       = cbShowPlayStatusBalloonTip.Checked;
+            //XBMControl.Properties.Settings.Default.ShowPlayStatusWindow           = cbShowPlayStatusWindow.Checked;
+            XBMControl.Properties.Settings.Default.ShowPlayStatusBalloonTips       = cbShowPlayStatusBalloonTip.Checked;
             XBMControl.Properties.Settings.Default.ShowInTaskbar                  = cbShowInTaskbar.Checked;
-            XBMControl.Properties.Settings.Default.ShowConnectionStatusBalloonTip = cbShowConnectionStatusBalloonTip.Checked;
+            XBMControl.Properties.Settings.Default.ShowConnectionInfo = cbShowConnectionStatusBalloonTip.Checked;
             
             if (!XBMControl.Properties.Settings.Default.ShowInSystemTray) XBMControl.Properties.Settings.Default.ShowInTaskbar = true;
 
@@ -99,7 +101,7 @@ namespace XBMControl
         private void LoadConfiguration()
         {
             ShowAvailableLanguages();
-            SetSystrayChackboxesEnabled(XBMControl.Properties.Settings.Default.ShowInSystemTray);
+            SetSystrayCheckboxesEnabled(XBMControl.Properties.Settings.Default.ShowInSystemTray);
             cbLanguage.Text                          = XBMControl.Properties.Settings.Default.Language;
             tbIp.Text                                = XBMControl.Properties.Settings.Default.Ip;
             tbUsername.Text                          = XBMControl.Properties.Settings.Default.Username;
@@ -108,13 +110,14 @@ namespace XBMControl
 
             cbShowInTray.Checked                     = XBMControl.Properties.Settings.Default.ShowInSystemTray;
             cbShowNowPlayingBalloonTip.Checked       = XBMControl.Properties.Settings.Default.ShowNowPlayingBalloonTips;
-            cbShowPlayStatusBalloonTip.Checked       = XBMControl.Properties.Settings.Default.ShowPlayStausBalloonTips;
+            //cbShowPlayStatusWindow.Checked           = XBMControl.Properties.Settings.Default.ShowPlayStatusWindow;
+            cbShowPlayStatusBalloonTip.Checked       = XBMControl.Properties.Settings.Default.ShowPlayStatusBalloonTips;
             cbShowInTaskbar.Checked                  = XBMControl.Properties.Settings.Default.ShowInTaskbar;
-            cbShowConnectionStatusBalloonTip.Checked = XBMControl.Properties.Settings.Default.ShowConnectionStatusBalloonTip;
+            cbShowConnectionStatusBalloonTip.Checked = XBMControl.Properties.Settings.Default.ShowConnectionInfo;
             cbRunAtStartup.Checked                   = (regRunAtStartup.GetValue(Language.GetString("global/appName")) == null) ? false : true;
         }
 
-        private void SetSystrayChackboxesEnabled(bool enabled)
+        private void SetSystrayCheckboxesEnabled(bool enabled)
         {
             cbShowNowPlayingBalloonTip.Enabled       = enabled;
             cbShowPlayStatusBalloonTip.Enabled       = enabled;
@@ -177,7 +180,7 @@ namespace XBMControl
 
         private void cbShowInTray_Click(object sender, EventArgs e)
         {
-            SetSystrayChackboxesEnabled(cbShowInTray.Checked);
+            SetSystrayCheckboxesEnabled(cbShowInTray.Checked);
             if (!cbShowInTray.Checked) cbShowInTaskbar.Checked = true;
         }
 
@@ -190,6 +193,18 @@ namespace XBMControl
         private void cbConnectionTimeout_SelectedValueChanged(object sender, EventArgs e)
         {
             XBMControl.Properties.Settings.Default.ConnectionTimeout = Convert.ToInt32(cbConnectionTimeout.Text); 
+        }
+
+        private void cbShowPlayStatusBalloonTip_Click(object sender, EventArgs e)
+        {
+            if (cbShowPlayStatusWindow.Checked)
+                cbShowPlayStatusWindow.Checked = false;
+        }
+
+        private void cbShowPlayStatusWindow_Click(object sender, EventArgs e)
+        {
+            if (cbShowPlayStatusBalloonTip.Checked)
+                cbShowPlayStatusBalloonTip.Checked = false;
         }
     }
 }

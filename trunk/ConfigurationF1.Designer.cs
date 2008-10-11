@@ -49,6 +49,7 @@
             this.lConnectionTimeout = new System.Windows.Forms.Label();
             this.lMs = new System.Windows.Forms.Label();
             this.pbXBMCLogo = new System.Windows.Forms.PictureBox();
+            this.cbShowPlayStatusWindow = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.pbXBMCLogo)).BeginInit();
             this.SuspendLayout();
             // 
@@ -56,7 +57,7 @@
             // 
             this.bCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.bCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.bCancel.Location = new System.Drawing.Point(305, 283);
+            this.bCancel.Location = new System.Drawing.Point(305, 301);
             this.bCancel.Name = "bCancel";
             this.bCancel.Size = new System.Drawing.Size(72, 23);
             this.bCancel.TabIndex = 0;
@@ -67,7 +68,7 @@
             // bConfirm
             // 
             this.bConfirm.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.bConfirm.Location = new System.Drawing.Point(227, 283);
+            this.bConfirm.Location = new System.Drawing.Point(227, 301);
             this.bConfirm.Name = "bConfirm";
             this.bConfirm.Size = new System.Drawing.Size(72, 23);
             this.bConfirm.TabIndex = 1;
@@ -96,7 +97,6 @@
             // tbUsername
             // 
             this.tbUsername.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.tbUsername.Enabled = false;
             this.tbUsername.Location = new System.Drawing.Point(241, 66);
             this.tbUsername.Name = "tbUsername";
             this.tbUsername.Size = new System.Drawing.Size(134, 21);
@@ -105,7 +105,6 @@
             // tbPassword
             // 
             this.tbPassword.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.tbPassword.Enabled = false;
             this.tbPassword.Location = new System.Drawing.Point(241, 93);
             this.tbPassword.Name = "tbPassword";
             this.tbPassword.PasswordChar = '*';
@@ -134,7 +133,7 @@
             // 
             this.cbShowInTray.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.cbShowInTray.AutoSize = true;
-            this.cbShowInTray.Location = new System.Drawing.Point(24, 157);
+            this.cbShowInTray.Location = new System.Drawing.Point(24, 165);
             this.cbShowInTray.Name = "cbShowInTray";
             this.cbShowInTray.Size = new System.Drawing.Size(13, 12);
             this.cbShowInTray.TabIndex = 13;
@@ -146,7 +145,7 @@
             this.cbShowNowPlayingBalloonTip.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.cbShowNowPlayingBalloonTip.AutoSize = true;
             this.cbShowNowPlayingBalloonTip.Enabled = false;
-            this.cbShowNowPlayingBalloonTip.Location = new System.Drawing.Point(24, 193);
+            this.cbShowNowPlayingBalloonTip.Location = new System.Drawing.Point(24, 201);
             this.cbShowNowPlayingBalloonTip.Name = "cbShowNowPlayingBalloonTip";
             this.cbShowNowPlayingBalloonTip.Size = new System.Drawing.Size(13, 12);
             this.cbShowNowPlayingBalloonTip.TabIndex = 14;
@@ -157,18 +156,19 @@
             this.cbShowPlayStatusBalloonTip.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.cbShowPlayStatusBalloonTip.AutoSize = true;
             this.cbShowPlayStatusBalloonTip.Enabled = false;
-            this.cbShowPlayStatusBalloonTip.Location = new System.Drawing.Point(24, 211);
+            this.cbShowPlayStatusBalloonTip.Location = new System.Drawing.Point(24, 219);
             this.cbShowPlayStatusBalloonTip.Name = "cbShowPlayStatusBalloonTip";
             this.cbShowPlayStatusBalloonTip.Size = new System.Drawing.Size(13, 12);
             this.cbShowPlayStatusBalloonTip.TabIndex = 15;
             this.cbShowPlayStatusBalloonTip.UseVisualStyleBackColor = true;
+            this.cbShowPlayStatusBalloonTip.Click += new System.EventHandler(this.cbShowPlayStatusBalloonTip_Click);
             // 
             // cbShowInTaskbar
             // 
             this.cbShowInTaskbar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.cbShowInTaskbar.AutoSize = true;
             this.cbShowInTaskbar.Enabled = false;
-            this.cbShowInTaskbar.Location = new System.Drawing.Point(24, 175);
+            this.cbShowInTaskbar.Location = new System.Drawing.Point(24, 183);
             this.cbShowInTaskbar.Name = "cbShowInTaskbar";
             this.cbShowInTaskbar.Size = new System.Drawing.Size(13, 12);
             this.cbShowInTaskbar.TabIndex = 16;
@@ -179,7 +179,7 @@
             this.cbShowConnectionStatusBalloonTip.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.cbShowConnectionStatusBalloonTip.AutoSize = true;
             this.cbShowConnectionStatusBalloonTip.Enabled = false;
-            this.cbShowConnectionStatusBalloonTip.Location = new System.Drawing.Point(24, 229);
+            this.cbShowConnectionStatusBalloonTip.Location = new System.Drawing.Point(24, 255);
             this.cbShowConnectionStatusBalloonTip.Name = "cbShowConnectionStatusBalloonTip";
             this.cbShowConnectionStatusBalloonTip.Size = new System.Drawing.Size(13, 12);
             this.cbShowConnectionStatusBalloonTip.TabIndex = 17;
@@ -210,7 +210,7 @@
             // 
             this.cbRunAtStartup.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.cbRunAtStartup.AutoSize = true;
-            this.cbRunAtStartup.Location = new System.Drawing.Point(24, 247);
+            this.cbRunAtStartup.Location = new System.Drawing.Point(24, 273);
             this.cbRunAtStartup.Name = "cbRunAtStartup";
             this.cbRunAtStartup.Size = new System.Drawing.Size(13, 12);
             this.cbRunAtStartup.TabIndex = 21;
@@ -274,6 +274,17 @@
             this.pbXBMCLogo.TabIndex = 20;
             this.pbXBMCLogo.TabStop = false;
             // 
+            // cbShowPlayStatusWindow
+            // 
+            this.cbShowPlayStatusWindow.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.cbShowPlayStatusWindow.AutoSize = true;
+            this.cbShowPlayStatusWindow.Location = new System.Drawing.Point(24, 237);
+            this.cbShowPlayStatusWindow.Name = "cbShowPlayStatusWindow";
+            this.cbShowPlayStatusWindow.Size = new System.Drawing.Size(13, 12);
+            this.cbShowPlayStatusWindow.TabIndex = 25;
+            this.cbShowPlayStatusWindow.UseVisualStyleBackColor = true;
+            this.cbShowPlayStatusWindow.Click += new System.EventHandler(this.cbShowPlayStatusWindow_Click);
+            // 
             // ConfigurationF1
             // 
             this.AcceptButton = this.bConfirm;
@@ -283,7 +294,8 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(248)))), ((int)(((byte)(245)))), ((int)(((byte)(242)))));
             this.CancelButton = this.bCancel;
-            this.ClientSize = new System.Drawing.Size(389, 318);
+            this.ClientSize = new System.Drawing.Size(389, 336);
+            this.Controls.Add(this.cbShowPlayStatusWindow);
             this.Controls.Add(this.lMs);
             this.Controls.Add(this.lConnectionTimeout);
             this.Controls.Add(this.cbConnectionTimeout);
@@ -342,5 +354,6 @@
         private System.Windows.Forms.ComboBox cbConnectionTimeout;
         private System.Windows.Forms.Label lConnectionTimeout;
         private System.Windows.Forms.Label lMs;
+        private System.Windows.Forms.CheckBox cbShowPlayStatusWindow;
     }
 }

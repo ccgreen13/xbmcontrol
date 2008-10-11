@@ -42,6 +42,7 @@
             this.cmsNext = new System.Windows.Forms.ToolStripMenuItem();
             this.cmsMute = new System.Windows.Forms.ToolStripMenuItem();
             this.cmsXBMC = new System.Windows.Forms.ToolStripMenuItem();
+            this.cmsSendMediaUrl = new System.Windows.Forms.ToolStripMenuItem();
             this.cmsShowScreenshot = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator4 = new System.Windows.Forms.ToolStripSeparator();
             this.cmsXBMCrestart = new System.Windows.Forms.ToolStripMenuItem();
@@ -49,7 +50,7 @@
             this.cmsXBMCshutdown = new System.Windows.Forms.ToolStripMenuItem();
             this.cmsSeperatorFolders = new System.Windows.Forms.ToolStripSeparator();
             this.cmsSaveMedia = new System.Windows.Forms.ToolStripMenuItem();
-            this.cmsSeperatorSaveMedia = new System.Windows.Forms.ToolStripSeparator();
+            this.cmsSeperatorSaveSend = new System.Windows.Forms.ToolStripSeparator();
             this.cmsShow = new System.Windows.Forms.ToolStripMenuItem();
             this.cmsHide = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
@@ -66,6 +67,8 @@
             this.lArtistTitle = new System.Windows.Forms.Label();
             this.pNowPlayingInfo = new System.Windows.Forms.Panel();
             this.pTime = new System.Windows.Forms.Panel();
+            this.bLastFmHate = new System.Windows.Forms.Button();
+            this.bLastFmLove = new System.Windows.Forms.Button();
             this.lTimePlayed = new System.Windows.Forms.Label();
             this.lArtistSong = new System.Windows.Forms.Label();
             this.pbMediaType = new System.Windows.Forms.PictureBox();
@@ -74,6 +77,9 @@
             this.lBitrate = new System.Windows.Forms.Label();
             this.lBitrateTitle = new System.Windows.Forms.Label();
             this.pControls = new System.Windows.Forms.Panel();
+            this.bPartymode = new System.Windows.Forms.Button();
+            this.bShuffle = new System.Windows.Forms.Button();
+            this.bRepeat = new System.Windows.Forms.Button();
             this.tbVolume = new System.Windows.Forms.TrackBar();
             this.bMute = new System.Windows.Forms.Button();
             this.bOpen = new System.Windows.Forms.Button();
@@ -127,7 +133,8 @@
             this.notifyIcon1.Icon = ((System.Drawing.Icon)(resources.GetObject("notifyIcon1.Icon")));
             this.notifyIcon1.Text = "XBMControl";
             this.notifyIcon1.MouseUp += new System.Windows.Forms.MouseEventHandler(this.notifyIcon1_MouseUp);
-            this.notifyIcon1.MouseDown += new System.Windows.Forms.MouseEventHandler(this.notifyIcon1_MouseDown);
+            this.notifyIcon1.MouseClick += new System.Windows.Forms.MouseEventHandler(this.notifyIcon1_MouseClick);
+            this.notifyIcon1.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.notifyIcon1_MouseDoubleClick);
             // 
             // MainContextMenu
             // 
@@ -136,7 +143,7 @@
             this.cmsXBMC,
             this.cmsSeperatorFolders,
             this.cmsSaveMedia,
-            this.cmsSeperatorSaveMedia,
+            this.cmsSeperatorSaveSend,
             this.cmsShow,
             this.cmsHide,
             this.toolStripSeparator1,
@@ -158,53 +165,54 @@
             this.cmsMute});
             this.cmsControls.Image = global::XBMControl.Properties.Resources.folder_16x16;
             this.cmsControls.Name = "cmsControls";
-            this.cmsControls.Size = new System.Drawing.Size(152, 22);
+            this.cmsControls.Size = new System.Drawing.Size(78, 22);
             // 
             // cmsPrevious
             // 
             this.cmsPrevious.Image = global::XBMControl.Properties.Resources.previous_16x16;
             this.cmsPrevious.Name = "cmsPrevious";
-            this.cmsPrevious.Size = new System.Drawing.Size(152, 22);
+            this.cmsPrevious.Size = new System.Drawing.Size(78, 22);
             this.cmsPrevious.Click += new System.EventHandler(this.cmsNotifyPrevious_Click);
             // 
             // cmsPlay
             // 
             this.cmsPlay.Image = global::XBMControl.Properties.Resources.play2_16x16;
             this.cmsPlay.Name = "cmsPlay";
-            this.cmsPlay.Size = new System.Drawing.Size(152, 22);
+            this.cmsPlay.Size = new System.Drawing.Size(78, 22);
             this.cmsPlay.Click += new System.EventHandler(this.cmsNotifyPlay_Click);
             // 
             // cmsPause
             // 
             this.cmsPause.Image = global::XBMControl.Properties.Resources.pause_16x16;
             this.cmsPause.Name = "cmsPause";
-            this.cmsPause.Size = new System.Drawing.Size(152, 22);
+            this.cmsPause.Size = new System.Drawing.Size(78, 22);
             this.cmsPause.Click += new System.EventHandler(this.cmsNotifyPause_Click);
             // 
             // cmsStop
             // 
             this.cmsStop.Image = global::XBMControl.Properties.Resources.stop_16x16;
             this.cmsStop.Name = "cmsStop";
-            this.cmsStop.Size = new System.Drawing.Size(152, 22);
+            this.cmsStop.Size = new System.Drawing.Size(78, 22);
             this.cmsStop.Click += new System.EventHandler(this.cmsNotifyStop_Click);
             // 
             // cmsNext
             // 
             this.cmsNext.Image = global::XBMControl.Properties.Resources.next_16x16;
             this.cmsNext.Name = "cmsNext";
-            this.cmsNext.Size = new System.Drawing.Size(152, 22);
+            this.cmsNext.Size = new System.Drawing.Size(78, 22);
             this.cmsNext.Click += new System.EventHandler(this.cmsNotifyNext_Click);
             // 
             // cmsMute
             // 
             this.cmsMute.Image = global::XBMControl.Properties.Resources.mute_16x16;
             this.cmsMute.Name = "cmsMute";
-            this.cmsMute.Size = new System.Drawing.Size(152, 22);
+            this.cmsMute.Size = new System.Drawing.Size(78, 22);
             this.cmsMute.Click += new System.EventHandler(this.cmsNotifyMute_Click);
             // 
             // cmsXBMC
             // 
             this.cmsXBMC.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.cmsSendMediaUrl,
             this.cmsShowScreenshot,
             this.toolStripSeparator4,
             this.cmsXBMCrestart,
@@ -212,96 +220,103 @@
             this.cmsXBMCshutdown});
             this.cmsXBMC.Image = global::XBMControl.Properties.Resources.folder_16x16;
             this.cmsXBMC.Name = "cmsXBMC";
-            this.cmsXBMC.Size = new System.Drawing.Size(152, 22);
+            this.cmsXBMC.Size = new System.Drawing.Size(78, 22);
+            // 
+            // cmsSendMediaUrl
+            // 
+            this.cmsSendMediaUrl.Image = global::XBMControl.Properties.Resources.send_media_16x16;
+            this.cmsSendMediaUrl.Name = "cmsSendMediaUrl";
+            this.cmsSendMediaUrl.Size = new System.Drawing.Size(78, 22);
+            this.cmsSendMediaUrl.Click += new System.EventHandler(this.cmsSendMediaUrl_Click);
             // 
             // cmsShowScreenshot
             // 
             this.cmsShowScreenshot.Image = global::XBMControl.Properties.Resources.image_16x16;
             this.cmsShowScreenshot.Name = "cmsShowScreenshot";
-            this.cmsShowScreenshot.Size = new System.Drawing.Size(152, 22);
+            this.cmsShowScreenshot.Size = new System.Drawing.Size(78, 22);
             this.cmsShowScreenshot.Click += new System.EventHandler(this.cmsShowScreenshot_Click);
             // 
             // toolStripSeparator4
             // 
             this.toolStripSeparator4.Name = "toolStripSeparator4";
-            this.toolStripSeparator4.Size = new System.Drawing.Size(149, 6);
+            this.toolStripSeparator4.Size = new System.Drawing.Size(75, 6);
             // 
             // cmsXBMCrestart
             // 
             this.cmsXBMCrestart.Image = global::XBMControl.Properties.Resources.restart_16x16;
             this.cmsXBMCrestart.Name = "cmsXBMCrestart";
-            this.cmsXBMCrestart.Size = new System.Drawing.Size(152, 22);
+            this.cmsXBMCrestart.Size = new System.Drawing.Size(78, 22);
             this.cmsXBMCrestart.Click += new System.EventHandler(this.cmsXBMCrebootXBMC_Click);
             // 
             // cmsXBMCreboot
             // 
             this.cmsXBMCreboot.Image = global::XBMControl.Properties.Resources.reboot_16x16;
             this.cmsXBMCreboot.Name = "cmsXBMCreboot";
-            this.cmsXBMCreboot.Size = new System.Drawing.Size(152, 22);
+            this.cmsXBMCreboot.Size = new System.Drawing.Size(78, 22);
             this.cmsXBMCreboot.Click += new System.EventHandler(this.cmsXBMCrebootComputer_Click);
             // 
             // cmsXBMCshutdown
             // 
             this.cmsXBMCshutdown.Image = global::XBMControl.Properties.Resources.shutdown_16x16;
             this.cmsXBMCshutdown.Name = "cmsXBMCshutdown";
-            this.cmsXBMCshutdown.Size = new System.Drawing.Size(152, 22);
+            this.cmsXBMCshutdown.Size = new System.Drawing.Size(78, 22);
             this.cmsXBMCshutdown.Click += new System.EventHandler(this.cmsXBMCshutdown_Click);
             // 
             // cmsSeperatorFolders
             // 
             this.cmsSeperatorFolders.Name = "cmsSeperatorFolders";
-            this.cmsSeperatorFolders.Size = new System.Drawing.Size(149, 6);
+            this.cmsSeperatorFolders.Size = new System.Drawing.Size(75, 6);
             // 
             // cmsSaveMedia
             // 
             this.cmsSaveMedia.Image = global::XBMControl.Properties.Resources.save_16x16;
             this.cmsSaveMedia.Name = "cmsSaveMedia";
-            this.cmsSaveMedia.Size = new System.Drawing.Size(152, 22);
+            this.cmsSaveMedia.Size = new System.Drawing.Size(78, 22);
             this.cmsSaveMedia.Visible = false;
             this.cmsSaveMedia.Click += new System.EventHandler(this.cmsSaveMedia_Click);
             // 
-            // cmsSeperatorSaveMedia
+            // cmsSeperatorSaveSend
             // 
-            this.cmsSeperatorSaveMedia.Name = "cmsSeperatorSaveMedia";
-            this.cmsSeperatorSaveMedia.Size = new System.Drawing.Size(149, 6);
-            this.cmsSeperatorSaveMedia.Visible = false;
+            this.cmsSeperatorSaveSend.Name = "cmsSeperatorSaveSend";
+            this.cmsSeperatorSaveSend.Size = new System.Drawing.Size(75, 6);
+            this.cmsSeperatorSaveSend.Visible = false;
             // 
             // cmsShow
             // 
             this.cmsShow.Image = global::XBMControl.Properties.Resources.show_16x16;
             this.cmsShow.Name = "cmsShow";
-            this.cmsShow.Size = new System.Drawing.Size(152, 22);
+            this.cmsShow.Size = new System.Drawing.Size(78, 22);
             this.cmsShow.Click += new System.EventHandler(this.cmsNotifyShow_Click);
             // 
             // cmsHide
             // 
             this.cmsHide.Image = global::XBMControl.Properties.Resources.hide_16x16;
             this.cmsHide.Name = "cmsHide";
-            this.cmsHide.Size = new System.Drawing.Size(152, 22);
+            this.cmsHide.Size = new System.Drawing.Size(78, 22);
             this.cmsHide.Click += new System.EventHandler(this.cmsNotifyHide_Click);
             // 
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(149, 6);
+            this.toolStripSeparator1.Size = new System.Drawing.Size(75, 6);
             // 
             // cmsConfigure
             // 
             this.cmsConfigure.Image = global::XBMControl.Properties.Resources.configure_16x16;
             this.cmsConfigure.Name = "cmsConfigure";
-            this.cmsConfigure.Size = new System.Drawing.Size(152, 22);
+            this.cmsConfigure.Size = new System.Drawing.Size(78, 22);
             this.cmsConfigure.Click += new System.EventHandler(this.cmsConfigure_Click);
             // 
             // toolStripSeparator3
             // 
             this.toolStripSeparator3.Name = "toolStripSeparator3";
-            this.toolStripSeparator3.Size = new System.Drawing.Size(149, 6);
+            this.toolStripSeparator3.Size = new System.Drawing.Size(75, 6);
             // 
             // cmsExit
             // 
             this.cmsExit.Image = global::XBMControl.Properties.Resources.exit_16x16;
             this.cmsExit.Name = "cmsExit";
-            this.cmsExit.Size = new System.Drawing.Size(152, 22);
+            this.cmsExit.Size = new System.Drawing.Size(78, 22);
             this.cmsExit.Click += new System.EventHandler(this.cmsNotifyExit_Click);
             // 
             // pDetails
@@ -421,11 +436,55 @@
             // pTime
             // 
             this.pTime.BackgroundImage = global::XBMControl.Properties.Resources.background_pTime1;
+            this.pTime.Controls.Add(this.bLastFmHate);
+            this.pTime.Controls.Add(this.bLastFmLove);
             this.pTime.Controls.Add(this.lTimePlayed);
             this.pTime.Location = new System.Drawing.Point(4, 0);
             this.pTime.Name = "pTime";
             this.pTime.Size = new System.Drawing.Size(173, 34);
             this.pTime.TabIndex = 8;
+            // 
+            // bLastFmHate
+            // 
+            this.bLastFmHate.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.bLastFmHate.BackColor = System.Drawing.Color.Transparent;
+            this.bLastFmHate.BackgroundImage = global::XBMControl.Properties.Resources.lastfm_hate5;
+            this.bLastFmHate.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.bLastFmHate.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.bLastFmHate.FlatAppearance.BorderColor = System.Drawing.SystemColors.Control;
+            this.bLastFmHate.FlatAppearance.BorderSize = 0;
+            this.bLastFmHate.FlatAppearance.CheckedBackColor = System.Drawing.SystemColors.ControlLight;
+            this.bLastFmHate.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
+            this.bLastFmHate.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
+            this.bLastFmHate.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.bLastFmHate.ForeColor = System.Drawing.Color.Transparent;
+            this.bLastFmHate.Location = new System.Drawing.Point(161, 3);
+            this.bLastFmHate.Name = "bLastFmHate";
+            this.bLastFmHate.Size = new System.Drawing.Size(9, 9);
+            this.bLastFmHate.TabIndex = 20;
+            this.bLastFmHate.UseVisualStyleBackColor = false;
+            this.bLastFmHate.Click += new System.EventHandler(this.bLastFmHate_Click);
+            // 
+            // bLastFmLove
+            // 
+            this.bLastFmLove.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.bLastFmLove.BackColor = System.Drawing.Color.Transparent;
+            this.bLastFmLove.BackgroundImage = global::XBMControl.Properties.Resources.lastfm_love1;
+            this.bLastFmLove.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.bLastFmLove.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.bLastFmLove.FlatAppearance.BorderColor = System.Drawing.SystemColors.Control;
+            this.bLastFmLove.FlatAppearance.BorderSize = 0;
+            this.bLastFmLove.FlatAppearance.CheckedBackColor = System.Drawing.SystemColors.ControlLight;
+            this.bLastFmLove.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
+            this.bLastFmLove.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
+            this.bLastFmLove.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.bLastFmLove.ForeColor = System.Drawing.Color.Transparent;
+            this.bLastFmLove.Location = new System.Drawing.Point(161, 22);
+            this.bLastFmLove.Name = "bLastFmLove";
+            this.bLastFmLove.Size = new System.Drawing.Size(9, 9);
+            this.bLastFmLove.TabIndex = 21;
+            this.bLastFmLove.UseVisualStyleBackColor = false;
+            this.bLastFmLove.Click += new System.EventHandler(this.bLastFmLove_Click);
             // 
             // lTimePlayed
             // 
@@ -442,7 +501,7 @@
             // lArtistSong
             // 
             this.lArtistSong.BackColor = System.Drawing.Color.Transparent;
-            this.lArtistSong.Cursor = System.Windows.Forms.Cursors.Arrow;
+            this.lArtistSong.Cursor = System.Windows.Forms.Cursors.Hand;
             this.lArtistSong.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lArtistSong.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(95)))), ((int)(((byte)(95)))), ((int)(((byte)(95)))));
             this.lArtistSong.Location = new System.Drawing.Point(2, 37);
@@ -469,7 +528,7 @@
             // 
             this.lSamplerate.Font = new System.Drawing.Font("Tahoma", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
             this.lSamplerate.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(95)))), ((int)(((byte)(95)))), ((int)(((byte)(95)))));
-            this.lSamplerate.Location = new System.Drawing.Point(183, 15);
+            this.lSamplerate.Location = new System.Drawing.Point(185, 12);
             this.lSamplerate.Margin = new System.Windows.Forms.Padding(1, 0, 1, 0);
             this.lSamplerate.Name = "lSamplerate";
             this.lSamplerate.Size = new System.Drawing.Size(23, 10);
@@ -481,7 +540,7 @@
             this.lSamplerateTitle.AutoSize = true;
             this.lSamplerateTitle.Font = new System.Drawing.Font("Tahoma", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
             this.lSamplerateTitle.ForeColor = System.Drawing.Color.Silver;
-            this.lSamplerateTitle.Location = new System.Drawing.Point(203, 15);
+            this.lSamplerateTitle.Location = new System.Drawing.Point(205, 12);
             this.lSamplerateTitle.Name = "lSamplerateTitle";
             this.lSamplerateTitle.Size = new System.Drawing.Size(19, 11);
             this.lSamplerateTitle.TabIndex = 3;
@@ -491,7 +550,7 @@
             // 
             this.lBitrate.Font = new System.Drawing.Font("Tahoma", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
             this.lBitrate.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(95)))), ((int)(((byte)(95)))), ((int)(((byte)(95)))));
-            this.lBitrate.Location = new System.Drawing.Point(181, 5);
+            this.lBitrate.Location = new System.Drawing.Point(183, 2);
             this.lBitrate.Margin = new System.Windows.Forms.Padding(0);
             this.lBitrate.Name = "lBitrate";
             this.lBitrate.Size = new System.Drawing.Size(25, 10);
@@ -503,7 +562,7 @@
             this.lBitrateTitle.AutoSize = true;
             this.lBitrateTitle.Font = new System.Drawing.Font("Tahoma", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
             this.lBitrateTitle.ForeColor = System.Drawing.Color.Silver;
-            this.lBitrateTitle.Location = new System.Drawing.Point(203, 4);
+            this.lBitrateTitle.Location = new System.Drawing.Point(205, 1);
             this.lBitrateTitle.Name = "lBitrateTitle";
             this.lBitrateTitle.Size = new System.Drawing.Size(24, 11);
             this.lBitrateTitle.TabIndex = 1;
@@ -515,6 +574,9 @@
             this.pControls.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(248)))), ((int)(((byte)(245)))), ((int)(((byte)(242)))));
             this.pControls.BackgroundImage = global::XBMControl.Properties.Resources.background_controls2;
             this.pControls.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.pControls.Controls.Add(this.bPartymode);
+            this.pControls.Controls.Add(this.bShuffle);
+            this.pControls.Controls.Add(this.bRepeat);
             this.pControls.Controls.Add(this.tbVolume);
             this.pControls.Controls.Add(this.bMute);
             this.pControls.Controls.Add(this.bOpen);
@@ -529,6 +591,75 @@
             this.pControls.Name = "pControls";
             this.pControls.Size = new System.Drawing.Size(266, 50);
             this.pControls.TabIndex = 16;
+            // 
+            // bPartymode
+            // 
+            this.bPartymode.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.bPartymode.BackColor = System.Drawing.Color.Transparent;
+            this.bPartymode.BackgroundImage = global::XBMControl.Properties.Resources.button_partymode;
+            this.bPartymode.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.bPartymode.FlatAppearance.BorderColor = System.Drawing.SystemColors.Control;
+            this.bPartymode.FlatAppearance.BorderSize = 0;
+            this.bPartymode.FlatAppearance.CheckedBackColor = System.Drawing.SystemColors.ControlLight;
+            this.bPartymode.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
+            this.bPartymode.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
+            this.bPartymode.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.bPartymode.ForeColor = System.Drawing.Color.Transparent;
+            this.bPartymode.Location = new System.Drawing.Point(208, 22);
+            this.bPartymode.Name = "bPartymode";
+            this.bPartymode.Size = new System.Drawing.Size(16, 15);
+            this.bPartymode.TabIndex = 25;
+            this.bPartymode.UseVisualStyleBackColor = false;
+            this.bPartymode.MouseLeave += new System.EventHandler(this.bPartymode_MouseLeave);
+            this.bPartymode.MouseDown += new System.Windows.Forms.MouseEventHandler(this.bPartymode_MouseDown);
+            this.bPartymode.MouseUp += new System.Windows.Forms.MouseEventHandler(this.bPartymode_MouseUp);
+            this.bPartymode.MouseEnter += new System.EventHandler(this.bPartymode_MouseEnter);
+            // 
+            // bShuffle
+            // 
+            this.bShuffle.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.bShuffle.BackColor = System.Drawing.Color.Transparent;
+            this.bShuffle.BackgroundImage = global::XBMControl.Properties.Resources.button_shuffle;
+            this.bShuffle.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.bShuffle.FlatAppearance.BorderColor = System.Drawing.SystemColors.Control;
+            this.bShuffle.FlatAppearance.BorderSize = 0;
+            this.bShuffle.FlatAppearance.CheckedBackColor = System.Drawing.SystemColors.ControlLight;
+            this.bShuffle.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
+            this.bShuffle.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
+            this.bShuffle.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.bShuffle.ForeColor = System.Drawing.Color.Transparent;
+            this.bShuffle.Location = new System.Drawing.Point(190, 22);
+            this.bShuffle.Name = "bShuffle";
+            this.bShuffle.Size = new System.Drawing.Size(16, 15);
+            this.bShuffle.TabIndex = 24;
+            this.bShuffle.UseVisualStyleBackColor = false;
+            this.bShuffle.MouseLeave += new System.EventHandler(this.bShuffle_MouseLeave);
+            this.bShuffle.MouseDown += new System.Windows.Forms.MouseEventHandler(this.bShuffle_MouseDown);
+            this.bShuffle.MouseUp += new System.Windows.Forms.MouseEventHandler(this.bShuffle_MouseUp);
+            this.bShuffle.MouseEnter += new System.EventHandler(this.bShuffle_MouseEnter);
+            // 
+            // bRepeat
+            // 
+            this.bRepeat.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.bRepeat.BackColor = System.Drawing.Color.Transparent;
+            this.bRepeat.BackgroundImage = global::XBMControl.Properties.Resources.button_repeat;
+            this.bRepeat.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.bRepeat.FlatAppearance.BorderColor = System.Drawing.SystemColors.Control;
+            this.bRepeat.FlatAppearance.BorderSize = 0;
+            this.bRepeat.FlatAppearance.CheckedBackColor = System.Drawing.SystemColors.ControlLight;
+            this.bRepeat.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
+            this.bRepeat.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
+            this.bRepeat.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.bRepeat.ForeColor = System.Drawing.Color.Transparent;
+            this.bRepeat.Location = new System.Drawing.Point(173, 22);
+            this.bRepeat.Name = "bRepeat";
+            this.bRepeat.Size = new System.Drawing.Size(16, 15);
+            this.bRepeat.TabIndex = 23;
+            this.bRepeat.UseVisualStyleBackColor = false;
+            this.bRepeat.MouseLeave += new System.EventHandler(this.bRepeat_MouseLeave);
+            this.bRepeat.MouseDown += new System.Windows.Forms.MouseEventHandler(this.bRepeat_MouseDown);
+            this.bRepeat.MouseUp += new System.Windows.Forms.MouseEventHandler(this.bRepeat_MouseUp);
+            this.bRepeat.MouseEnter += new System.EventHandler(this.bRepeat_MouseEnter);
             // 
             // tbVolume
             // 
@@ -582,7 +713,7 @@
             this.bOpen.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
             this.bOpen.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.bOpen.ForeColor = System.Drawing.Color.Transparent;
-            this.bOpen.Location = new System.Drawing.Point(136, 22);
+            this.bOpen.Location = new System.Drawing.Point(130, 22);
             this.bOpen.Name = "bOpen";
             this.bOpen.Size = new System.Drawing.Size(24, 18);
             this.bOpen.TabIndex = 20;
@@ -879,7 +1010,7 @@
         private System.Windows.Forms.ToolStripMenuItem cmsXBMCshutdown;
         private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.ToolStripMenuItem cmsSaveMedia;
-        private System.Windows.Forms.ToolStripSeparator cmsSeperatorSaveMedia;
+        private System.Windows.Forms.ToolStripSeparator cmsSeperatorSaveSend;
         private System.Windows.Forms.ToolStripMenuItem cmsShowScreenshot;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator4;
         private System.Windows.Forms.TrackBar tbProgress;
@@ -910,6 +1041,12 @@
         private System.Windows.Forms.Label lSamplerateTitle;
         private System.Windows.Forms.Label lBitrate;
         private System.Windows.Forms.Label lBitrateTitle;
+        private System.Windows.Forms.ToolStripMenuItem cmsSendMediaUrl;
+        private System.Windows.Forms.Button bLastFmHate;
+        private System.Windows.Forms.Button bLastFmLove;
+        private System.Windows.Forms.Button bRepeat;
+        private System.Windows.Forms.Button bShuffle;
+        private System.Windows.Forms.Button bPartymode;
     }
 }
 

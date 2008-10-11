@@ -13,6 +13,12 @@
 			<now>Now playing </now>
 			<paused>Playback paused</paused>
 		</playing>
+		<dialog>
+			<lastfmLoveTitle>Last.FM Love track</lastfmLoveTitle>
+			<lastfmLove>This will add the currently playing track to your personal 'Loved tracks' on Last.FM.\n\nAre you sure you want to do this?</lastfmLove>
+			<lastfmHateTitle>Last.FM Hate track</lastfmHateTitle>
+			<lastfmHate>This will add the currently playing song to your 'Banned tracks' list.\nThe song will never be played again when listening to Last.FM streamed radio.\n\nAre you sure you want to do this?</lastfmHate>
+		</dialog>
 	</mainform>
 	<configuration>
 		<title>Configuration</title>
@@ -25,6 +31,7 @@
 			<showInTaskbar>Show in taskbar</showInTaskbar>
 			<showNowPlayingBalloonTip>Show 'Now playing' balloon tips</showNowPlayingBalloonTip>
 			<showPlayStatusBalloonTip>Show play staus balloon tips</showPlayStatusBalloonTip>
+			<showPlayStatusWindow>Show play status window</showPlayStatusWindow>
 			<showConnectionStatusBalloonTip>Show connection status balloon tips</showConnectionStatusBalloonTip>
 			<runAtStartup>Run at windows startup</runAtStartup>
 			<connectionTimeout>Connetion timeout</connectionTimeout>
@@ -50,6 +57,7 @@
 		</controls>
 		<xbmc>
 			<title>XBMC</title>
+			<sendMediaUrl>Send media url</sendMediaUrl>
 			<showScreenshot>Show screenshot</showScreenshot>
 			<reboot>Reboot Computer</reboot>
 			<restart>Restart XBMC</restart>
