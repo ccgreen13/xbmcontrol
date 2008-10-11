@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using System.Web;
+using XBMControl.Properties;
 using XBMC.Communicator;
 
 namespace XBMControl
@@ -18,21 +19,15 @@ namespace XBMControl
         public SendMediaUrl()
         {
             XBMC = new XBMCcomm();
+            XBMC.SetXbmcIp(Settings.Default.Ip);
+            XBMC.SetCredentials(Settings.Default.Username, Settings.Default.Password);
             InitializeComponent();
-        }
-
-        public void SendUrl()
-        {
-            if (tbMediaUrl.Text != "")
-            {
-                XBMC.PlayMedia(tbMediaUrl.Text);
-                Close();
-            }
         }
 
         private void bSendMediaUrl_Click(object sender, EventArgs e)
         {
-            SendUrl();
+            if (tbMediaUrl.Text != "") XBMC.PlayMedia(tbMediaUrl.Text);
+            Close();
         }
     }
 }

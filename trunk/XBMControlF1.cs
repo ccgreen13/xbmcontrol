@@ -74,9 +74,15 @@ namespace XBMControl
             originalWindowHeight = this.Height;
             ToggleShowDetails();
 
-            if (Settings.Default.Ip == "")
+            if (XBMC.Request("SetResponseFormat", null, Settings.Default.Ip) == null)
             {
-                updateTimer.Enabled = false;
+                if (Settings.Default.Ip == "")
+                    MessageBox.Show(Language.GetString("mainform/dialog/ipNotConfigured"), Language.GetString("mainform/dialog/ipNotConfiguredTitle"));
+                else
+                    MessageBox.Show(Language.GetString("mainform/dialog/unableToConnect"), Language.GetString("mainform/dialog/unableToConnectTitle"));
+
+                updateTimer.Interval = updateIntervalLong;
+                updateTimer.Enabled  = false;
                 ShowConfigurationForm();
             }
             else if (connectedToXbmc)
@@ -87,7 +93,7 @@ namespace XBMControl
             else
             {
                 updateTimer.Interval = updateIntervalLong;
-                updateTimer.Enabled = true;
+                updateTimer.Enabled  = true;
                 ShowConnectionInfo();
             }
         }
@@ -96,15 +102,15 @@ namespace XBMControl
         private void UpdateData()
         {
             connectedToXbmc = XBMC.IsConnected();
-            resetToDefault  = (connectedToXbmc || XBMC.IsPlaying() || XBMC.IsPaused()) ? false : true;
+            resetToDefault = (!connectedToXbmc || XBMC.IsNotPlaying()) ? true : false;
 
             if (connectedToXbmc)
             {
                 XBMC.GetXbmcProperties();
                 SetControlsEnabled(true);
-                updateTimer.Interval    = updateIntervalShort;
-                tbProgress.Value        = XBMC.GetProgress();
-                tbVolume.Value          = XBMC.GetVolume();
+                updateTimer.Interval = updateIntervalShort;
+                tbProgress.Value     = XBMC.GetProgress();
+                tbVolume.Value       = XBMC.GetVolume();
                 SetNowPlayingTimePlayed(resetToDefault);
                 GetNowPlayingSongInfo(resetToDefault);
                 ShowNowPlayingInfo(resetToDefault);
@@ -114,10 +120,10 @@ namespace XBMControl
                 //Set control button states
                 bPause.BackgroundImage  = (XBMC.IsPaused()) ? Resources.button_pause_click : Resources.button_pause;
                 bPlay.BackgroundImage   = (XBMC.IsPlaying()) ? Resources.button_play_click : Resources.button_play;
-                bStop.BackgroundImage   = (!XBMC.IsPlaying() && !XBMC.IsPaused()) ? Resources.button_stop_click : Resources.button_stop;
+                bStop.BackgroundImage   = (XBMC.IsNotPlaying()) ? Resources.button_stop_click : Resources.button_stop;
                 bMute.BackgroundImage   = (XBMC.IsMuted()) ? Resources.button_mute_click : Resources.button_mute;
-                bLastFmHate.Visible     = (XBMC.IsPlaying("lastfm") && (XBMC.IsPlaying() || XBMC.IsPaused())) ? true : false;
-                bLastFmLove.Visible     = (XBMC.GetNowPlayingMediaType() == "Audio" && (XBMC.IsPlaying() || XBMC.IsPaused())) ? true : false;
+                bLastFmHate.Visible     = (XBMC.IsPlaying("lastfm")) ? true : false;
+                bLastFmLove.Visible     = (XBMC.GetNowPlayingMediaType() == "Audio") ? true : false;
             }
             else
             {
@@ -166,25 +172,27 @@ namespace XBMControl
         {
             if (!XBMC.IsPlaying() && !XBMC.IsPaused())
             {
-                lArtistSong.Text = Language.GetString("mainform/playing/nothing");
-                pbThumbnail.Image = Resources.XBMClogo;
-                lBitrate.Text = "";
-                lSamplerate.Text = "";
-                lArtist.Text = "";
-                lTitle.Text = "";
-                lAlbum.Text = "";
+                lArtistSong.Text    = Language.GetString("mainform/playing/nothing");
+                pbThumbnail.Image   = Resources.XBMClogo;
+                lBitrate.Text       = "";
+                lSamplerate.Text    = "";
+                lArtist.Text        = "";
+                lTitle.Text         = "";
+                lAlbum.Text         = "";
             }
             else if (XBMC.IsNewMediaPlaying())
             {
-                Image coverArt = XBMC.GetNowPlayingCoverArt();
-                pbThumbnail.Image = (coverArt == null) ? Resources.XBMClogo : coverArt;
-                string year = (XBMC.GetNowPlayingInfo("year") == null) ? "" : " [" + XBMC.GetNowPlayingInfo("year") + "]";
-                lBitrate.Text = XBMC.GetNowPlayingInfo("bitrate");
-                lSamplerate.Text = XBMC.GetNowPlayingInfo("samplerate");
-                lArtistSong.Text = XBMC.GetNowPlayingInfo("artist") + " - " + XBMC.GetNowPlayingInfo("title");
-                lArtist.Text = XBMC.GetNowPlayingInfo("artist");
-                lTitle.Text = XBMC.GetNowPlayingInfo("title") + " [" + XBMC.GetNowPlayingInfo("duration") + "]";
-                lAlbum.Text = XBMC.GetNowPlayingInfo("album") + year;
+                Image coverArt          = XBMC.GetNowPlayingCoverArt();
+                pbThumbnail.Image       = (coverArt == null) ? Resources.XBMClogo : coverArt;
+                string year             = (XBMC.GetNowPlayingInfo("year") == null) ? "" : " [" + XBMC.GetNowPlayingInfo("year") + "]";
+                lBitrate.Text           = XBMC.GetNowPlayingInfo("bitrate");
+                lSamplerate.Text        = XBMC.GetNowPlayingInfo("samplerate");
+                string genre            = (XBMC.GetNowPlayingInfo("genre") == null)? "" : " [" + XBMC.GetNowPlayingInfo("genre") + "]";
+                lArtistSong.Text        = XBMC.GetNowPlayingInfo("artist") + " - " + XBMC.GetNowPlayingInfo("title");
+                lArtist.Text            = XBMC.GetNowPlayingInfo("artist") + genre;
+                lTitle.Text             = XBMC.GetNowPlayingInfo("title") + " [" + XBMC.GetNowPlayingInfo("duration") + "]";
+                lAlbum.Text             = XBMC.GetNowPlayingInfo("album") + year;
+                pLastFmButtons.Visible  = (XBMC.LastFmEnabled()) ? true : false;
             }
         }
 
@@ -196,18 +204,18 @@ namespace XBMControl
             {
                 if (XBMC.GetNowPlayingMediaType() == "Audio" || XBMC.IsPlaying("lastfm"))
                 {
-                    pbMediaType.Cursor = Cursors.Hand;
-                    pbMediaType.Image = (XBMC.IsPlaying("lastfm")) ? Resources.lastfm_32x32 : Resources.audio_cd_32x32;
+                    pbMediaType.Cursor  = Cursors.Hand;
+                    pbMediaType.Image   = (XBMC.IsPlaying("lastfm")) ? Resources.lastfm_32x32 : Resources.audio_cd_32x32;
                 }
                 else if (XBMC.GetNowPlayingMediaType() == "Video")
                 {
-                    pbMediaType.Cursor = Cursors.Default;
-                    pbMediaType.Image = Resources.video_32x32;
+                    pbMediaType.Cursor  = Cursors.Default;
+                    pbMediaType.Image   = Resources.video_32x32;
                 }
                 else if (XBMC.GetNowPlayingMediaType() == "Picture")
                 {
-                    pbMediaType.Cursor = Cursors.Default;
-                    pbMediaType.Image = Resources.pictures_32x32;
+                    pbMediaType.Cursor  = Cursors.Default;
+                    pbMediaType.Image   = Resources.pictures_32x32;
                 }
                 pbMediaType.Visible = true;
             }
@@ -252,7 +260,6 @@ namespace XBMControl
 
         private void pbLastFM_Click()
         {
-            MessageBox.Show(XBMC.GetNowPlayingInfo("artist"));
             string lastFmUrl = "http://www.last.fm/music/" + XBMC.GetNowPlayingInfo("artist").Replace(" ", "+");
             Help.ShowHelp(this, lastFmUrl);
         }
@@ -261,24 +268,14 @@ namespace XBMControl
         {
             if (XBMC.IsPlaying() || XBMC.IsPaused()) ToggleShowDetails();
         }
-
-        private void lArtistSong_MouseHover(object sender, EventArgs e)
-        {
-
-        }
  //END Main window events
 
 //START Notification events
         private void ShowNowPlayingInfo(bool resetToDefault)
         {
-            //if (Settings.Default.ShowPlayStatusWindow)
-            //{
-            //    PlayStatusF1 playStatusWindow = new PlayStatusF1();
-            //    playStatusWindow.Show();
-            //}
             if (Settings.Default.ShowNowPlayingBalloonTips)
             {
-                if ((XBMC.IsPlaying() || XBMC.IsPaused()) && XBMC.IsNewMediaPlaying())
+                if (!XBMC.IsNotPlaying() && XBMC.IsNewMediaPlaying())
                 {
                     string currentFilename = XBMC.GetNowPlayingInfo("filename");
                     string artist = XBMC.GetNowPlayingInfo("artist") + "\n";
@@ -299,7 +296,7 @@ namespace XBMControl
         {
             if (Settings.Default.ShowPlayStatusBalloonTips)
             {
-                if (!XBMC.IsPlaying() && !XBMC.IsPaused())
+                if (XBMC.IsNotPlaying())
                 {
                     if (!playStatusMessageShowed)
                     {
@@ -347,11 +344,23 @@ namespace XBMControl
                 Close();
             else
             {
-                XBMC.GetXbmcProperties();
-                configFormOpened = false;
-                this.Enabled = true;
-                ApplyApplicationSettings();
-                Initialize();
+                if (XBMC.IsConnected())
+                {
+                    XBMC.GetXbmcProperties();
+                    configFormOpened        = false;
+                    this.Enabled            = true;
+                    ApplyApplicationSettings();
+                    updateTimer.Interval    = updateIntervalShort;
+                    updateTimer.Enabled     = true;
+                    this.Update();
+                }
+                else
+                {
+                    this.Enabled            = true;
+                    updateTimer.Interval    = updateIntervalLong;
+                    updateTimer.Enabled     = true;
+                    this.Update();
+                }
             }
         }
 
@@ -359,11 +368,11 @@ namespace XBMControl
         {
             if (!configFormOpened)
             {
-                configFormOpened = true;
-                ConfigForm = new ConfigurationF1();
-                ConfigForm.FormClosed += new System.Windows.Forms.FormClosedEventHandler(SetConfigFormClosed);
+                configFormOpened        = true;
+                ConfigForm              = new ConfigurationF1();
+                ConfigForm.FormClosed   += new System.Windows.Forms.FormClosedEventHandler(SetConfigFormClosed);
                 ConfigForm.Show();
-                this.Enabled = false;
+                this.Enabled            = false;
             }
         }
 //END Configuration form events
@@ -471,15 +480,15 @@ namespace XBMControl
 
         private void cmsNotifyShow_Click(object sender, EventArgs e)
         {
-            this.Visible = true;
-            this.WindowState = System.Windows.Forms.FormWindowState.Normal;
+            this.Visible        = true;
+            this.WindowState    = System.Windows.Forms.FormWindowState.Normal;
             this.Focus();
         }
 
         private void cmsNotifyHide_Click(object sender, EventArgs e)
         {
-            this.WindowState = System.Windows.Forms.FormWindowState.Minimized;
-            this.Visible = Settings.Default.ShowInTaskbar;
+            this.WindowState    = System.Windows.Forms.FormWindowState.Minimized;
+            this.Visible        = Settings.Default.ShowInTaskbar;
         }
 
         private void cmsConfigure_Click(object sender, EventArgs e)
@@ -555,13 +564,13 @@ namespace XBMControl
         {
             if (this.WindowState == System.Windows.Forms.FormWindowState.Normal)
             {
-                this.WindowState = System.Windows.Forms.FormWindowState.Minimized;
-                this.Visible = Settings.Default.ShowInTaskbar;
+                this.WindowState    = System.Windows.Forms.FormWindowState.Minimized;
+                this.Visible        = Settings.Default.ShowInTaskbar;
             }
             else
             {
-                this.Visible = true;
-                this.WindowState = System.Windows.Forms.FormWindowState.Normal;
+                this.Visible        = true;
+                this.WindowState    = System.Windows.Forms.FormWindowState.Normal;
             }
         }
 //END Notify icon events
@@ -796,7 +805,7 @@ namespace XBMControl
         private void bRepeat_MouseDown(object sender, MouseEventArgs e)
         {
             bRepeat.BackgroundImage = Resources.button_repeat_click;
-            repeatEnabled = (repeatEnabled) ? false : true;
+            repeatEnabled           = (repeatEnabled) ? false : true;
             XBMC.Repeat(repeatEnabled);  
         }
 
@@ -906,36 +915,37 @@ namespace XBMControl
             Language.SetLanguage(Settings.Default.Language);
             notifyIcon1.Visible = Settings.Default.ShowInSystemTray;
             this.Visible        = Settings.Default.ShowInTaskbar;
+            this.WindowState    = (Settings.Default.StartMinimized)? FormWindowState.Minimized : FormWindowState.Normal;
         }
 
         private void SetLanguageStrings()
         {
             //MainForm
-            this.Text = Language.GetString("global/appName") + " v" + Settings.Default.Version;
-            lMainTitle.Text = Language.GetString("global/appName") + " v" + Settings.Default.Version;
-            lArtistTitle.Text = Language.GetString("mainform/label/artist");
-            lTitleTitle.Text = Language.GetString("mainform/label/title");
-            lAlbumTitle.Text = Language.GetString("mainform/label/album");
+            this.Text               = Language.GetString("global/appName") + " v" + Settings.Default.Version;
+            lMainTitle.Text         = Language.GetString("global/appName") + " v" + Settings.Default.Version;
+            lArtistTitle.Text       = Language.GetString("mainform/label/artist");
+            lTitleTitle.Text        = Language.GetString("mainform/label/title");
+            lAlbumTitle.Text        = Language.GetString("mainform/label/album");
 
             //Context Menu
-            cmsControls.Text = Language.GetString("contextMenu/controls/title");
-            cmsPrevious.Text = Language.GetString("contextMenu/controls/previous");
-            cmsPlay.Text = Language.GetString("contextMenu/controls/play");
-            cmsPause.Text = Language.GetString("contextMenu/controls/pause");
-            cmsStop.Text = Language.GetString("contextMenu/controls/stop");
-            cmsNext.Text = Language.GetString("contextMenu/controls/next");
-            cmsMute.Text = Language.GetString("contextMenu/controls/mute");
-            cmsXBMC.Text = Language.GetString("contextMenu/xbmc/title");
-            cmsSendMediaUrl.Text = Language.GetString("contextMenu/xbmc/sendMediaUrl");
-            cmsShowScreenshot.Text = Language.GetString("contextMenu/xbmc/showScreenshot");
-            cmsXBMCreboot.Text = Language.GetString("contextMenu/xbmc/reboot");
-            cmsXBMCrestart.Text = Language.GetString("contextMenu/xbmc/restart");
-            cmsXBMCshutdown.Text = Language.GetString("contextMenu/xbmc/shutdown");
-            cmsSaveMedia.Text = Language.GetString("contextMenu/saveMedia");
-            cmsShow.Text = Language.GetString("contextMenu/show");
-            cmsHide.Text = Language.GetString("contextMenu/hide");
-            cmsConfigure.Text = Language.GetString("contextMenu/configure");
-            cmsExit.Text = Language.GetString("contextMenu/exit");
+            cmsControls.Text        = Language.GetString("contextMenu/controls/title");
+            cmsPrevious.Text        = Language.GetString("contextMenu/controls/previous");
+            cmsPlay.Text            = Language.GetString("contextMenu/controls/play");
+            cmsPause.Text           = Language.GetString("contextMenu/controls/pause");
+            cmsStop.Text            = Language.GetString("contextMenu/controls/stop");
+            cmsNext.Text            = Language.GetString("contextMenu/controls/next");
+            cmsMute.Text            = Language.GetString("contextMenu/controls/mute");
+            cmsXBMC.Text            = Language.GetString("contextMenu/xbmc/title");
+            cmsSendMediaUrl.Text    = Language.GetString("contextMenu/xbmc/sendMediaUrl");
+            cmsShowScreenshot.Text  = Language.GetString("contextMenu/xbmc/showScreenshot");
+            cmsXBMCreboot.Text      = Language.GetString("contextMenu/xbmc/reboot");
+            cmsXBMCrestart.Text     = Language.GetString("contextMenu/xbmc/restart");
+            cmsXBMCshutdown.Text    = Language.GetString("contextMenu/xbmc/shutdown");
+            cmsSaveMedia.Text       = Language.GetString("contextMenu/saveMedia");
+            cmsShow.Text            = Language.GetString("contextMenu/show");
+            cmsHide.Text            = Language.GetString("contextMenu/hide");
+            cmsConfigure.Text       = Language.GetString("contextMenu/configure");
+            cmsExit.Text            = Language.GetString("contextMenu/exit");
         }
 //END Helper functions
     }
