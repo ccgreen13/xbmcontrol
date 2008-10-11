@@ -18,6 +18,10 @@
 			<lastfmLove>This will add the currently playing track to your personal 'Loved tracks' on Last.FM.\n\nAre you sure you want to do this?</lastfmLove>
 			<lastfmHateTitle>Last.FM Hate track</lastfmHateTitle>
 			<lastfmHate>This will add the currently playing song to your 'Banned tracks' list.\nThe song will never be played again when listening to Last.FM streamed radio.\n\nAre you sure you want to do this?</lastfmHate>
+			<ipNotConfiguredTitle>No ip address configured</ipNotConfiguredTitle>
+			<ipNotConfigured>The configuration form will allow you to configure XBMControl.</ipNotConfigured>
+			<unableToConnectTitle>Can't connect with XBMC</unableToConnectTitle>
+			<unableToConnect>Please make sure XBMC is running and the ip address is correct.</unableToConnect>
 		</dialog>
 	</mainform>
 	<configuration>
@@ -34,6 +38,7 @@
 			<showPlayStatusBalloonTip>Afficher une bulle d'information montrant l'état de lecture</showPlayStatusBalloonTip>
 			<showConnectionStatusBalloonTip>Afficher une bulle d'information montrant l'état de la connexion à XBMC</showConnectionStatusBalloonTip>
 			<runAtStartup>Run at windows startup</runAtStartup>
+			<startMinimized>Start application minimized</startMinimized>
 			<connectionTimeout>Connexion timeout</connectionTimeout>
 		</label>
 		<language>

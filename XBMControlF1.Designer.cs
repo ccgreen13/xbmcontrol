@@ -67,6 +67,7 @@
             this.lArtistTitle = new System.Windows.Forms.Label();
             this.pNowPlayingInfo = new System.Windows.Forms.Panel();
             this.pTime = new System.Windows.Forms.Panel();
+            this.pLastFmButtons = new System.Windows.Forms.Panel();
             this.bLastFmHate = new System.Windows.Forms.Button();
             this.bLastFmLove = new System.Windows.Forms.Button();
             this.lTimePlayed = new System.Windows.Forms.Label();
@@ -100,6 +101,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.pbThumbnail)).BeginInit();
             this.pNowPlayingInfo.SuspendLayout();
             this.pTime.SuspendLayout();
+            this.pLastFmButtons.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbMediaType)).BeginInit();
             this.pControls.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.tbVolume)).BeginInit();
@@ -436,13 +438,25 @@
             // pTime
             // 
             this.pTime.BackgroundImage = global::XBMControl.Properties.Resources.background_pTime1;
-            this.pTime.Controls.Add(this.bLastFmHate);
-            this.pTime.Controls.Add(this.bLastFmLove);
+            this.pTime.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.pTime.Controls.Add(this.pLastFmButtons);
             this.pTime.Controls.Add(this.lTimePlayed);
             this.pTime.Location = new System.Drawing.Point(4, 0);
             this.pTime.Name = "pTime";
-            this.pTime.Size = new System.Drawing.Size(173, 34);
+            this.pTime.Size = new System.Drawing.Size(173, 31);
             this.pTime.TabIndex = 8;
+            // 
+            // pLastFmButtons
+            // 
+            this.pLastFmButtons.BackColor = System.Drawing.Color.Transparent;
+            this.pLastFmButtons.Controls.Add(this.bLastFmHate);
+            this.pLastFmButtons.Controls.Add(this.bLastFmLove);
+            this.pLastFmButtons.ForeColor = System.Drawing.Color.Transparent;
+            this.pLastFmButtons.Location = new System.Drawing.Point(161, 1);
+            this.pLastFmButtons.Name = "pLastFmButtons";
+            this.pLastFmButtons.Size = new System.Drawing.Size(11, 29);
+            this.pLastFmButtons.TabIndex = 22;
+            this.pLastFmButtons.Visible = false;
             // 
             // bLastFmHate
             // 
@@ -458,12 +472,11 @@
             this.bLastFmHate.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
             this.bLastFmHate.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.bLastFmHate.ForeColor = System.Drawing.Color.Transparent;
-            this.bLastFmHate.Location = new System.Drawing.Point(161, 3);
+            this.bLastFmHate.Location = new System.Drawing.Point(1, 3);
             this.bLastFmHate.Name = "bLastFmHate";
             this.bLastFmHate.Size = new System.Drawing.Size(9, 9);
-            this.bLastFmHate.TabIndex = 20;
+            this.bLastFmHate.TabIndex = 22;
             this.bLastFmHate.UseVisualStyleBackColor = false;
-            this.bLastFmHate.Click += new System.EventHandler(this.bLastFmHate_Click);
             // 
             // bLastFmLove
             // 
@@ -479,22 +492,20 @@
             this.bLastFmLove.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
             this.bLastFmLove.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.bLastFmLove.ForeColor = System.Drawing.Color.Transparent;
-            this.bLastFmLove.Location = new System.Drawing.Point(161, 22);
+            this.bLastFmLove.Location = new System.Drawing.Point(1, 18);
             this.bLastFmLove.Name = "bLastFmLove";
             this.bLastFmLove.Size = new System.Drawing.Size(9, 9);
-            this.bLastFmLove.TabIndex = 21;
+            this.bLastFmLove.TabIndex = 23;
             this.bLastFmLove.UseVisualStyleBackColor = false;
-            this.bLastFmLove.Click += new System.EventHandler(this.bLastFmLove_Click);
             // 
             // lTimePlayed
             // 
-            this.lTimePlayed.AutoSize = true;
             this.lTimePlayed.BackColor = System.Drawing.Color.Transparent;
-            this.lTimePlayed.Font = new System.Drawing.Font("Tahoma", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lTimePlayed.Font = new System.Drawing.Font("Tahoma", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lTimePlayed.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(95)))), ((int)(((byte)(95)))), ((int)(((byte)(95)))));
-            this.lTimePlayed.Location = new System.Drawing.Point(1, 0);
+            this.lTimePlayed.Location = new System.Drawing.Point(0, 0);
             this.lTimePlayed.Name = "lTimePlayed";
-            this.lTimePlayed.Size = new System.Drawing.Size(93, 33);
+            this.lTimePlayed.Size = new System.Drawing.Size(156, 27);
             this.lTimePlayed.TabIndex = 1;
             this.lTimePlayed.Text = "00:00";
             // 
@@ -512,11 +523,10 @@
             this.lArtistSong.TabIndex = 7;
             this.lArtistSong.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             this.lArtistSong.Click += new System.EventHandler(this.lArtistSong_Click);
-            this.lArtistSong.MouseHover += new System.EventHandler(this.lArtistSong_MouseHover);
             // 
             // pbMediaType
             // 
-            this.pbMediaType.Location = new System.Drawing.Point(228, 1);
+            this.pbMediaType.Location = new System.Drawing.Point(231, -1);
             this.pbMediaType.Name = "pbMediaType";
             this.pbMediaType.Size = new System.Drawing.Size(32, 32);
             this.pbMediaType.TabIndex = 6;
@@ -528,7 +538,7 @@
             // 
             this.lSamplerate.Font = new System.Drawing.Font("Tahoma", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
             this.lSamplerate.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(95)))), ((int)(((byte)(95)))), ((int)(((byte)(95)))));
-            this.lSamplerate.Location = new System.Drawing.Point(185, 12);
+            this.lSamplerate.Location = new System.Drawing.Point(186, 14);
             this.lSamplerate.Margin = new System.Windows.Forms.Padding(1, 0, 1, 0);
             this.lSamplerate.Name = "lSamplerate";
             this.lSamplerate.Size = new System.Drawing.Size(23, 10);
@@ -540,7 +550,7 @@
             this.lSamplerateTitle.AutoSize = true;
             this.lSamplerateTitle.Font = new System.Drawing.Font("Tahoma", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
             this.lSamplerateTitle.ForeColor = System.Drawing.Color.Silver;
-            this.lSamplerateTitle.Location = new System.Drawing.Point(205, 12);
+            this.lSamplerateTitle.Location = new System.Drawing.Point(206, 14);
             this.lSamplerateTitle.Name = "lSamplerateTitle";
             this.lSamplerateTitle.Size = new System.Drawing.Size(19, 11);
             this.lSamplerateTitle.TabIndex = 3;
@@ -550,7 +560,7 @@
             // 
             this.lBitrate.Font = new System.Drawing.Font("Tahoma", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
             this.lBitrate.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(95)))), ((int)(((byte)(95)))), ((int)(((byte)(95)))));
-            this.lBitrate.Location = new System.Drawing.Point(183, 2);
+            this.lBitrate.Location = new System.Drawing.Point(184, 4);
             this.lBitrate.Margin = new System.Windows.Forms.Padding(0);
             this.lBitrate.Name = "lBitrate";
             this.lBitrate.Size = new System.Drawing.Size(25, 10);
@@ -562,7 +572,7 @@
             this.lBitrateTitle.AutoSize = true;
             this.lBitrateTitle.Font = new System.Drawing.Font("Tahoma", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
             this.lBitrateTitle.ForeColor = System.Drawing.Color.Silver;
-            this.lBitrateTitle.Location = new System.Drawing.Point(205, 1);
+            this.lBitrateTitle.Location = new System.Drawing.Point(206, 3);
             this.lBitrateTitle.Name = "lBitrateTitle";
             this.lBitrateTitle.Size = new System.Drawing.Size(24, 11);
             this.lBitrateTitle.TabIndex = 1;
@@ -605,7 +615,7 @@
             this.bPartymode.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
             this.bPartymode.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.bPartymode.ForeColor = System.Drawing.Color.Transparent;
-            this.bPartymode.Location = new System.Drawing.Point(208, 22);
+            this.bPartymode.Location = new System.Drawing.Point(217, 23);
             this.bPartymode.Name = "bPartymode";
             this.bPartymode.Size = new System.Drawing.Size(16, 15);
             this.bPartymode.TabIndex = 25;
@@ -628,7 +638,7 @@
             this.bShuffle.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
             this.bShuffle.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.bShuffle.ForeColor = System.Drawing.Color.Transparent;
-            this.bShuffle.Location = new System.Drawing.Point(190, 22);
+            this.bShuffle.Location = new System.Drawing.Point(200, 23);
             this.bShuffle.Name = "bShuffle";
             this.bShuffle.Size = new System.Drawing.Size(16, 15);
             this.bShuffle.TabIndex = 24;
@@ -651,7 +661,7 @@
             this.bRepeat.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
             this.bRepeat.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.bRepeat.ForeColor = System.Drawing.Color.Transparent;
-            this.bRepeat.Location = new System.Drawing.Point(173, 22);
+            this.bRepeat.Location = new System.Drawing.Point(183, 23);
             this.bRepeat.Name = "bRepeat";
             this.bRepeat.Size = new System.Drawing.Size(16, 15);
             this.bRepeat.TabIndex = 23;
@@ -885,7 +895,7 @@
             // lMainTitle
             // 
             this.lMainTitle.Font = new System.Drawing.Font("Verdana", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Pixel);
-            this.lMainTitle.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(193)))), ((int)(((byte)(193)))), ((int)(((byte)(193)))));
+            this.lMainTitle.ForeColor = System.Drawing.Color.Silver;
             this.lMainTitle.Location = new System.Drawing.Point(29, 3);
             this.lMainTitle.Margin = new System.Windows.Forms.Padding(0);
             this.lMainTitle.Name = "lMainTitle";
@@ -957,7 +967,6 @@
             this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Show;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "XBMControl";
-            this.WindowState = System.Windows.Forms.FormWindowState.Minimized;
             this.Load += new System.EventHandler(this.MainForm_Load);
             this.Resize += new System.EventHandler(this.MainForm_Resize);
             this.MainContextMenu.ResumeLayout(false);
@@ -966,7 +975,7 @@
             this.pNowPlayingInfo.ResumeLayout(false);
             this.pNowPlayingInfo.PerformLayout();
             this.pTime.ResumeLayout(false);
-            this.pTime.PerformLayout();
+            this.pLastFmButtons.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.pbMediaType)).EndInit();
             this.pControls.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.tbVolume)).EndInit();
@@ -1042,11 +1051,12 @@
         private System.Windows.Forms.Label lBitrate;
         private System.Windows.Forms.Label lBitrateTitle;
         private System.Windows.Forms.ToolStripMenuItem cmsSendMediaUrl;
-        private System.Windows.Forms.Button bLastFmHate;
-        private System.Windows.Forms.Button bLastFmLove;
         private System.Windows.Forms.Button bRepeat;
         private System.Windows.Forms.Button bShuffle;
         private System.Windows.Forms.Button bPartymode;
+        private System.Windows.Forms.Panel pLastFmButtons;
+        private System.Windows.Forms.Button bLastFmHate;
+        private System.Windows.Forms.Button bLastFmLove;
     }
 }
 

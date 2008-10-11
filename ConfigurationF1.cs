@@ -48,7 +48,7 @@ namespace XBMControl
             regRunAtStartup = Registry.CurrentUser.OpenSubKey("SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run", true);
             InitializeComponent();
             LoadConfiguration();
-            Language.SetLanguage(XBMControl.Properties.Settings.Default.Language);
+            Language.SetLanguage(Settings.Default.Language);
             SetLanguageStrings();
             cbLanguage.DropDownStyle          = ComboBoxStyle.DropDownList;
             cbConnectionTimeout.DropDownStyle = ComboBoxStyle.DropDownList; ;
@@ -68,52 +68,52 @@ namespace XBMControl
             cbShowPlayStatusBalloonTip.Text         = Language.GetString("configuration/label/showPlayStatusBalloonTip");
             cbShowConnectionStatusBalloonTip.Text   = Language.GetString("configuration/label/showConnectionStatusBalloonTip");
             cbRunAtStartup.Text                     = Language.GetString("configuration/label/runAtStartup");
-            cbShowPlayStatusWindow.Text             = Language.GetString("configuration/label/showPlayStatusWindow");
+            cbStartMinimized.Text                   = Language.GetString("configuration/label/startMinimized");
             bConfirm.Text                           = Language.GetString("global/button/confirm");
             bCancel.Text                            = Language.GetString("global/button/cancel");
         }
 
         private void SaveConfiguration()
         {
-            XBMControl.Properties.Settings.Default.Language                       = cbLanguage.Text;
-            XBMControl.Properties.Settings.Default.Ip                             = tbIp.Text;
-            XBMControl.Properties.Settings.Default.Username                       = tbUsername.Text;
-            XBMControl.Properties.Settings.Default.Password                       = tbPassword.Text;
-            XBMControl.Properties.Settings.Default.ConnectionTimeout              = Convert.ToInt32(cbConnectionTimeout.Text); 
-
-            XBMControl.Properties.Settings.Default.ShowInSystemTray               = cbShowInTray.Checked;
-            XBMControl.Properties.Settings.Default.ShowNowPlayingBalloonTips      = cbShowNowPlayingBalloonTip.Checked;
-            //XBMControl.Properties.Settings.Default.ShowPlayStatusWindow           = cbShowPlayStatusWindow.Checked;
-            XBMControl.Properties.Settings.Default.ShowPlayStatusBalloonTips       = cbShowPlayStatusBalloonTip.Checked;
-            XBMControl.Properties.Settings.Default.ShowInTaskbar                  = cbShowInTaskbar.Checked;
-            XBMControl.Properties.Settings.Default.ShowConnectionInfo = cbShowConnectionStatusBalloonTip.Checked;
+            Settings.Default.Language                       = cbLanguage.Text;
+            Settings.Default.Ip                             = tbIp.Text;
+            Settings.Default.Username                       = tbUsername.Text;
+            Settings.Default.Password                       = tbPassword.Text;
+            Settings.Default.ConnectionTimeout              = Convert.ToInt32(cbConnectionTimeout.Text); 
+            Settings.Default.ShowInSystemTray               = cbShowInTray.Checked;
+            Settings.Default.ShowNowPlayingBalloonTips      = cbShowNowPlayingBalloonTip.Checked;
+            Settings.Default.ShowPlayStatusBalloonTips      = cbShowPlayStatusBalloonTip.Checked;
+            Settings.Default.ShowInTaskbar                  = cbShowInTaskbar.Checked;
+            Settings.Default.StartMinimized                 = cbStartMinimized.Checked;
+            Settings.Default.ShowConnectionInfo = cbShowConnectionStatusBalloonTip.Checked;
             
-            if (!XBMControl.Properties.Settings.Default.ShowInSystemTray) XBMControl.Properties.Settings.Default.ShowInTaskbar = true;
+            if (!Settings.Default.ShowInSystemTray) Settings.Default.ShowInTaskbar = true;
 
             if( cbRunAtStartup.Checked )
                 regRunAtStartup.SetValue(Language.GetString("global/appName"), Application.ExecutablePath.ToString());
             else
                 regRunAtStartup.DeleteValue(Language.GetString("global/appName"), false);
 
-            XBMControl.Properties.Settings.Default.Save();
+            Settings.Default.Save();
         }
 
         private void LoadConfiguration()
         {
             ShowAvailableLanguages();
-            SetSystrayCheckboxesEnabled(XBMControl.Properties.Settings.Default.ShowInSystemTray);
-            cbLanguage.Text                          = XBMControl.Properties.Settings.Default.Language;
-            tbIp.Text                                = XBMControl.Properties.Settings.Default.Ip;
-            tbUsername.Text                          = XBMControl.Properties.Settings.Default.Username;
-            tbPassword.Text                          = XBMControl.Properties.Settings.Default.Password;
-            cbConnectionTimeout.Text                 = XBMControl.Properties.Settings.Default.ConnectionTimeout.ToString();
+            SetSystrayCheckboxesEnabled(Settings.Default.ShowInSystemTray);
+            cbLanguage.Text                          = Settings.Default.Language;
+            tbIp.Text                                = Settings.Default.Ip;
+            tbUsername.Text                          = Settings.Default.Username;
+            tbPassword.Text                          = Settings.Default.Password;
+            cbConnectionTimeout.Text                 = Settings.Default.ConnectionTimeout.ToString();
 
-            cbShowInTray.Checked                     = XBMControl.Properties.Settings.Default.ShowInSystemTray;
-            cbShowNowPlayingBalloonTip.Checked       = XBMControl.Properties.Settings.Default.ShowNowPlayingBalloonTips;
-            //cbShowPlayStatusWindow.Checked           = XBMControl.Properties.Settings.Default.ShowPlayStatusWindow;
-            cbShowPlayStatusBalloonTip.Checked       = XBMControl.Properties.Settings.Default.ShowPlayStatusBalloonTips;
-            cbShowInTaskbar.Checked                  = XBMControl.Properties.Settings.Default.ShowInTaskbar;
-            cbShowConnectionStatusBalloonTip.Checked = XBMControl.Properties.Settings.Default.ShowConnectionInfo;
+            cbShowInTray.Checked                     = Settings.Default.ShowInSystemTray;
+            cbShowNowPlayingBalloonTip.Checked       = Settings.Default.ShowNowPlayingBalloonTips;
+            //cbShowPlayStatusWindow.Checked           = Settings.Default.ShowPlayStatusWindow;
+            cbShowPlayStatusBalloonTip.Checked       = Settings.Default.ShowPlayStatusBalloonTips;
+            cbShowInTaskbar.Checked                  = Settings.Default.ShowInTaskbar;
+            cbStartMinimized.Checked                 = Settings.Default.StartMinimized;
+            cbShowConnectionStatusBalloonTip.Checked = Settings.Default.ShowConnectionInfo;
             cbRunAtStartup.Checked                   = (regRunAtStartup.GetValue(Language.GetString("global/appName")) == null) ? false : true;
         }
 
@@ -129,12 +129,12 @@ namespace XBMControl
         {
             if (tbIp.Text == "")
             {
-                MessageBox.Show(Language.GetString("configuration/ipAddress/required"));
+                MessageBox.Show(Language.GetString("mainform/dialog/ipNotConfigured"), Language.GetString("mainform/dialog/ipNotConfiguredTitle"));
                 return false;
             }
             else if (!XBMC.IsConnected(tbIp.Text))
             {
-                if (MessageBox.Show(Language.GetString("configuration/ipAddress/proceedMessage"), Language.GetString("global/appName"), MessageBoxButtons.YesNo) == DialogResult.Yes)
+                if (MessageBox.Show(Language.GetString("mainform/dialog/unableToConnect") + "\n\n" + Language.GetString("mainform/dialog/proceedMessage"), Language.GetString("mainform/dialog/unableToConnectTitle"), MessageBoxButtons.YesNo) == DialogResult.Yes)
                     return true;
                 else
                     return false;
@@ -192,13 +192,7 @@ namespace XBMControl
 
         private void cbConnectionTimeout_SelectedValueChanged(object sender, EventArgs e)
         {
-            XBMControl.Properties.Settings.Default.ConnectionTimeout = Convert.ToInt32(cbConnectionTimeout.Text); 
-        }
-
-        private void cbShowPlayStatusBalloonTip_Click(object sender, EventArgs e)
-        {
-            if (cbShowPlayStatusWindow.Checked)
-                cbShowPlayStatusWindow.Checked = false;
+            Settings.Default.ConnectionTimeout = Convert.ToInt32(cbConnectionTimeout.Text); 
         }
 
         private void cbShowPlayStatusWindow_Click(object sender, EventArgs e)

@@ -46,13 +46,11 @@
             this.tbVolumeSysTray.Size = new System.Drawing.Size(23, 127);
             this.tbVolumeSysTray.TabIndex = 2;
             this.tbVolumeSysTray.TickStyle = System.Windows.Forms.TickStyle.None;
-            this.tbVolumeSysTray.MouseLeave += new System.EventHandler(this.tbVolumeSysTray_MouseLeave);
-            this.tbVolumeSysTray.ValueChanged += new System.EventHandler(this.trackBar1_ValueChanged);
+            this.tbVolumeSysTray.ValueChanged += new System.EventHandler(this.tbVolumeSysTray_ValueChanged);
             this.tbVolumeSysTray.MouseDown += new System.Windows.Forms.MouseEventHandler(this.tbVolumeSysTray_MouseDown);
             this.tbVolumeSysTray.LostFocus += new System.EventHandler(this.tbVolumeSysTray_LostFocus);
             this.tbVolumeSysTray.MouseHover += new System.EventHandler(this.tbVolumeSysTray_MouseHover);
             this.tbVolumeSysTray.MouseUp += new System.Windows.Forms.MouseEventHandler(this.tbVolumeSysTray_MouseUp);
-            this.tbVolumeSysTray.MouseEnter += new System.EventHandler(this.tbVolumeSysTray_MouseEnter);
             // 
             // timer1
             // 
@@ -78,7 +76,13 @@
             this.bMute.Size = new System.Drawing.Size(24, 18);
             this.bMute.TabIndex = 22;
             this.bMute.UseVisualStyleBackColor = false;
+            this.bMute.MouseLeave += new System.EventHandler(this.bMute_MouseLeave);
             this.bMute.Click += new System.EventHandler(this.bMute_Click);
+            this.bMute.MouseDown += new System.Windows.Forms.MouseEventHandler(this.bMute_MouseDown);
+            this.bMute.LostFocus += new System.EventHandler(this.bMute_LostFocus);
+            this.bMute.MouseHover += new System.EventHandler(this.bMute_MouseHover);
+            this.bMute.MouseUp += new System.Windows.Forms.MouseEventHandler(this.bMute_MouseUp);
+            this.bMute.MouseEnter += new System.EventHandler(this.bMute_MouseEnter);
             // 
             // VolumeControlF1
             // 
@@ -103,7 +107,7 @@
             this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Hide;
             this.StartPosition = System.Windows.Forms.FormStartPosition.Manual;
             this.TopMost = true;
-            this.MouseLeave += new System.EventHandler(this.VolumeControlF1_MouseLeave);
+            this.LostFocus += new System.EventHandler(this.VolumeControlF1_LostFocus);
             this.MouseHover += new System.EventHandler(this.VolumeControlF1_MouseHover);
             ((System.ComponentModel.ISupportInitialize)(this.tbVolumeSysTray)).EndInit();
             this.ResumeLayout(false);

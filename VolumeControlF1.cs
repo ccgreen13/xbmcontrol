@@ -15,7 +15,6 @@ namespace XBMControl
     public partial class VolumeControlF1 : Form
     {
         private XBMCcomm XBMC;
-        private bool hadFocus        = false;
         private bool connectedToXbmc = false;
 
         public VolumeControlF1()
@@ -34,8 +33,9 @@ namespace XBMControl
             if (connectedToXbmc)
             {
                 XBMC.GetXbmcProperties();
-                this.GetCurrentVolume();
-                this.timer1.Enabled = true;
+                GetCurrentVolume();
+                timer1.Enabled = true;
+                if (XBMC.IsMuted()) bMute.BackgroundImage = Resources.button_mute_click;
             }
             else
                 this.Close();
@@ -47,42 +47,29 @@ namespace XBMControl
             tbVolumeSysTray.Value = XBMC.GetVolume();
         }
 
-        private void trackBar1_ValueChanged(object sender, EventArgs e)
+        private void VolumeControlF1_LostFocus(object sender, EventArgs e)
         {
-            XBMC.SetVolume(tbVolumeSysTray.Value);
+            if (!tbVolumeSysTray.Focused && !bMute.Focused) this.Dispose();
         }
 
         private void tbVolumeSysTray_LostFocus(object sender, EventArgs e)
         {
-            if (hadFocus) this.Dispose();   
+            if (!this.Focused && !bMute.Focused) this.Dispose();
         }
 
-        private void VolumeControlF1_MouseLeave(object sender, EventArgs e)
+        private void bMute_LostFocus(object sender, EventArgs e)
         {
-            this.hadFocus = true;
-        }
-
-        private void tbVolumeSysTray_MouseLeave(object sender, EventArgs e)
-        {
-            this.hadFocus = true;
+            if (!this.Focused && !tbVolumeSysTray.Focused) this.Dispose();
         }
 
         private void tbVolumeSysTray_MouseHover(object sender, EventArgs e)
         {
             tbVolumeSysTray.Focus();
-            this.hadFocus = true;
         }
 
         private void VolumeControlF1_MouseHover(object sender, EventArgs e)
         {
             tbVolumeSysTray.Focus();
-            this.hadFocus = true;
-        }
-
-        private void tbVolumeSysTray_MouseEnter(object sender, EventArgs e)
-        {
-            tbVolumeSysTray.Focus();
-            this.hadFocus = true;
         }
 
         private void timer1_Tick(object sender, EventArgs e)
@@ -91,6 +78,8 @@ namespace XBMControl
                 this.GetCurrentVolume();
             else
                 this.Close();
+
+            if (XBMC.IsMuted()) bMute.BackgroundImage = Resources.button_mute_click;
         }
 
         private void tbVolumeSysTray_MouseDown(object sender, MouseEventArgs e)
@@ -108,6 +97,34 @@ namespace XBMControl
             XBMC.ToggleMute();
         }
 
-        
+        private void tbVolumeSysTray_ValueChanged(object sender, EventArgs e)
+        {
+            XBMC.SetVolume(tbVolumeSysTray.Value);
+        }
+
+        private void bMute_MouseHover(object sender, EventArgs e)
+        {
+            tbVolumeSysTray.Focus();
+        }
+
+        private void bMute_MouseEnter(object sender, EventArgs e)
+        {
+            bMute.BackgroundImage = Resources.button_mute_hover;
+        }
+
+        private void bMute_MouseDown(object sender, MouseEventArgs e)
+        {
+            bMute.BackgroundImage = Resources.button_mute_click;
+        }
+
+        private void bMute_MouseLeave(object sender, EventArgs e)
+        {
+            bMute.BackgroundImage = Resources.button_mute;
+        }
+
+        private void bMute_MouseUp(object sender, MouseEventArgs e)
+        {
+            bMute.BackgroundImage = Resources.button_mute_hover;
+        }
     }
 }
