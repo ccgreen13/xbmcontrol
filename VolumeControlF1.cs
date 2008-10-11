@@ -6,6 +6,7 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using XBMControl.Properties;
 using XBMC.Communicator;
 //using XBMControl.Language;
 
@@ -14,25 +15,41 @@ namespace XBMControl
     public partial class VolumeControlF1 : Form
     {
         private XBMCcomm XBMC;
-        private bool hadFocus = false;
+        private bool hadFocus        = false;
+        private bool connectedToXbmc = false;
 
         public VolumeControlF1()
         {
             XBMC = new XBMCcomm();
             InitializeComponent();
-            GetVolume();
+            Initialize();
         }
 
-        private void GetVolume()
+        private void Initialize()
         {
-            string[] aCurVolume   = XBMC.Request("GetVolume");
-            int newVolumePosition = (aCurVolume.Length > 1 && aCurVolume[1] != "Error") ? Convert.ToInt32(aCurVolume[1]) : 0;
-            tbVolumeSysTray.Value = newVolumePosition;
+            XBMC.SetXbmcIp(Settings.Default.Ip);
+            XBMC.SetCredentials(Settings.Default.Username, Settings.Default.Password);
+            connectedToXbmc = XBMC.IsConnected(XBMC.GetXbmcIp());
+
+            if (connectedToXbmc)
+            {
+                XBMC.GetXbmcProperties();
+                this.GetCurrentVolume();
+                this.timer1.Enabled = true;
+            }
+            else
+                this.Close();
+        }
+
+        private void GetCurrentVolume()
+        {
+            XBMC.GetXbmcProperties();
+            tbVolumeSysTray.Value = XBMC.GetVolume();
         }
 
         private void trackBar1_ValueChanged(object sender, EventArgs e)
         {
-            XBMC.Request("SetVolume", Convert.ToString(tbVolumeSysTray.Value));
+            XBMC.SetVolume(tbVolumeSysTray.Value);
         }
 
         private void tbVolumeSysTray_LostFocus(object sender, EventArgs e)
@@ -66,6 +83,29 @@ namespace XBMControl
         {
             tbVolumeSysTray.Focus();
             this.hadFocus = true;
+        }
+
+        private void timer1_Tick(object sender, EventArgs e)
+        {
+            if (XBMC.IsConnected(Settings.Default.Ip))
+                this.GetCurrentVolume();
+            else
+                this.Close();
+        }
+
+        private void tbVolumeSysTray_MouseDown(object sender, MouseEventArgs e)
+        {
+            timer1.Enabled = false;
+        }
+
+        private void tbVolumeSysTray_MouseUp(object sender, MouseEventArgs e)
+        {
+            timer1.Enabled = true;
+        }
+
+        private void bMute_Click(object sender, EventArgs e)
+        {
+            XBMC.ToggleMute();
         }
 
         

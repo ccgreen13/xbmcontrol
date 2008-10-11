@@ -10,3 +10,5 @@ E:\Programming\C#\XBMControl\XBMControl\obj\Release\XBMControl.MainForm.resource
 E:\Programming\C#\XBMControl\XBMControl\obj\Release\XBMControl.Properties.Resources.resources
 E:\Programming\C#\XBMControl\XBMControl\obj\Release\XBMControl.FullSizeImageF1.resources
 E:\Programming\C#\XBMControl\XBMControl\obj\Release\XBMControl.VolumeControlF1.resources
+E:\Programming\C#\XBMControl\XBMControl\obj\Release\XBMControl.PlayStatusForm.PlayStatusF1.resources
+E:\Programming\C#\XBMControl\XBMControl\obj\Release\XBMControl.SendMediaUrl.resources

@@ -13,6 +13,12 @@
 			<now>Lecture en cours</now>
 			<paused>En pause</paused>
 		</playing>
+		<dialog>
+			<lastfmLoveTitle>Last.FM Love track</lastfmLoveTitle>
+			<lastfmLove>This will add the currently playing track to your personal 'Loved tracks' on Last.FM.\n\nAre you sure you want to do this?</lastfmLove>
+			<lastfmHateTitle>Last.FM Hate track</lastfmHateTitle>
+			<lastfmHate>This will add the currently playing song to your 'Banned tracks' list.\nThe song will never be played again when listening to Last.FM streamed radio.\n\nAre you sure you want to do this?</lastfmHate>
+		</dialog>
 	</mainform>
 	<configuration>
 		<title>Configuration</title>
@@ -24,6 +30,7 @@
 			<showInTray>Afficher dans le system tray</showInTray>
 			<showInTaskbar>Afficher dans la barre de taches</showInTaskbar>
 			<showNowPlayingBalloonTip>Afficher la bulle d'information 'Lecture en cours'</showNowPlayingBalloonTip>
+			<showPlayStatusWindow>Show play status window</showPlayStatusWindow>
 			<showPlayStatusBalloonTip>Afficher une bulle d'information montrant l'état de lecture</showPlayStatusBalloonTip>
 			<showConnectionStatusBalloonTip>Afficher une bulle d'information montrant l'état de la connexion à XBMC</showConnectionStatusBalloonTip>
 			<runAtStartup>Run at windows startup</runAtStartup>
@@ -50,6 +57,7 @@
 		</controls>
 		<xbmc>
 			<title>XBMC</title>
+			<sendMediaUrl>Send media url</sendMediaUrl>
 			<showScreenshot>Show screenshot</showScreenshot>
 			<reboot>Reboot Computer</reboot>
 			<restart>Restart XBMC</restart>

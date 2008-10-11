@@ -2,7 +2,7 @@
 
 ; HM NIS Edit Wizard helper defines
 !define PRODUCT_NAME "XBMControl"
-!define PRODUCT_VERSION "0.3.1b"
+!define PRODUCT_VERSION "0.3.4"
 !define PRODUCT_PUBLISHER "Bram van Oploo"
 !define PRODUCT_WEB_SITE "http://code.google.com/p/xbmcontrol/"
 !define PRODUCT_DIR_REGKEY "Software\Microsoft\Windows\CurrentVersion\App Paths\XBMControl.exe"
@@ -45,7 +45,7 @@
 ; MUI end ------
 
 Name "${PRODUCT_NAME} ${PRODUCT_VERSION}"
-OutFile "XBMControl Setup.exe"
+OutFile "XBMControl v${PRODUCT_VERSION} Setup.exe"
 InstallDir "$PROGRAMFILES\XBMControl"
 InstallDirRegKey HKLM "${PRODUCT_DIR_REGKEY}" ""
 ShowInstDetails show
@@ -67,6 +67,7 @@ Section "MainSection" SEC01
   File "language\nederlands.xml"
   File "language\english.xml"
   File "language\francais.xml"
+  SetOutPath "$INSTDIR\log"
 SectionEnd
 
 Section -AdditionalIcons

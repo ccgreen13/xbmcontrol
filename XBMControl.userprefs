@@ -1,0 +1,24 @@
+﻿<UserCombinePreferences version="1.0" filename="/media/Diversen/Programming/C#/XBMControl/XBMControl/XBMControl.mds">
+  <Files>
+    <File name="Program.cs" line="1" column="1" />
+  </Files>
+  <Views>
+    <ViewMemento id="ProjectPad">
+      <Node expanded="True">
+        <Node name="XBMControl" expanded="True">
+          <Node name="Program.cs" selected="True" />
+        </Node>
+      </Node>
+    </ViewMemento>
+    <ViewMemento id="ClassPad">
+      <Node expanded="True" />
+    </ViewMemento>
+    <ViewMemento id="MonoDevelop.NUnit.TestPad">
+      <Node />
+    </ViewMemento>
+  </Views>
+  <Properties>
+    <Property key="ActiveWindow" value="/media/Diversen/Programming/C#/XBMControl/XBMControl/Program.cs" />
+    <Property key="ActiveConfiguration" value="Debug|Any CPU" />
+  </Properties>
+</UserCombinePreferences>

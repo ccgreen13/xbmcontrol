@@ -86,12 +86,12 @@ namespace XBMControl.Properties {
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("True")]
-        public bool ShowPlayStausBalloonTips {
+        public bool ShowPlayStatusBalloonTips {
             get {
-                return ((bool)(this["ShowPlayStausBalloonTips"]));
+                return ((bool)(this["ShowPlayStatusBalloonTips"]));
             }
             set {
-                this["ShowPlayStausBalloonTips"] = value;
+                this["ShowPlayStatusBalloonTips"] = value;
             }
         }
         
@@ -110,12 +110,12 @@ namespace XBMControl.Properties {
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("True")]
-        public bool ShowConnectionStatusBalloonTip {
+        public bool ShowConnectionInfo {
             get {
-                return ((bool)(this["ShowConnectionStatusBalloonTip"]));
+                return ((bool)(this["ShowConnectionInfo"]));
             }
             set {
-                this["ShowConnectionStatusBalloonTip"] = value;
+                this["ShowConnectionInfo"] = value;
             }
         }
         
@@ -133,7 +133,7 @@ namespace XBMControl.Properties {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("0.3.1b")]
+        [global::System.Configuration.DefaultSettingValueAttribute("0.3.4")]
         public string Version {
             get {
                 return ((string)(this["Version"]));
@@ -149,18 +149,6 @@ namespace XBMControl.Properties {
             }
             set {
                 this["ConnectionTimeout"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("23, 17")]
-        public global::System.Drawing.Size abPrevious {
-            get {
-                return ((global::System.Drawing.Size)(this["abPrevious"]));
-            }
-            set {
-                this["abPrevious"] = value;
             }
         }
     }

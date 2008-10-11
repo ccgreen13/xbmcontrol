@@ -17,26 +17,23 @@
     <Setting Name="ShowNowPlayingBalloonTips" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">True</Value>
     </Setting>
-    <Setting Name="ShowPlayStausBalloonTips" Type="System.Boolean" Scope="User">
+    <Setting Name="ShowPlayStatusBalloonTips" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">True</Value>
     </Setting>
     <Setting Name="ShowInTaskbar" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">False</Value>
     </Setting>
-    <Setting Name="ShowConnectionStatusBalloonTip" Type="System.Boolean" Scope="User">
+    <Setting Name="ShowConnectionInfo" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">True</Value>
     </Setting>
     <Setting Name="Language" Type="System.String" Scope="User">
       <Value Profile="(Default)">english</Value>
     </Setting>
     <Setting Name="Version" Type="System.String" Scope="Application">
-      <Value Profile="(Default)">0.3.1b</Value>
+      <Value Profile="(Default)">0.3.4</Value>
     </Setting>
     <Setting Name="ConnectionTimeout" Type="System.Int32" Scope="User">
       <Value Profile="(Default)">1500</Value>
-    </Setting>
-    <Setting Name="abPrevious" Type="System.Drawing.Size" Scope="User">
-      <Value Profile="(Default)">23, 17</Value>
     </Setting>
   </Settings>
 </SettingsFile>

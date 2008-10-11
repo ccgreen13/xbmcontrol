@@ -39,6 +39,12 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <OutputType>WinExe</OutputType>
+    <AssemblyName>XBMControl</AssemblyName>
+    <RootNamespace>XBMControl</RootNamespace>
+    <AllowUnsafeBlocks>false</AllowUnsafeBlocks>
+    <CheckForOverflowUnderflow>true</CheckForOverflowUnderflow>
+    <ApplicationIcon>XBMC.ico</ApplicationIcon>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -47,6 +53,13 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <OutputType>WinExe</OutputType>
+    <AssemblyName>XBMControl</AssemblyName>
+    <DebugSymbols>true</DebugSymbols>
+    <RootNamespace>XBMControl</RootNamespace>
+    <AllowUnsafeBlocks>false</AllowUnsafeBlocks>
+    <CheckForOverflowUnderflow>true</CheckForOverflowUnderflow>
+    <ApplicationIcon>XBMC.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -66,6 +79,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Animations.cs" />
     <Compile Include="ConfigurationF1.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -87,6 +101,12 @@
     <Compile Include="FullSizeImage.Designer.cs">
       <DependentUpon>FullSizeImage.cs</DependentUpon>
     </Compile>
+    <Compile Include="PlayStatusF1.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="PlayStatusF1.Designer.cs">
+      <DependentUpon>PlayStatusF1.cs</DependentUpon>
+    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="ConfigurationF1.resx">
@@ -99,10 +119,16 @@
     <EmbeddedResource Include="FullSizeImage.resx">
       <DependentUpon>FullSizeImage.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="PlayStatusF1.resx">
+      <DependentUpon>PlayStatusF1.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SendMediaUrlF1.resx">
+      <DependentUpon>SendMediaUrlF1.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="VolumeControlF1.resx">
       <DependentUpon>VolumeControlF1.cs</DependentUpon>
@@ -121,6 +147,12 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+    <Compile Include="SendMediaUrlF1.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SendMediaUrlF1.Designer.cs">
+      <DependentUpon>SendMediaUrlF1.cs</DependentUpon>
     </Compile>
     <Compile Include="Settings.cs" />
     <Compile Include="VolumeControlF1.cs">
@@ -231,6 +263,25 @@
     <None Include="Resources\button_mute_click.png" />
     <None Include="Resources\last.fm_16x161.jpg" />
     <None Include="Resources\lastfm_32x32.png" />
+    <None Include="Resources\send_media-16x16.png" />
+    <None Include="Resources\url-16x16.png" />
+    <None Include="Resources\lastfm_hate.png" />
+    <None Include="Resources\lastfm_love.png" />
+    <None Include="Resources\lastfm_love1.png" />
+    <None Include="Resources\lastfm_hate1.png" />
+    <None Include="Resources\lastfm_hate2.png" />
+    <None Include="Resources\lastfm_hate3.png" />
+    <None Include="Resources\lastfm_hate4.png" />
+    <None Include="Resources\lastfm_hate5.png" />
+    <None Include="Resources\button_repeat.png" />
+    <None Include="Resources\button_repeat_hover.png" />
+    <None Include="Resources\button_repeat_click.png" />
+    <None Include="Resources\button_shuffle_hover.png" />
+    <None Include="Resources\button_shuffle_click.png" />
+    <None Include="Resources\button_shuffle.png" />
+    <None Include="Resources\button_partymode.png" />
+    <None Include="Resources\button_partymode_hover.png" />
+    <None Include="Resources\button_partymode_click.png" />
     <Content Include="XBMC.ico" />
     <Content Include="Xbox.ico" />
   </ItemGroup>
