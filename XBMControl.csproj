@@ -105,6 +105,12 @@
     <Compile Include="FullSizeImage.Designer.cs">
       <DependentUpon>FullSizeImage.cs</DependentUpon>
     </Compile>
+    <Compile Include="PlaylistF1.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="PlaylistF1.Designer.cs">
+      <DependentUpon>PlaylistF1.cs</DependentUpon>
+    </Compile>
     <Compile Include="PlayStatusF1.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -122,6 +128,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="FullSizeImage.resx">
       <DependentUpon>FullSizeImage.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PlaylistF1.resx">
+      <DependentUpon>PlaylistF1.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="PlayStatusF1.resx">
       <DependentUpon>PlayStatusF1.cs</DependentUpon>
@@ -193,6 +202,7 @@
     <None Include="Resources\lastfm1.png" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Properties\DataSources\XBMC.Communicator.XBMCcomm.datasource" />
     <None Include="Resources\previous-16x16.png" />
     <None Include="Resources\next-16x16.png" />
     <None Include="Resources\play2-16x16.png" />
@@ -286,6 +296,7 @@
     <None Include="Resources\button_partymode.png" />
     <None Include="Resources\button_partymode_hover.png" />
     <None Include="Resources\button_partymode_click.png" />
+    <None Include="Resources\button_clear.png" />
     <Content Include="XBMC.ico" />
     <Content Include="Xbox.ico" />
   </ItemGroup>

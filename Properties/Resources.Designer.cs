@@ -137,6 +137,13 @@ namespace XBMControl.Properties {
             }
         }
         
+        internal static System.Drawing.Bitmap button_clear {
+            get {
+                object obj = ResourceManager.GetObject("button_clear", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
         internal static System.Drawing.Bitmap button_mute {
             get {
                 object obj = ResourceManager.GetObject("button_mute", resourceCulture);

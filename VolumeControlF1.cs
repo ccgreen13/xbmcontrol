@@ -28,10 +28,10 @@ namespace XBMControl
         {
             XBMC.SetXbmcIp(Settings.Default.Ip);
             XBMC.SetCredentials(Settings.Default.Username, Settings.Default.Password);
-            connectedToXbmc = XBMC.IsConnected(XBMC.GetXbmcIp());
 
-            if (connectedToXbmc)
+            if (XBMC.IsConnected())
             {
+                connectedToXbmc = XBMC.IsConnected();
                 XBMC.GetXbmcProperties();
                 GetCurrentVolume();
                 timer1.Enabled = true;
@@ -74,7 +74,7 @@ namespace XBMControl
 
         private void timer1_Tick(object sender, EventArgs e)
         {
-            if (XBMC.IsConnected(Settings.Default.Ip))
+            if (connectedToXbmc)
                 this.GetCurrentVolume();
             else
                 this.Close();

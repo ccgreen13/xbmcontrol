@@ -2,15 +2,24 @@
 
 ; HM NIS Edit Wizard helper defines
 !define PRODUCT_NAME "XBMControl"
-!define PRODUCT_VERSION "0.3.5"
+!define PRODUCT_VERSION "0.3.5c"
 !define PRODUCT_PUBLISHER "Bram van Oploo"
 !define PRODUCT_WEB_SITE "http://code.google.com/p/xbmcontrol/"
 !define PRODUCT_DIR_REGKEY "Software\Microsoft\Windows\CurrentVersion\App Paths\XBMControl.exe"
 !define PRODUCT_UNINST_KEY "Software\Microsoft\Windows\CurrentVersion\Uninstall\${PRODUCT_NAME}"
 !define PRODUCT_UNINST_ROOT_KEY "HKLM"
 
+CRCCheck On
+
 ; MUI 1.67 compatible ------
 !include "MUI.nsh"
+
+!define HAVE_UPX
+
+!ifdef HAVE_UPX
+!packhdr tmp.dat "upx -9 tmp.dat"
+!endif
+SetCompressor lzma
 
 ; MUI Settings
 !define MUI_ABORTWARNING
@@ -37,6 +46,9 @@
 ; Uninstaller pages
 !insertmacro MUI_UNPAGE_INSTFILES
 
+!define MUI_HEADERBITMAP "${NSISDIR}\Contrib\Icons\modern-header.bmp"
+!define MUI_SPECIALBITMAP "${NSISDIR}\Contrib\Icons\modern-wizard.bmp"
+
 ; Language files
 !insertmacro MUI_LANGUAGE "Dutch"
 !insertmacro MUI_LANGUAGE "English"
@@ -54,6 +66,23 @@ RequestExecutionLevel user
 
 Function .onInit
   !insertmacro MUI_LANGDLL_DISPLAY
+  GetDllVersion "$sysdir\mscoree.dll" $R0 $R1
+  IntOp $R0 $R0 / 0x00010000
+  ${If} $R0 >= 2
+
+	;http://blogs.msdn.com/junfeng/archi.../07/436755.aspx
+	!define RUNTIME_INFO_UPGRADE_VERSION 0x01
+	!define RUNTIME_INFO_DONT_RETURN_DIRECTORY 0x10
+	!define RUNTIME_INFO_DONT_SHOW_ERROR_DIALOG 0x40
+	System::Call "mscoree::GetRequestedRuntimeInfo(i0,i0,i0,i0,i  ${RUNTIME_INFO_UPGRADE_VERSION}|${RUNTIME_INFO_DONT_RETURN_DIRECTORY}|${RUNTIME_INFO_DONT_SHOW_ERROR_DIALOG},\
+		i0,i0,*i,w .r0, i ${NSIS_MAX_STRLEN}, *i)i.r1"
+
+	${If} $1 == 0
+		MessageBox mb_ok Version=$0
+	${Else}
+		MessageBox mb_ok error=$1
+	${EndIf}
+  ${EndIf}
 FunctionEnd
 
 Section "MainSection" SEC01
@@ -84,7 +113,6 @@ Section -Post
   WriteRegStr ${PRODUCT_UNINST_ROOT_KEY} "${PRODUCT_UNINST_KEY}" "DisplayVersion" "${PRODUCT_VERSION}"
   WriteRegStr ${PRODUCT_UNINST_ROOT_KEY} "${PRODUCT_UNINST_KEY}" "URLInfoAbout" "${PRODUCT_WEB_SITE}"
   WriteRegStr ${PRODUCT_UNINST_ROOT_KEY} "${PRODUCT_UNINST_KEY}" "Publisher" "${PRODUCT_PUBLISHER}"
-  WriteRegStr HKLM "SOFTWARE\Microsoft\Windows\CurrentVersion\Run" "${PRODUCT_NAME}" "$INSTDIR\XBMControl.exe"
 SectionEnd
 
 
@@ -116,6 +144,5 @@ Section Uninstall
 
   DeleteRegKey ${PRODUCT_UNINST_ROOT_KEY} "${PRODUCT_UNINST_KEY}"
   DeleteRegKey HKLM "${PRODUCT_DIR_REGKEY}"
-  DeleteRegKey HKLM "SOFTWARE\Microsoft\Windows\CurrentVersion\Run\${PRODUCT_NAME}"
   SetAutoClose true
 SectionEnd
