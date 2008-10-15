@@ -97,7 +97,7 @@ namespace XBMControl.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
         public bool ShowInTaskbar {
             get {
                 return ((bool)(this["ShowInTaskbar"]));
@@ -133,7 +133,7 @@ namespace XBMControl.Properties {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("0.3.5")]
+        [global::System.Configuration.DefaultSettingValueAttribute("0.3.5e")]
         public string Version {
             get {
                 return ((string)(this["Version"]));
@@ -154,7 +154,7 @@ namespace XBMControl.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
         public bool StartMinimized {
             get {
                 return ((bool)(this["StartMinimized"]));

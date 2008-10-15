@@ -41,6 +41,8 @@ namespace XBMControl
         private ConfigurationF1 ConfigForm;
         private FullSizeImageF1 fullSizeImage;
         private VolumeControlF1 sysTrayVolumeControl;
+        private PlaylistF1 Playlist;
+
         private const int updateIntervalShort   = 1000;
         private const int updateIntervalLong    = 10000; 
         private string[,] maNowPlayingInfo      = new string[50, 2];
@@ -54,7 +56,8 @@ namespace XBMControl
         private int originalWindowHeight;
         private bool connectedToXbmc            = false;
         private bool repeatEnabled              = false;
-
+        private bool playlistOpened             = false;
+       
         public MainForm()
         {
             XBMC     = new XBMCcomm();
@@ -69,12 +72,11 @@ namespace XBMControl
         {
             XBMC.SetXbmcIp(Settings.Default.Ip);
             XBMC.SetCredentials(Settings.Default.Username, Settings.Default.Password);
-            connectedToXbmc = XBMC.IsConnected(XBMC.GetXbmcIp());
 
             originalWindowHeight = this.Height;
             ToggleShowDetails();
 
-            if (XBMC.Request("SetResponseFormat", null, Settings.Default.Ip) == null)
+            if (!XBMC.IsConnected())
             {
                 if (Settings.Default.Ip == "")
                     MessageBox.Show(Language.GetString("mainform/dialog/ipNotConfigured"), Language.GetString("mainform/dialog/ipNotConfiguredTitle"));
@@ -85,15 +87,18 @@ namespace XBMControl
                 updateTimer.Enabled  = false;
                 ShowConfigurationForm();
             }
-            else if (connectedToXbmc)
+            else if (XBMC.IsConnected())
             {
                 updateTimer.Interval = updateIntervalShort;
                 updateTimer.Enabled  = true;
+                connectedToXbmc      = true;
             }
             else
             {
+                connectedToXbmc      = false;
                 updateTimer.Interval = updateIntervalLong;
                 updateTimer.Enabled  = true;
+                SetControlsEnabled(false);
                 ShowConnectionInfo();
             }
         }
@@ -101,11 +106,11 @@ namespace XBMControl
 //START Timer events
         private void UpdateData()
         {
-            connectedToXbmc = XBMC.IsConnected();
             resetToDefault = (!connectedToXbmc || XBMC.IsNotPlaying()) ? true : false;
 
-            if (connectedToXbmc)
+            if (XBMC.IsConnected())
             {
+                connectedToXbmc      = true;
                 XBMC.GetXbmcProperties();
                 SetControlsEnabled(true);
                 updateTimer.Interval = updateIntervalShort;
@@ -127,6 +132,7 @@ namespace XBMControl
             }
             else
             {
+                connectedToXbmc         = false;
                 SetControlsEnabled(false);
                 ShowConnectionInfo();
                 bPause.BackgroundImage  = Resources.button_pause;
@@ -422,14 +428,20 @@ namespace XBMControl
 //END Progress bar events
 
 //START Volume bar events
-        private void tbVolume_ValueChanged(object sender, EventArgs e)
-        {
-            XBMC.SetVolume(tbVolume.Value);
-        }
-
         private void tbVolume_MouseHover(object sender, EventArgs e)
         {
             tbVolume.Focus();
+        }
+
+        private void tbVolume_MouseDown(object sender, MouseEventArgs e)
+        {
+            updateTimer.Enabled = false;
+        }
+
+        private void tbVolume_MouseUp(object sender, MouseEventArgs e)
+        {
+            XBMC.SetVolume(tbVolume.Value);
+            updateTimer.Enabled = true;
         }
 //START Volume bar events
 
@@ -530,6 +542,27 @@ namespace XBMControl
                 fullSizeImage = new FullSizeImageF1(screenshot);
                 fullSizeImage.Show();
             }
+        }
+
+        private void cmsSendMediaUrl_Click(object sender, EventArgs e)
+        {
+            SendMediaUrl SendMedia = new SendMediaUrl();
+            SendMedia.Show();
+        }
+
+        private void cmsViewPlaylist_Click(object sender, EventArgs e)
+        {
+            Playlist = new PlaylistF1();
+            Playlist.FormClosed += new System.Windows.Forms.FormClosedEventHandler(SetPlaylistClosed);
+            Playlist.Show();
+            Playlist.Top = this.Top;
+            Playlist.Left = (this.Left + this.Width);
+            playlistOpened = true;
+        }
+
+        public void SetPlaylistClosed(object sender, EventArgs e)
+        {
+            playlistOpened = false;
         }
 //END Context menu events
 
@@ -880,13 +913,13 @@ namespace XBMControl
             {
                 this.Left = e.X + this.Left - clickOffsetX;
                 this.Top  = e.Y + this.Top - clickOffsetY;
-            }
-        }
 
-        private void cmsSendMediaUrl_Click(object sender, EventArgs e)
-        {
-            SendMediaUrl SendMedia = new SendMediaUrl();
-            SendMedia.Show();
+                if (playlistOpened == true)
+                {
+                    Playlist.Top = this.Top;
+                    Playlist.Left = this.Left + this.Width;
+                }
+            }
         }
 //END FAKE DRAG DROP
 

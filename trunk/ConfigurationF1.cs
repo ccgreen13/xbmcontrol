@@ -44,6 +44,8 @@ namespace XBMControl
         public ConfigurationF1()
         {
             XBMC            = new XBMCcomm();
+            XBMC.SetXbmcIp(Settings.Default.Ip);
+            XBMC.SetCredentials(Settings.Default.Username, Settings.Default.Password);
             Language        = new XBMCLanguage();
             regRunAtStartup = Registry.CurrentUser.OpenSubKey("SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run", true);
             InitializeComponent();
@@ -132,7 +134,7 @@ namespace XBMControl
                 MessageBox.Show(Language.GetString("mainform/dialog/ipNotConfigured"), Language.GetString("mainform/dialog/ipNotConfiguredTitle"));
                 return false;
             }
-            else if (!XBMC.IsConnected(tbIp.Text))
+            else if (!XBMC.IsConnected())
             {
                 if (MessageBox.Show(Language.GetString("mainform/dialog/unableToConnect") + "\n\n" + Language.GetString("mainform/dialog/proceedMessage"), Language.GetString("mainform/dialog/unableToConnectTitle"), MessageBoxButtons.YesNo) == DialogResult.Yes)
                     return true;

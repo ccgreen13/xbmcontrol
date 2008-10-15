@@ -31,55 +31,56 @@ namespace XBMC.Communicator
 {
     class XBMCcomm
     {
-        private string configuredXbmcIp     = null;
-        private string xbmcUsername         = null;
-        private string xbmcPassword         = null;
-        private string apiPath             = "/xbmcCmds/xbmcHttp";
-        private string[,] maNowPlayingInfo  = new string[50, 2];
-        private string logFile              = "log/xbmcontrol.log";
+        private string configuredXbmcIp = null;
+        private string xbmcUsername = null;
+        private string xbmcPassword = null;
+        private string apiPath = "/xbmcCmds/xbmcHttp";
+        private string[,] maNowPlayingInfo = new string[50, 2];
+        private string logFile = "log/xbmcontrol.log";
 
         //XBMC Properties
-        private bool connected              = false;
-        private bool isPlaying              = false;
-        private bool isNotPlaying           = true;
-        private bool isPlayingLastFm        = false;
-        private bool isPaused               = false;
-        private bool isMuted                = false;
-        private int volume                  = 0;
-        private int progress                = 0;
-        private string mediaNowPlaying      = null;
-        private bool newMediaPlaying        = true;
-        private string nowPlayingMediaType  = null;
+        private bool connected = false;
+        private bool isPlaying = false;
+        private bool isNotPlaying = true;
+        private bool isPlayingLastFm = false;
+        private bool isPaused = false;
+        private bool isMuted = false;
+        private int volume = 0;
+        private int progress = 1;
+        private string mediaNowPlaying = null;
+        private bool newMediaPlaying = true;
+        private string nowPlayingMediaType = null;
+        private string[] aCurrentPlaylist = null;
 
         public XBMCcomm()
         {
         }
 
-//START REQUEST
+        //START REQUEST
         public string[] Request(string command, string parameter, string ip)
         {
-            string tmpcommand = command;
-            HttpWebRequest request      = null;
-            HttpWebResponse response    = null;
-            StreamReader reader         = null;
-            string[] pageContent        = null;
-            string ipAddress            = (ip == null) ? this.configuredXbmcIp : ip;
-            parameter                   = (parameter == null)? "" : parameter;
-            command                     = "?command=" + command;
-            command                     += (parameter == null || parameter == "") ? "" : "&parameter=" + parameter;
+            HttpWebRequest request = null;
+            HttpWebResponse response = null;
+            StreamReader reader = null;
+            string[] pageContent = null;
+            string ipAddress = (ip == null) ? this.configuredXbmcIp : ip;
+            parameter = (parameter == null) ? "" : parameter;
+            command = "?command=" + Uri.EscapeDataString(command);
+            command += (parameter == null || parameter == "") ? "" : "&parameter=" + Uri.EscapeDataString(parameter);
+            string uri = "http://" + ipAddress + this.apiPath + command;
 
-            if (tmpcommand == "playfile")
-                MessageBox.Show("http://" + ipAddress + this.apiPath + command);
+            WriteToLog(uri);
+
             try
             {
-                request             = (HttpWebRequest)HttpWebRequest.Create("http://" + ipAddress + this.apiPath + command);
-                request.Method      = "GET";
-                request.Timeout     = XBMControl.Properties.Settings.Default.ConnectionTimeout;
+                request = (HttpWebRequest)HttpWebRequest.Create(uri);
+                request.Method = "GET";
+                request.Timeout = XBMControl.Properties.Settings.Default.ConnectionTimeout;
                 if (xbmcUsername != "" && xbmcPassword != "") request.Credentials = new NetworkCredential(xbmcUsername, xbmcPassword);
-                response            = (HttpWebResponse)request.GetResponse();
-                reader              = new StreamReader(response.GetResponseStream(), Encoding.UTF8);
-                pageContent         = reader.ReadToEnd().Replace("<li>", "|").Replace("\n", "").Replace("<html>", "").Replace("</html>", "").Split('|');
-                connected           = (pageContent == null) ? false : true;
+                response = (HttpWebResponse)request.GetResponse();
+                reader = new StreamReader(response.GetResponseStream(), Encoding.UTF8);
+                pageContent = reader.ReadToEnd().Replace("<li>", "|").Replace("\n", "").Replace("<html>", "").Replace("</html>", "").Split('|');
+                connected = (pageContent == null) ? false : true;
             }
             catch (WebException e)
             {
@@ -103,22 +104,118 @@ namespace XBMC.Communicator
         {
             return this.Request(command, null, null);
         }
-//END REQUEST
+        //END REQUEST
 
-//START CONNECTION TEST
-        public bool IsConnected(string ip)
-        {
-            this.Request("SetResponseFormat", null, ip);
-            return connected;
-        }
-
+        //START CONNECTION TEST
         public bool IsConnected()
         {
-            return IsConnected(null);
-        }
-//END CONNECTION TEST
+            string ip = this.GetXbmcIp();
+            if (ip != null && ip != "")
+                this.Request("SetResponseFormat", null, ip);
+            else
+                connected = false;
 
-//START Collect all info with one function to improve performance
+            return connected;
+        }
+        //END CONNECTION TEST
+
+        //START Now Playing Information
+        public string GetNowPlayingInfo(string field, bool refresh)
+        {
+            string returnValue = null;
+            if (refresh)
+            {
+                string[] aNowPlayingTemp = this.Request("GetCurrentlyPlaying");
+
+                if (aNowPlayingTemp != null)
+                {
+                    for (int x = 0; x < aNowPlayingTemp.Length; x++)
+                    {
+                        int splitIndex = aNowPlayingTemp[x].IndexOf(':') + 1;
+                        if (splitIndex > 2)
+                        {
+                            this.maNowPlayingInfo[x, 0] = aNowPlayingTemp[x].Substring(0, splitIndex - 1).Replace(" ", "").ToLower();
+                            this.maNowPlayingInfo[x, 1] = aNowPlayingTemp[x].Substring(splitIndex, aNowPlayingTemp[x].Length - splitIndex);
+                            if (this.maNowPlayingInfo[x, 0] == field)
+                                returnValue = this.maNowPlayingInfo[x, 1];
+                        }
+                    }
+                }
+            }
+            else
+            {
+                for (int x = 0; x < this.maNowPlayingInfo.GetLength(0); x++)
+                {
+                    if (this.maNowPlayingInfo[x, 0] == field)
+                        returnValue = this.maNowPlayingInfo[x, 1];
+                }
+            }
+
+            return returnValue;
+        }
+
+        public string GetNowPlayingInfo(string field)
+        {
+            return this.GetNowPlayingInfo(field, false);
+        }
+
+        public Image GetNowPlayingCoverArt()
+        {
+            MemoryStream stream = null;
+            Image thumbnail = null;
+            WebClient client = new WebClient();
+            Uri xbmcThumbUri = new Uri("http://" + Settings.Default.Ip + "/thumb.jpg");
+            this.Request("GetCurrentlyPlaying", "q:\\web\\thumb.jpg");
+
+            try
+            {
+                stream = new MemoryStream(client.DownloadData(xbmcThumbUri));
+                thumbnail = new Bitmap(Image.FromStream(stream));
+            }
+            catch (Exception e)
+            {
+                WriteToLog("ERROR - " + e.Message);
+            }
+            finally
+            {
+                client.Dispose();
+            }
+
+            return thumbnail;
+        }
+        //END Now Playing Information getters
+
+        //START Playlist information
+        public string[] GetPlaylist(bool refresh)
+        {
+            if (refresh)
+            {
+                string[] aPlaylistTemp = this.Request("GetPlaylistContents(GetCurrentPlaylist)");
+
+                if (aPlaylistTemp != null)
+                {
+                    aCurrentPlaylist = new string[aPlaylistTemp.Length];
+                    for (int x = 1; x < aPlaylistTemp.Length; x++)
+                    {
+                        int i                   = aPlaylistTemp[x].LastIndexOf(".");
+                        if (i > 1)
+                        {
+                            string extension = aPlaylistTemp[x].Substring(i, aPlaylistTemp[x].Length - i);
+                            string[] aPlaylistEntry = aPlaylistTemp[x].Split('/');
+                            string playlistEntry = aPlaylistEntry[aPlaylistEntry.Length - 1].Replace(extension, "");
+                            aCurrentPlaylist[x] = playlistEntry;
+                        }
+                        else
+                            aCurrentPlaylist[x] = "";
+                    }
+                }
+            }
+
+            return aCurrentPlaylist;
+        }
+        //END Playlist information
+
+        //START Collect all info with one function to improve performance
         public void GetXbmcProperties()
         {
             if (connected)
@@ -132,42 +229,48 @@ namespace XBMC.Communicator
                     newMediaPlaying = false;
 
                 nowPlayingMediaType = this.GetNowPlayingInfo("type", true);
-                isPlaying           = (this.GetNowPlayingInfo("playstatus", true) == "Playing") ? true : false;
-                isPaused            = (this.GetNowPlayingInfo("playstatus", true) == "Paused") ? true : false;
-                isNotPlaying        = (mediaNowPlaying == "[Nothing Playing]" || mediaNowPlaying == null) ? true : false;
-                
+                isPlaying = (this.GetNowPlayingInfo("playstatus", true) == "Playing") ? true : false;
+                isPaused = (this.GetNowPlayingInfo("playstatus", true) == "Paused") ? true : false;
+                isNotPlaying = (mediaNowPlaying == "[Nothing Playing]" || mediaNowPlaying == null) ? true : false;
+
                 if (mediaNowPlaying == null || isNotPlaying)
                     isPlayingLastFm = false;
                 else
                     isPlayingLastFm = (mediaNowPlaying.Substring(0, 6) == "lastfm") ? true : false;
 
-                string[] aVolume    = this.Request("GetVolume");
-                string[] aProgress  = this.Request("GetPercentage");
+                string[] aVolume = this.Request("GetVolume");
+                string[] aProgress = this.Request("GetPercentage");
 
                 if (aVolume == null)
                     volume = 0;
                 else
                     volume = (aVolume[1] == "Error") ? 0 : Convert.ToInt32(aVolume[1]);
 
-                 if (aProgress == null)
+                if (aProgress == null)
                     progress = 1;
                 else
                     progress = (aProgress[1] == "Error" || aProgress[1] == "0" || Convert.ToInt32(aProgress[1]) > 99) ? 1 : Convert.ToInt32(aProgress[1]);
- 
+
                 isMuted = (volume == 0) ? true : false;
             }
         }
-//END Collect all info with one function to improve performance
+        //END Collect all info with one function to improve performance
 
-//START Player Control
+
+        //START Player Control
         public void Play()
         {
             this.Request("ExecBuiltIn", "PlayerControl(Play)");
         }
 
+        public void PlayFile(string filename)
+        {
+            this.Request("PlayFile(" +filename+ ")");
+        }
+
         public void PlayMedia(string media)
         {
-            this.Request("ExecBuiltIn", "PlayMedia(" +media+ ")");
+            this.Request("ExecBuiltIn", "PlayMedia(" + media + ")");
         }
 
         public void Stop()
@@ -198,7 +301,7 @@ namespace XBMC.Communicator
         public void Repeat(bool enable)
         {
             string mode = (enable) ? "Repeat" : "RepeatOff";
-            this.Request("ExecBuiltIn", "PlayerControl(" +mode+ ")");
+            this.Request("ExecBuiltIn", "PlayerControl(" + mode + ")");
         }
 
         public void LastFmLove()
@@ -218,7 +321,7 @@ namespace XBMC.Communicator
 
         public void SetVolume(int percentage)
         {
-            this.Request("ExecBuiltIn", "SetVolume(" +Convert.ToString(percentage)+ ")");
+            this.Request("ExecBuiltIn", "SetVolume(" + Convert.ToString(percentage) + ")");
         }
 
         public void SeekPercentage(int percentage)
@@ -229,11 +332,11 @@ namespace XBMC.Communicator
         public string GetScreenshotBase64()
         {
             string[] base64screenshot = this.Request("takescreenshot", "screenshot.png;false;0;" + this.GetGuiDescription("width") + ";" + this.GetGuiDescription("height") + ";75;true;");
-            return (base64screenshot == null)? null : base64screenshot[0];
+            return (base64screenshot == null) ? null : base64screenshot[0];
         }
-//END Player Control
+        //END Player Control
 
-//START Machine and XBMC control
+        //START Machine and XBMC control
         public void Reboot()
         {
             this.Request("ExecBuiltIn", "Reboot");
@@ -269,17 +372,17 @@ namespace XBMC.Communicator
 
         public Image GetScreenshot()
         {
-            Image screenshot         = null;
+            Image screenshot = null;
             string base64ImageString = this.GetScreenshotBase64();
 
-            if( base64ImageString != null)
+            if (base64ImageString != null)
                 screenshot = this.Base64StringToImage(base64ImageString);
 
             return screenshot;
         }
-//END Machine and XBMC control
+        //END Machine and XBMC control
 
-//START Status Information
+        //START Status Information
         public bool IsNewMediaPlaying()
         {
             return newMediaPlaying;
@@ -287,7 +390,7 @@ namespace XBMC.Communicator
 
         public bool IsPlaying(string lastfm)
         {
-            return (lastfm != null )? isPlayingLastFm : isPlaying ;
+            return (lastfm != null) ? isPlayingLastFm : isPlaying;
         }
 
         public bool IsPlaying()
@@ -333,7 +436,7 @@ namespace XBMC.Communicator
             if (aLastFmUsername == null || aLastFmPassword == null)
                 return false;
             else
-                return (aLastFmUsername[1] == "" || aLastFmPassword[1] == "")? false : true ;
+                return (aLastFmUsername[1] == "" || aLastFmPassword[1] == "") ? false : true;
         }
 
         public bool RepeatEnabled()
@@ -344,86 +447,18 @@ namespace XBMC.Communicator
             else
                 return (aRepeatEnabled[1] == "False") ? false : true;
         }
-//END Status Information
+        //END Status Information
 
-//START Now Playing Information
-        public string GetNowPlayingInfo(string field, bool refresh)
-        {
-            string returnValue = null;
-            if (refresh)
-            {
-                string[] aNowPlayingTemp = this.Request("GetCurrentlyPlaying");
-
-                if (aNowPlayingTemp == null)
-                    returnValue = null;
-                else
-                {
-                    for (int x = 0; x < aNowPlayingTemp.Length; x++)
-                    {
-                        int splitIndex = aNowPlayingTemp[x].IndexOf(':') + 1;
-                        if (splitIndex > 1)
-                        {
-                            this.maNowPlayingInfo[x, 0] = aNowPlayingTemp[x].Substring(0, splitIndex - 1).Replace(" ", "").ToLower();
-                            this.maNowPlayingInfo[x, 1] = aNowPlayingTemp[x].Substring(splitIndex, aNowPlayingTemp[x].Length - splitIndex);
-                            if (this.maNowPlayingInfo[x, 0] == field) 
-                                returnValue = this.maNowPlayingInfo[x, 1];
-                        }
-                    }
-                }
-            }
-            else
-            {
-                for (int x = 0; x < this.maNowPlayingInfo.GetLength(0); x++)
-                {
-                    if (this.maNowPlayingInfo[x, 0] == field) 
-                        returnValue = this.maNowPlayingInfo[x, 1];
-                }
-            }
-
-            return returnValue;
-        }
-
-        public string GetNowPlayingInfo(string field)
-        {
-            return this.GetNowPlayingInfo(field, false);
-        }
-
-        public Image GetNowPlayingCoverArt()
-        {
-            MemoryStream stream = null;
-            Image thumbnail = null;
-            WebClient client = new WebClient();
-            Uri xbmcThumbUri = new Uri("http://" + Settings.Default.Ip + "/thumb.jpg");
-            this.Request("GetCurrentlyPlaying", "q:\\web\\thumb.jpg");
-
-            try
-            {
-                stream = new MemoryStream(client.DownloadData(xbmcThumbUri));
-                thumbnail = new Bitmap(Image.FromStream(stream));
-            }
-            catch (Exception e)
-            {
-                WriteToLog("ERROR - " + e.Message);
-            }
-            finally
-            {
-                client.Dispose();
-            }
-
-            return thumbnail;
-        }
-//END Now Playing Information getters
-
-//START Helper functions
+        //START Helper functions
         public Image Base64StringToImage(string base64String)
         {
-            Bitmap file         = null;
-            byte[] bytes        = Convert.FromBase64String(base64String);
+            Bitmap file = null;
+            byte[] bytes = Convert.FromBase64String(base64String);
             MemoryStream stream = new MemoryStream(bytes);
 
             if (base64String != null && base64String != "")
                 file = new Bitmap(Image.FromStream(stream));
-                
+
             return file;
         }
 
@@ -451,6 +486,6 @@ namespace XBMC.Communicator
             xbmcUsername = username;
             xbmcPassword = password;
         }
-//END Helper functions
+        //END Helper functions
     }
 }
