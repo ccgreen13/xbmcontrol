@@ -36,6 +36,7 @@ namespace XBMControl
 {
     public partial class MainForm : Form
     {
+        private MediaBrowserF1 ShareBrowser;
         private XBMCcomm XBMC;
         private XBMCLanguage Language;
         private ConfigurationF1 ConfigForm;
@@ -61,6 +62,8 @@ namespace XBMControl
         public MainForm()
         {
             XBMC     = new XBMCcomm();
+            XBMC.SetXbmcIp(Settings.Default.Ip);
+            XBMC.SetCredentials(Settings.Default.Username, Settings.Default.Password);
             Language = new XBMCLanguage();
             InitializeComponent();
             ApplyApplicationSettings();
@@ -70,9 +73,6 @@ namespace XBMControl
 
         private void Initialize()
         {
-            XBMC.SetXbmcIp(Settings.Default.Ip);
-            XBMC.SetCredentials(Settings.Default.Username, Settings.Default.Password);
-
             originalWindowHeight = this.Height;
             ToggleShowDetails();
 
@@ -742,6 +742,8 @@ namespace XBMControl
         private void bOpen_MouseDown(object sender, MouseEventArgs e)
         {
             bOpen.BackgroundImage = Resources.button_open_click;
+            ShareBrowser = new MediaBrowserF1();
+            ShareBrowser.Show();
         }
 
         private void bOpen_MouseUp(object sender, MouseEventArgs e)

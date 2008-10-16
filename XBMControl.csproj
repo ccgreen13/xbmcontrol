@@ -105,6 +105,12 @@
     <Compile Include="FullSizeImage.Designer.cs">
       <DependentUpon>FullSizeImage.cs</DependentUpon>
     </Compile>
+    <Compile Include="MediaBrowserF1.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MediaBrowserF1.Designer.cs">
+      <DependentUpon>MediaBrowserF1.cs</DependentUpon>
+    </Compile>
     <Compile Include="PlaylistF1.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -128,6 +134,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="FullSizeImage.resx">
       <DependentUpon>FullSizeImage.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MediaBrowserF1.resx">
+      <DependentUpon>MediaBrowserF1.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="PlaylistF1.resx">
       <DependentUpon>PlaylistF1.cs</DependentUpon>

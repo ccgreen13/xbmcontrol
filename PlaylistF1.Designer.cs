@@ -64,6 +64,7 @@
             this.lbPlaylist.TabIndex = 1;
             this.lbPlaylist.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.lbPlaylist_MouseDoubleClick);
             this.lbPlaylist.MouseDown += new System.Windows.Forms.MouseEventHandler(this.lbPlaylist_MouseDown);
+            this.lbPlaylist.KeyUp += new System.Windows.Forms.KeyEventHandler(this.lbPlaylist_KeyUp);
             // 
             // cmsPlaylist
             // 

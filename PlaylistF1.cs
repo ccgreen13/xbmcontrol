@@ -14,6 +14,7 @@ namespace XBMControl
     public partial class PlaylistF1 : Form
     {
         XBMCcomm XBMC;
+        MediaBrowserF1 ShareBrowser;
         private bool isDragging = false;
         private int clickOffsetX, clickOffsetY;
 
@@ -23,47 +24,87 @@ namespace XBMControl
             XBMC.SetXbmcIp(Settings.Default.Ip);
             XBMC.SetCredentials(Settings.Default.Username, Settings.Default.Password);
             InitializeComponent();
-            PopulatePlaylist();
-            timerUpdateSelection.Enabled = true;
-            XBMC.GetXbmcProperties();
-            UpdatePlaylistSelection();
+
+            if (XBMC.IsConnected())
+            {
+                XBMC.GetXbmcProperties();
+                PopulatePlaylist();
+                UpdatePlaylistSelection();
+                timerUpdateSelection.Enabled = true;
+            }
         }
 
         private void PopulatePlaylist()
         {
             lbPlaylist.Items.Clear();
-            string[] aPlaylistEntries = XBMC.GetPlaylist(true);
 
-            if (aPlaylistEntries != null)
+            if(XBMC.IsConnected())
             {
-                for (int x = 1; x < aPlaylistEntries.Length; x++)
-                    lbPlaylist.Items.Add(x + ". " + aPlaylistEntries[x]);
+                string surrentPlaylistType = (XBMC.GetNowPlayingMediaType() == "Video") ? "video" : "";
+                XBMC.SetPlaylist(surrentPlaylistType);
+
+                string[] aPlaylistEntries = XBMC.GetPlaylist(true);
+
+                if (aPlaylistEntries != null)
+                {
+                    for (int x = 1; x < aPlaylistEntries.Length; x++)
+                    {
+                        if (aPlaylistEntries[x] != "")
+                        {
+                            lbPlaylist.Items.Add(x + ". " + aPlaylistEntries[x]);
+                        }
+                    }
+                }
             }
         }
 
         private void PlaySelected(object sender, EventArgs e)
         {
-            string selectedEntry = GetSelectedPlaylistEntry();
+            if(XBMC.IsConnected())
+            {
+                string selectedEntry = GetSelectedPlaylistEntry();
 
-            if (selectedEntry != null)
-                XBMC.PlayFile(selectedEntry);
+                if (selectedEntry != null)
+                    XBMC.PlayFile(selectedEntry);
+            }
+            else
+                lbPlaylist.Items.Clear();
+        }
+
+        private void PlaySelected()
+        {
+            this.PlaySelected(null, null);
         }
 
         private void RemoveSelected(object sender, EventArgs e)
         {
-            string selectedEntry = GetSelectedPlaylistEntry();
-
-            if (selectedEntry != null)
+            if (XBMC.IsConnected())
             {
-                XBMC.Request("RemoveFromPlaylist(" + lbPlaylist.SelectedIndex + ")");
-                PopulatePlaylist();
+                string selectedEntry = GetSelectedPlaylistEntry();
+                if (selectedEntry != null)
+                {
+                    XBMC.Request("RemoveFromPlaylist(" + lbPlaylist.SelectedIndex + ")");
+                    PopulatePlaylist();
+                }
             }
+            else
+                lbPlaylist.Items.Clear();
+        }
+
+        private void RemoveSelected()
+        {
+            RemoveSelected(null, null);
         }
 
         private void pbClearPlaylist_Click(object sender, EventArgs e)
         {
-            XBMC.Request("ClearPlayList(GetCurrentPlaylist)");
-            PopulatePlaylist();
+            if (XBMC.IsConnected())
+            {
+                XBMC.Request("ClearPlayList(GetCurrentPlaylist)");
+                PopulatePlaylist();
+            }
+            else
+                lbPlaylist.Items.Clear();
         }
 
         private void lbPlaylist_MouseDown(object sender, MouseEventArgs e)
@@ -78,14 +119,28 @@ namespace XBMControl
 
         private string GetSelectedPlaylistEntry()
         {
-            string[] aPlaylistEntry = XBMC.Request("GetPlaylistSong(" + lbPlaylist.SelectedIndex + ")");
-            return (aPlaylistEntry != null) ? aPlaylistEntry[1] : null;
+            if (XBMC.IsConnected())
+            {
+                string[] aPlaylistEntry = XBMC.Request("GetPlaylistSong(" + lbPlaylist.SelectedIndex + ")");
+                return (aPlaylistEntry != null) ? aPlaylistEntry[1] : null;
+            }
+            else
+            {
+                lbPlaylist.Items.Clear();
+                return null;
+            }
         }
 
         private void UpdatePlaylistSelection()
         {
-            int currentPlaylistSong = Convert.ToInt32(XBMC.GetNowPlayingInfo("songno"));
-            lbPlaylist.SelectedIndex = currentPlaylistSong;
+            if (XBMC.IsConnected())
+            {
+                int currentPlaylistSong = Convert.ToInt32(XBMC.GetNowPlayingInfo("songno"));
+                if (currentPlaylistSong != 0)
+                    lbPlaylist.SelectedIndex = currentPlaylistSong;
+            }
+            else
+                lbPlaylist.Items.Clear();
         }
 
         private void pbClose_Click(object sender, EventArgs e)
@@ -122,9 +177,39 @@ namespace XBMControl
 
         private void timerUpdateSelection_Tick(object sender, EventArgs e)
         {
-            XBMC.GetXbmcProperties();
-            if(!lbPlaylist.Focused && !XBMC.IsNotPlaying() && XBMC.IsConnected())
-                UpdatePlaylistSelection();
+            if (XBMC.IsConnected())
+            {
+                XBMC.GetXbmcProperties();
+                if (!lbPlaylist.Focused)
+                {
+                    PopulatePlaylist();
+                    if (!XBMC.IsNotPlaying()) UpdatePlaylistSelection();
+                }
+            }
+            else
+                lbPlaylist.Items.Clear();
+        }
+
+        private void lbPlaylist_KeyUp(object sender, KeyEventArgs e)
+        {
+            if (XBMC.IsConnected())
+            {
+                if (e.KeyData.ToString() == "Delete")
+                {
+                    this.RemoveSelected();
+                    this.PopulatePlaylist();
+                }
+                else if (e.KeyData.ToString() == "Return")
+                    this.PlaySelected();
+            }
+            else
+                lbPlaylist.Items.Clear();
+        }
+
+        private void pbBrowseShares_Click(object sender, EventArgs e)
+        {
+            ShareBrowser = new MediaBrowserF1();
+            ShareBrowser.Show();
         }
     }
 }

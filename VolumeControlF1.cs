@@ -20,15 +20,14 @@ namespace XBMControl
         public VolumeControlF1()
         {
             XBMC = new XBMCcomm();
+            XBMC.SetXbmcIp(Settings.Default.Ip);
+            XBMC.SetCredentials(Settings.Default.Username, Settings.Default.Password);
             InitializeComponent();
             Initialize();
         }
 
         private void Initialize()
         {
-            XBMC.SetXbmcIp(Settings.Default.Ip);
-            XBMC.SetCredentials(Settings.Default.Username, Settings.Default.Password);
-
             if (XBMC.IsConnected())
             {
                 connectedToXbmc = XBMC.IsConnected();

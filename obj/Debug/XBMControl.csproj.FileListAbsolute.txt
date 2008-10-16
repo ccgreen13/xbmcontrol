@@ -13,3 +13,4 @@ E:\Programming\C#\XBMControl\XBMControl\obj\Debug\XBMControl.VolumeControlF1.res
 E:\Programming\C#\XBMControl\XBMControl\obj\Debug\XBMControl.SendMediaUrl.resources
 E:\Programming\C#\XBMControl\XBMControl\obj\Debug\XBMControl.PlayStatusForm.PlayStatusF1.resources
 E:\Programming\C#\XBMControl\XBMControl\obj\Debug\XBMControl.PlaylistF1.resources
+E:\Programming\C#\XBMControl\XBMControl\obj\Debug\XBMControl.MediaBrowserF1.resources
