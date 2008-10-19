@@ -37,12 +37,12 @@ namespace XBMControl
     public partial class MainForm : Form
     {
         private MediaBrowserF1 ShareBrowser;
-        private XBMCcomm XBMC;
-        private XBMCLanguage Language;
+        internal XBMCcomm XBMC;
+        internal XBMCLanguage Language;
         private ConfigurationF1 ConfigForm;
         private FullSizeImageF1 fullSizeImage;
         private VolumeControlF1 sysTrayVolumeControl;
-        private PlaylistF1 Playlist;
+        internal PlaylistF1 Playlist = null;
 
         private const int updateIntervalShort   = 1000;
         private const int updateIntervalLong    = 10000; 
@@ -55,16 +55,15 @@ namespace XBMControl
         private bool volumeControlOpened        = false;
         private int clickOffsetX, clickOffsetY;
         private int originalWindowHeight;
-        private bool connectedToXbmc            = false;
-        private bool repeatEnabled              = false;
-        private bool playlistOpened             = false;
+        private bool repeatEnabled              = false; 
+        internal bool shareBrowserOpened        = false;
        
         public MainForm()
         {
-            XBMC     = new XBMCcomm();
+            Language = new XBMCLanguage();
+            XBMC = new XBMCcomm();
             XBMC.SetXbmcIp(Settings.Default.Ip);
             XBMC.SetCredentials(Settings.Default.Username, Settings.Default.Password);
-            Language = new XBMCLanguage();
             InitializeComponent();
             ApplyApplicationSettings();
             SetLanguageStrings();
@@ -89,13 +88,19 @@ namespace XBMControl
             }
             else if (XBMC.IsConnected())
             {
-                updateTimer.Interval = updateIntervalShort;
-                updateTimer.Enabled  = true;
-                connectedToXbmc      = true;
+                if (!XBMC.WebServerEnabled())
+                {
+                    MessageBox.Show(Language.GetString("mainform/dialog/webserverDisabled"), Language.GetString("mainform/dialog/webserverDisabledTitle"));
+                    this.Dispose();
+                }
+                else
+                {
+                    updateTimer.Interval = updateIntervalShort;
+                    updateTimer.Enabled = true;
+                }
             }
             else
             {
-                connectedToXbmc      = false;
                 updateTimer.Interval = updateIntervalLong;
                 updateTimer.Enabled  = true;
                 SetControlsEnabled(false);
@@ -106,11 +111,10 @@ namespace XBMControl
 //START Timer events
         private void UpdateData()
         {
-            resetToDefault = (!connectedToXbmc || XBMC.IsNotPlaying()) ? true : false;
+            resetToDefault = (!XBMC.IsConnected() || XBMC.IsNotPlaying()) ? true : false;
 
             if (XBMC.IsConnected())
             {
-                connectedToXbmc      = true;
                 XBMC.GetXbmcProperties();
                 SetControlsEnabled(true);
                 updateTimer.Interval = updateIntervalShort;
@@ -123,6 +127,7 @@ namespace XBMControl
                 SetMediaTypeImage();
 
                 //Set control button states
+                bOpen.BackgroundImage   = (shareBrowserOpened) ? Resources.button_open_click : Resources.button_open;
                 bPause.BackgroundImage  = (XBMC.IsPaused()) ? Resources.button_pause_click : Resources.button_pause;
                 bPlay.BackgroundImage   = (XBMC.IsPlaying()) ? Resources.button_play_click : Resources.button_play;
                 bStop.BackgroundImage   = (XBMC.IsNotPlaying()) ? Resources.button_stop_click : Resources.button_stop;
@@ -132,14 +137,16 @@ namespace XBMControl
             }
             else
             {
-                connectedToXbmc         = false;
                 SetControlsEnabled(false);
-                ShowConnectionInfo();
+                this.ShowConnectionInfo();
                 bPause.BackgroundImage  = Resources.button_pause;
                 bPlay.BackgroundImage   = Resources.button_play;
                 bMute.BackgroundImage   = Resources.button_mute;
                 updateTimer.Interval    = updateIntervalLong;
             }
+
+            if (Settings.Default.playlistOpened && Playlist == null)
+                this.cmsViewPlaylist_Click(null, null);
         }
 
         private void updateTimer_Tick(object sender, EventArgs e)
@@ -152,7 +159,16 @@ namespace XBMControl
         private void MainForm_Resize(object sender, EventArgs e)
         {
             if (this.WindowState == System.Windows.Forms.FormWindowState.Minimized)
+            {
                 this.Visible = Settings.Default.ShowInTaskbar;
+                if (Settings.Default.playlistOpened && Playlist != null) this.Playlist.Hide();
+                if (shareBrowserOpened) this.ShareBrowser.Hide();
+            }
+            else
+            {
+                if (Settings.Default.playlistOpened && Playlist != null) this.Playlist.Show();
+                if (shareBrowserOpened) this.ShareBrowser.Show();
+            }
         }
 
         private void MainForm_Load(object sender, EventArgs e)
@@ -188,13 +204,15 @@ namespace XBMControl
             }
             else if (XBMC.IsNewMediaPlaying())
             {
+                if(Settings.Default.playlistOpened && this.Playlist != null) this.Playlist.RefreshPlaylist();
                 Image coverArt          = XBMC.GetNowPlayingCoverArt();
                 pbThumbnail.Image       = (coverArt == null) ? Resources.XBMClogo : coverArt;
                 string year             = (XBMC.GetNowPlayingInfo("year") == null) ? "" : " [" + XBMC.GetNowPlayingInfo("year") + "]";
                 lBitrate.Text           = XBMC.GetNowPlayingInfo("bitrate");
                 lSamplerate.Text        = XBMC.GetNowPlayingInfo("samplerate");
                 string genre            = (XBMC.GetNowPlayingInfo("genre") == null)? "" : " [" + XBMC.GetNowPlayingInfo("genre") + "]";
-                lArtistSong.Text        = XBMC.GetNowPlayingInfo("artist") + " - " + XBMC.GetNowPlayingInfo("title");
+                string artistLable      = (XBMC.GetNowPlayingInfo("artist") == "" || XBMC.GetNowPlayingInfo("artist") == null) ? "" : XBMC.GetNowPlayingInfo("artist") + " - ";
+                lArtistSong.Text        = artistLable + XBMC.GetNowPlayingInfo("title");
                 lArtist.Text            = XBMC.GetNowPlayingInfo("artist") + genre;
                 lTitle.Text             = XBMC.GetNowPlayingInfo("title") + " [" + XBMC.GetNowPlayingInfo("duration") + "]";
                 lAlbum.Text             = XBMC.GetNowPlayingInfo("album") + year;
@@ -266,7 +284,10 @@ namespace XBMControl
 
         private void pbLastFM_Click()
         {
-            string lastFmUrl = "http://www.last.fm/music/" + XBMC.GetNowPlayingInfo("artist").Replace(" ", "+");
+            string artist = XBMC.GetNowPlayingInfo("artist");
+            artist = (artist == null) ? "" : artist.Replace(" ", "+");
+
+            string lastFmUrl = "http://www.last.fm/music/" + artist;
             Help.ShowHelp(this, lastFmUrl);
         }
 
@@ -284,7 +305,8 @@ namespace XBMControl
                 if (!XBMC.IsNotPlaying() && XBMC.IsNewMediaPlaying())
                 {
                     string currentFilename = XBMC.GetNowPlayingInfo("filename");
-                    string artist = XBMC.GetNowPlayingInfo("artist") + "\n";
+                    string genre = (XBMC.GetNowPlayingInfo("genre") == "" || XBMC.GetNowPlayingInfo("artist") == null) ? "" : "[" + XBMC.GetNowPlayingInfo("artist") + "]";
+                    string artist = XBMC.GetNowPlayingInfo("artist") + genre + "\n";
                     string duration = XBMC.GetNowPlayingInfo("duration");
                     string time = (duration == "" || duration == null) ? "" : " [" + duration + "]";
                     string title = XBMC.GetNowPlayingInfo("title") + time + "\n";
@@ -325,7 +347,7 @@ namespace XBMControl
 
         private void ShowConnectionInfo() 
         {
-            if (!connectedToXbmc && Settings.Default.ShowConnectionInfo)
+            if (!XBMC.IsConnected() && Settings.Default.ShowConnectionInfo)
             {
                 if (!showedConnectionStatus)
                 {
@@ -350,22 +372,21 @@ namespace XBMControl
                 Close();
             else
             {
+                XBMC.GetXbmcProperties();
+                configFormOpened = false;
+                ApplyApplicationSettings();
+                this.Update();
+
                 if (XBMC.IsConnected())
                 {
-                    XBMC.GetXbmcProperties();
-                    configFormOpened        = false;
-                    this.Enabled            = true;
-                    ApplyApplicationSettings();
                     updateTimer.Interval    = updateIntervalShort;
                     updateTimer.Enabled     = true;
-                    this.Update();
+                    
                 }
                 else
                 {
-                    this.Enabled            = true;
                     updateTimer.Interval    = updateIntervalLong;
                     updateTimer.Enabled     = true;
-                    this.Update();
                 }
             }
         }
@@ -375,10 +396,9 @@ namespace XBMControl
             if (!configFormOpened)
             {
                 configFormOpened        = true;
-                ConfigForm              = new ConfigurationF1();
+                ConfigForm              = new ConfigurationF1(this);
                 ConfigForm.FormClosed   += new System.Windows.Forms.FormClosedEventHandler(SetConfigFormClosed);
                 ConfigForm.Show();
-                this.Enabled            = false;
             }
         }
 //END Configuration form events
@@ -388,7 +408,7 @@ namespace XBMControl
         {
             if (!volumeControlOpened)
             {
-                sysTrayVolumeControl            = new VolumeControlF1();
+                sysTrayVolumeControl            = new VolumeControlF1(this);
                 sysTrayVolumeControl.FormClosed += new FormClosedEventHandler(VolumeControlClosed);
                 sysTrayVolumeControl.Left       = Cursor.Position.X - (sysTrayVolumeControl.Width / 2);
                 sysTrayVolumeControl.Top        = Cursor.Position.Y - (sysTrayVolumeControl.Height + 15);
@@ -546,23 +566,21 @@ namespace XBMControl
 
         private void cmsSendMediaUrl_Click(object sender, EventArgs e)
         {
-            SendMediaUrl SendMedia = new SendMediaUrl();
+            SendMediaUrl SendMedia = new SendMediaUrl(this);
             SendMedia.Show();
         }
 
         private void cmsViewPlaylist_Click(object sender, EventArgs e)
         {
-            Playlist = new PlaylistF1();
-            Playlist.FormClosed += new System.Windows.Forms.FormClosedEventHandler(SetPlaylistClosed);
-            Playlist.Show();
-            Playlist.Top = this.Top;
-            Playlist.Left = (this.Left + this.Width);
-            playlistOpened = true;
-        }
-
-        public void SetPlaylistClosed(object sender, EventArgs e)
-        {
-            playlistOpened = false;
+            if (Playlist == null || !Settings.Default.playlistOpened)
+            {
+                Playlist = new PlaylistF1(this);
+                Playlist.Show();
+                Playlist.Top = this.Top;
+                Playlist.Left = (this.Left + this.Width);
+            }
+            else if(Settings.Default.playlistOpened)
+                Playlist.Focus();
         }
 //END Context menu events
 
@@ -623,7 +641,9 @@ namespace XBMControl
         private void bPrevious_MouseDown(object sender, MouseEventArgs e)
         {
             bPrevious.BackgroundImage = Resources.button_previous_click;
-            XBMC.Previous();
+            this.XBMC.Previous();
+            if (Settings.Default.playlistOpened && this.Playlist != null)
+                this.Playlist.RefreshPlaylist();
         }
 
         private void bPrevious_MouseUp(object sender, MouseEventArgs e)
@@ -646,8 +666,9 @@ namespace XBMControl
         private void bPlay_MouseDown(object sender, MouseEventArgs e)
         {
             bPlay.BackgroundImage = Resources.button_play_click;
-            XBMC.Play();
-
+            this.XBMC.Play();
+            if (Settings.Default.playlistOpened && this.Playlist != null)
+                this.Playlist.RefreshPlaylist();
         }
 
         private void bPlay_MouseUp(object sender, MouseEventArgs e)
@@ -693,7 +714,9 @@ namespace XBMControl
         private void bStop_MouseDown(object sender, MouseEventArgs e)
         {
             bStop.BackgroundImage = Resources.button_stop_click;
-            XBMC.Stop();
+            this.XBMC.Stop();
+            if (Settings.Default.playlistOpened && this.Playlist != null)
+                this.Playlist.RefreshPlaylist();
         }
 
         private void bStop_MouseUp(object sender, MouseEventArgs e)
@@ -718,7 +741,9 @@ namespace XBMControl
         private void bNext_MouseDown(object sender, MouseEventArgs e)
         {
             bNext.BackgroundImage = Resources.button_next_click;
-            XBMC.Next();
+            this.XBMC.Next();
+            if (Settings.Default.playlistOpened && this.Playlist != null)
+                this.Playlist.RefreshPlaylist();
         }
 
         private void bNext_MouseUp(object sender, MouseEventArgs e)
@@ -742,8 +767,14 @@ namespace XBMControl
         private void bOpen_MouseDown(object sender, MouseEventArgs e)
         {
             bOpen.BackgroundImage = Resources.button_open_click;
-            ShareBrowser = new MediaBrowserF1();
-            ShareBrowser.Show();
+            if (!shareBrowserOpened)
+            {
+                this.ShareBrowser = new MediaBrowserF1(this);
+                this.ShareBrowser.Show();
+                this.shareBrowserOpened = true;
+            }
+            else
+                ShareBrowser.Focus();
         }
 
         private void bOpen_MouseUp(object sender, MouseEventArgs e)
@@ -767,14 +798,28 @@ namespace XBMControl
         private void bMute_MouseDown(object sender, MouseEventArgs e)
         {
             bMute.BackgroundImage = Resources.button_mute_click;
-            XBMC.ToggleMute();
+            this.XBMC.ToggleMute();
         }
 
         private void bMute_MouseUp(object sender, MouseEventArgs e)
         {
-            if (!XBMC.IsPaused()) bMute.BackgroundImage = Resources.button_mute_hover;
+            if (!this.XBMC.IsPaused()) bMute.BackgroundImage = Resources.button_mute_hover;
         }
 //END MUTE BUTTON
+
+//START LASTFM BUTTONS
+        private void bLastFmLove_Click_1(object sender, EventArgs e)
+        {
+            if (MessageBox.Show(this.Language.GetString("mainform/dialog/lastfmLove"), this.Language.GetString("mainform/dialog/lastfmLoveTitle"), MessageBoxButtons.YesNo) == DialogResult.Yes)
+                this.XBMC.LastFmLove();
+        }
+
+        private void bLastFmHate_Click_1(object sender, EventArgs e)
+        {
+            if (MessageBox.Show(this.Language.GetString("mainform/dialog/lastfmHate"), this.Language.GetString("mainform/dialog/lastfmHateTitle"), MessageBoxButtons.YesNo) == DialogResult.Yes)
+                this.XBMC.LastFmHate();
+        }
+//END LASTFM BUTTONS
 
 //START MINIMIZE BUTTON
         private void pbMinimize_MouseEnter(object sender, EventArgs e)
@@ -810,22 +855,6 @@ namespace XBMControl
         }
 //END CLOSE BUTTON
 
-//START LASTFM LOVE BUTTON
-        private void bLastFmLove_Click(object sender, EventArgs e)
-        {
-            if (MessageBox.Show(Language.GetString("mainform/dialog/lastfmLove"), Language.GetString("mainform/dialog/lastfmLoveTitle"), MessageBoxButtons.YesNo) == DialogResult.Yes)
-                XBMC.LastFmLove();
-        }
-//END LASTFM LOVE BUTTON
-
-//START LASTFM HATE BUTTON
-        private void bLastFmHate_Click(object sender, EventArgs e)
-        {
-            if (MessageBox.Show(Language.GetString("mainform/dialog/lastfmHate"), Language.GetString("mainform/dialog/lastfmHateTitle"), MessageBoxButtons.YesNo) == DialogResult.Yes)
-                XBMC.LastFmHate();
-        }
-//END LASTFM HATE BUTTON
-
 //START REPEAT BUTTON
         private void bRepeat_MouseEnter(object sender, EventArgs e)
         {
@@ -841,7 +870,7 @@ namespace XBMControl
         {
             bRepeat.BackgroundImage = Resources.button_repeat_click;
             repeatEnabled           = (repeatEnabled) ? false : true;
-            XBMC.Repeat(repeatEnabled);  
+            this.XBMC.Repeat(repeatEnabled);  
         }
 
         private void bRepeat_MouseUp(object sender, MouseEventArgs e)
@@ -864,7 +893,7 @@ namespace XBMControl
         private void bShuffle_MouseDown(object sender, MouseEventArgs e)
         {
             bShuffle.BackgroundImage = Resources.button_shuffle_click;
-            XBMC.ToggleShuffle();
+            this.XBMC.ToggleShuffle();
         }
 
         private void bShuffle_MouseUp(object sender, MouseEventArgs e)
@@ -887,7 +916,7 @@ namespace XBMControl
         private void bPartymode_MouseDown(object sender, MouseEventArgs e)
         {
             bPartymode.BackgroundImage = Resources.button_partymode_click;
-            XBMC.TogglePartymode();
+            this.XBMC.TogglePartymode();
         }
 
         private void bPartymode_MouseUp(object sender, MouseEventArgs e)
@@ -907,6 +936,8 @@ namespace XBMControl
         private void pToolbar_MouseUp(object sender, MouseEventArgs e)
         {
             isDragging = false;
+            if (e.Button == MouseButtons.Right)
+                MainContextMenu.Show(pToolbar, new System.Drawing.Point(0, pToolbar.Height));
         }
 
         private void pToolbar_MouseMove(object sender, MouseEventArgs e)
@@ -916,12 +947,17 @@ namespace XBMControl
                 this.Left = e.X + this.Left - clickOffsetX;
                 this.Top  = e.Y + this.Top - clickOffsetY;
 
-                if (playlistOpened == true)
+                if (Settings.Default.playlistOpened && this.Playlist != null)
                 {
                     Playlist.Top = this.Top;
                     Playlist.Left = this.Left + this.Width;
                 }
             }
+        }
+
+        private void pictureBox2_Click(object sender, EventArgs e)
+        {
+            MainContextMenu.Show(pToolbar, new System.Drawing.Point(0, pToolbar.Height));
         }
 //END FAKE DRAG DROP
 
@@ -956,31 +992,36 @@ namespace XBMControl
         private void SetLanguageStrings()
         {
             //MainForm
-            this.Text               = Language.GetString("global/appName") + " v" + Settings.Default.Version;
-            lMainTitle.Text         = Language.GetString("global/appName") + " v" + Settings.Default.Version;
-            lArtistTitle.Text       = Language.GetString("mainform/label/artist");
-            lTitleTitle.Text        = Language.GetString("mainform/label/title");
-            lAlbumTitle.Text        = Language.GetString("mainform/label/album");
+            this.Text = Language.GetString("global/appName") + " v" + Settings.Default.Version;
+            lMainTitle.Text = Language.GetString("global/appName") + " v" + Settings.Default.Version;
+            lArtistTitle.Text = Language.GetString("mainform/label/artist");
+            lTitleTitle.Text = Language.GetString("mainform/label/title");
+            lAlbumTitle.Text = Language.GetString("mainform/label/album");
 
             //Context Menu
-            cmsControls.Text        = Language.GetString("contextMenu/controls/title");
-            cmsPrevious.Text        = Language.GetString("contextMenu/controls/previous");
-            cmsPlay.Text            = Language.GetString("contextMenu/controls/play");
-            cmsPause.Text           = Language.GetString("contextMenu/controls/pause");
-            cmsStop.Text            = Language.GetString("contextMenu/controls/stop");
-            cmsNext.Text            = Language.GetString("contextMenu/controls/next");
-            cmsMute.Text            = Language.GetString("contextMenu/controls/mute");
-            cmsXBMC.Text            = Language.GetString("contextMenu/xbmc/title");
-            cmsSendMediaUrl.Text    = Language.GetString("contextMenu/xbmc/sendMediaUrl");
-            cmsShowScreenshot.Text  = Language.GetString("contextMenu/xbmc/showScreenshot");
-            cmsXBMCreboot.Text      = Language.GetString("contextMenu/xbmc/reboot");
-            cmsXBMCrestart.Text     = Language.GetString("contextMenu/xbmc/restart");
-            cmsXBMCshutdown.Text    = Language.GetString("contextMenu/xbmc/shutdown");
-            cmsSaveMedia.Text       = Language.GetString("contextMenu/saveMedia");
-            cmsShow.Text            = Language.GetString("contextMenu/show");
-            cmsHide.Text            = Language.GetString("contextMenu/hide");
-            cmsConfigure.Text       = Language.GetString("contextMenu/configure");
-            cmsExit.Text            = Language.GetString("contextMenu/exit");
+            cmsControls.Text = Language.GetString("contextMenu/controls/title");
+            cmsPrevious.Text = Language.GetString("contextMenu/controls/previous");
+            cmsPlay.Text = Language.GetString("contextMenu/controls/play");
+            cmsPause.Text = Language.GetString("contextMenu/controls/pause");
+            cmsStop.Text = Language.GetString("contextMenu/controls/stop");
+            cmsNext.Text = Language.GetString("contextMenu/controls/next");
+            cmsMute.Text = Language.GetString("contextMenu/controls/mute");
+            cmsXBMC.Text = Language.GetString("contextMenu/xbmc/title");
+            cmsSendMediaUrl.Text = Language.GetString("contextMenu/xbmc/sendMediaUrl");
+            cmsShowScreenshot.Text = Language.GetString("contextMenu/xbmc/showScreenshot");
+            cmsXBMCreboot.Text = Language.GetString("contextMenu/xbmc/reboot");
+            cmsXBMCrestart.Text = Language.GetString("contextMenu/xbmc/restart");
+            cmsXBMCshutdown.Text = Language.GetString("contextMenu/xbmc/shutdown");
+            cmsSaveMedia.Text = Language.GetString("contextMenu/saveMedia");
+            cmsShow.Text = Language.GetString("contextMenu/show");
+            cmsHide.Text = Language.GetString("contextMenu/hide");
+            cmsConfigure.Text = Language.GetString("contextMenu/configure");
+            cmsExit.Text = Language.GetString("contextMenu/exit");
+        }
+
+        private void cmsMediaBrowser_Click(object sender, EventArgs e)
+        {
+            this.bOpen_MouseDown(null, null);
         }
 //END Helper functions
     }
