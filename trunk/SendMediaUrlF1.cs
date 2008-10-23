@@ -8,25 +8,22 @@ using System.Text;
 using System.Windows.Forms;
 using System.Web;
 using XBMControl.Properties;
-using XBMC.Communicator;
 
 namespace XBMControl
 {
     public partial class SendMediaUrl : Form
     {
-        XBMCcomm XBMC;
+        MainForm parent;
 
-        public SendMediaUrl()
+        public SendMediaUrl(MainForm parentForm)
         {
-            XBMC = new XBMCcomm();
-            XBMC.SetXbmcIp(Settings.Default.Ip);
-            XBMC.SetCredentials(Settings.Default.Username, Settings.Default.Password);
+            parent = parentForm;
             InitializeComponent();
         }
 
         private void bSendMediaUrl_Click(object sender, EventArgs e)
         {
-            if (tbMediaUrl.Text != "") XBMC.PlayMedia(tbMediaUrl.Text);
+            if (tbMediaUrl.Text != "") parent.XBMC.PlayMedia(tbMediaUrl.Text);
             Close();
         }
     }

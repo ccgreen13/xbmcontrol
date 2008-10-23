@@ -22,10 +22,11 @@ using System.Linq;
 using System.Text;
 using System.Xml;
 using System.IO;
+using System.Windows.Forms;
 
 namespace XBMControl.Language
 {
-    class XBMCLanguage
+    public class XBMCLanguage
     {
         private string languageFilePath;
         private XmlDocument languageFile;
@@ -34,8 +35,8 @@ namespace XBMControl.Language
 
         public XBMCLanguage()
         {
-            this.languageFile = new XmlDocument();
-            this.languageDir  = new DirectoryInfo("language/");
+            this.languageFile   = new XmlDocument();
+            this.languageDir    = new DirectoryInfo(Path.GetDirectoryName(Application.ExecutablePath).ToString() + "\\language\\");
         }
 
         public string[] GetAvailableLanguages()

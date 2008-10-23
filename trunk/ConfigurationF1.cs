@@ -28,8 +28,6 @@ using System.Net;
 using System.Security.Permissions;
 using Microsoft.Win32;
 using XBMControl.Properties;
-using XBMC.Communicator;
-using XBMControl.Language;
 
 [assembly: RegistryPermissionAttribute(SecurityAction.RequestMinimum, ViewAndModify = "HKEY_CURRENT_USER")]
 
@@ -37,42 +35,40 @@ namespace XBMControl
 {
     public partial class ConfigurationF1 : Form
     {
-        XBMCcomm XBMC;
-        XBMCLanguage Language;
+        MainForm parent;
         RegistryKey regRunAtStartup;
 
-        public ConfigurationF1()
+        public ConfigurationF1(MainForm parentForm)
         {
-            XBMC            = new XBMCcomm();
-            XBMC.SetXbmcIp(Settings.Default.Ip);
-            XBMC.SetCredentials(Settings.Default.Username, Settings.Default.Password);
-            Language        = new XBMCLanguage();
+            parent = parentForm;
             regRunAtStartup = Registry.CurrentUser.OpenSubKey("SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run", true);
+            parent.configFormOpened = true;
+
             InitializeComponent();
             LoadConfiguration();
-            Language.SetLanguage(Settings.Default.Language);
+            parent.Language.SetLanguage(Settings.Default.Language);
             SetLanguageStrings();
-            cbLanguage.DropDownStyle          = ComboBoxStyle.DropDownList;
+            cbLanguage.DropDownStyle = ComboBoxStyle.DropDownList;
             cbConnectionTimeout.DropDownStyle = ComboBoxStyle.DropDownList; ;
         }
 
         private void SetLanguageStrings()
         {
-            this.Text                               = Language.GetString("global/appName") + " " + Language.GetString("configuration/title");
-            lConnectionTimeout.Text                 = Language.GetString("configuration/label/connectionTimeout");
-            lLanguageTitle.Text                     = Language.GetString("configuration/label/language");
-            lIpTitle.Text                           = Language.GetString("configuration/label/ip");
-            lUsernameTitle.Text                     = Language.GetString("configuration/label/username");
-            lPasswordTitle.Text                     = Language.GetString("configuration/label/password");
-            cbShowInTray.Text                       = Language.GetString("configuration/label/showInTray");
-            cbShowInTaskbar.Text                    = Language.GetString("configuration/label/showInTaskbar");
-            cbShowNowPlayingBalloonTip.Text         = Language.GetString("configuration/label/showNowPlayingBalloonTip");
-            cbShowPlayStatusBalloonTip.Text         = Language.GetString("configuration/label/showPlayStatusBalloonTip");
-            cbShowConnectionStatusBalloonTip.Text   = Language.GetString("configuration/label/showConnectionStatusBalloonTip");
-            cbRunAtStartup.Text                     = Language.GetString("configuration/label/runAtStartup");
-            cbStartMinimized.Text                   = Language.GetString("configuration/label/startMinimized");
-            bConfirm.Text                           = Language.GetString("global/button/confirm");
-            bCancel.Text                            = Language.GetString("global/button/cancel");
+            this.Text                               = parent.Language.GetString("global/appName") + " " + parent.Language.GetString("configuration/title");
+            lConnectionTimeout.Text                 = parent.Language.GetString("configuration/label/connectionTimeout");
+            lLanguageTitle.Text                     = parent.Language.GetString("configuration/label/language");
+            lIpTitle.Text                           = parent.Language.GetString("configuration/label/ip");
+            lUsernameTitle.Text                     = parent.Language.GetString("configuration/label/username");
+            lPasswordTitle.Text                     = parent.Language.GetString("configuration/label/password");
+            cbShowInTray.Text                       = parent.Language.GetString("configuration/label/showInTray");
+            cbShowInTaskbar.Text                    = parent.Language.GetString("configuration/label/showInTaskbar");
+            cbShowNowPlayingBalloonTip.Text         = parent.Language.GetString("configuration/label/showNowPlayingBalloonTip");
+            cbShowPlayStatusBalloonTip.Text         = parent.Language.GetString("configuration/label/showPlayStatusBalloonTip");
+            cbShowConnectionStatusBalloonTip.Text   = parent.Language.GetString("configuration/label/showConnectionStatusBalloonTip");
+            cbRunAtStartup.Text                     = parent.Language.GetString("configuration/label/runAtStartup");
+            cbStartMinimized.Text                   = parent.Language.GetString("configuration/label/startMinimized");
+            bConfirm.Text                           = parent.Language.GetString("global/button/confirm");
+            bCancel.Text                            = parent.Language.GetString("global/button/cancel");
         }
 
         private void SaveConfiguration()
@@ -92,9 +88,9 @@ namespace XBMControl
             if (!Settings.Default.ShowInSystemTray) Settings.Default.ShowInTaskbar = true;
 
             if( cbRunAtStartup.Checked )
-                regRunAtStartup.SetValue(Language.GetString("global/appName"), Application.ExecutablePath.ToString());
+                regRunAtStartup.SetValue(parent.Language.GetString("global/appName"), Application.ExecutablePath.ToString());
             else
-                regRunAtStartup.DeleteValue(Language.GetString("global/appName"), false);
+                regRunAtStartup.DeleteValue(parent.Language.GetString("global/appName"), false);
 
             Settings.Default.Save();
         }
@@ -111,12 +107,11 @@ namespace XBMControl
 
             cbShowInTray.Checked                     = Settings.Default.ShowInSystemTray;
             cbShowNowPlayingBalloonTip.Checked       = Settings.Default.ShowNowPlayingBalloonTips;
-            //cbShowPlayStatusWindow.Checked           = Settings.Default.ShowPlayStatusWindow;
             cbShowPlayStatusBalloonTip.Checked       = Settings.Default.ShowPlayStatusBalloonTips;
             cbShowInTaskbar.Checked                  = Settings.Default.ShowInTaskbar;
             cbStartMinimized.Checked                 = Settings.Default.StartMinimized;
             cbShowConnectionStatusBalloonTip.Checked = Settings.Default.ShowConnectionInfo;
-            cbRunAtStartup.Checked                   = (regRunAtStartup.GetValue(Language.GetString("global/appName")) == null) ? false : true;
+            cbRunAtStartup.Checked                   = (regRunAtStartup.GetValue(parent.Language.GetString("global/appName")) == null) ? false : true;
         }
 
         private void SetSystrayCheckboxesEnabled(bool enabled)
@@ -129,14 +124,16 @@ namespace XBMControl
 
         private bool IsValidIp()
         {
+            parent.XBMC.SetXbmcIp(tbIp.Text);
+
             if (tbIp.Text == "")
             {
-                MessageBox.Show(Language.GetString("mainform/dialog/ipNotConfigured"), Language.GetString("mainform/dialog/ipNotConfiguredTitle"));
+                MessageBox.Show(parent.Language.GetString("mainform/dialog/ipNotConfigured"), parent.Language.GetString("mainform/dialog/ipNotConfiguredTitle"));
                 return false;
             }
-            else if (!XBMC.IsConnected())
+            else if (!parent.XBMC.IsConnected())
             {
-                if (MessageBox.Show(Language.GetString("mainform/dialog/unableToConnect") + "\n\n" + Language.GetString("mainform/dialog/proceedMessage"), Language.GetString("mainform/dialog/unableToConnectTitle"), MessageBoxButtons.YesNo) == DialogResult.Yes)
+                if (MessageBox.Show(parent.Language.GetString("mainform/dialog/unableToConnect") + "\n\n" + parent.Language.GetString("mainform/dialog/proceedMessage"), parent.Language.GetString("mainform/dialog/unableToConnectTitle"), MessageBoxButtons.YesNo) == DialogResult.Yes)
                     return true;
                 else
                     return false;
@@ -147,7 +144,7 @@ namespace XBMControl
 
         private void ShowAvailableLanguages()
         {
-            string[] languages = Language.GetAvailableLanguages();
+            string[] languages = parent.Language.GetAvailableLanguages();
 
             if (languages.Length > 0)
             {
@@ -156,17 +153,13 @@ namespace XBMControl
                     cbLanguage.Items.Add(lang);
             }
             else
-                MessageBox.Show(Language.GetString("configuration/language/noLanguages"));
-        }
-
-        private void ConfigurationF1_FormClosed(object sender, FormClosedEventArgs e)
-        {
+                MessageBox.Show(parent.Language.GetString("configuration/language/noLanguages"));
         }
 
         private void bCancel_Click(object sender, EventArgs e)
         {
             if( tbIp.Text == "" )
-                MessageBox.Show(Language.GetString("configuration/ipAddress/required"));
+                MessageBox.Show(parent.Language.GetString("configuration/ipAddress/required"));
             else
                 Close();
         }
@@ -175,8 +168,8 @@ namespace XBMControl
         {
             if (IsValidIp())
             {
-                SaveConfiguration();
-                Close();
+                this.SaveConfiguration();
+                this.Close();
             }
         }
 
@@ -188,7 +181,7 @@ namespace XBMControl
 
         private void cbLanguage_TextChanged(object sender, EventArgs e)
         {
-            Language.SetLanguage(cbLanguage.Text);
+            parent.Language.SetLanguage(cbLanguage.Text);
             SetLanguageStrings();
         }
 
@@ -201,6 +194,13 @@ namespace XBMControl
         {
             if (cbShowPlayStatusBalloonTip.Checked)
                 cbShowPlayStatusBalloonTip.Checked = false;
+        }
+
+        private void ConfigurationF1_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            parent.ApplySettings();
+            parent.UpdateData();
+            parent.configFormOpened = false;
         }
     }
 }

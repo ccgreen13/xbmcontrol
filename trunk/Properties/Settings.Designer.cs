@@ -133,7 +133,7 @@ namespace XBMControl.Properties {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("0.3.6")]
+        [global::System.Configuration.DefaultSettingValueAttribute("0.3.8")]
         public string Version {
             get {
                 return ((string)(this["Version"]));
@@ -161,6 +161,18 @@ namespace XBMControl.Properties {
             }
             set {
                 this["StartMinimized"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool playlistOpened {
+            get {
+                return ((bool)(this["playlistOpened"]));
+            }
+            set {
+                this["playlistOpened"] = value;
             }
         }
     }

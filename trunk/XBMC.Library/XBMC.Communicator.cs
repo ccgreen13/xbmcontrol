@@ -29,7 +29,7 @@ using System.Web;
 
 namespace XBMC.Communicator
 {
-    class XBMCcomm
+    public class XBMCcomm
     {
         private string configuredXbmcIp = null;
         private string xbmcUsername = null;
@@ -116,6 +116,16 @@ namespace XBMC.Communicator
                 connected = false;
 
             return connected;
+        }
+
+        public bool WebServerEnabled()
+        {
+            string[] webserverEnabled = this.Request("WebServerStatus()");
+
+            if (webserverEnabled == null)
+                return false;
+            else
+                return (webserverEnabled[1] == "On") ? true : false;
         }
         //END CONNECTION TEST
 
@@ -212,6 +222,16 @@ namespace XBMC.Communicator
             }
 
             return aCurrentPlaylist;
+        }
+
+        public void PlayPlaylistSong(int position)
+        {
+            this.Request("SetPlaylistSong(" + position.ToString() + ")");
+        }
+
+        public void RemoveFromPlaylist(int position)
+        {
+            this.Request("RemoveFromPlaylist(" + position.ToString() + ")");
         }
 
         public string GetCurrentPlaylistIdentifier()
@@ -378,13 +398,17 @@ namespace XBMC.Communicator
 
                 if (aVolume == null)
                     volume = 0;
+                else if (aVolume.Length > 1)
+                    volume = (aVolume[1] == null || aVolume[1] == "Error") ? 0 : Convert.ToInt32(aVolume[1]);
                 else
-                    volume = (aVolume[1] == "Error") ? 0 : Convert.ToInt32(aVolume[1]);
+                    volume = 0;
 
                 if (aProgress == null)
                     progress = 1;
+                else if (aProgress.Length > 1)
+                    progress = (aProgress[1] == null || aProgress[1] == "Error" || aProgress[1] == "0" || Convert.ToInt32(aProgress[1]) > 99) ? 1 : Convert.ToInt32(aProgress[1]);
                 else
-                    progress = (aProgress[1] == "Error" || aProgress[1] == "0" || Convert.ToInt32(aProgress[1]) > 99) ? 1 : Convert.ToInt32(aProgress[1]);
+                    progress = 1;
 
                 isMuted = (volume == 0) ? true : false;
             }
@@ -416,6 +440,11 @@ namespace XBMC.Communicator
         public void Next()
         {
             this.Request("ExecBuiltIn", "PlayerControl(Next)");
+        }
+
+        public void PlayListNext()
+        {
+            this.Request("PlayListNext");
         }
 
         public void Previous()
@@ -599,11 +628,25 @@ namespace XBMC.Communicator
 
         private void WriteToLog(string message)
         {
-            StreamWriter sw = new StreamWriter(logFile, true);
-            sw.WriteLine(DateTime.Now + " : " + message);
-            sw.Flush();
-            sw.Close();
 
+            StreamWriter sw = null;
+            string error = null;
+
+            try
+            {
+                sw = new StreamWriter(logFile, true);
+                sw.WriteLine(DateTime.Now + " : " + message);
+            }
+            catch (Exception e)
+            {
+                error = e.Message;
+            }
+
+            if (sw != null)
+            {
+                sw.Flush();
+                sw.Close();
+            }
         }
 
         public void SetXbmcIp(string ip)

@@ -214,7 +214,6 @@
             this.cbRunAtStartup.Size = new System.Drawing.Size(13, 12);
             this.cbRunAtStartup.TabIndex = 21;
             this.cbRunAtStartup.UseVisualStyleBackColor = true;
-            this.cbRunAtStartup.Visible = false;
             // 
             // cbConnectionTimeout
             // 
