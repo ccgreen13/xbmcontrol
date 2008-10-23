@@ -30,66 +30,61 @@
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MediaBrowserF1));
-            this.tvMediaShares = new System.Windows.Forms.TreeView();
             this.cmsFolder = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.tsiPlayFolder = new System.Windows.Forms.ToolStripMenuItem();
-            this.tsiEnqueueFolder = new System.Windows.Forms.ToolStripMenuItem();
-            this.ilFiletypes = new System.Windows.Forms.ImageList(this.components);
-            this.cbShareType = new System.Windows.Forms.ComboBox();
-            this.lvDirectoryContent = new System.Windows.Forms.ListView();
-            this.chContent = new System.Windows.Forms.ColumnHeader();
-            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
-            this.tsiCollapseAll = new System.Windows.Forms.ToolStripMenuItem();
             this.tsiPlayRecursive = new System.Windows.Forms.ToolStripMenuItem();
             this.tsiEnqueueRecursive = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
+            this.tsiCollapseAll = new System.Windows.Forms.ToolStripMenuItem();
+            this.ilFiletypes = new System.Windows.Forms.ImageList(this.components);
+            this.cbShareType = new System.Windows.Forms.ComboBox();
             this.cmsFiles = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.tsiPlayFiles = new System.Windows.Forms.ToolStripMenuItem();
             this.tsiEnqueueFiles = new System.Windows.Forms.ToolStripMenuItem();
+            this.splitContainer1 = new System.Windows.Forms.SplitContainer();
+            this.tvMediaShares = new System.Windows.Forms.TreeView();
+            this.lvDirectoryContent = new System.Windows.Forms.ListView();
             this.cmsFolder.SuspendLayout();
             this.cmsFiles.SuspendLayout();
+            this.splitContainer1.Panel1.SuspendLayout();
+            this.splitContainer1.Panel2.SuspendLayout();
+            this.splitContainer1.SuspendLayout();
             this.SuspendLayout();
-            // 
-            // tvMediaShares
-            // 
-            this.tvMediaShares.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-                        | System.Windows.Forms.AnchorStyles.Left)));
-            this.tvMediaShares.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.tvMediaShares.ContextMenuStrip = this.cmsFolder;
-            this.tvMediaShares.ImageIndex = 0;
-            this.tvMediaShares.ImageList = this.ilFiletypes;
-            this.tvMediaShares.ItemHeight = 16;
-            this.tvMediaShares.Location = new System.Drawing.Point(12, 35);
-            this.tvMediaShares.Name = "tvMediaShares";
-            this.tvMediaShares.SelectedImageIndex = 0;
-            this.tvMediaShares.Size = new System.Drawing.Size(201, 233);
-            this.tvMediaShares.TabIndex = 0;
-            this.tvMediaShares.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.tvMediaShares_AfterSelect);
-            this.tvMediaShares.MouseDown += new System.Windows.Forms.MouseEventHandler(this.tvMediaShares_MouseDown);
             // 
             // cmsFolder
             // 
             this.cmsFolder.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.tsiPlayFolder,
             this.tsiPlayRecursive,
-            this.tsiEnqueueFolder,
             this.tsiEnqueueRecursive,
             this.toolStripSeparator1,
             this.tsiCollapseAll});
             this.cmsFolder.Name = "cmsFolder";
-            this.cmsFolder.Size = new System.Drawing.Size(175, 120);
+            this.cmsFolder.Size = new System.Drawing.Size(175, 76);
             // 
-            // tsiPlayFolder
+            // tsiPlayRecursive
             // 
-            this.tsiPlayFolder.Name = "tsiPlayFolder";
-            this.tsiPlayFolder.Size = new System.Drawing.Size(174, 22);
-            this.tsiPlayFolder.Text = "Play";
-            this.tsiPlayFolder.Click += new System.EventHandler(this.tsiPlayFolder_Click);
+            this.tsiPlayRecursive.Name = "tsiPlayRecursive";
+            this.tsiPlayRecursive.Size = new System.Drawing.Size(174, 22);
+            this.tsiPlayRecursive.Text = "Play";
+            this.tsiPlayRecursive.Click += new System.EventHandler(this.tsiPlayRecursive_Click);
             // 
-            // tsiEnqueueFolder
+            // tsiEnqueueRecursive
             // 
-            this.tsiEnqueueFolder.Name = "tsiEnqueueFolder";
-            this.tsiEnqueueFolder.Size = new System.Drawing.Size(174, 22);
-            this.tsiEnqueueFolder.Text = "Enqueue";
-            this.tsiEnqueueFolder.Click += new System.EventHandler(this.tsiEnqueueFolder_Click);
+            this.tsiEnqueueRecursive.Name = "tsiEnqueueRecursive";
+            this.tsiEnqueueRecursive.Size = new System.Drawing.Size(174, 22);
+            this.tsiEnqueueRecursive.Text = "Enqueue";
+            this.tsiEnqueueRecursive.Click += new System.EventHandler(this.tsiEnqueueRecursive_Click);
+            // 
+            // toolStripSeparator1
+            // 
+            this.toolStripSeparator1.Name = "toolStripSeparator1";
+            this.toolStripSeparator1.Size = new System.Drawing.Size(171, 6);
+            // 
+            // tsiCollapseAll
+            // 
+            this.tsiCollapseAll.Name = "tsiCollapseAll";
+            this.tsiCollapseAll.Size = new System.Drawing.Size(174, 22);
+            this.tsiCollapseAll.Text = "Collapse all folders";
+            this.tsiCollapseAll.Click += new System.EventHandler(this.tsiCollapseAll_Click);
             // 
             // ilFiletypes
             // 
@@ -116,106 +111,121 @@
             this.cbShareType.Text = "music";
             this.cbShareType.SelectedIndexChanged += new System.EventHandler(this.cbShareType_SelectedIndexChanged);
             // 
+            // cmsFiles
+            // 
+            this.cmsFiles.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.tsiPlayFiles,
+            this.tsiEnqueueFiles});
+            this.cmsFiles.Name = "cmsFiles";
+            this.cmsFiles.Size = new System.Drawing.Size(128, 48);
+            this.cmsFiles.Click += new System.EventHandler(this.cmsFiles_Click);
+            // 
+            // tsiPlayFiles
+            // 
+            this.tsiPlayFiles.Name = "tsiPlayFiles";
+            this.tsiPlayFiles.Size = new System.Drawing.Size(127, 22);
+            this.tsiPlayFiles.Text = "Play";
+            this.tsiPlayFiles.Click += new System.EventHandler(this.tsiPlayFiles_Click);
+            // 
+            // tsiEnqueueFiles
+            // 
+            this.tsiEnqueueFiles.Name = "tsiEnqueueFiles";
+            this.tsiEnqueueFiles.Size = new System.Drawing.Size(127, 22);
+            this.tsiEnqueueFiles.Text = "Enqueue";
+            this.tsiEnqueueFiles.Click += new System.EventHandler(this.tsiEnqueueFiles_Click);
+            // 
+            // splitContainer1
+            // 
+            this.splitContainer1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+                        | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.splitContainer1.Location = new System.Drawing.Point(12, 35);
+            this.splitContainer1.Name = "splitContainer1";
+            // 
+            // splitContainer1.Panel1
+            // 
+            this.splitContainer1.Panel1.Controls.Add(this.tvMediaShares);
+            // 
+            // splitContainer1.Panel2
+            // 
+            this.splitContainer1.Panel2.Controls.Add(this.lvDirectoryContent);
+            this.splitContainer1.Size = new System.Drawing.Size(482, 361);
+            this.splitContainer1.SplitterDistance = 177;
+            this.splitContainer1.TabIndex = 2;
+            // 
+            // tvMediaShares
+            // 
+            this.tvMediaShares.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+                        | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.tvMediaShares.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.tvMediaShares.ContextMenuStrip = this.cmsFolder;
+            this.tvMediaShares.ImageIndex = 0;
+            this.tvMediaShares.ImageList = this.ilFiletypes;
+            this.tvMediaShares.ItemHeight = 16;
+            this.tvMediaShares.Location = new System.Drawing.Point(0, 0);
+            this.tvMediaShares.Name = "tvMediaShares";
+            this.tvMediaShares.SelectedImageIndex = 0;
+            this.tvMediaShares.Size = new System.Drawing.Size(174, 361);
+            this.tvMediaShares.TabIndex = 1;
+            this.tvMediaShares.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.tvMediaShares_AfterSelect);
+            this.tvMediaShares.MouseDown += new System.Windows.Forms.MouseEventHandler(this.tvMediaShares_MouseDown);
+            // 
             // lvDirectoryContent
             // 
             this.lvDirectoryContent.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
                         | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
             this.lvDirectoryContent.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.lvDirectoryContent.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
-            this.chContent});
             this.lvDirectoryContent.ContextMenuStrip = this.cmsFiles;
-            this.lvDirectoryContent.Location = new System.Drawing.Point(219, 35);
+            this.lvDirectoryContent.Location = new System.Drawing.Point(3, 0);
             this.lvDirectoryContent.Name = "lvDirectoryContent";
-            this.lvDirectoryContent.Size = new System.Drawing.Size(268, 233);
+            this.lvDirectoryContent.Size = new System.Drawing.Size(298, 361);
             this.lvDirectoryContent.SmallImageList = this.ilFiletypes;
-            this.lvDirectoryContent.Sorting = System.Windows.Forms.SortOrder.Ascending;
-            this.lvDirectoryContent.TabIndex = 2;
+            this.lvDirectoryContent.TabIndex = 0;
             this.lvDirectoryContent.UseCompatibleStateImageBehavior = false;
             this.lvDirectoryContent.View = System.Windows.Forms.View.List;
             this.lvDirectoryContent.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.lvDirectoryContent_MouseDoubleClick);
-            // 
-            // chContent
-            // 
-            this.chContent.Text = "Items";
-            this.chContent.Width = 253;
-            // 
-            // toolStripSeparator1
-            // 
-            this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(171, 6);
-            // 
-            // tsiCollapseAll
-            // 
-            this.tsiCollapseAll.Name = "tsiCollapseAll";
-            this.tsiCollapseAll.Size = new System.Drawing.Size(174, 22);
-            this.tsiCollapseAll.Text = "Collapse all folders";
-            this.tsiCollapseAll.Click += new System.EventHandler(this.tsiCollapseAll_Click);
-            // 
-            // tsiPlayRecursive
-            // 
-            this.tsiPlayRecursive.Name = "tsiPlayRecursive";
-            this.tsiPlayRecursive.Size = new System.Drawing.Size(174, 22);
-            this.tsiPlayRecursive.Text = "Play recursive";
-            this.tsiPlayRecursive.Click += new System.EventHandler(this.tsiPlayRecursive_Click);
-            // 
-            // tsiEnqueueRecursive
-            // 
-            this.tsiEnqueueRecursive.Name = "tsiEnqueueRecursive";
-            this.tsiEnqueueRecursive.Size = new System.Drawing.Size(174, 22);
-            this.tsiEnqueueRecursive.Text = "Enqueue recursive";
-            this.tsiEnqueueRecursive.Click += new System.EventHandler(this.tsiEnqueueRecursive_Click);
-            // 
-            // cmsFiles
-            // 
-            this.cmsFiles.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.tsiEnqueueFiles});
-            this.cmsFiles.Name = "cmsFiles";
-            this.cmsFiles.Size = new System.Drawing.Size(128, 26);
-            // 
-            // tsiEnqueueFiles
-            // 
-            this.tsiEnqueueFiles.Name = "tsiEnqueueFiles";
-            this.tsiEnqueueFiles.Size = new System.Drawing.Size(152, 22);
-            this.tsiEnqueueFiles.Text = "Enqueue";
-            this.tsiEnqueueFiles.Click += new System.EventHandler(this.tsiEnqueueFiles_Click);
             // 
             // MediaBrowserF1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(499, 274);
-            this.Controls.Add(this.lvDirectoryContent);
+            this.ClientSize = new System.Drawing.Size(500, 402);
+            this.Controls.Add(this.splitContainer1);
             this.Controls.Add(this.cbShareType);
-            this.Controls.Add(this.tvMediaShares);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.SizableToolWindow;
             this.Name = "MediaBrowserF1";
             this.ShowIcon = false;
             this.ShowInTaskbar = false;
             this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Show;
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Media Browser";
+            this.TopMost = true;
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MediaBrowserF1_FormClosing);
             this.cmsFolder.ResumeLayout(false);
             this.cmsFiles.ResumeLayout(false);
+            this.splitContainer1.Panel1.ResumeLayout(false);
+            this.splitContainer1.Panel2.ResumeLayout(false);
+            this.splitContainer1.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
 
         #endregion
 
-        private System.Windows.Forms.TreeView tvMediaShares;
         private System.Windows.Forms.ComboBox cbShareType;
-        private System.Windows.Forms.ListView lvDirectoryContent;
-        private System.Windows.Forms.ColumnHeader chContent;
         private System.Windows.Forms.ImageList ilFiletypes;
         private System.Windows.Forms.ContextMenuStrip cmsFolder;
-        private System.Windows.Forms.ToolStripMenuItem tsiPlayFolder;
-        private System.Windows.Forms.ToolStripMenuItem tsiEnqueueFolder;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
         private System.Windows.Forms.ToolStripMenuItem tsiCollapseAll;
         private System.Windows.Forms.ToolStripMenuItem tsiPlayRecursive;
         private System.Windows.Forms.ToolStripMenuItem tsiEnqueueRecursive;
         private System.Windows.Forms.ContextMenuStrip cmsFiles;
         private System.Windows.Forms.ToolStripMenuItem tsiEnqueueFiles;
+        private System.Windows.Forms.ToolStripMenuItem tsiPlayFiles;
+        private System.Windows.Forms.SplitContainer splitContainer1;
+        private System.Windows.Forms.ListView lvDirectoryContent;
+        private System.Windows.Forms.TreeView tvMediaShares;
     }
 }

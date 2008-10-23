@@ -6,7 +6,6 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
-using XBMC.Communicator;
 using XBMControl.Language;
 using XBMControl.Properties;
 
@@ -14,22 +13,22 @@ namespace XBMControl
 {
     public partial class MediaBrowserF1 : Form
     {
-        XBMCcomm XBMC;
+        MainForm parent;
         TreeNode sharesNode;
 
-        public MediaBrowserF1()
+        public MediaBrowserF1(MainForm parentForm)
         {
-            XBMC = new XBMCcomm();
-            XBMC.SetXbmcIp(Settings.Default.Ip);
-            XBMC.SetCredentials(Settings.Default.Username, Settings.Default.Password);
+            parent = parentForm;
             InitializeComponent();
             this.PopulateShareBrowser();
         }
 
         public void PopulateShareBrowser()
         {
-            string[] aShares     = XBMC.GetMediaShares(cbShareType.Text);
-            string[] aSharePaths = XBMC.GetMediaShares(cbShareType.Text, true);
+            this.TestConnectivity();
+
+            string[] aShares     = parent.XBMC.GetMediaShares(cbShareType.Text);
+            string[] aSharePaths = parent.XBMC.GetMediaShares(cbShareType.Text, true);
             tvMediaShares.Nodes.Clear();
 
             if (aShares != null)
@@ -52,10 +51,12 @@ namespace XBMControl
 
         private void ExpandSharedDirectory()
         {
+            this.TestConnectivity();
+
             if (tvMediaShares.SelectedNode.GetNodeCount(false) == 0)
             {
-                string[] aDirectoryContentPaths = XBMC.GetDirectoryContentPaths(tvMediaShares.SelectedNode.ToolTipText, "/");
-                string[] aDirectoryContentNames = XBMC.GetDirectoryContentNames(tvMediaShares.SelectedNode.ToolTipText, "/");
+                string[] aDirectoryContentPaths = parent.XBMC.GetDirectoryContentPaths(tvMediaShares.SelectedNode.ToolTipText, "/");
+                string[] aDirectoryContentNames = parent.XBMC.GetDirectoryContentNames(tvMediaShares.SelectedNode.ToolTipText, "/");
 
                 if (aDirectoryContentPaths != null)
                 {
@@ -78,10 +79,12 @@ namespace XBMControl
 
         private void PopulateFileBrowser()
         {
+            this.TestConnectivity();
+
             lvDirectoryContent.Items.Clear();
 
-            string[] aDirectoryContentPaths = XBMC.GetDirectoryContentPaths(tvMediaShares.SelectedNode.ToolTipText, "[" + cbShareType.Text + "]");
-            string[] aDirectoryContentNames = XBMC.GetDirectoryContentNames(tvMediaShares.SelectedNode.ToolTipText, "[" + cbShareType.Text + "]");
+            string[] aDirectoryContentPaths = parent.XBMC.GetDirectoryContentPaths(tvMediaShares.SelectedNode.ToolTipText, "[" + cbShareType.Text + "]");
+            string[] aDirectoryContentNames = parent.XBMC.GetDirectoryContentNames(tvMediaShares.SelectedNode.ToolTipText, "[" + cbShareType.Text + "]");
             int imgIndex;
 
             if (cbShareType.Text == "music")
@@ -107,27 +110,36 @@ namespace XBMControl
             }
         }
 
-        private void AddDirectoryContentToPlaylist(bool enqueue, bool play, bool recursive)
+        private void TestConnectivity()
         {
-            if(!enqueue) XBMC.ClearPlayList();
+            if (!parent.XBMC.IsConnected())
+                this.Dispose();
+        }
 
-            XBMC.AddDirectoryContentToPlaylist(tvMediaShares.SelectedNode.ToolTipText, cbShareType.Text, recursive);
+        private void AddDirectoryContentToPlaylist(bool play, bool enqueue, bool recursive)
+        {
+            this.TestConnectivity();
+            if (play) parent.XBMC.ClearPlayList();
+            parent.XBMC.AddDirectoryContentToPlaylist(tvMediaShares.SelectedNode.ToolTipText, cbShareType.Text, recursive);
+            if (play) parent.XBMC.PlayPlaylistSong(0);
+            if (Settings.Default.playlistOpened) parent.Playlist.RefreshPlaylist();
+        }
 
-            if (play)
-            {
-                string[] aDirectoryContentPaths = XBMC.GetDirectoryContentPaths(tvMediaShares.SelectedNode.ToolTipText);
+        private void AddFilesToPlaylist(bool play)
+        {
+            this.TestConnectivity();
+            if (play) parent.XBMC.ClearPlayList();
 
-                if (aDirectoryContentPaths != null)
-                    XBMC.PlayFile(aDirectoryContentPaths[1]);
-            }
+            foreach (ListViewItem item in lvDirectoryContent.SelectedItems)
+                parent.XBMC.AddFilesToPlaylist(item.ToolTipText);
+
+            if (play) parent.XBMC.PlayPlaylistSong(0);
+            if (Settings.Default.playlistOpened) parent.Playlist.RefreshPlaylist();
         }
 
         private void AddFilesToPlaylist()
         {
-            foreach (ListViewItem item in lvDirectoryContent.SelectedItems)
-            {
-                XBMC.AddFilesToPlaylist(item.ToolTipText);
-            }
+            this.AddFilesToPlaylist(false);
         }
 
         private void cbShareType_SelectedIndexChanged(object sender, EventArgs e)
@@ -142,11 +154,12 @@ namespace XBMControl
 
         private void lvDirectoryContent_MouseDoubleClick(object sender, MouseEventArgs e)
         {
-            XBMC.PlayMedia(lvDirectoryContent.Items[lvDirectoryContent.FocusedItem.Index].ToolTipText);
+            parent.XBMC.PlayMedia(lvDirectoryContent.Items[lvDirectoryContent.FocusedItem.Index].ToolTipText);
         }
 
         private void MediaBrowserF1_FormClosing(object sender, FormClosingEventArgs e)
         {
+            parent.shareBrowserOpened = false;
             this.Dispose();
         }
 
@@ -155,12 +168,7 @@ namespace XBMControl
             tvMediaShares.SelectedNode = tvMediaShares.GetNodeAt(e.X, e.Y);
 
             if (e.Button != MouseButtons.Right && tvMediaShares.SelectedNode != null)
-            {
-                if (tvMediaShares.SelectedNode.IsExpanded)
-                    tvMediaShares.SelectedNode.Collapse();
-                else
-                    this.ExpandSharedDirectory();
-            }
+                this.ExpandSharedDirectory();
         }
 
         private void tsiCollapseAll_Click(object sender, EventArgs e)
@@ -169,24 +177,14 @@ namespace XBMControl
         }
 
         //START Playlis controls
-        private void tsiPlayFolder_Click(object sender, EventArgs e)
-        {
-            this.AddDirectoryContentToPlaylist(false, true, false);
-        }
-
-        private void tsiEnqueueFolder_Click(object sender, EventArgs e)
-        {
-            this.AddDirectoryContentToPlaylist(true, false, false);
-        }
-
         private void tsiPlayRecursive_Click(object sender, EventArgs e)
         {
-            this.AddDirectoryContentToPlaylist(false, true, true);
+            this.AddDirectoryContentToPlaylist(true, false, true);
         }
 
         private void tsiEnqueueRecursive_Click(object sender, EventArgs e)
         {
-            this.AddDirectoryContentToPlaylist(true, false, true);
+            this.AddDirectoryContentToPlaylist(false, true, true);
         }
 
         private void tsiEnqueueFiles_Click(object sender, EventArgs e)
@@ -194,6 +192,17 @@ namespace XBMControl
             this.AddFilesToPlaylist();
         }
 
+        private void cmsFiles_Click(object sender, EventArgs e)
+        {
+            this.AddFilesToPlaylist();
+            if (Settings.Default.playlistOpened)
+                parent.Playlist.RefreshPlaylist();
+        }
+
+        private void tsiPlayFiles_Click(object sender, EventArgs e)
+        {
+            this.AddFilesToPlaylist(true);
+        }
         //END Playlist controls
     }
 }

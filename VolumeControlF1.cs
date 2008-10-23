@@ -7,34 +7,30 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using XBMControl.Properties;
-using XBMC.Communicator;
-//using XBMControl.Language;
 
 namespace XBMControl
 {
     public partial class VolumeControlF1 : Form
     {
-        private XBMCcomm XBMC;
+        MainForm parent;
         private bool connectedToXbmc = false;
 
-        public VolumeControlF1()
+        public VolumeControlF1(MainForm parentForm)
         {
-            XBMC = new XBMCcomm();
-            XBMC.SetXbmcIp(Settings.Default.Ip);
-            XBMC.SetCredentials(Settings.Default.Username, Settings.Default.Password);
+            parent = parentForm;
             InitializeComponent();
             Initialize();
         }
 
         private void Initialize()
         {
-            if (XBMC.IsConnected())
+            if (parent.XBMC.IsConnected())
             {
-                connectedToXbmc = XBMC.IsConnected();
-                XBMC.GetXbmcProperties();
+                connectedToXbmc = parent.XBMC.IsConnected();
+                parent.XBMC.GetXbmcProperties();
                 GetCurrentVolume();
                 timer1.Enabled = true;
-                if (XBMC.IsMuted()) bMute.BackgroundImage = Resources.button_mute_click;
+                if (parent.XBMC.IsMuted()) bMute.BackgroundImage = Resources.button_mute_click;
             }
             else
                 this.Close();
@@ -42,8 +38,8 @@ namespace XBMControl
 
         private void GetCurrentVolume()
         {
-            XBMC.GetXbmcProperties();
-            tbVolumeSysTray.Value = XBMC.GetVolume();
+            parent.XBMC.GetXbmcProperties();
+            tbVolumeSysTray.Value = parent.XBMC.GetVolume();
         }
 
         private void VolumeControlF1_LostFocus(object sender, EventArgs e)
@@ -78,7 +74,7 @@ namespace XBMControl
             else
                 this.Close();
 
-            if (XBMC.IsMuted()) bMute.BackgroundImage = Resources.button_mute_click;
+            if (parent.XBMC.IsMuted()) bMute.BackgroundImage = Resources.button_mute_click;
         }
 
         private void tbVolumeSysTray_MouseDown(object sender, MouseEventArgs e)
@@ -93,12 +89,12 @@ namespace XBMControl
 
         private void bMute_Click(object sender, EventArgs e)
         {
-            XBMC.ToggleMute();
+            parent.XBMC.ToggleMute();
         }
 
         private void tbVolumeSysTray_ValueChanged(object sender, EventArgs e)
         {
-            XBMC.SetVolume(tbVolumeSysTray.Value);
+            parent.XBMC.SetVolume(tbVolumeSysTray.Value);
         }
 
         private void bMute_MouseHover(object sender, EventArgs e)
