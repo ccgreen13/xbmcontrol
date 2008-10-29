@@ -15,20 +15,22 @@ namespace XBMControl
     {
         MainForm parent;
         TreeNode sharesNode;
+        string currentViewMode = "files";
 
         public MediaBrowserF1(MainForm parentForm)
         {
             parent = parentForm;
             InitializeComponent();
             this.PopulateShareBrowser();
+            this.Owner = parent;
         }
 
         public void PopulateShareBrowser()
         {
             this.TestConnectivity();
 
-            string[] aShares     = parent.XBMC.GetMediaShares(cbShareType.Text);
-            string[] aSharePaths = parent.XBMC.GetMediaShares(cbShareType.Text, true);
+            string[] aShares     = parent.XBMC.Media.GetShares(cbShareType.Text);
+            string[] aSharePaths = parent.XBMC.Media.GetShares(cbShareType.Text, true);
             tvMediaShares.Nodes.Clear();
 
             if (aShares != null)
@@ -55,8 +57,8 @@ namespace XBMControl
 
             if (tvMediaShares.SelectedNode.GetNodeCount(false) == 0)
             {
-                string[] aDirectoryContentPaths = parent.XBMC.GetDirectoryContentPaths(tvMediaShares.SelectedNode.ToolTipText, "/");
-                string[] aDirectoryContentNames = parent.XBMC.GetDirectoryContentNames(tvMediaShares.SelectedNode.ToolTipText, "/");
+                string[] aDirectoryContentPaths = parent.XBMC.Media.GetDirectoryContentPaths(tvMediaShares.SelectedNode.ToolTipText, "/");
+                string[] aDirectoryContentNames = parent.XBMC.Media.GetDirectoryContentNames(tvMediaShares.SelectedNode.ToolTipText, "/");
 
                 if (aDirectoryContentPaths != null)
                 {
@@ -72,20 +74,52 @@ namespace XBMControl
                             tvMediaShares.SelectedNode.Nodes[x - 1].ImageIndex = 0;
                         }
                     }
+
+                    tvMediaShares.SelectedNode.Expand();
                 }
             }
-            tvMediaShares.SelectedNode.Expand();
+        }
+
+        private void ExpandArtistDirectory(string artist)
+        {
+            this.TestConnectivity();
+
+            if (tvMediaShares.SelectedNode.GetNodeCount(false) == 0)
+            { 
+                string[] aAlbums = parent.XBMC.Database.GetAlbumsByArtist(artist);
+
+                if (aAlbums != null)
+                {
+                    if (aAlbums.Length == 1)
+                        this.PopulateSongBrowser();
+                    else
+                    {
+                        for (int x = 1; x < aAlbums.Length; x++)
+                        {
+                            if (aAlbums.Length > 1)
+                            {
+                                sharesNode = new TreeNode();
+                                sharesNode.Name = aAlbums[x];
+                                sharesNode.Text = aAlbums[x];
+                                tvMediaShares.SelectedNode.Nodes.Add(sharesNode);
+                                tvMediaShares.SelectedNode.Nodes[x - 1].ImageIndex = 0;
+
+                                tvMediaShares.SelectedNode.Expand();
+                            }
+                        }
+                    }
+                }
+            }
         }
 
         private void PopulateFileBrowser()
         {
             this.TestConnectivity();
+            this.lvDirectoryContent.Items.Clear();
 
-            lvDirectoryContent.Items.Clear();
-
-            string[] aDirectoryContentPaths = parent.XBMC.GetDirectoryContentPaths(tvMediaShares.SelectedNode.ToolTipText, "[" + cbShareType.Text + "]");
-            string[] aDirectoryContentNames = parent.XBMC.GetDirectoryContentNames(tvMediaShares.SelectedNode.ToolTipText, "[" + cbShareType.Text + "]");
-            int imgIndex;
+            string[] aDirectoryContentPaths = parent.XBMC.Media.GetDirectoryContentPaths(tvMediaShares.SelectedNode.ToolTipText, "[" + cbShareType.Text + "]");
+            string[] aDirectoryContentNames = parent.XBMC.Media.GetDirectoryContentNames(tvMediaShares.SelectedNode.ToolTipText, "[" + cbShareType.Text + "]");
+            int imgIndex = 0;
 
             if (cbShareType.Text == "music")
                 imgIndex = 1;
@@ -110,36 +144,119 @@ namespace XBMControl
             }
         }
 
+        private void PopulateSongBrowser()
+        {
+            this.TestConnectivity();
+            this.lvDirectoryContent.Items.Clear();
+            string[] aTitlesByAlbum = null;
+            string[] aPathsByAlbum = null;
+            string[] aTitlesByArtist = null;
+            string[] aPathsByArtist = null;
+
+            if (tvMediaShares.SelectedNode.Parent != null)
+            {
+                aTitlesByAlbum = parent.XBMC.Database.GetTitlesByAlbum(tvMediaShares.SelectedNode.Parent.Text.ToString(), tvMediaShares.SelectedNode.Text.ToString());
+                aPathsByAlbum = parent.XBMC.Database.GetPathsByAlbum(tvMediaShares.SelectedNode.Parent.Text.ToString(), tvMediaShares.SelectedNode.Text.ToString());
+            }
+            else
+            {
+                aTitlesByAlbum = parent.XBMC.Database.GetTitlesByAlbum(tvMediaShares.SelectedNode.Text.ToString());
+                aPathsByAlbum = parent.XBMC.Database.GetPathsByAlbum(tvMediaShares.SelectedNode.Text.ToString());
+            }
+
+            if (aTitlesByAlbum != null)
+            {
+                for (int x = 1; x < aTitlesByAlbum.Length; x++)
+                {
+                    if (aTitlesByAlbum[x] != null)
+                    {
+                        lvDirectoryContent.Items.Add(aTitlesByAlbum[x]);
+                        lvDirectoryContent.Items[x - 1].ImageIndex = 1;
+                        lvDirectoryContent.Items[x - 1].ToolTipText = aPathsByAlbum[x];
+                    }
+                }
+            }
+            else
+            {
+                aTitlesByArtist = parent.XBMC.Database.GetTitlesByArtist(tvMediaShares.SelectedNode.Text.ToString());
+
+                for (int x = 1; x < aTitlesByArtist.Length; x++)
+                {
+                    lvDirectoryContent.Items.Add(aTitlesByArtist[x]);
+                    lvDirectoryContent.Items[x - 1].ImageIndex = 1;
+                }
+            }
+        }
+
         private void TestConnectivity()
         {
-            if (!parent.XBMC.IsConnected())
+            if (!parent.XBMC.Status.IsConnected())
                 this.Dispose();
         }
 
         private void AddDirectoryContentToPlaylist(bool play, bool enqueue, bool recursive)
         {
             this.TestConnectivity();
-            if (play) parent.XBMC.ClearPlayList();
-            parent.XBMC.AddDirectoryContentToPlaylist(tvMediaShares.SelectedNode.ToolTipText, cbShareType.Text, recursive);
-            if (play) parent.XBMC.PlayPlaylistSong(0);
+            if (play) parent.XBMC.Playlist.Clear();
+            parent.XBMC.Playlist.AddDirectoryContent(tvMediaShares.SelectedNode.ToolTipText, cbShareType.Text, recursive);
+            if (play) parent.XBMC.Playlist.PlaySong(0);
             if (Settings.Default.playlistOpened) parent.Playlist.RefreshPlaylist();
         }
 
         private void AddFilesToPlaylist(bool play)
         {
             this.TestConnectivity();
-            if (play) parent.XBMC.ClearPlayList();
+            if (play) parent.XBMC.Playlist.Clear();
 
             foreach (ListViewItem item in lvDirectoryContent.SelectedItems)
-                parent.XBMC.AddFilesToPlaylist(item.ToolTipText);
+                parent.XBMC.Playlist.AddFilesToPlaylist(item.ToolTipText);
 
-            if (play) parent.XBMC.PlayPlaylistSong(0);
+            if (play) parent.XBMC.Playlist.PlaySong(0);
             if (Settings.Default.playlistOpened) parent.Playlist.RefreshPlaylist();
         }
 
         private void AddFilesToPlaylist()
         {
             this.AddFilesToPlaylist(false);
+        }
+
+        private void ChangeBrowserView(int browserView)
+        {
+            if (browserView == 0)
+            {
+                currentViewMode = "files";
+                tbSearchLibrary.Visible = false;
+            }
+            else if(browserView == 1)
+            {
+                currentViewMode = "search";
+                tbSearchLibrary.Visible = true;
+                tbSearchLibrary.Select();
+            }
+            else if (browserView == 2)
+            {
+                currentViewMode = "artists";
+                this.GetArtist();
+            }
+        }
+
+        private void GetArtist()
+        {
+            this.tvMediaShares.Nodes.Clear();
+            string condition = (this.tbSearchLibrary.Text == "") ? null : this.tbSearchLibrary.Text;
+            string[] aArtist = parent.XBMC.Database.GetArtist(condition);
+
+            if (aArtist != null)
+            {
+                for (int x = 1; x < aArtist.Length; x++)
+                {
+                    sharesNode = new TreeNode();
+                    sharesNode.Name = aArtist[x];
+                    sharesNode.Text = aArtist[x];
+                    tvMediaShares.Nodes.Add(sharesNode);
+                    tvMediaShares.Nodes[x - 1].ImageIndex = 0;
+                }
+            }
         }
 
         private void cbShareType_SelectedIndexChanged(object sender, EventArgs e)
@@ -149,12 +266,15 @@ namespace XBMControl
 
         private void tvMediaShares_AfterSelect(object sender, TreeViewEventArgs e)
         {
-            this.PopulateFileBrowser();
+            if (currentViewMode == "files")
+                this.PopulateFileBrowser();
+            else if (currentViewMode == "artists" || currentViewMode == "albums")
+                this.PopulateSongBrowser();
         }
 
         private void lvDirectoryContent_MouseDoubleClick(object sender, MouseEventArgs e)
         {
-            parent.XBMC.PlayMedia(lvDirectoryContent.Items[lvDirectoryContent.FocusedItem.Index].ToolTipText);
+            parent.XBMC.Controls.PlayMedia(lvDirectoryContent.Items[lvDirectoryContent.FocusedItem.Index].ToolTipText);
         }
 
         private void MediaBrowserF1_FormClosing(object sender, FormClosingEventArgs e)
@@ -167,7 +287,9 @@ namespace XBMControl
         {
             tvMediaShares.SelectedNode = tvMediaShares.GetNodeAt(e.X, e.Y);
 
-            if (e.Button != MouseButtons.Right && tvMediaShares.SelectedNode != null)
+            if (currentViewMode == "artists")
+                this.ExpandArtistDirectory(tvMediaShares.SelectedNode.Text.ToString());
+            else if (e.Button != MouseButtons.Right && tvMediaShares.SelectedNode != null && currentViewMode == "files")
                 this.ExpandSharedDirectory();
         }
 
@@ -204,5 +326,10 @@ namespace XBMControl
             this.AddFilesToPlaylist(true);
         }
         //END Playlist controls
+
+        private void cbBrowseType_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            this.ChangeBrowserView(cbBrowseType.SelectedIndex);
+        }
     }
 }

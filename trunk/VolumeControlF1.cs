@@ -24,13 +24,13 @@ namespace XBMControl
 
         private void Initialize()
         {
-            if (parent.XBMC.IsConnected())
+            if (parent.XBMC.Status.IsConnected())
             {
-                connectedToXbmc = parent.XBMC.IsConnected();
-                parent.XBMC.GetXbmcProperties();
+                connectedToXbmc = parent.XBMC.Status.IsConnected();
+                parent.XBMC.Status.Refresh();
                 GetCurrentVolume();
                 timer1.Enabled = true;
-                if (parent.XBMC.IsMuted()) bMute.BackgroundImage = Resources.button_mute_click;
+                if (parent.XBMC.Status.IsMuted()) bMute.BackgroundImage = Resources.button_mute_click;
             }
             else
                 this.Close();
@@ -38,8 +38,8 @@ namespace XBMControl
 
         private void GetCurrentVolume()
         {
-            parent.XBMC.GetXbmcProperties();
-            tbVolumeSysTray.Value = parent.XBMC.GetVolume();
+            parent.XBMC.Status.Refresh();
+            tbVolumeSysTray.Value = parent.XBMC.Status.GetVolume();
         }
 
         private void VolumeControlF1_LostFocus(object sender, EventArgs e)
@@ -74,7 +74,7 @@ namespace XBMControl
             else
                 this.Close();
 
-            if (parent.XBMC.IsMuted()) bMute.BackgroundImage = Resources.button_mute_click;
+            if (parent.XBMC.Status.IsMuted()) bMute.BackgroundImage = Resources.button_mute_click;
         }
 
         private void tbVolumeSysTray_MouseDown(object sender, MouseEventArgs e)
@@ -89,12 +89,12 @@ namespace XBMControl
 
         private void bMute_Click(object sender, EventArgs e)
         {
-            parent.XBMC.ToggleMute();
+            parent.XBMC.Controls.ToggleMute();
         }
 
         private void tbVolumeSysTray_ValueChanged(object sender, EventArgs e)
         {
-            parent.XBMC.SetVolume(tbVolumeSysTray.Value);
+            parent.XBMC.Controls.SetVolume(tbVolumeSysTray.Value);
         }
 
         private void bMute_MouseHover(object sender, EventArgs e)

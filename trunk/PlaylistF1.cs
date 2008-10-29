@@ -22,9 +22,9 @@ namespace XBMControl
             parent = parentForm;
             InitializeComponent();
 
-            if (parent.XBMC.IsConnected())
+            if (parent.XBMC.Status.IsConnected())
             {
-                parent.XBMC.GetXbmcProperties();
+                parent.XBMC.Status.Refresh();
                 this.PopulatePlaylist();
                 this.UpdatePlaylistSelection();
                 this.timerUpdateSelection.Enabled = true;
@@ -32,18 +32,20 @@ namespace XBMControl
 
             Settings.Default.playlistOpened = true;
             Settings.Default.Save();
+
+            this.Owner = parent;
         }
 
         internal void PopulatePlaylist()
         {
             lbPlaylist.Items.Clear();
 
-            if(parent.XBMC.IsConnected())
+            if (parent.XBMC.Status.IsConnected())
             {
-                string surrentPlaylistType = (parent.XBMC.GetNowPlayingMediaType() == "Video") ? "video" : "";
-                parent.XBMC.SetPlaylist(surrentPlaylistType);
+                string surrentPlaylistType = (parent.XBMC.NowPlaying.GetMediaType() == "Video") ? "video" : "";
+                parent.XBMC.Playlist.Set(surrentPlaylistType);
 
-                string[] aPlaylistEntries = parent.XBMC.GetPlaylist(true);
+                string[] aPlaylistEntries = parent.XBMC.Playlist.Get(true);
 
                 if (aPlaylistEntries != null)
                 {
@@ -58,12 +60,12 @@ namespace XBMControl
 
         private void RemoveSelected(object sender, EventArgs e)
         {
-            if (parent.XBMC.IsConnected())
+            if (parent.XBMC.Status.IsConnected())
             {
                 string selectedEntry = GetSelectedPlaylistEntry();
                 if (selectedEntry != null)
                 {
-                    parent.XBMC.RemoveFromPlaylist(lbPlaylist.SelectedIndex);
+                    parent.XBMC.Playlist.Remove(lbPlaylist.SelectedIndex);
                     PopulatePlaylist();
                 }
             }
@@ -78,7 +80,7 @@ namespace XBMControl
 
         private string GetSelectedPlaylistEntry()
         {
-            if (parent.XBMC.IsConnected())
+            if (parent.XBMC.Status.IsConnected())
             {
                 string[] aPlaylistEntry = parent.XBMC.Request("GetPlaylistSong(" + lbPlaylist.SelectedIndex + ")");
                 return (aPlaylistEntry != null) ? aPlaylistEntry[1] : null;
@@ -92,9 +94,9 @@ namespace XBMControl
 
         internal void UpdatePlaylistSelection()
         {
-            if (parent.XBMC.IsConnected())
+            if (parent.XBMC.Status.IsConnected())
             {
-                int currentSongNo = Convert.ToInt32(parent.XBMC.GetNowPlayingInfo("songno"));
+                int currentSongNo = Convert.ToInt32(parent.XBMC.NowPlaying.Get("songno"));
 
                 if (lbPlaylist.Items.Count > 0 && currentSongNo < lbPlaylist.Items.Count)
                     lbPlaylist.SelectedIndex = currentSongNo;
@@ -116,9 +118,9 @@ namespace XBMControl
 
         internal void ClearPlaylist(object sender, EventArgs e)
         {
-            if (parent.XBMC.IsConnected())
+            if (parent.XBMC.Status.IsConnected())
             {
-                parent.XBMC.ClearPlayList();
+                parent.XBMC.Playlist.Clear();
                 PopulatePlaylist();
             }
             else
@@ -132,9 +134,9 @@ namespace XBMControl
 
         internal void PlaySelectedEntry()
         {
-            if (parent.XBMC.IsConnected() && lbPlaylist.SelectedIndex != -1)
+            if (parent.XBMC.Status.IsConnected() && lbPlaylist.SelectedIndex != -1)
             {
-                parent.XBMC.PlayPlaylistSong(lbPlaylist.SelectedIndex);
+                parent.XBMC.Playlist.PlaySong(lbPlaylist.SelectedIndex);
                 this.RefreshPlaylist();
             }
         }
@@ -153,12 +155,12 @@ namespace XBMControl
 
         private void timerUpdateSelection_Tick(object sender, EventArgs e)
         {
-            if (parent.XBMC.IsConnected())
+            if (parent.XBMC.Status.IsConnected())
             {
                 if (!lbPlaylist.Focused)
                 {
                     PopulatePlaylist();
-                    if (!parent.XBMC.IsNotPlaying()) UpdatePlaylistSelection();
+                    if (!parent.XBMC.Status.IsNotPlaying()) UpdatePlaylistSelection();
                 }
             }
             else
@@ -167,7 +169,7 @@ namespace XBMControl
 
         private void lbPlaylist_KeyUp(object sender, KeyEventArgs e)
         {
-            if (parent.XBMC.IsConnected())
+            if (parent.XBMC.Status.IsConnected())
             {
                 if (e.KeyData.ToString() == "Delete")
                 {
@@ -180,7 +182,7 @@ namespace XBMControl
                         this.UpdatePlaylistSelection();
                 }
                 else if (e.KeyData.ToString() == "Return")
-                    parent.XBMC.PlayPlaylistSong(lbPlaylist.SelectedIndex);
+                    parent.XBMC.Playlist.PlaySong(lbPlaylist.SelectedIndex);
             }
             else
                 lbPlaylist.Items.Clear();
@@ -200,8 +202,8 @@ namespace XBMControl
 
         private void lbPlaylist_MouseDoubleClick(object sender, MouseEventArgs e)
         {
-            if (parent.XBMC.IsConnected())
-                parent.XBMC.PlayPlaylistSong(lbPlaylist.SelectedIndex);
+            if (parent.XBMC.Status.IsConnected())
+                parent.XBMC.Playlist.PlaySong(lbPlaylist.SelectedIndex);
         }
 
         //START FAKE DRAG DROP
