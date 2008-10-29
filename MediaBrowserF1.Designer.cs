@@ -43,6 +43,8 @@
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.tvMediaShares = new System.Windows.Forms.TreeView();
             this.lvDirectoryContent = new System.Windows.Forms.ListView();
+            this.cbBrowseType = new System.Windows.Forms.ComboBox();
+            this.tbSearchLibrary = new System.Windows.Forms.TextBox();
             this.cmsFolder.SuspendLayout();
             this.cmsFiles.SuspendLayout();
             this.splitContainer1.Panel1.SuspendLayout();
@@ -90,7 +92,7 @@
             // 
             this.ilFiletypes.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("ilFiletypes.ImageStream")));
             this.ilFiletypes.TransparentColor = System.Drawing.Color.Transparent;
-            this.ilFiletypes.Images.SetKeyName(0, "folder.png");
+            this.ilFiletypes.Images.SetKeyName(0, "folder2.png");
             this.ilFiletypes.Images.SetKeyName(1, "music.png");
             this.ilFiletypes.Images.SetKeyName(2, "picture.png");
             this.ilFiletypes.Images.SetKeyName(3, "video.png");
@@ -187,11 +189,36 @@
             this.lvDirectoryContent.View = System.Windows.Forms.View.List;
             this.lvDirectoryContent.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.lvDirectoryContent_MouseDoubleClick);
             // 
+            // cbBrowseType
+            // 
+            this.cbBrowseType.FormattingEnabled = true;
+            this.cbBrowseType.Items.AddRange(new object[] {
+            "Files",
+            "Search",
+            "Artists",
+            "Albums"});
+            this.cbBrowseType.Location = new System.Drawing.Point(112, 8);
+            this.cbBrowseType.Name = "cbBrowseType";
+            this.cbBrowseType.Size = new System.Drawing.Size(74, 21);
+            this.cbBrowseType.TabIndex = 3;
+            this.cbBrowseType.Text = "Files";
+            this.cbBrowseType.SelectedIndexChanged += new System.EventHandler(this.cbBrowseType_SelectedIndexChanged);
+            // 
+            // tbSearchLibrary
+            // 
+            this.tbSearchLibrary.Location = new System.Drawing.Point(196, 8);
+            this.tbSearchLibrary.Name = "tbSearchLibrary";
+            this.tbSearchLibrary.Size = new System.Drawing.Size(298, 21);
+            this.tbSearchLibrary.TabIndex = 4;
+            this.tbSearchLibrary.Visible = false;
+            // 
             // MediaBrowserF1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(500, 402);
+            this.Controls.Add(this.tbSearchLibrary);
+            this.Controls.Add(this.cbBrowseType);
             this.Controls.Add(this.splitContainer1);
             this.Controls.Add(this.cbShareType);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.SizableToolWindow;
@@ -209,6 +236,7 @@
             this.splitContainer1.Panel2.ResumeLayout(false);
             this.splitContainer1.ResumeLayout(false);
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -227,5 +255,7 @@
         private System.Windows.Forms.SplitContainer splitContainer1;
         private System.Windows.Forms.ListView lvDirectoryContent;
         private System.Windows.Forms.TreeView tvMediaShares;
+        private System.Windows.Forms.ComboBox cbBrowseType;
+        private System.Windows.Forms.TextBox tbSearchLibrary;
     }
 }

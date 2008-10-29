@@ -183,6 +183,12 @@
     <Compile Include="VolumeControlF1.Designer.cs">
       <DependentUpon>VolumeControlF1.cs</DependentUpon>
     </Compile>
+    <Compile Include="XBMC.Library\XBMC.Media.cs" />
+    <Compile Include="XBMC.Library\XBMC.Status.cs" />
+    <Compile Include="XBMC.Library\XBMC.NowPlaying.cs" />
+    <Compile Include="XBMC.Library\XBMC.Controls.cs" />
+    <Compile Include="XBMC.Library\XBMC.Playlist.cs" />
+    <Compile Include="XBMC.Library\XBMC.Database.cs" />
     <Compile Include="XBMC.Library\XBMC.Communicator.cs" />
     <Compile Include="XBMControl.Language.cs" />
   </ItemGroup>

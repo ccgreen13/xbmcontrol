@@ -7,7 +7,7 @@
 ; (To generate a new GUID, click Tools | Generate GUID inside the IDE.)
 AppId={{0711B2BE-DA93-4831-A114-CCB28778555A}
 AppName=XBMControl
-AppVerName=XBMControl v0.3.8
+AppVerName=XBMControl v0.3.9
 AppPublisher=Bram van Oploo
 AppPublisherURL=http://code.google.com/p/xbmcontrol/
 AppSupportURL=http://code.google.com/p/xbmcontrol/
@@ -17,7 +17,7 @@ DefaultGroupName=XBMControl
 AllowNoIcons=true
 LicenseFile=E:\Programming\C#\XBMControl\XBMControl Setup\license.txt
 OutputDir=E:\Programming\C#\XBMControl\XBMControl Setup\InnoSetup
-OutputBaseFilename=XBMControl v0.3.8 Setup
+OutputBaseFilename=XBMControl v0.3.9 Setup
 SetupIconFile=E:\Programming\C#\XBMControl\XBMControl Setup\XBMC.ico
 Compression=lzma
 SolidCompression=true

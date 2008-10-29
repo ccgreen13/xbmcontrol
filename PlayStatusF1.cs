@@ -6,14 +6,14 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
-using XBMC.Communicator;
+using XBMC;
 using XBMControl.Animations;
 
 namespace XBMControl.PlayStatusForm
 {
     public partial class PlayStatusF1 : Form
     {
-        XBMCcomm XBMC; 
+        XBMC_Communicator XBMC; 
         Animation Animate;
         DateTime startTime;
         int screenHeight;
@@ -23,7 +23,7 @@ namespace XBMControl.PlayStatusForm
 
         public PlayStatusF1()
         {
-            XBMC          = new XBMCcomm(); 
+            XBMC          = new XBMC_Communicator(); 
             Animate       = new Animation();
             screenHeight  = SystemInformation.PrimaryMonitorSize.Height;
             screenWidth   = SystemInformation.PrimaryMonitorSize.Width;
@@ -41,18 +41,18 @@ namespace XBMControl.PlayStatusForm
 
         private void ShowCoverArt()
         {
-            Image coverArt = XBMC.GetNowPlayingCoverArt();
+            Image coverArt = this.XBMC.NowPlaying.GetCoverArt();
             pbThumbnail.Image = (coverArt == null)? Properties.Resources.XBMClogo : coverArt;
         }
         
         private void UpdateMediaInfo()
         {
-            string year       = (XBMC.GetNowPlayingInfo("year") == null) ? "" : " [" + XBMC.GetNowPlayingInfo("year") + "]";
-            lArtist.Text      = XBMC.GetNowPlayingInfo("artist");
-            string duration   = XBMC.GetNowPlayingInfo("duration");
+            string year = (this.XBMC.NowPlaying.Get("year") == null) ? "" : " [" + this.XBMC.NowPlaying.Get("year") + "]";
+            lArtist.Text = this.XBMC.NowPlaying.Get("artist");
+            string duration = this.XBMC.NowPlaying.Get("duration");
             string time       = (duration == null) ? "" : " [" + duration + "]";
-            lTitle.Text       = XBMC.GetNowPlayingInfo("title") + time;
-            lAlbum.Text       = XBMC.GetNowPlayingInfo("album") + year;
+            lTitle.Text = this.XBMC.NowPlaying.Get("title") + time;
+            lAlbum.Text = this.XBMC.NowPlaying.Get("album") + year;
         }
 
         private void PlayStatusF1_Activated(object sender, EventArgs e)
@@ -60,7 +60,7 @@ namespace XBMControl.PlayStatusForm
             if (!activated)
             {
                 startTime = DateTime.Now;
-                XBMC.GetXbmcProperties();
+                this.XBMC.Status.Refresh();
                 UpdateMediaInfo();
                 Animate.StartFadeIn(this);
                 hideFormTimer.Enabled = true;

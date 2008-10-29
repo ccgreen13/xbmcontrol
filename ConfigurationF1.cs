@@ -131,7 +131,7 @@ namespace XBMControl
                 MessageBox.Show(parent.Language.GetString("mainform/dialog/ipNotConfigured"), parent.Language.GetString("mainform/dialog/ipNotConfiguredTitle"));
                 return false;
             }
-            else if (!parent.XBMC.IsConnected())
+            else if (!parent.XBMC.Status.IsConnected())
             {
                 if (MessageBox.Show(parent.Language.GetString("mainform/dialog/unableToConnect") + "\n\n" + parent.Language.GetString("mainform/dialog/proceedMessage"), parent.Language.GetString("mainform/dialog/unableToConnectTitle"), MessageBoxButtons.YesNo) == DialogResult.Yes)
                     return true;

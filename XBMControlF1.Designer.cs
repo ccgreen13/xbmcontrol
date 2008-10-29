@@ -655,7 +655,7 @@
             this.bPartymode.Name = "bPartymode";
             this.bPartymode.Size = new System.Drawing.Size(16, 15);
             this.bPartymode.TabIndex = 25;
-            this.toolTip1.SetToolTip(this.bPartymode, "Toggle \'Party Mode\' on/off");
+            this.toolTip1.SetToolTip(this.bPartymode, "\'Party Mode\' on/off");
             this.bPartymode.UseVisualStyleBackColor = false;
             this.bPartymode.MouseLeave += new System.EventHandler(this.bPartymode_MouseLeave);
             this.bPartymode.MouseDown += new System.Windows.Forms.MouseEventHandler(this.bPartymode_MouseDown);
@@ -679,7 +679,7 @@
             this.bShuffle.Name = "bShuffle";
             this.bShuffle.Size = new System.Drawing.Size(16, 15);
             this.bShuffle.TabIndex = 24;
-            this.toolTip1.SetToolTip(this.bShuffle, "Toggle shuffle on/off");
+            this.toolTip1.SetToolTip(this.bShuffle, "Shuffle on/off");
             this.bShuffle.UseVisualStyleBackColor = false;
             this.bShuffle.MouseLeave += new System.EventHandler(this.bShuffle_MouseLeave);
             this.bShuffle.MouseDown += new System.Windows.Forms.MouseEventHandler(this.bShuffle_MouseDown);
@@ -703,7 +703,7 @@
             this.bRepeat.Name = "bRepeat";
             this.bRepeat.Size = new System.Drawing.Size(16, 15);
             this.bRepeat.TabIndex = 23;
-            this.toolTip1.SetToolTip(this.bRepeat, "Toggle repeat on/off");
+            this.toolTip1.SetToolTip(this.bRepeat, "Repeat on/off");
             this.bRepeat.UseVisualStyleBackColor = false;
             this.bRepeat.MouseLeave += new System.EventHandler(this.bRepeat_MouseLeave);
             this.bRepeat.MouseDown += new System.Windows.Forms.MouseEventHandler(this.bRepeat_MouseDown);
