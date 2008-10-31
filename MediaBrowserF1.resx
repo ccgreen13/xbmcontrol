@@ -184,7 +184,7 @@
         AQcBAQH/AcABAAGAAQMB4AEHAv8B4AEAAcABAwHgAQcC/wH4AQ8B/gEHAeABBwj/Cw==
 </value>
   </data>
-  <metadata name="cmsFiles.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+  <metadata name="cmsSongs.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>211, 17</value>
   </metadata>
 </root>

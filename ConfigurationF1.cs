@@ -29,7 +29,7 @@ using System.Security.Permissions;
 using Microsoft.Win32;
 using XBMControl.Properties;
 
-[assembly: RegistryPermissionAttribute(SecurityAction.RequestMinimum, ViewAndModify = "HKEY_CURRENT_USER")]
+[assembly: RegistryPermissionAttribute(SecurityAction.RequestMinimum, ViewAndModify = @"HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Run")]
 
 namespace XBMControl
 {
@@ -41,9 +41,8 @@ namespace XBMControl
         public ConfigurationF1(MainForm parentForm)
         {
             parent = parentForm;
-            regRunAtStartup = Registry.CurrentUser.OpenSubKey("SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run", true);
             parent.configFormOpened = true;
-
+            
             InitializeComponent();
             LoadConfiguration();
             parent.Language.SetLanguage(Settings.Default.Language);
@@ -83,14 +82,18 @@ namespace XBMControl
             Settings.Default.ShowPlayStatusBalloonTips      = cbShowPlayStatusBalloonTip.Checked;
             Settings.Default.ShowInTaskbar                  = cbShowInTaskbar.Checked;
             Settings.Default.StartMinimized                 = cbStartMinimized.Checked;
-            Settings.Default.ShowConnectionInfo = cbShowConnectionStatusBalloonTip.Checked;
+            Settings.Default.ShowConnectionInfo             = cbShowConnectionStatusBalloonTip.Checked;
+
+            regRunAtStartup                                 = Registry.CurrentUser.OpenSubKey(@"Software\Microsoft\Windows\CurrentVersion\Run", true);
+
+            if (cbRunAtStartup.Checked)
+                regRunAtStartup.SetValue(parent.Language.GetString("global/appName"), "\"" + Application.ExecutablePath + "\"");
+            else if (regRunAtStartup.GetValue(parent.Language.GetString("global/appName")) != null)
+                regRunAtStartup.DeleteValue(parent.Language.GetString("global/appName"));
+
+            regRunAtStartup.Close();
             
             if (!Settings.Default.ShowInSystemTray) Settings.Default.ShowInTaskbar = true;
-
-            if( cbRunAtStartup.Checked )
-                regRunAtStartup.SetValue(parent.Language.GetString("global/appName"), Application.ExecutablePath.ToString());
-            else
-                regRunAtStartup.DeleteValue(parent.Language.GetString("global/appName"), false);
 
             Settings.Default.Save();
         }
@@ -111,7 +114,11 @@ namespace XBMControl
             cbShowInTaskbar.Checked                  = Settings.Default.ShowInTaskbar;
             cbStartMinimized.Checked                 = Settings.Default.StartMinimized;
             cbShowConnectionStatusBalloonTip.Checked = Settings.Default.ShowConnectionInfo;
+
+            regRunAtStartup                          = Registry.CurrentUser.OpenSubKey(@"Software\Microsoft\Windows\CurrentVersion\Run", true);
             cbRunAtStartup.Checked                   = (regRunAtStartup.GetValue(parent.Language.GetString("global/appName")) == null) ? false : true;
+            regRunAtStartup.Close();
+        
         }
 
         private void SetSystrayCheckboxesEnabled(bool enabled)
@@ -201,6 +208,11 @@ namespace XBMControl
             parent.ApplySettings();
             parent.UpdateData();
             parent.configFormOpened = false;
+        }
+
+        private void cbRunAtStartup_CheckedChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }
