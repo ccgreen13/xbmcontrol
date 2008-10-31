@@ -54,7 +54,6 @@ namespace XBMC
             Media = new XBMC_Media(this);
         }
 
-        //START REQUEST
         public string[] Request(string command, string parameter, string ip)
         {
             HttpWebRequest request = null;
@@ -108,9 +107,7 @@ namespace XBMC
         {
             return this.Request(command, null, null);
         }
-        //END REQUEST
 
-        //START Helper functions
         private void WriteToLog(string message)
         {
 
@@ -149,6 +146,5 @@ namespace XBMC
             xbmcUsername = username;
             xbmcPassword = password;
         }
-        //END Helper functions
     }
 }
