@@ -23,6 +23,7 @@ using System.Text;
 using System.IO;
 using System.Drawing;
 using System.Net;
+using System.Windows.Forms;
 
 namespace XBMC
 {
@@ -40,29 +41,27 @@ namespace XBMC
         public string Get(string field, bool refresh)
         {
             string returnValue = null;
+
             if (refresh)
             {
                 string[] aNowPlayingTemp = parent.Request("GetCurrentlyPlaying");
 
                 if (aNowPlayingTemp != null)
                 {
-                    if (aNowPlayingTemp.Length > 1)
+                    maNowPlayingInfo = new string[aNowPlayingTemp.Length, 2];
+                    for (int x = 0; x < aNowPlayingTemp.Length; x++)
                     {
-                        maNowPlayingInfo = new string[aNowPlayingTemp.Length, 2];
-                        for (int x = 0; x < aNowPlayingTemp.Length; x++)
+                        int splitIndex = aNowPlayingTemp[x].IndexOf(':') + 1;
+
+                        if (splitIndex > 2)
                         {
-                            int splitIndex = aNowPlayingTemp[x].IndexOf(':') + 1;
-                            if (splitIndex > 2)
-                            {
-                                this.maNowPlayingInfo[x, 0] = aNowPlayingTemp[x].Substring(0, splitIndex - 1).Replace(" ", "").ToLower();
-                                this.maNowPlayingInfo[x, 1] = aNowPlayingTemp[x].Substring(splitIndex, aNowPlayingTemp[x].Length - splitIndex);
-                                if (this.maNowPlayingInfo[x, 0] == field)
-                                    returnValue = this.maNowPlayingInfo[x, 1];
-                            }
+                            maNowPlayingInfo[x, 0] = aNowPlayingTemp[x].Substring(0, splitIndex - 1).Replace(" ", "").ToLower();
+                            maNowPlayingInfo[x, 1] = aNowPlayingTemp[x].Substring(splitIndex, aNowPlayingTemp[x].Length - splitIndex);
+                            
+                            if (maNowPlayingInfo[x, 0] == field)
+                                returnValue = this.maNowPlayingInfo[x, 1];
                         }
                     }
-                    else
-                        return null;
                 }
             }
             else
@@ -87,7 +86,7 @@ namespace XBMC
             MemoryStream stream = null;
             Image thumbnail = null;
             WebClient client = new WebClient();
-            Uri xbmcThumbUri = new Uri("http://" + parent.GetXbmcIp() + "/thumb.jpg");
+            Uri xbmcThumbUri = new Uri("http://" + parent.GetIp() + "/thumb.jpg");
             parent.Request("GetCurrentlyPlaying", "q:\\web\\thumb.jpg");
 
             try

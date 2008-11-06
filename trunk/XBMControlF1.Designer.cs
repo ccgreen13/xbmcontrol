@@ -81,6 +81,7 @@
             this.lBitrate = new System.Windows.Forms.Label();
             this.lBitrateTitle = new System.Windows.Forms.Label();
             this.pControls = new System.Windows.Forms.Panel();
+            this.bPlaylist = new System.Windows.Forms.Button();
             this.bPartymode = new System.Windows.Forms.Button();
             this.bShuffle = new System.Windows.Forms.Button();
             this.bRepeat = new System.Windows.Forms.Button();
@@ -620,6 +621,7 @@
             this.pControls.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(248)))), ((int)(((byte)(245)))), ((int)(((byte)(242)))));
             this.pControls.BackgroundImage = global::XBMControl.Properties.Resources.background_controls2;
             this.pControls.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.pControls.Controls.Add(this.bPlaylist);
             this.pControls.Controls.Add(this.bPartymode);
             this.pControls.Controls.Add(this.bShuffle);
             this.pControls.Controls.Add(this.bRepeat);
@@ -637,6 +639,30 @@
             this.pControls.Name = "pControls";
             this.pControls.Size = new System.Drawing.Size(266, 50);
             this.pControls.TabIndex = 16;
+            // 
+            // bPlaylist
+            // 
+            this.bPlaylist.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.bPlaylist.BackColor = System.Drawing.Color.Transparent;
+            this.bPlaylist.BackgroundImage = global::XBMControl.Properties.Resources.button_playlist;
+            this.bPlaylist.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.bPlaylist.FlatAppearance.BorderColor = System.Drawing.SystemColors.Control;
+            this.bPlaylist.FlatAppearance.BorderSize = 0;
+            this.bPlaylist.FlatAppearance.CheckedBackColor = System.Drawing.SystemColors.ControlLight;
+            this.bPlaylist.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
+            this.bPlaylist.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
+            this.bPlaylist.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.bPlaylist.ForeColor = System.Drawing.Color.Transparent;
+            this.bPlaylist.Location = new System.Drawing.Point(221, 22);
+            this.bPlaylist.Name = "bPlaylist";
+            this.bPlaylist.Size = new System.Drawing.Size(16, 15);
+            this.bPlaylist.TabIndex = 26;
+            this.toolTip1.SetToolTip(this.bPlaylist, "\'Party Mode\' on/off");
+            this.bPlaylist.UseVisualStyleBackColor = false;
+            this.bPlaylist.MouseLeave += new System.EventHandler(this.bPlaylist_MouseLeave);
+            this.bPlaylist.MouseDown += new System.Windows.Forms.MouseEventHandler(this.bPlaylist_MouseDown);
+            this.bPlaylist.MouseHover += new System.EventHandler(this.bPlaylist_MouseHover);
+            this.bPlaylist.MouseUp += new System.Windows.Forms.MouseEventHandler(this.bPlaylist_MouseUp);
             // 
             // bPartymode
             // 
@@ -1118,6 +1144,7 @@
         private System.Windows.Forms.ToolStripMenuItem cmsViewPlaylist;
         private System.Windows.Forms.ToolStripMenuItem cmsMediaBrowser;
         private System.Windows.Forms.ToolTip toolTip1;
+        private System.Windows.Forms.Button bPlaylist;
     }
 }
 

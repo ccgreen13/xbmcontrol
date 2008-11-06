@@ -41,7 +41,7 @@ namespace XBMC
                 string[] aShareNames = new string[aMediaShares.Length];
                 string[] aSharePaths = new string[aMediaShares.Length];
 
-                for (int x = 1; x < aMediaShares.Length; x++)
+                for (int x = 0; x < aMediaShares.Length; x++)
                 {
                     string[] aTmpShare = aMediaShares[x].Split(';');
 
@@ -73,7 +73,7 @@ namespace XBMC
             {
                 string[] aContentPaths = new string[aDirectoryContent.Length];
 
-                for (int x = 1; x < aDirectoryContent.Length; x++)
+                for (int x = 0; x < aDirectoryContent.Length; x++)
                     aContentPaths[x] = (aDirectoryContent[x] == "Error:Not folder" || aDirectoryContent[x] == "Error") ? null : aDirectoryContent[x];
 
                 return aContentPaths;
@@ -95,7 +95,7 @@ namespace XBMC
             {
                 string[] aContentNames = new string[aContentPaths.Length];
 
-                for (int x = 1; x < aContentPaths.Length; x++)
+                for (int x = 0; x < aContentPaths.Length; x++)
                 {
                     if (aContentPaths[x] == null)
                         aContentNames[x] = null;

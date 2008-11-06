@@ -66,12 +66,12 @@ namespace XBMControl
         {
             Language = new XBMCLanguage();
             XBMC = new XBMC_Communicator();
-            XBMC.SetXbmcIp(Settings.Default.Ip);
+            XBMC.SetIp(Settings.Default.Ip);
             XBMC.SetCredentials(Settings.Default.Username, Settings.Default.Password);
             InitializeComponent();
-            this.ApplySettings();
-            this.SetLanguageStrings();
-            this.Initialize();
+            ApplySettings();
+            SetLanguageStrings();
+            Initialize();
         }
 
         private void Initialize()
@@ -79,9 +79,9 @@ namespace XBMControl
             originalWindowHeight = this.Height;
             ToggleShowDetails();
 
-            if (this.XBMC.Status.IsConnected())
+            if (XBMC.Status.IsConnected())
             {
-                if (!this.XBMC.Status.WebServerEnabled())
+                if (!XBMC.Status.WebServerEnabled())
                 {
                     MessageBox.Show(Language.GetString("mainform/dialog/webserverDisabled"), Language.GetString("mainform/dialog/webserverDisabledTitle"));
                     this.Dispose();
@@ -185,12 +185,13 @@ namespace XBMControl
 
                 //Set control button states
                 bOpen.BackgroundImage   = (shareBrowserOpened) ? Resources.button_open_click : Resources.button_open;
-                bPause.BackgroundImage = (this.XBMC.Status.IsPaused()) ? Resources.button_pause_click : Resources.button_pause;
-                bPlay.BackgroundImage = (this.XBMC.Status.IsPlaying()) ? Resources.button_play_click : Resources.button_play;
-                bStop.BackgroundImage = (this.XBMC.Status.IsNotPlaying()) ? Resources.button_stop_click : Resources.button_stop;
-                bMute.BackgroundImage = (this.XBMC.Status.IsMuted()) ? Resources.button_mute_click : Resources.button_mute;
-                bLastFmHate.Visible = (this.XBMC.Status.IsPlaying("lastfm")) ? true : false;
-                bLastFmLove.Visible = (this.XBMC.NowPlaying.GetMediaType() == "Audio") ? true : false;
+                bPause.BackgroundImage = (XBMC.Status.IsPaused()) ? Resources.button_pause_click : Resources.button_pause;
+                bPlay.BackgroundImage = (XBMC.Status.IsPlaying()) ? Resources.button_play_click : Resources.button_play;
+                bStop.BackgroundImage = (XBMC.Status.IsNotPlaying()) ? Resources.button_stop_click : Resources.button_stop;
+                bMute.BackgroundImage = (XBMC.Status.IsMuted()) ? Resources.button_mute_click : Resources.button_mute;
+                bLastFmHate.Visible = (XBMC.Status.IsPlaying("lastfm")) ? true : false;
+                bLastFmLove.Visible = (XBMC.NowPlaying.GetMediaType() == "Audio") ? true : false;
+                bPlaylist.BackgroundImage = (Settings.Default.playlistOpened && Playlist != null) ? Resources.button_playlist_click : Resources.button_playlist ;
             }
             else
             {
@@ -942,6 +943,29 @@ namespace XBMControl
             bPartymode.BackgroundImage = Resources.button_partymode_hover;
         }
 //END PARTYMODE BUTTON
+
+//START PLAYLIST BUTTON
+        private void bPlaylist_MouseHover(object sender, EventArgs e)
+        {
+            bPlaylist.BackgroundImage = Resources.button_playlist_hover;
+        }
+
+        private void bPlaylist_MouseLeave(object sender, EventArgs e)
+        {
+            bPlaylist.BackgroundImage = Resources.button_playlist;
+        }
+
+        private void bPlaylist_MouseDown(object sender, MouseEventArgs e)
+        {
+            bPlaylist.BackgroundImage = Resources.button_playlist_click;
+        }
+
+        private void bPlaylist_MouseUp(object sender, MouseEventArgs e)
+        {
+            bPlaylist.BackgroundImage = Resources.button_playlist_hover;
+            cmsViewPlaylist_Click(null, null);
+        }
+//END PLAYLIST BUTTON
 
 //START FAKE DRAG DROP
         private void pToolbar_MouseDown(object sender, MouseEventArgs e)

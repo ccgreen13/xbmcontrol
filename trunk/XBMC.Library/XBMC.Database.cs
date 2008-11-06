@@ -33,12 +33,12 @@ namespace XBMC
             parent = p;
         }
 
+
+
         public string[] GetArtists(string searchString)
         {
             string condition = (searchString == null) ? "" : " WHERE strArtist LIKE '%%" + searchString + "%%'";
-            string[] aArtists = parent.Request("QueryMusicDatabase", "SELECT strArtist FROM artist" + condition + " ORDER BY strArtist");
-
-            return aArtists;
+            return parent.Request("QueryMusicDatabase", "SELECT strArtist FROM artist" + condition + " ORDER BY strArtist");
         }
 
         public string[] GetArtists()
@@ -46,12 +46,12 @@ namespace XBMC
             return this.GetArtists(null);
         }
 
+
+
         public string[] GetArtistIds(string searchString)
         {
             string condition = (searchString == null) ? "" : " WHERE strArtist LIKE '%%" + searchString + "%%'";
-            string[] aArtistIds = parent.Request("QueryMusicDatabase", "SELECT idArtist FROM artist" + condition + " ORDER BY strArtist");
-
-            return aArtistIds;
+            return parent.Request("QueryMusicDatabase", "SELECT idArtist FROM artist" + condition + " ORDER BY strArtist");
         }
 
         public string[] GetArtistIds()
@@ -59,12 +59,12 @@ namespace XBMC
             return this.GetArtistIds(null);
         }
 
+
+
         public string[] GetAlbums(string searchString)
         {
             string condition = (searchString == null) ? "" : " WHERE strAlbum LIKE '%%" + searchString + "%%'";
-            string[] aAlbums = parent.Request("QueryMusicDatabase", "SELECT strAlbum FROM album" + condition);
-
-            return aAlbums;
+            return parent.Request("QueryMusicDatabase", "SELECT strAlbum FROM album" + condition + " ORDER BY strAlbum");
         }
 
         public string[] GetAlbums()
@@ -72,12 +72,12 @@ namespace XBMC
             return this.GetAlbums(null);
         }
 
+
+
         public string[] GetAlbumIds(string searchString)
         {
             string condition = (searchString == null) ? "" : " WHERE strAlbum LIKE '%%" + searchString + "%%'";
-            string[] aAlbumIds = parent.Request("QueryMusicDatabase", "SELECT idAlbum FROM album" + condition);
-
-            return aAlbumIds;
+            return parent.Request("QueryMusicDatabase", "SELECT idAlbum FROM album" + condition + " ORDER BY strAlbum");
         }
 
         public string[] GetAlbumIds()
@@ -85,25 +85,22 @@ namespace XBMC
             return this.GetAlbumIds(null);
         }
 
+
+
         public string GetArtistId(string artist)
         {
             string[] aArtistId = parent.Request("QueryMusicDatabase", "SELECT idArtist FROM artist WHERE strArtist='" + artist + "'");
-            if (aArtistId == null)
-                return null;
-            else
-                return (aArtistId.Length > 1) ? aArtistId[1] : null;
+            return (aArtistId != null) ? aArtistId[0] : null;
         }
+
+
 
         public string GetAlbumId(string artist, string album)
         {
             string conditions = " WHERE strAlbum='" + album + "'";
             if (artist != null) conditions += " AND idArtist='" + this.GetArtistId(artist) + "'";
             string[] aArtistId = parent.Request("QueryMusicDatabase", "SELECT idAlbum FROM album" + conditions);
-
-            if (aArtistId == null)
-                return null;
-            else
-                return (aArtistId.Length > 1) ? aArtistId[1] : null;
+            return (aArtistId != null) ? aArtistId[0] : null;
         }
 
         public string GetAlbumId(string album)
@@ -111,43 +108,35 @@ namespace XBMC
             return this.GetAlbumId(null, album);
         }
 
+
+
         public string GetPathById(string pathId)
         {
-            string path = null;
             string[] aPath = parent.Request("QueryMusicDatabase", "SELECT strPath FROM path WHERE idPath='" + pathId + "'");
-
-            if (aPath != null)
-                if (aPath.Length > 1) path = aPath[1];
-
-            return path;
+            return (aPath != null) ? aPath[0] : null;
         }
+
+
 
         public string GetAlbumPath(string albumId)
         {
-            string albumPath = null;
             string[] aPathId = parent.Request("QueryMusicDatabase", "SELECT idPath FROM song WHERE idAlbum='" + albumId + "'");
-
-            if (aPathId != null)
-                if (aPathId.Length > 1) albumPath = this.GetPathById(aPathId[1]);
-
-            return albumPath;
+            return (aPathId != null) ? GetPathById(aPathId[0]) : null;
         }
+
+
 
         public string GetSongPath(string songId)
         {
-            string songPath = null;
             string[] aPathId = parent.Request("QueryMusicDatabase", "SELECT idPath FROM song WHERE idSong='" + songId + "'");
-
-            if (aPathId != null)
-                if (aPathId.Length > 1) songPath = this.GetPathById(aPathId[1]);
-
-            return songPath;
+            return (aPathId != null) ? GetPathById(aPathId[0]) : null;
         }
+
+
 
         public string[] GetAlbumsByArtist(string artist)
         {
-            string artistId = this.GetArtistId(artist);
-            return (artistId == null) ? null : parent.Request("QueryMusicDatabase", "SELECT strAlbum FROM album WHERE idArtist='" + artistId + "' ORDER BY strAlbum");
+            return GetAlbumsByArtistId(GetArtistId(artist));
         }
 
         public string[] GetAlbumsByArtistId(string artistId)
@@ -155,117 +144,113 @@ namespace XBMC
             return (artistId == null) ? null : parent.Request("QueryMusicDatabase", "SELECT strAlbum FROM album WHERE idArtist='" + artistId + "' ORDER BY strAlbum");
         }
 
+
+
+        public string[] GetAlbumIdsByArtist(string artist)
+        {
+            return GetAlbumIdsByArtistId(GetArtistId(artist));
+        }
+
         public string[] GetAlbumIdsByArtistId(string artistId)
         {
             return (artistId == null) ? null : parent.Request("QueryMusicDatabase", "SELECT idAlbum FROM album WHERE idArtist='" + artistId + "' ORDER BY strAlbum");
         }
 
+
+
         public string[] GetTitlesByAlbum(string artist, string album)
         {
-            string albumId = this.GetAlbumId(artist, album);
-            return (albumId == null) ? null : parent.Request("QueryMusicDatabase", "SELECT strTitle FROM song WHERE idAlbum='" + albumId + "'");
+            return GetTitlesByAlbumId(GetAlbumId(artist, album));
         }
 
         public string[] GetTitlesByAlbum(string album)
         {
-            return this.GetTitlesByAlbum(null, album);
+            return GetTitlesByAlbum(null, album);
         }
 
         public string[] GetTitlesByAlbumId(string albumId)
         {
-            return (albumId == null) ? null : parent.Request("QueryMusicDatabase", "SELECT strTitle FROM song WHERE idAlbum='" + albumId + "'");
+            return (albumId == null) ? null : parent.Request("QueryMusicDatabase", "SELECT strTitle FROM song WHERE idAlbum='" + albumId + "' ORDER BY iTrack");
         }
+
+
 
         public string[] GetPathsByAlbum(string artist, string album)
         {
-            string albumId = this.GetAlbumId(artist, album);
-
-            if (albumId == null)
-                return null;
-            else
-            {
-                string[] aFileName = parent.Request("QueryMusicDatabase", "SELECT strFileName FROM song WHERE idAlbum='" + albumId + "'");
-
-                if (aFileName == null)
-                    return null;
-                else
-                {
-                    string[] aPath = new string[aFileName.Length];
-
-                    for (int x = 1; x < aFileName.Length; x++)
-                        aPath[x] = this.GetAlbumPath(albumId) + aFileName[x];
-
-                    return aPath;
-                }
-            }
+            return GetPathsByAlbumId(GetAlbumId(artist, album));
         }
 
         public string[] GetPathsByAlbum(string album)
         {
-            return this.GetPathsByAlbum(null, album);
+            return GetPathsByAlbum(null, album);
         }
 
         public string[] GetPathsByAlbumId(string albumId)
         {
-            if (albumId == null)
-                return null;
-            else
+            string[] aPath = null;
+
+            if (albumId != null)
             {
-                string[] aFileName = parent.Request("QueryMusicDatabase", "SELECT strFileName FROM song WHERE idAlbum='" + albumId + "'");
+                string[] aFileName = parent.Request("QueryMusicDatabase", "SELECT strFileName FROM song WHERE idAlbum='" + albumId + "' ORDER BY iTrack");
 
-                if (aFileName == null)
-                    return null;
-                else
+                if (aFileName != null)
                 {
-                    string[] aPath = new string[aFileName.Length];
+                    aPath = new string[aFileName.Length];
+                    aPath[0] = "";
 
-                    for (int x = 1; x < aFileName.Length; x++)
-                        aPath[x] = this.GetAlbumPath(albumId) + aFileName[x];
-
-                    return aPath;
+                    for (int x = 0; x < aFileName.Length; x++)
+                        aPath[x] = GetAlbumPath(albumId) + aFileName[x];
                 }
             }
+
+            return aPath;
         }
+
+
+
+        public string[] GetSearchSongTitles(string searchString)
+        {
+            return parent.Request("QueryMusicDatabase", "SELECT strTitle FROM song WHERE strTitle LIKE '%%" + searchString + "%%' ORDER BY strTitle");
+        }
+
+        public string[] GetSearchSongPaths(string searchString)
+        {
+            string[] aSongPaths = null;
+            string[] aSongPathIds = parent.Request("QueryMusicDatabase", "SELECT idPath FROM song WHERE strTitle LIKE '%%" + searchString + "%%' ORDER BY strTitle");
+            string[] aFileNames = parent.Request("QueryMusicDatabase", "SELECT strFileName FROM song WHERE strTitle LIKE '%%" + searchString + "%%' ORDER BY strTitle");
+
+            if (aSongPathIds != null)
+            {
+                aSongPaths = new string[aSongPathIds.Length];
+
+                for (int x = 0; x < aSongPathIds.Length; x++)
+                { 
+                    string[] aSongPath = parent.Request("QueryMusicDatabase", "SELECT strPath FROM path WHERE idPath='" + aSongPathIds[x] + "'");
+                    aSongPaths[x] = aSongPath[0] + aFileNames[x];
+                }
+            }
+
+            return aSongPaths;
+        }
+
+
 
         public string[] GetTitlesByArtist(string artist)
         {
-            string artistId = this.GetArtistId(artist);
-
-            if (artistId == null)
-                return null;
-            else
-                return parent.Request("QueryMusicDatabase", "SELECT strTitle FROM song WHERE idArtist='" + artistId + "'");
+            return GetTitlesByArtistId(GetArtistId(artist));
         }
 
         public string[] GetTitlesByArtistId(string artistId)
         {
-            return (artistId == null)? null : parent.Request("QueryMusicDatabase", "SELECT strTitle FROM song WHERE idArtist='" + artistId + "'");
+            return (artistId == null) ? null : parent.Request("QueryMusicDatabase", "SELECT strTitle FROM song WHERE idArtist='" + artistId + "' ORDER BY iTrack");
         }
+
+
+
 
         public string[] GetPathsByArtist(string artist)
         {
-            string[] aPaths = null;
-            string[] aSongPathIds = null;
-            string[] aFileNames = null;
-            string artistId = this.GetArtistId(artist);
-
-            if (artistId != null)
-            {
-                aSongPathIds = parent.Request("QueryMusicDatabase", "SELECT idPath FROM song WHERE idArtist='" + artistId + "'");
-                aFileNames = parent.Request("QueryMusicDatabase", "SELECT strFileName FROM song WHERE idArtist='" + artistId + "'");
-
-                if (aFileNames != null)
-                {
-                    if (aFileNames.Length > 1)
-                    {
-                        aPaths = new string[aFileNames.Length];
-                        for (int x = 1; x < aFileNames.Length; x++)
-                            aPaths[x] = this.GetPathById(aSongPathIds[x]) + aFileNames[x];
-                    }
-                }
-            }
-
-            return aPaths;
+            return GetPathsByArtistId(GetArtistId(artist));
         }
 
         public string[] GetPathsByArtistId(string artistId)
@@ -281,16 +266,39 @@ namespace XBMC
 
                 if (aFileNames != null)
                 {
-                    if (aFileNames.Length > 1)
-                    {
-                        aPaths = new string[aFileNames.Length];
-                        for (int x = 1; x < aFileNames.Length; x++)
-                            aPaths[x] = this.GetPathById(aSongPathIds[x]) + aFileNames[x];
-                    }
+                    aPaths = new string[aFileNames.Length];
+                    for (int x = 1; x < aFileNames.Length; x++)
+                        aPaths[x] =  GetPathById(aSongPathIds[x]) + aFileNames[x];
                 }
             }
 
             return aPaths;
+        }
+
+
+
+
+        public string GetPathBySongTitle(string artistAlbumId, string songTitle, bool artist)
+        {
+            string songPath = null;
+            string idField = (artist) ? "idArtist" : "idAlbum";
+            string[] aSongPathIds = parent.Request("QueryMusicDatabase", "SELECT idPath FROM song WHERE " + idField+ "='" + artistAlbumId + "' AND strTitle='" + songTitle + "'");
+            string[] aSongFileNames = parent.Request("QueryMusicDatabase", "SELECT strFileName FROM song WHERE " + idField + "='" + artistAlbumId + "' AND strTitle='" + songTitle + "'");
+
+            if (aSongPathIds != null)
+            {
+                string[] aSongPaths = parent.Request("QueryMusicDatabase", "SELECT strPath FROM path WHERE idPath='" + aSongPathIds[0]+ "'");
+
+                if (aSongPaths != null)
+                    songPath = aSongPaths[0] + aSongFileNames[0];
+            }
+
+            return songPath;
+        }
+
+        public string GetPathBySongTitle(string artistAlbumId, string songTitle)
+        {
+            return GetPathBySongTitle(artistAlbumId, songTitle, false);
         }
     }
 }

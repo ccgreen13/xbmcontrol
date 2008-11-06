@@ -42,7 +42,7 @@ namespace XBMC
                 if (aPlaylistTemp != null)
                 {
                     aCurrentPlaylist = new string[aPlaylistTemp.Length];
-                    for (int x = 1; x < aPlaylistTemp.Length; x++)
+                    for (int x = 0; x < aPlaylistTemp.Length; x++)
                     {
                         int i = aPlaylistTemp[x].LastIndexOf(".");
                         if (i > 1)
@@ -74,7 +74,7 @@ namespace XBMC
         public string GetCurrentIdentifier()
         {
             string[] curPlaylist = parent.Request("GetCurrentPlaylist()");
-            return (curPlaylist == null) ? null : curPlaylist[1];
+            return (curPlaylist == null) ? null : curPlaylist[0];
         }
 
         public void Clear()
