@@ -75,38 +75,38 @@
             this.tsiClearPlaylist,
             this.tsiRefresh});
             this.cmsPlaylist.Name = "contextMenuStrip1";
-            this.cmsPlaylist.Size = new System.Drawing.Size(153, 120);
+            this.cmsPlaylist.Size = new System.Drawing.Size(125, 98);
             // 
             // cmsPlayFromSelection
             // 
             this.cmsPlayFromSelection.Name = "cmsPlayFromSelection";
-            this.cmsPlayFromSelection.Size = new System.Drawing.Size(152, 22);
+            this.cmsPlayFromSelection.Size = new System.Drawing.Size(124, 22);
             this.cmsPlayFromSelection.Text = "Play";
             this.cmsPlayFromSelection.Click += new System.EventHandler(this.cmsPlayFromSelection_Click);
             // 
             // cmsRemoveItem
             // 
             this.cmsRemoveItem.Name = "cmsRemoveItem";
-            this.cmsRemoveItem.Size = new System.Drawing.Size(152, 22);
+            this.cmsRemoveItem.Size = new System.Drawing.Size(124, 22);
             this.cmsRemoveItem.Text = "Remove";
             this.cmsRemoveItem.Click += new System.EventHandler(this.RemoveSelected);
             // 
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(149, 6);
+            this.toolStripSeparator1.Size = new System.Drawing.Size(121, 6);
             // 
             // tsiClearPlaylist
             // 
             this.tsiClearPlaylist.Name = "tsiClearPlaylist";
-            this.tsiClearPlaylist.Size = new System.Drawing.Size(152, 22);
+            this.tsiClearPlaylist.Size = new System.Drawing.Size(124, 22);
             this.tsiClearPlaylist.Text = "Clear";
             this.tsiClearPlaylist.Click += new System.EventHandler(this.ClearPlaylist);
             // 
             // tsiRefresh
             // 
             this.tsiRefresh.Name = "tsiRefresh";
-            this.tsiRefresh.Size = new System.Drawing.Size(152, 22);
+            this.tsiRefresh.Size = new System.Drawing.Size(124, 22);
             this.tsiRefresh.Text = "Refresh";
             this.tsiRefresh.Click += new System.EventHandler(this.RefreshPlaylist);
             // 
@@ -186,7 +186,7 @@
             this.ShowInTaskbar = false;
             this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Show;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
-            this.Text = "Form4";
+            this.Text = "Playlist";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.PlaylistF1_FormClosed);
             this.cmsPlaylist.ResumeLayout(false);
             this.pToolbar.ResumeLayout(false);

@@ -131,7 +131,7 @@ namespace XBMControl
 
         private bool IsValidIp()
         {
-            parent.XBMC.SetXbmcIp(tbIp.Text);
+            parent.XBMC.SetIp(tbIp.Text);
 
             if (tbIp.Text == "")
             {
@@ -208,11 +208,6 @@ namespace XBMControl
             parent.ApplySettings();
             parent.UpdateData();
             parent.configFormOpened = false;
-        }
-
-        private void cbRunAtStartup_CheckedChanged(object sender, EventArgs e)
-        {
-
         }
     }
 }

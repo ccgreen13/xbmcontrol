@@ -24,8 +24,7 @@ using System.Net;
 using System.IO;
 using XBMControl.Properties;
 using System.Windows.Forms;
-using System.Drawing;
-using System.Web;
+using System.Collections;
 
 namespace XBMC
 {
@@ -38,7 +37,7 @@ namespace XBMC
         public XBMC_Status Status = null;
         public XBMC_Media Media = null;
 
-        private string configuredXbmcIp = null;
+        private string configuredIp = null;
         private string xbmcUsername = null;
         private string xbmcPassword = null;
         private string apiPath = "/xbmcCmds/xbmcHttp";
@@ -56,18 +55,20 @@ namespace XBMC
 
         public string[] Request(string command, string parameter, string ip)
         {
+            string[] pageItems = null;
             HttpWebRequest request = null;
             HttpWebResponse response = null;
             StreamReader reader = null;
             string[] pageContent = null;
-            bool isQuery = (command.ToLower() == "querymusicdatabase" || command.ToLower() == "queryvideodatabase")? true : false ;
 
-            string ipAddress = (ip == null) ? this.configuredXbmcIp : ip;
+            bool isQuery = (command.ToLower() == "querymusicdatabase" || command.ToLower() == "queryvideodatabase") ? true : false;
+
+            string ipAddress = (ip == null) ? configuredIp : ip;
             parameter = (parameter == null) ? "" : parameter;
             command = "?command=" + Uri.EscapeDataString(command);
             command += (parameter == null || parameter == "") ? "" : "&parameter=" + Uri.EscapeDataString(parameter);
-            string uri = "http://" + ipAddress + this.apiPath + command;
-            
+            string uri = "http://" + ipAddress + apiPath + command;
+
             //WriteToLog(uri);
 
             try
@@ -80,10 +81,20 @@ namespace XBMC
                 reader = new StreamReader(response.GetResponseStream(), Encoding.UTF8);
 
                 if (isQuery)
-                    pageContent = reader.ReadToEnd().Replace("<field>", "|").Replace("</field>", "").Replace("\n", "").Replace("<html>", "").Replace("</html>", "").Split('|');
+                    pageContent = reader.ReadToEnd().Replace("</field>", "").Replace("\n", "").Replace("<html>", "").Replace("</html>", "").Split(new string[] { "<field>" }, StringSplitOptions.None);
                 else
-                    pageContent = reader.ReadToEnd().Replace("<li>", "|").Replace("\n", "").Replace("<html>", "").Replace("</html>", "").Split('|');
-                this.Status.isConnected = (pageContent == null) ? false : true;
+                    pageContent = reader.ReadToEnd().Replace("\n", "").Replace("<html>", "").Replace("</html>", "").Split(new string[] { "<li>" }, StringSplitOptions.None);
+
+                if (pageContent != null)
+                {
+                    if (pageContent.Length > 1)
+                    {
+                        pageItems = new string[pageContent.Length-1];
+
+                        for (int x = 1; x < pageContent.Length; x++)
+                            pageItems[x-1] = pageContent[x];
+                    }
+                }
             }
             catch (WebException e)
             {
@@ -95,17 +106,17 @@ namespace XBMC
                 if (reader != null) reader.Close();
             }
 
-            return pageContent;
+            return pageItems;
         }
 
         public string[] Request(string command, string parameter)
         {
-            return this.Request(command, parameter, null);
+            return Request(command, parameter, null);
         }
 
         public string[] Request(string command)
         {
-            return this.Request(command, null, null);
+            return Request(command, null, null);
         }
 
         private void WriteToLog(string message)
@@ -131,14 +142,19 @@ namespace XBMC
             }
         }
 
-        public void SetXbmcIp(string ip)
+        public void SetIp(string ip)
         {
-            configuredXbmcIp = ip;
+            configuredIp = ip;
+
+            if (configuredIp == null || configuredIp == "")
+                Status.DisableHeartBeat();
+            else
+                Status.EnableHeartBeat();
         }
 
-        public string GetXbmcIp()
+        public string GetIp()
         {
-            return configuredXbmcIp;
+            return configuredIp;
         }
 
         public void SetCredentials(string username, string password)

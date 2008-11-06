@@ -15,6 +15,9 @@ namespace XBMControl
     {
         MainForm parent;
         TreeNode tNode;
+        bool artistDirectorySelected = false;
+        bool albumDirectorySelected = false;
+        bool rightClick = false;
 
         public MediaBrowserF1(MainForm parentForm)
         {
@@ -37,6 +40,8 @@ namespace XBMControl
                 activeTreeView = tvArtists;
             else if (tabName == "tabAlbums")
                 activeTreeView = tvAlbums;
+            else if (tabName == "tabSongs")
+                activeTreeView = null;
 
             return activeTreeView;
         }
@@ -52,13 +57,15 @@ namespace XBMControl
                 activeListView = lvArtistSongs;
             else if (tabName == "tabAlbums")
                 activeListView = lvAlbumSongs;
+            else if (tabName == "tabSongs")
+                activeListView = lvSongs;
 
             return activeListView;
         }
 
-        private string ActiveTab()
+        private TabPage ActiveTab()
         {
-            return tcMediaBrowser.SelectedTab.Name.ToString();
+            return tcMediaBrowser.SelectedTab;
         }
 
         private void PopulateDirectoryBrowser(string searchString)
@@ -69,36 +76,32 @@ namespace XBMControl
             string[] aDirectories = null;
             string[] aDirectoryIds = null;
 
-            if (this.ActiveTab() == "tabShares")
+            if (this.ActiveTab() == tabShares)
             {
                 aDirectories = parent.XBMC.Media.GetShares(cbShareType.Text);
                 aDirectoryIds = parent.XBMC.Media.GetShares(cbShareType.Text, true);
             }
-            else if (this.ActiveTab() == "tabArtists")
+            else if (this.ActiveTab() == tabArtists)
             {
                 aDirectories = parent.XBMC.Database.GetArtists(searchString);
                 aDirectoryIds = parent.XBMC.Database.GetArtistIds(searchString);
             }
-            else if (this.ActiveTab() == "tabAlbums" || (this.ActiveTab() == "tabArtists" && ActiveTreeView().SelectedNode.Parent == null))
+            else if (this.ActiveTab() == tabAlbums || (this.ActiveTab() == tabArtists && artistDirectorySelected))
             {
                 aDirectories = parent.XBMC.Database.GetAlbums(searchString);
                 aDirectoryIds = parent.XBMC.Database.GetAlbumIds(searchString);
             }
 
-            if (aDirectories != null && aDirectoryIds != null)
+            if (aDirectories != null)
             {
-                if (aDirectories.Length > 1 && aDirectoryIds.Length > 1)
+                for (int x = 0; x < aDirectories.Length; x++)
                 {
-                    //MessageBox.Show(aDirectoryIds.Length.ToString() + " - " + aDirectories.Length.ToString());
-                    for (int x = 1; x < aDirectories.Length; x++)
-                    {
-                        tNode = new TreeNode();
-                        tNode.Name = aDirectories[x];
-                        tNode.Text = aDirectories[x];
-                        tNode.ToolTipText = aDirectoryIds[x];
-                        ActiveTreeView().Nodes.Add(tNode);
-                        ActiveTreeView().Nodes[x - 1].ImageIndex = 0;
-                    }
+                    tNode = new TreeNode();
+                    tNode.Name = aDirectories[x];
+                    tNode.Text = aDirectories[x];
+                    if (aDirectoryIds != null) tNode.ToolTipText = aDirectoryIds[x];
+                    ActiveTreeView().Nodes.Add(tNode);
+                    ActiveTreeView().Nodes[x].ImageIndex = 0;
                 }
             }
         }
@@ -110,48 +113,35 @@ namespace XBMControl
 
         private void PopulateSongBrowser()
         {
-            ActiveListView().Items.Clear();
             this.TestConnectivity();
 
-            string parentDirectoryName = null;
-            string directoryName = null;
             string[] aTitles = null;
             string[] aPaths = null;
 
-            if (ActiveTreeView().SelectedNode.Parent != null)
-                parentDirectoryName = ActiveTreeView().SelectedNode.Parent.Text.ToString();
+            ActiveListView().Items.Clear();
 
-            directoryName = ActiveTreeView().SelectedNode.Text.ToString();
-
-            if (this.ActiveTab() == "tabShares")
+            if (ActiveTab() == tabShares)
             {
                 aTitles = parent.XBMC.Media.GetDirectoryContentNames(ActiveTreeView().SelectedNode.ToolTipText, "[" + cbShareType.Text + "]");
                 aPaths = parent.XBMC.Media.GetDirectoryContentPaths(ActiveTreeView().SelectedNode.ToolTipText, "[" + cbShareType.Text + "]");
             }
-            else if ((this.ActiveTab() == "tabArtists" && ActiveTreeView().SelectedNode.Parent != null) || this.ActiveTab() == "tabAlbums")
+            else if (ActiveTab() == tabSongs)
             {
+                aTitles = parent.XBMC.Database.GetSearchSongTitles(tbSearchSong.Text);
+                aPaths = parent.XBMC.Database.GetSearchSongPaths(tbSearchSong.Text);
+            }
+            else if ((ActiveTab() == tabArtists && albumDirectorySelected) || ActiveTab() == tabAlbums)
                 aTitles = parent.XBMC.Database.GetTitlesByAlbumId(ActiveTreeView().SelectedNode.ToolTipText);
-                aPaths = parent.XBMC.Database.GetPathsByAlbumId(ActiveTreeView().SelectedNode.ToolTipText);
-            }
             else
-            {
                 aTitles = parent.XBMC.Database.GetTitlesByArtistId(ActiveTreeView().SelectedNode.ToolTipText);
-                aPaths = parent.XBMC.Database.GetPathsByArtistId(ActiveTreeView().SelectedNode.ToolTipText);
-            }
 
             if (aTitles != null)
             {
-                if (aTitles.Length > 1)
+                for (int x = 0; x < aTitles.Length; x++)
                 {
-                    for (int x = 1; x < aTitles.Length; x++)
-                    {
-                        if (aTitles[x] != null)
-                        {
-                            ActiveListView().Items.Add(aTitles[x]);
-                            ActiveListView().Items[x - 1].ImageIndex = 1;
-                            ActiveListView().Items[x - 1].ToolTipText = aPaths[x];
-                        }
-                    }
+                    ActiveListView().Items.Add(aTitles[x]);
+                    ActiveListView().Items[x].ImageIndex = 1;
+                    if (aPaths != null) ActiveListView().Items[x].ToolTipText = aPaths[x];
                 }
             }
         }
@@ -168,7 +158,7 @@ namespace XBMControl
 
                 if (aDirectoryContentPaths != null)
                 {
-                    for (int x = 1; x < aDirectoryContentPaths.Length; x++)
+                    for (int x = 0; x < aDirectoryContentPaths.Length; x++)
                     {
                         if (aDirectoryContentPaths[x] != null)
                         {
@@ -177,7 +167,7 @@ namespace XBMControl
                             tNode.Text = aDirectoryContentNames[x];
                             tNode.ToolTipText = aDirectoryContentPaths[x];
                             ActiveTreeView().SelectedNode.Nodes.Add(tNode);
-                            ActiveTreeView().SelectedNode.Nodes[x - 1].ImageIndex = 0;
+                            ActiveTreeView().SelectedNode.Nodes[x].ImageIndex = 0;
                         }
                     }
 
@@ -186,7 +176,7 @@ namespace XBMControl
             }
         }
 
-        private void ExpandArtistDirectory(string artist)
+        private void ExpandArtistDirectory()
         {
             this.TestConnectivity();
             ActiveListView().Items.Clear();
@@ -198,19 +188,15 @@ namespace XBMControl
 
                 if (aAlbums != null)
                 {
-                    for (int x = 1; x < aAlbums.Length; x++)
+                    for (int x = 0; x < aAlbums.Length; x++)
                     {
-                        if (aAlbums.Length > 1)
-                        {
-                            tNode = new TreeNode();
-                            tNode.Name = aAlbums[x];
-                            tNode.Text = aAlbums[x];
-                            tNode.ToolTipText = albumIds[x];
-                            ActiveTreeView().SelectedNode.Nodes.Add(tNode);
-                            ActiveTreeView().SelectedNode.Nodes[x - 1].ImageIndex = 0;
-
-                            ActiveTreeView().SelectedNode.Expand();
-                        }
+                        tNode = new TreeNode();
+                        tNode.Name = aAlbums[x];
+                        tNode.Text = aAlbums[x];
+                        tNode.ToolTipText = albumIds[x];
+                        ActiveTreeView().SelectedNode.Nodes.Add(tNode);
+                        ActiveTreeView().SelectedNode.Nodes[x].ImageIndex = 0;
+                        ActiveTreeView().SelectedNode.Expand();
                     }
                 }
             }
@@ -231,17 +217,64 @@ namespace XBMControl
             if (Settings.Default.playlistOpened) parent.Playlist.RefreshPlaylist();
         }
 
+        private void AddArtistSongsToPlaylist(string artistId, bool play)
+        {
+            this.TestConnectivity();
+            if (play) parent.XBMC.Playlist.Clear();
+
+            string[] songPaths = parent.XBMC.Database.GetPathsByArtistId(artistId);
+
+            if (songPaths != null)
+            {
+                for (int x = 0; x < songPaths.Length; x++)
+                    parent.XBMC.Playlist.AddFilesToPlaylist(songPaths[x]);
+
+                if (play) parent.XBMC.Playlist.PlaySong(0);
+            }
+
+            if (Settings.Default.playlistOpened) parent.Playlist.RefreshPlaylist();
+        }
+
+        private void AddAlbumSongsToPlaylist(string albumId, bool play)
+        {
+            this.TestConnectivity();
+            if (play) parent.XBMC.Playlist.Clear();
+
+            string[] songPaths = parent.XBMC.Database.GetPathsByAlbumId(albumId);
+
+            if (songPaths != null)
+            {
+                for (int x = 0; x < songPaths.Length; x++)
+                    parent.XBMC.Playlist.AddFilesToPlaylist(songPaths[x]);
+
+                if (play) parent.XBMC.Playlist.PlaySong(0);
+            }
+
+            if (Settings.Default.playlistOpened) parent.Playlist.RefreshPlaylist();
+        }
+
         private void AddFilesToPlaylist(bool play)
         {
             this.TestConnectivity();
+            string songPath = null;
 
-            if (play) parent.XBMC.Playlist.Clear();
+            if (ActiveListView().SelectedItems.Count > 0)
+            {
+                if (play) parent.XBMC.Playlist.Clear();
 
-            foreach (ListViewItem item in ActiveListView().SelectedItems)
-                parent.XBMC.Playlist.AddFilesToPlaylist(item.ToolTipText);
+                foreach (ListViewItem item in ActiveListView().SelectedItems)
+                {
+                    if (artistDirectorySelected || albumDirectorySelected)
+                        songPath = parent.XBMC.Database.GetPathBySongTitle(ActiveTreeView().SelectedNode.ToolTipText, item.Text, artistDirectorySelected);
+                    else
+                        songPath = item.ToolTipText;
 
-            if (play) parent.XBMC.Playlist.PlaySong(0);
-            if (Settings.Default.playlistOpened) parent.Playlist.RefreshPlaylist();
+                    parent.XBMC.Playlist.AddFilesToPlaylist(songPath);
+                }
+
+                if (play) parent.XBMC.Playlist.PlaySong(0);
+                if (Settings.Default.playlistOpened) parent.Playlist.RefreshPlaylist();
+            }
         }
 
         private void AddFilesToPlaylist()
@@ -254,14 +287,16 @@ namespace XBMControl
             this.PopulateDirectoryBrowser();
         }
 
-        private void tvMediaShares_AfterSelect(object sender, TreeViewEventArgs e)
-        {
-            this.PopulateSongBrowser();
+        private void PlaySelectedFiles(object sender, MouseEventArgs e)
+        { 
+            AddFilesToPlaylist(true);
+            parent.Playlist.RefreshPlaylist();
         }
 
-        private void lvDirectoryContent_MouseDoubleClick(object sender, MouseEventArgs e)
+        private void EnqueSelectedFiles(object sender, MouseEventArgs e)
         {
-            parent.XBMC.Controls.PlayMedia(lvDirectorySongs.Items[lvDirectorySongs.FocusedItem.Index].ToolTipText);
+            AddFilesToPlaylist();
+            parent.Playlist.RefreshPlaylist();
         }
 
         private void MediaBrowserF1_FormClosing(object sender, FormClosingEventArgs e)
@@ -270,93 +305,63 @@ namespace XBMControl
             this.Dispose();
         }
 
-        private void tvMediaShares_MouseDown(object sender, MouseEventArgs e)
-        {
-            ActiveTreeView().SelectedNode = ActiveTreeView().GetNodeAt(e.X, e.Y);
-
-            if (e.Button != MouseButtons.Right && ActiveTreeView().SelectedNode != null)
-            {
-                if (!ActiveTreeView().SelectedNode.IsExpanded)
-                {
-                    this.ExpandSharedDirectory();
-                    this.PopulateSongBrowser();
-                }
-            }
-        }
-
-        private void tvArtists_MouseUp(object sender, MouseEventArgs e)
-        {
-            ActiveTreeView().SelectedNode = ActiveTreeView().GetNodeAt(e.X, e.Y);
-
-            if (e.Button != MouseButtons.Right && ActiveTreeView().SelectedNode != null )
-            {
-                if (!ActiveTreeView().SelectedNode.IsExpanded)
-                {
-                    if (ActiveTreeView().SelectedNode.Parent == null)
-                        this.ExpandArtistDirectory(ActiveTreeView().SelectedNode.Text.ToString());
-                    else
-                        this.PopulateSongBrowser();
-                }
-            }
-        }
-
         private void tsiCollapseAll_Click(object sender, EventArgs e)
         {
-            tvMediaShares.CollapseAll();
+            ActiveTreeView().CollapseAll();
         }
 
         //START Playlis controls
         private void tsiPlayRecursive_Click(object sender, EventArgs e)
         {
-            this.AddDirectoryContentToPlaylist(true, false, true);
+            if (ActiveTab() == tabShares)
+                AddDirectoryContentToPlaylist(true, false, true);
+            else if (ActiveTab() == tabArtists && artistDirectorySelected)
+                AddArtistSongsToPlaylist(ActiveTreeView().SelectedNode.ToolTipText, true);
+            else if ((ActiveTab() == tabArtists && albumDirectorySelected) || ActiveTab() == tabSongs)
+                AddAlbumSongsToPlaylist(ActiveTreeView().SelectedNode.ToolTipText, true);
         }
 
         private void tsiEnqueueRecursive_Click(object sender, EventArgs e)
         {
-            this.AddDirectoryContentToPlaylist(false, true, true);
-        }
-
-        private void tsiEnqueueFiles_Click(object sender, EventArgs e)
-        {
-            this.AddFilesToPlaylist();
-            parent.Playlist.RefreshPlaylist();
-        }
-
-        private void tsiPlayFiles_Click(object sender, EventArgs e)
-        {
-            this.AddFilesToPlaylist(true);
-            parent.Playlist.RefreshPlaylist();
+            if (ActiveTab() == tabShares)
+                AddDirectoryContentToPlaylist(false, true, true);
+            else if (ActiveTab() == tabArtists && artistDirectorySelected)
+                AddArtistSongsToPlaylist(ActiveTreeView().SelectedNode.ToolTipText, false);
+            else if ((ActiveTab() == tabArtists && albumDirectorySelected) || ActiveTab() == tabAlbums)
+                AddAlbumSongsToPlaylist(ActiveTreeView().SelectedNode.ToolTipText, false);
         }
 
         private void tcMediaBrowser_SelectedIndexChanged(object sender, EventArgs e)
         {
-            this.PopulateDirectoryBrowser();
+            albumDirectorySelected = false;
+            artistDirectorySelected = false;
 
-            if (this.ActiveTab() == "tabArtists")
+            if (ActiveTab() != tabSongs)
+            {
+                if (ActiveTreeView().Nodes.Count == 0)
+                    PopulateDirectoryBrowser();
+            }
+
+            if (ActiveTab() == tabArtists)
                 tbSearchArtist.Focus();
+            else if (ActiveTab() == tabAlbums)
+                tbSearchAlbum.Focus();
+            else if (ActiveTab() == tabSongs)
+                tbSearchSong.Focus();
         }
         //END Playlist controls
 
         //START HOVER FOCUS
 
-        private void tvMediaShares_MouseHover(object sender, EventArgs e)
+        private void SetFocus(object sender, EventArgs e)
         {
-            tvMediaShares.Focus();
+            if (ActiveTreeView() != null)
+                ActiveTreeView().Focus();
         }
 
         private void cbShareType_MouseHover(object sender, EventArgs e)
         {
             cbShareType.Focus();
-        }
-
-        private void tvArtists_MouseHover(object sender, EventArgs e)
-        {
-            tvArtists.Focus();
-        }
-
-        private void tvAlbums_MouseHover(object sender, EventArgs e)
-        {
-            tvAlbums.Focus();
         }
 
         private void tbSearchArtist_TextChanged(object sender, EventArgs e)
@@ -371,6 +376,92 @@ namespace XBMControl
             this.PopulateDirectoryBrowser(searchString);
         }
 
+        private void tsiRefresh_Click(object sender, EventArgs e)
+        {
+            this.PopulateDirectoryBrowser();
+        }
+
+        private void SetTreeViewSelection(object sender, MouseEventArgs e)
+        {
+            ActiveTreeView().SelectedNode = ActiveTreeView().GetNodeAt(e.X, e.Y);
+            rightClick = (e.Button == MouseButtons.Right) ? true : false;
+
+            if (ActiveTreeView().SelectedNode == null)
+            {
+                albumDirectorySelected = false;
+                artistDirectorySelected = false;
+            }
+            else if (ActiveTreeView().SelectedNode.Parent != null && ActiveTab() == tabArtists)
+            {
+                albumDirectorySelected = true;
+                artistDirectorySelected = false;
+            }
+            else if (ActiveTab() == tabArtists || ActiveTab() == tabAlbums)
+            {
+                albumDirectorySelected = false;
+                artistDirectorySelected = true;
+            }
+        }
+
+        private void ShowSongs(object sender, MouseEventArgs e)
+        {
+            if (!rightClick && ActiveTreeView().SelectedNode != null)
+            {
+                if (!ActiveTreeView().SelectedNode.IsExpanded && ActiveTab() != tabAlbums)
+                {
+                    if (ActiveTab() == tabShares)
+                        ExpandSharedDirectory();
+                    else if (ActiveTab() == tabArtists && artistDirectorySelected)
+                        ExpandArtistDirectory();
+                }
+
+                if (ActiveTreeView().SelectedNode.Nodes.Count == 0 || ActiveTab() == tabShares)
+                    PopulateSongBrowser();
+            }
+        }
+
+        private void UpdateMusicLibrary(object sender, EventArgs e)
+        {
+            MessageBox.Show("XBMC will now start updating your music library.\nThis will take a while, depending on the amount of files to be indexed!");
+            parent.XBMC.Controls.UpdateLibrary("music");
+        }
+
+        private void UpdateVideoLibrary(object sender, EventArgs e)
+        {
+            MessageBox.Show("XBMC will now start updating your music library.\nThis will take a while, depending on the amount of files to be indexed!");
+            parent.XBMC.Controls.UpdateLibrary("video");
+        }
+
+        private void cmsFolder_Opening(object sender, CancelEventArgs e)
+        {
+            if (ActiveTreeView().SelectedNode == null)
+                e.Cancel = true;
+        }
+
+        private void cmsSongs_Opening(object sender, CancelEventArgs e)
+        {
+            if (ActiveListView().SelectedItems.Count == 0)
+                e.Cancel = true;
+        }
+
+        private void bSearchSong_Click(object sender, EventArgs e)
+        {
+            if (tbSearchSong.Text.Length < 3)
+                MessageBox.Show("At least 3 characters have to be entered. Otherwise you'll have to wait ages before you'll see any results.\nIt might still take a while though before you see the requested result, depending on the size of your music database.");
+            else
+            {
+                if (tbSearchSong.Text == "")
+                    lvSongs.Items.Clear();
+                else
+                    PopulateSongBrowser();
+            }
+        }
+
+        private void tbSearchSong_KeyUp(object sender, KeyEventArgs e)
+        {
+            if (e.KeyData == Keys.Enter)
+                bSearchSong_Click(null, null);
+        }
         //END HOVER FOCUS
     }
 }

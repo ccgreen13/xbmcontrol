@@ -70,9 +70,9 @@ namespace XBMControl
         private void timer1_Tick(object sender, EventArgs e)
         {
             if (connectedToXbmc)
-                this.GetCurrentVolume();
+                GetCurrentVolume();
             else
-                this.Close();
+                Close();
 
             if (parent.XBMC.Status.IsMuted()) bMute.BackgroundImage = Resources.button_mute_click;
         }

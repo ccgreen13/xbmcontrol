@@ -277,6 +277,27 @@ namespace XBMControl.Properties {
             }
         }
         
+        internal static System.Drawing.Bitmap button_playlist {
+            get {
+                object obj = ResourceManager.GetObject("button_playlist", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap button_playlist_click {
+            get {
+                object obj = ResourceManager.GetObject("button_playlist_click", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap button_playlist_hover {
+            get {
+                object obj = ResourceManager.GetObject("button_playlist_hover", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
         internal static System.Drawing.Bitmap button_previous {
             get {
                 object obj = ResourceManager.GetObject("button_previous", resourceCulture);

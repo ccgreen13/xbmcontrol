@@ -42,14 +42,14 @@ namespace XBMControl
 
             if (parent.XBMC.Status.IsConnected())
             {
-                string surrentPlaylistType = (parent.XBMC.NowPlaying.GetMediaType() == "Video") ? "video" : "";
-                parent.XBMC.Playlist.Set(surrentPlaylistType);
+                string currentPlaylistType = (parent.XBMC.NowPlaying.GetMediaType() == "Video") ? "video" : "";
+                parent.XBMC.Playlist.Set(currentPlaylistType);
 
                 string[] aPlaylistEntries = parent.XBMC.Playlist.Get(true);
 
                 if (aPlaylistEntries != null)
                 {
-                    for (int x = 1; x < aPlaylistEntries.Length; x++)
+                    for (int x = 0; x < aPlaylistEntries.Length; x++)
                     {
                         if (aPlaylistEntries[x] != "")
                             lbPlaylist.Items.Add(x + ". " + aPlaylistEntries[x]);
@@ -83,7 +83,7 @@ namespace XBMControl
             if (parent.XBMC.Status.IsConnected())
             {
                 string[] aPlaylistEntry = parent.XBMC.Request("GetPlaylistSong(" + lbPlaylist.SelectedIndex + ")");
-                return (aPlaylistEntry != null) ? aPlaylistEntry[1] : null;
+                return (aPlaylistEntry != null) ? aPlaylistEntry[0] : null;
             }
             else
             {

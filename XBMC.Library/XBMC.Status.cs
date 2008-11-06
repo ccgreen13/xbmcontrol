@@ -20,6 +20,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Windows.Forms;
 
 namespace XBMC
 {
@@ -38,10 +39,14 @@ namespace XBMC
         private int progress = 1;
         private string mediaNowPlaying = null;
         private bool newMediaPlaying = true;
+        private Timer heartBeatTimer = null;
 
         public XBMC_Status(XBMC_Communicator p)
         {
             parent = p;
+            heartBeatTimer = new Timer();
+            heartBeatTimer.Interval = 1000;
+            heartBeatTimer.Tick += new EventHandler(HeartBeat_Tick);
         }
 
         public void Refresh()
@@ -68,43 +73,49 @@ namespace XBMC
                 string[] aVolume = parent.Request("GetVolume");
                 string[] aProgress = parent.Request("GetPercentage");
 
-                if (aVolume == null)
+                if (aVolume == null || aVolume[0] == "Error")
                     volume = 0;
-                else if (aVolume.Length > 1)
-                    volume = (aVolume[1] == null || aVolume[1] == "Error") ? 0 : Convert.ToInt32(aVolume[1]);
                 else
-                    volume = 0;
+                    volume = Convert.ToInt32(aVolume[0]);
 
-                if (aProgress == null)
+                if (aProgress == null || aProgress[0] == "Error" || aProgress[0] == "0" || Convert.ToInt32(aProgress[0]) > 99)
                     progress = 1;
-                else if (aProgress.Length > 1)
-                    progress = (aProgress[1] == null || aProgress[1] == "Error" || aProgress[1] == "0" || Convert.ToInt32(aProgress[1]) > 99) ? 1 : Convert.ToInt32(aProgress[1]);
                 else
-                    progress = 1;
+                    progress = Convert.ToInt32(aProgress[0]);
 
                 isMuted = (volume == 0) ? true : false;
             }
         }
 
+        private void HeartBeat_Tick(object sender, EventArgs e)
+        {
+            isConnected = parent.Controls.SetResponseFormat();
+        }
+
         public bool IsConnected()
         {
-            string ip = parent.GetXbmcIp();
-            if (ip != null && ip != "")
-                parent.Request("SetResponseFormat", null, ip);
-            else
-                isConnected = false;
-
             return isConnected;
+        }
+
+        public void EnableHeartBeat()
+        {
+            HeartBeat_Tick(null, null);
+            heartBeatTimer.Enabled = true;
+        }
+
+        public void DisableHeartBeat()
+        {
+            heartBeatTimer.Enabled = false;
         }
 
         public bool WebServerEnabled()
         {
-            string[] webserverEnabled = parent.Request("WebServerStatus()");
+            string[] webserverEnabled = parent.Request("WebServerStatus");
 
             if (webserverEnabled == null)
                 return false;
             else
-                return (webserverEnabled[1] == "On") ? true : false;
+                return (webserverEnabled[0] == "On") ? true : false;
         }
 
         public bool IsNewMediaPlaying()
@@ -155,7 +166,7 @@ namespace XBMC
             if (aLastFmUsername == null || aLastFmPassword == null)
                 return false;
             else
-                return (aLastFmUsername[1] == "" || aLastFmPassword[1] == "") ? false : true;
+                return (aLastFmUsername[0] == "" || aLastFmPassword[0] == "") ? false : true;
         }
 
         public bool RepeatEnabled()
@@ -164,7 +175,7 @@ namespace XBMC
             if (aRepeatEnabled == null)
                 return false;
             else
-                return (aRepeatEnabled[1] == "False") ? false : true;
+                return (aRepeatEnabled[0] == "False") ? false : true;
         }
     }
 }

@@ -169,9 +169,6 @@
   <data name="lastfm_hate5" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\lastfm_hate5.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="button_mute" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\button_mute.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
   <data name="close" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\close.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
@@ -187,8 +184,8 @@
   <data name="image-16x16" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\image-16x16.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="mute-24x24" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\mute-24x24.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="button_pause_click" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\button_pause_click.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="folder-16x16" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\folder-16x16.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -331,6 +328,9 @@
   <data name="play" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\play.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="lastfm_hate" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\lastfm_hate.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="toolbar" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\toolbar.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
@@ -342,6 +342,9 @@
   </data>
   <data name="button_shuffle" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\button_shuffle.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="button_playlist" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\button_playlist.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="button_open" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\button_open.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -367,11 +370,11 @@
   <data name="lastfm_hate2" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\lastfm_hate2.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="mute-24x24" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\mute-24x24.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="lastfm1" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\lastfm1.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="lastfm_hate" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\lastfm_hate.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="button_play_click" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\button_play_click.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -381,6 +384,9 @@
   </data>
   <data name="button_mute_hover" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\button_mute_hover.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="button_clear" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\button_clear.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="lastfm_hate4" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\lastfm_hate4.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -397,8 +403,8 @@
   <data name="button_stop" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\button_stop.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="button_pause_click" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\button_pause_click.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="button_mute" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\button_mute.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="stop-16x16" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\stop-16x16.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -421,7 +427,10 @@
   <data name="pictures-32x32" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\pictures-32x32.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="button_clear" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\button_clear.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="button_playlist_hover" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\button_playlist_hover.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="button_playlist_click" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\button_playlist_click.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
 </root>

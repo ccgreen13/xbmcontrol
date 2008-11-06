@@ -22,6 +22,7 @@ using System.Linq;
 using System.Text;
 using System.Drawing;
 using System.IO;
+using System.Windows.Forms;
 
 namespace XBMC
 {
@@ -170,6 +171,28 @@ namespace XBMC
                 screenshot = this.Base64StringToImage(base64ImageString);
 
             return screenshot;
+        }
+
+        public void UpdateLibrary(string library)
+        {
+            if(library == "music" || library == "video")
+                parent.Request("ExecBuiltIn", "updatelibrary(" + library + ")");
+        }
+
+        public bool SetResponseFormat()
+        {
+            string[] aResult = null;
+            string ip = parent.GetIp();
+
+            if (ip != null && ip != "")
+                aResult = parent.Request("SetResponseFormat", null, ip);
+
+            if (aResult == null)
+                return false;
+            else
+            {
+                return (aResult[0] == "OK") ? true : false;
+            }
         }
     }
 }

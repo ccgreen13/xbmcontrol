@@ -312,6 +312,9 @@
     <None Include="Resources\button_partymode_hover.png" />
     <None Include="Resources\button_partymode_click.png" />
     <None Include="Resources\button_clear.png" />
+    <None Include="Resources\button_playlist.png" />
+    <None Include="Resources\button_playlist_hover.png" />
+    <None Include="Resources\button_playlist_click.png" />
     <Content Include="XBMC.ico" />
     <Content Include="Xbox.ico" />
   </ItemGroup>
