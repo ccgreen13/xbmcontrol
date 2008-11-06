@@ -35,8 +35,8 @@ namespace XBMControl.Language
 
         public XBMCLanguage()
         {
-            this.languageFile   = new XmlDocument();
-            this.languageDir    = new DirectoryInfo(Path.GetDirectoryName(Application.ExecutablePath).ToString() + "\\language\\");
+            languageFile   = new XmlDocument();
+            languageDir    = new DirectoryInfo(Path.GetDirectoryName(Application.ExecutablePath).ToString() + "\\language\\");
         }
 
         public string[] GetAvailableLanguages()
@@ -53,14 +53,14 @@ namespace XBMControl.Language
 
         public void SetLanguage(string language)
         {
-            this.languageFilePath = "language/" + language + ".xml";
-            this.languageFile.Load(languageFilePath);
+            languageFilePath = languageDir + language + ".xml";
+            languageFile.Load(languageFilePath);
         }
 
         public string GetString(string node)
         {
-            this.languageNode = this.languageFile.DocumentElement.SelectSingleNode("/language/" + node);
-            return this.languageNode.InnerText.Replace("\\n", "\n");
+            languageNode = languageFile.DocumentElement.SelectSingleNode("/language/" + node);
+            return languageNode.InnerText.Replace("\\n", "\n");
         }
     }
 }
