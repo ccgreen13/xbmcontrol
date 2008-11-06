@@ -49,8 +49,9 @@ namespace XBMControl
         internal bool shareBrowserOpened = false;
         internal bool volumeControlOpened = false;
 
-        private const int updateIntervalShort   = 1000;
-        private const int updateIntervalLong    = 20000; 
+        private int updateTimerConnected = 1000;
+        private int updateTimerDisconnected = 10000;
+
         private string[,] maNowPlayingInfo      = new string[50, 2];
 
         private bool playStatusMessageShowed    = false;
@@ -87,10 +88,7 @@ namespace XBMControl
                     this.Dispose();
                 }
                 else
-                {
-                    updateTimer.Interval = updateIntervalShort;
                     updateTimer.Enabled = true;
-                }
             }
             else
             {
@@ -99,7 +97,6 @@ namespace XBMControl
                 else
                     MessageBox.Show(Language.GetString("mainform/dialog/unableToConnect"), Language.GetString("mainform/dialog/unableToConnectTitle"));
 
-                updateTimer.Interval = updateIntervalLong;
                 updateTimer.Enabled = false;
                 ShowConfigurationForm();
             }
@@ -172,9 +169,11 @@ namespace XBMControl
 
             if (this.XBMC.Status.IsConnected())
             {
+                updateTimer.Interval = updateTimerConnected;
+                updateTimer.Enabled = true;
+
                 this.XBMC.Status.Refresh();
                 SetControlsEnabled(true);
-                updateTimer.Interval = updateIntervalShort;
                 tbProgress.Value = this.XBMC.Status.GetProgress();
                 tbVolume.Value = this.XBMC.Status.GetVolume();
                 SetNowPlayingTimePlayed(resetToDefault);
@@ -192,24 +191,27 @@ namespace XBMControl
                 bLastFmHate.Visible = (XBMC.Status.IsPlaying("lastfm")) ? true : false;
                 bLastFmLove.Visible = (XBMC.NowPlaying.GetMediaType() == "Audio") ? true : false;
                 bPlaylist.BackgroundImage = (Settings.Default.playlistOpened && Playlist != null) ? Resources.button_playlist_click : Resources.button_playlist ;
+
+                if (Settings.Default.playlistOpened && Playlist == null)
+                    this.cmsViewPlaylist_Click(null, null);
             }
             else
             {
-                if (MessageBox.Show("Do you want to close XBMControl?", this.Language.GetString("mainform/dialog/unableToConnectTitle"), MessageBoxButtons.OKCancel) == DialogResult.OK)
-                    this.Dispose();
-                else
-                {
-                    SetControlsEnabled(false);
-                    this.ShowConnectionInfo();
-                    bPause.BackgroundImage = Resources.button_pause;
-                    bPlay.BackgroundImage = Resources.button_play;
-                    bMute.BackgroundImage = Resources.button_mute;
-                    updateTimer.Interval = updateIntervalLong;
-                }
-            }
+                updateTimer.Interval = updateTimerDisconnected;
+                updateTimer.Enabled = true;
 
-            if (Settings.Default.playlistOpened && Playlist == null && this.XBMC.Status.IsConnected())
-                this.cmsViewPlaylist_Click(null, null);
+                SetControlsEnabled(false);
+                this.ShowConnectionInfo();
+                ShowNowPlayingInfo(resetToDefault);
+                SetNowPlayingTimePlayed(resetToDefault);
+                SetMediaTypeImage();
+                bPause.BackgroundImage = Resources.button_pause;
+                bPlay.BackgroundImage = Resources.button_play;
+                bMute.BackgroundImage = Resources.button_mute;
+
+                if (Playlist != null)
+                    Playlist.Hide();
+            }
         }
 
         private void updateTimer_Tick(object sender, EventArgs e)
