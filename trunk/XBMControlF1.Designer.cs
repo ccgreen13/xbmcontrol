@@ -657,7 +657,7 @@
             this.bPlaylist.Name = "bPlaylist";
             this.bPlaylist.Size = new System.Drawing.Size(16, 15);
             this.bPlaylist.TabIndex = 26;
-            this.toolTip1.SetToolTip(this.bPlaylist, "\'Party Mode\' on/off");
+            this.toolTip1.SetToolTip(this.bPlaylist, "Show Playlist");
             this.bPlaylist.UseVisualStyleBackColor = false;
             this.bPlaylist.MouseLeave += new System.EventHandler(this.bPlaylist_MouseLeave);
             this.bPlaylist.MouseDown += new System.Windows.Forms.MouseEventHandler(this.bPlaylist_MouseDown);
