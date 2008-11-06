@@ -267,7 +267,7 @@ namespace XBMC
                 if (aFileNames != null)
                 {
                     aPaths = new string[aFileNames.Length];
-                    for (int x = 1; x < aFileNames.Length; x++)
+                    for (int x = 0; x < aFileNames.Length; x++)
                         aPaths[x] =  GetPathById(aSongPathIds[x]) + aFileNames[x];
                 }
             }

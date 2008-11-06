@@ -40,12 +40,14 @@ namespace XBMC
         private string mediaNowPlaying = null;
         private bool newMediaPlaying = true;
         private Timer heartBeatTimer = null;
+        private int connectedInterval = 3000;
+        private int disconnectedInterval = 10000;
 
         public XBMC_Status(XBMC_Communicator p)
         {
             parent = p;
             heartBeatTimer = new Timer();
-            heartBeatTimer.Interval = 1000;
+            heartBeatTimer.Interval = connectedInterval;
             heartBeatTimer.Tick += new EventHandler(HeartBeat_Tick);
         }
 
@@ -90,6 +92,7 @@ namespace XBMC
         private void HeartBeat_Tick(object sender, EventArgs e)
         {
             isConnected = parent.Controls.SetResponseFormat();
+            heartBeatTimer.Interval = (isConnected) ? connectedInterval : disconnectedInterval;
         }
 
         public bool IsConnected()
