@@ -1,6 +1,4 @@
 #labels Featured,Phase-Deploy
-#How to enable and configure the XBMC webserver.
-
 ==XBMC Webserver configuration==
 In XBMC go to "Settings" -> "Network". One of the options presented is "Server" (second option with the PMIII skin) where you can enable/disable the "Webserver". The webserver must be enabled to be able to use XBMControl.
 
