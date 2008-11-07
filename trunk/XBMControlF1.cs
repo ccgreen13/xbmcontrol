@@ -68,6 +68,7 @@ namespace XBMControl
             Language = new XBMCLanguage();
             XBMC = new XBMC_Communicator();
             XBMC.SetIp(Settings.Default.Ip);
+            XBMC.SetConnectionTimeout(Settings.Default.ConnectionTimeout);
             XBMC.SetCredentials(Settings.Default.Username, Settings.Default.Password);
             InitializeComponent();
             ApplySettings();
@@ -124,6 +125,9 @@ namespace XBMControl
 
         internal void ApplySettings()
         {
+            XBMC.SetIp(Settings.Default.Ip);
+            XBMC.SetConnectionTimeout(Settings.Default.ConnectionTimeout);
+            XBMC.SetCredentials(Settings.Default.Username, Settings.Default.Password);
             Language.SetLanguage(Settings.Default.Language);
             notifyIcon1.Visible = Settings.Default.ShowInSystemTray;
             this.Visible = Settings.Default.ShowInTaskbar;
@@ -165,17 +169,17 @@ namespace XBMControl
 //START Timer events
         internal void UpdateData()
         {
-            resetToDefault = (!this.XBMC.Status.IsConnected() || this.XBMC.Status.IsNotPlaying()) ? true : false;
+            resetToDefault = (!XBMC.Status.IsConnected() || XBMC.Status.IsNotPlaying()) ? true : false;
 
-            if (this.XBMC.Status.IsConnected())
+            if (XBMC.Status.IsConnected())
             {
                 updateTimer.Interval = updateTimerConnected;
                 updateTimer.Enabled = true;
 
-                this.XBMC.Status.Refresh();
+                XBMC.Status.Refresh();
                 SetControlsEnabled(true);
-                tbProgress.Value = this.XBMC.Status.GetProgress();
-                tbVolume.Value = this.XBMC.Status.GetVolume();
+                tbProgress.Value = XBMC.Status.GetProgress();
+                tbVolume.Value = XBMC.Status.GetVolume();
                 SetNowPlayingTimePlayed(resetToDefault);
                 GetNowPlayingSongInfo(resetToDefault);
                 ShowNowPlayingInfo(resetToDefault);
@@ -230,6 +234,12 @@ namespace XBMControl
         private void MainForm_Load(object sender, EventArgs e)
         {
             this.Visible = Settings.Default.ShowInTaskbar;
+            if (Settings.Default.playlistOpened && Playlist != null && !Settings.Default.StartMinimized)
+            {
+                Playlist.Show();
+                Playlist.Focus();
+                this.Focus();
+            }
         }
 
         private void ToggleShowDetails()
@@ -637,13 +647,23 @@ namespace XBMControl
         {
             if (this.WindowState == System.Windows.Forms.FormWindowState.Normal)
             {
-                this.WindowState    = System.Windows.Forms.FormWindowState.Minimized;
+                this.WindowState    = FormWindowState.Minimized;
                 this.Visible        = Settings.Default.ShowInTaskbar;
+
+                if (Settings.Default.playlistOpened && Playlist != null)
+                    Playlist.Hide();
             }
             else
             {
                 this.Visible        = true;
-                this.WindowState    = System.Windows.Forms.FormWindowState.Normal;
+                this.WindowState    = FormWindowState.Normal;
+
+                if (Settings.Default.playlistOpened && Playlist != null)
+                {
+                    Playlist.Show();
+                    Playlist.Focus();
+                    this.Focus();
+                }
             }
         }
 //END Notify icon events
@@ -965,7 +985,15 @@ namespace XBMControl
         private void bPlaylist_MouseUp(object sender, MouseEventArgs e)
         {
             bPlaylist.BackgroundImage = Resources.button_playlist_hover;
-            cmsViewPlaylist_Click(null, null);
+
+            if (Settings.Default.playlistOpened && Playlist != null)
+            {
+                Playlist.Show();
+                Playlist.Focus();
+                this.Focus();
+            }
+            else
+                cmsViewPlaylist_Click(null, null);
         }
 //END PLAYLIST BUTTON
 

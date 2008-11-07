@@ -22,9 +22,7 @@ using System.Linq;
 using System.Text;
 using System.Net;
 using System.IO;
-using XBMControl.Properties;
 using System.Windows.Forms;
-using System.Collections;
 
 namespace XBMC
 {
@@ -42,6 +40,7 @@ namespace XBMC
         private string xbmcPassword = null;
         private string apiPath = "/xbmcCmds/xbmcHttp";
         private string logFile = "log/xbmcontrol.log";
+        private int connectionTimeout = 2000;
 
         public XBMC_Communicator()
         {
@@ -75,7 +74,7 @@ namespace XBMC
             {
                 request = (HttpWebRequest)HttpWebRequest.Create(uri);
                 request.Method = "GET";
-                request.Timeout = XBMControl.Properties.Settings.Default.ConnectionTimeout;
+                request.Timeout = connectionTimeout;
                 if (xbmcUsername != "" && xbmcPassword != "") request.Credentials = new NetworkCredential(xbmcUsername, xbmcPassword);
                 response = (HttpWebResponse)request.GetResponse();
                 reader = new StreamReader(response.GetResponseStream(), Encoding.UTF8);
@@ -161,6 +160,11 @@ namespace XBMC
         {
             xbmcUsername = username;
             xbmcPassword = password;
+        }
+
+        public void SetConnectionTimeout(int timeOut)
+        {
+            connectionTimeout = timeOut;
         }
     }
 }
