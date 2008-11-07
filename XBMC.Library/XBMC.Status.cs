@@ -40,7 +40,7 @@ namespace XBMC
         private string mediaNowPlaying = null;
         private bool newMediaPlaying = true;
         private Timer heartBeatTimer = null;
-        private int connectedInterval = 3000;
+        private int connectedInterval = 5000;
         private int disconnectedInterval = 10000;
 
         public XBMC_Status(XBMC_Communicator p)
