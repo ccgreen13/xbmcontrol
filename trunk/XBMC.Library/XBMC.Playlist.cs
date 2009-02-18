@@ -1,6 +1,7 @@
 ﻿// ------------------------------------------------------------------------
 //    XBMControl - A compact remote controller for XBMC (.NET 3.5)
 //    Copyright (C) 2008  Bram van Oploo (bramvano@gmail.com)
+//                        Mike Thiels (Mike.Thiels@gmail.com)
 //
 //    This program is free software: you can redistribute it and/or modify
 //    it under the terms of the GNU General Public License as published by
@@ -33,12 +34,14 @@ namespace XBMC
             parent = p;
         }
 
-        public string[] Get(bool refresh)
+        public string[] Get(bool parse, bool refresh)
         {
             if (refresh)
             {
                 string[] aPlaylistTemp = parent.Request("GetPlaylistContents(GetCurrentPlaylist)");
 
+                if (parse == true)
+                {
                 if (aPlaylistTemp != null)
                 {
                     aCurrentPlaylist = new string[aPlaylistTemp.Length];
@@ -48,6 +51,7 @@ namespace XBMC
                         if (i > 1)
                         {
                             string extension = aPlaylistTemp[x].Substring(i, aPlaylistTemp[x].Length - i);
+                                aPlaylistTemp[x] = aPlaylistTemp[x].Replace("\\", "/");
                             string[] aPlaylistEntry = aPlaylistTemp[x].Split('/');
                             string playlistEntry = aPlaylistEntry[aPlaylistEntry.Length - 1].Replace(extension, "");
                             aCurrentPlaylist[x] = playlistEntry;
@@ -55,6 +59,11 @@ namespace XBMC
                         else
                             aCurrentPlaylist[x] = "";
                     }
+                    }
+                }
+                else
+                {
+                    aCurrentPlaylist = aPlaylistTemp;
                 }
             }
 

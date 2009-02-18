@@ -60,6 +60,8 @@ namespace XBMControl
                 activeTreeView = tvAlbums;
             else if (tabName == "tabSongs")
                 activeTreeView = null;
+            else if (tabName == "tabVideos")
+                activeTreeView = null;
 
             return activeTreeView;
         }
@@ -77,6 +79,8 @@ namespace XBMControl
                 activeListView = lvAlbumSongs;
             else if (tabName == "tabSongs")
                 activeListView = lvSongs;
+            else if (tabName == "tabVideos")
+                activeListView = lvVideos;
 
             return activeListView;
         }
@@ -164,6 +168,38 @@ namespace XBMControl
             }
         }
 
+        private void PopulateVideoBrowser()
+        {
+            PopulateVideoBrowser(null);
+        }
+
+        private void PopulateVideoBrowser(string searchString)
+        {
+            this.TestConnectivity();
+
+            string[] aTitles = null;
+            string[] aYears = null;
+            string[] aIMDB_ID = null;
+            ListViewItem itemName;
+
+            ActiveListView().Items.Clear();
+
+            aTitles = parent.XBMC.Video.GetVideoNames(searchString);
+            aYears = parent.XBMC.Video.GetVideoYears(searchString);
+            aIMDB_ID = parent.XBMC.Video.GetVideoIMDB(searchString);
+            if (aTitles != null)
+            {
+                for (int x = 0; x < aTitles.Length; x++)
+                {
+                    itemName = new ListViewItem(aTitles[x]);
+                    itemName.SubItems.Add(aYears[x]);
+                    itemName.SubItems.Add(aIMDB_ID[x]);
+                    this.lvVideos.Items.Add(itemName);
+
+                }
+            }
+        }
+
         private void ExpandSharedDirectory()
         {
             this.TestConnectivity();
@@ -178,7 +214,7 @@ namespace XBMControl
                 {
                     for (int x = 0; x < aDirectoryContentPaths.Length; x++)
                     {
-                        if (aDirectoryContentPaths[x] != null)
+                        if (aDirectoryContentPaths[x] != null && aDirectoryContentPaths[x] != "")
                         {
                             tNode = new TreeNode();
                             tNode.Name = aDirectoryContentNames[x];
@@ -286,6 +322,8 @@ namespace XBMControl
                         songPath = parent.XBMC.Database.GetPathBySongTitle(ActiveTreeView().SelectedNode.ToolTipText, item.Text, false);
                     else if (artistDirectorySelected)
                         songPath = parent.XBMC.Database.GetPathBySongTitle(ActiveTreeView().SelectedNode.ToolTipText, item.Text, true);
+                    else if (ActiveTab() == tabVideos)
+                        songPath = parent.XBMC.Video.GetVideoPath(item.Text);
                     else
                         songPath = item.ToolTipText;
 
@@ -317,6 +355,18 @@ namespace XBMControl
         {
             AddFilesToPlaylist();
             parent.Playlist.RefreshPlaylist();
+        }
+
+        private void InfoSelectedFiles(object sender, MouseEventArgs e)
+        {
+            string videoID;
+
+            if (!parent.videoInfoOpened)
+            {
+                videoID = lvVideos.Items[lvVideos.FocusedItem.Index].SubItems[2].Text;
+                parent.videoInfoForm = new videoInfoF1(parent, videoID);
+                parent.videoInfoForm.Show();
+            }
         }
 
         private void MediaBrowserF1_FormClosing(object sender, FormClosingEventArgs e)
@@ -356,10 +406,15 @@ namespace XBMControl
             albumDirectorySelected = false;
             artistDirectorySelected = false;
 
-            if (ActiveTab() != tabSongs)
+            if (ActiveTab() != tabSongs && ActiveTab() != tabVideos)
             {
                 if (ActiveTreeView().Nodes.Count == 0)
                     PopulateDirectoryBrowser();
+            }
+
+            if (ActiveTab() == tabVideos)
+            {
+                PopulateVideoBrowser();
             }
 
             if (ActiveTab() == tabArtists)
@@ -368,6 +423,8 @@ namespace XBMControl
                 tbSearchAlbum.Focus();
             else if (ActiveTab() == tabSongs)
                 tbSearchSong.Focus();
+            else if (ActiveTab() == tabVideos)
+                tbSearchVideo.Focus();
         }
         //END Playlist controls
 
@@ -394,6 +451,12 @@ namespace XBMControl
         {
             string searchString = (tbSearchAlbum.Text == "") ? null : tbSearchAlbum.Text;
             this.PopulateDirectoryBrowser(searchString);
+        }
+
+        private void tbSearchVideo_TextChanged(object sender, EventArgs e)
+        {
+            string searchString = (tbSearchVideo.Text == "") ? null : tbSearchVideo.Text;
+            this.PopulateVideoBrowser(searchString);
         }
 
         private void tsiRefresh_Click(object sender, EventArgs e)
@@ -481,6 +544,12 @@ namespace XBMControl
         {
             if (e.KeyData == Keys.Enter)
                 bSearchSong_Click(null, null);
+        }
+
+        private void tbSearchVideo_TextChanged_1(object sender, EventArgs e)
+        {
+            string searchString = (tbSearchVideo.Text == "") ? null : tbSearchVideo.Text;
+            this.PopulateVideoBrowser(searchString);
         }
         //END HOVER FOCUS
     }

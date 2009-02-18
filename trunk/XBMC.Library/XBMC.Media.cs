@@ -1,6 +1,7 @@
 ﻿// ------------------------------------------------------------------------
 //    XBMControl - A compact remote controller for XBMC (.NET 3.5)
 //    Copyright (C) 2008  Bram van Oploo (bramvano@gmail.com)
+//                        Mike Thiels (Mike.Thiels@gmail.com)
 //
 //    This program is free software: you can redistribute it and/or modify
 //    it under the terms of the GNU General Public License as published by
@@ -97,10 +98,11 @@ namespace XBMC
 
                 for (int x = 0; x < aContentPaths.Length; x++)
                 {
-                    if (aContentPaths[x] == null)
+                    if (aContentPaths[x] == null || aContentPaths[x] == "")
                         aContentNames[x] = null;
                     else
                     {
+                        aContentPaths[x] = aContentPaths[x].Replace("\\", "/");
                         string[] aTmpContent = aContentPaths[x].Split('/');
                         aContentNames[x] = (aTmpContent[aTmpContent.Length - 1] == "") ? aTmpContent[aTmpContent.Length - 2] : aTmpContent[aTmpContent.Length - 1];
                     }

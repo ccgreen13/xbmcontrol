@@ -1,6 +1,7 @@
 ﻿// ------------------------------------------------------------------------
 //    XBMControl - A compact remote controller for XBMC (.NET 3.5)
 //    Copyright (C) 2008  Bram van Oploo (bramvano@gmail.com)
+//                        Mike Thiels (Mike.Thiels@gmail.com)
 //
 //    This program is free software: you can redistribute it and/or modify
 //    it under the terms of the GNU General Public License as published by
@@ -67,10 +68,14 @@ namespace XBMC
                 isPaused = (parent.NowPlaying.Get("playstatus", true) == "Paused") ? true : false;
                 isNotPlaying = (mediaNowPlaying == "[Nothing Playing]" || mediaNowPlaying == null) ? true : false;
 
-                if (mediaNowPlaying == null || isNotPlaying)
+                if (mediaNowPlaying == null || isNotPlaying || mediaNowPlaying.Length < 6)
+                {
                     isPlayingLastFm = false;
+                }
                 else
+                {
                     isPlayingLastFm = (mediaNowPlaying.Substring(0, 6) == "lastfm") ? true : false;
+                }
 
                 string[] aVolume = parent.Request("GetVolume");
                 string[] aProgress = parent.Request("GetPercentage");

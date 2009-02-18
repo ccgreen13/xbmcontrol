@@ -68,6 +68,20 @@
             this.bSearchSong = new System.Windows.Forms.Button();
             this.lvSongs = new System.Windows.Forms.ListView();
             this.tbSearchSong = new System.Windows.Forms.TextBox();
+            this.tabVideos = new System.Windows.Forms.TabPage();
+            this.lvVideos = new System.Windows.Forms.ListView();
+            this.nameVideo = new System.Windows.Forms.ColumnHeader();
+            this.yearVideo = new System.Windows.Forms.ColumnHeader();
+            this.IMDB_ID = new System.Windows.Forms.ColumnHeader();
+            this.tbSearchVideo = new System.Windows.Forms.TextBox();
+            this.cmsVideo = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.tsiPlayVideo = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsiEnqueueVideo = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsiInfoVideo = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator4 = new System.Windows.Forms.ToolStripSeparator();
+            this.tsiUpdateLibrary3 = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem4 = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem5 = new System.Windows.Forms.ToolStripMenuItem();
             this.cmsFolder.SuspendLayout();
             this.cmsSongs.SuspendLayout();
             this.tcMediaBrowser.SuspendLayout();
@@ -84,6 +98,8 @@
             this.splitContainer3.Panel2.SuspendLayout();
             this.splitContainer3.SuspendLayout();
             this.tabSongs.SuspendLayout();
+            this.tabVideos.SuspendLayout();
+            this.cmsVideo.SuspendLayout();
             this.SuspendLayout();
             // 
             // cmsFolder
@@ -179,7 +195,7 @@
             this.toolStripSeparator3,
             this.tsiUpdateLibrary2});
             this.cmsSongs.Name = "cmsFiles";
-            this.cmsSongs.Size = new System.Drawing.Size(154, 98);
+            this.cmsSongs.Size = new System.Drawing.Size(154, 76);
             this.cmsSongs.Opening += new System.ComponentModel.CancelEventHandler(this.cmsSongs_Opening);
             // 
             // tsiPlayFiles
@@ -233,6 +249,7 @@
             this.tcMediaBrowser.Controls.Add(this.tabArtists);
             this.tcMediaBrowser.Controls.Add(this.tabAlbums);
             this.tcMediaBrowser.Controls.Add(this.tabSongs);
+            this.tcMediaBrowser.Controls.Add(this.tabVideos);
             this.tcMediaBrowser.Location = new System.Drawing.Point(0, 1);
             this.tcMediaBrowser.Name = "tcMediaBrowser";
             this.tcMediaBrowser.SelectedIndex = 0;
@@ -361,7 +378,7 @@
             // 
             this.tbSearchArtist.Location = new System.Drawing.Point(0, 0);
             this.tbSearchArtist.Name = "tbSearchArtist";
-            this.tbSearchArtist.Size = new System.Drawing.Size(162, 21);
+            this.tbSearchArtist.Size = new System.Drawing.Size(162, 20);
             this.tbSearchArtist.TabIndex = 13;
             this.tbSearchArtist.TextChanged += new System.EventHandler(this.tbSearchArtist_TextChanged);
             // 
@@ -434,7 +451,7 @@
             // 
             this.tbSearchAlbum.Location = new System.Drawing.Point(0, 0);
             this.tbSearchAlbum.Name = "tbSearchAlbum";
-            this.tbSearchAlbum.Size = new System.Drawing.Size(162, 21);
+            this.tbSearchAlbum.Size = new System.Drawing.Size(162, 20);
             this.tbSearchAlbum.TabIndex = 14;
             this.tbSearchAlbum.TextChanged += new System.EventHandler(this.tbSearchAlbum_TextChanged);
             // 
@@ -515,9 +532,121 @@
             // 
             this.tbSearchSong.Location = new System.Drawing.Point(3, 3);
             this.tbSearchSong.Name = "tbSearchSong";
-            this.tbSearchSong.Size = new System.Drawing.Size(430, 21);
+            this.tbSearchSong.Size = new System.Drawing.Size(430, 20);
             this.tbSearchSong.TabIndex = 9;
             this.tbSearchSong.KeyUp += new System.Windows.Forms.KeyEventHandler(this.tbSearchSong_KeyUp);
+            // 
+            // tabVideos
+            // 
+            this.tabVideos.ContextMenuStrip = this.cmsVideo;
+            this.tabVideos.Controls.Add(this.lvVideos);
+            this.tabVideos.Controls.Add(this.tbSearchVideo);
+            this.tabVideos.Location = new System.Drawing.Point(4, 22);
+            this.tabVideos.Name = "tabVideos";
+            this.tabVideos.Size = new System.Drawing.Size(517, 424);
+            this.tabVideos.TabIndex = 4;
+            this.tabVideos.Text = "Video";
+            this.tabVideos.UseVisualStyleBackColor = true;
+            // 
+            // lvVideos
+            // 
+            this.lvVideos.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+                        | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.lvVideos.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.nameVideo,
+            this.yearVideo,
+            this.IMDB_ID});
+            this.lvVideos.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lvVideos.FullRowSelect = true;
+            this.lvVideos.GridLines = true;
+            this.lvVideos.Location = new System.Drawing.Point(10, 29);
+            this.lvVideos.MultiSelect = false;
+            this.lvVideos.Name = "lvVideos";
+            this.lvVideos.Size = new System.Drawing.Size(497, 376);
+            this.lvVideos.Sorting = System.Windows.Forms.SortOrder.Ascending;
+            this.lvVideos.TabIndex = 12;
+            this.lvVideos.UseCompatibleStateImageBehavior = false;
+            this.lvVideos.View = System.Windows.Forms.View.Details;
+            // 
+            // nameVideo
+            // 
+            this.nameVideo.Text = "Video";
+            this.nameVideo.Width = 418;
+            // 
+            // yearVideo
+            // 
+            this.yearVideo.Text = "Year";
+            this.yearVideo.Width = 76;
+            // 
+            // IMDB_ID
+            // 
+            this.IMDB_ID.Text = "IMDB ID";
+            this.IMDB_ID.Width = 70;
+            // 
+            // tbSearchVideo
+            // 
+            this.tbSearchVideo.Location = new System.Drawing.Point(10, 3);
+            this.tbSearchVideo.Name = "tbSearchVideo";
+            this.tbSearchVideo.Size = new System.Drawing.Size(405, 20);
+            this.tbSearchVideo.TabIndex = 0;
+            this.tbSearchVideo.TextChanged += new System.EventHandler(this.tbSearchVideo_TextChanged_1);
+            // 
+            // cmsVideo
+            // 
+            this.cmsVideo.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.tsiPlayVideo,
+            this.tsiEnqueueVideo,
+            this.tsiInfoVideo,
+            this.toolStripSeparator4,
+            this.tsiUpdateLibrary3});
+            this.cmsVideo.Name = "cmsFiles";
+            this.cmsVideo.Size = new System.Drawing.Size(154, 98);
+            // 
+            // tsiPlayVideo
+            // 
+            this.tsiPlayVideo.Name = "tsiPlayVideo";
+            this.tsiPlayVideo.Size = new System.Drawing.Size(153, 22);
+            this.tsiPlayVideo.Text = "Play";
+            // 
+            // tsiEnqueueVideo
+            // 
+            this.tsiEnqueueVideo.Name = "tsiEnqueueVideo";
+            this.tsiEnqueueVideo.Size = new System.Drawing.Size(153, 22);
+            this.tsiEnqueueVideo.Text = "Enqueue";
+            // 
+            // tsiInfoVideo
+            // 
+            this.tsiInfoVideo.Name = "tsiInfoVideo";
+            this.tsiInfoVideo.Size = new System.Drawing.Size(153, 22);
+            this.tsiInfoVideo.Text = "Information";
+            this.tsiInfoVideo.MouseUp += new System.Windows.Forms.MouseEventHandler(this.InfoSelectedFiles);
+            // 
+            // toolStripSeparator4
+            // 
+            this.toolStripSeparator4.Name = "toolStripSeparator4";
+            this.toolStripSeparator4.Size = new System.Drawing.Size(150, 6);
+            // 
+            // tsiUpdateLibrary3
+            // 
+            this.tsiUpdateLibrary3.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.toolStripMenuItem4,
+            this.toolStripMenuItem5});
+            this.tsiUpdateLibrary3.Name = "tsiUpdateLibrary3";
+            this.tsiUpdateLibrary3.Size = new System.Drawing.Size(153, 22);
+            this.tsiUpdateLibrary3.Text = "Update library";
+            // 
+            // toolStripMenuItem4
+            // 
+            this.toolStripMenuItem4.Name = "toolStripMenuItem4";
+            this.toolStripMenuItem4.Size = new System.Drawing.Size(111, 22);
+            this.toolStripMenuItem4.Text = "Music";
+            // 
+            // toolStripMenuItem5
+            // 
+            this.toolStripMenuItem5.Name = "toolStripMenuItem5";
+            this.toolStripMenuItem5.Size = new System.Drawing.Size(111, 22);
+            this.toolStripMenuItem5.Text = "Video";
             // 
             // MediaBrowserF1
             // 
@@ -553,6 +682,9 @@
             this.splitContainer3.ResumeLayout(false);
             this.tabSongs.ResumeLayout(false);
             this.tabSongs.PerformLayout();
+            this.tabVideos.ResumeLayout(false);
+            this.tabVideos.PerformLayout();
+            this.cmsVideo.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -597,5 +729,19 @@
         private System.Windows.Forms.ToolStripMenuItem tsiUpdateVideoLibrary2;
         private System.Windows.Forms.ListView lvSongs;
         private System.Windows.Forms.Button bSearchSong;
+        private System.Windows.Forms.TabPage tabVideos;
+        private System.Windows.Forms.TextBox tbSearchVideo;
+        private System.Windows.Forms.ListView lvVideos;
+        private System.Windows.Forms.ColumnHeader nameVideo;
+        private System.Windows.Forms.ColumnHeader yearVideo;
+        private System.Windows.Forms.ColumnHeader IMDB_ID;
+        private System.Windows.Forms.ContextMenuStrip cmsVideo;
+        private System.Windows.Forms.ToolStripMenuItem tsiPlayVideo;
+        private System.Windows.Forms.ToolStripMenuItem tsiEnqueueVideo;
+        private System.Windows.Forms.ToolStripMenuItem tsiInfoVideo;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator4;
+        private System.Windows.Forms.ToolStripMenuItem tsiUpdateLibrary3;
+        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem4;
+        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem5;
     }
 }

@@ -3,7 +3,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProductVersion>9.0.30729</ProductVersion>
+    <ProductVersion>9.0.21022</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{6076CB11-37C2-432D-8E23-D00A27A65B94}</ProjectGuid>
     <OutputType>WinExe</OutputType>
@@ -90,15 +90,6 @@
     <Compile Include="ConfigurationF1.Designer.cs">
       <DependentUpon>ConfigurationF1.cs</DependentUpon>
     </Compile>
-    <Compile Include="E:\Programming\C#\XBMControl\XBMControlF1.cs">
-      <Link>XBMControlF1.cs</Link>
-      <CustomToolNamespace>XBMControl</CustomToolNamespace>
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="E:\Programming\C#\XBMControl\XBMControlF1.Designer.cs">
-      <Link>XBMControlF1.Designer.cs</Link>
-      <DependentUpon>XBMControlF1.cs</DependentUpon>
-    </Compile>
     <Compile Include="FullSizeImage.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -110,6 +101,12 @@
     </Compile>
     <Compile Include="MediaBrowserF1.Designer.cs">
       <DependentUpon>MediaBrowserF1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="NavigatorF1.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="NavigatorF1.Designer.cs">
+      <DependentUpon>NavigatorF1.cs</DependentUpon>
     </Compile>
     <Compile Include="PlaylistF1.cs">
       <SubType>Form</SubType>
@@ -127,22 +124,27 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="ConfigurationF1.resx">
       <DependentUpon>ConfigurationF1.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="E:\Programming\C#\XBMControl\XBMControlF1.resx">
-      <Link>XBMControlF1.resx</Link>
-      <DependentUpon>XBMControlF1.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="FullSizeImage.resx">
       <DependentUpon>FullSizeImage.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="MediaBrowserF1.resx">
       <DependentUpon>MediaBrowserF1.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="NavigatorF1.resx">
+      <DependentUpon>NavigatorF1.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="PlaylistF1.resx">
       <DependentUpon>PlaylistF1.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="PlayStatusF1.resx">
       <DependentUpon>PlayStatusF1.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -151,9 +153,19 @@
     </EmbeddedResource>
     <EmbeddedResource Include="SendMediaUrlF1.resx">
       <DependentUpon>SendMediaUrlF1.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="VideoInfoF1.resx">
+      <DependentUpon>VideoInfoF1.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="VolumeControlF1.resx">
       <DependentUpon>VolumeControlF1.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="XBMControlF1.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>XBMControlF1.cs</DependentUpon>
     </EmbeddedResource>
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -177,6 +189,12 @@
       <DependentUpon>SendMediaUrlF1.cs</DependentUpon>
     </Compile>
     <Compile Include="Settings.cs" />
+    <Compile Include="VideoInfoF1.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="VideoInfoF1.Designer.cs">
+      <DependentUpon>VideoInfoF1.cs</DependentUpon>
+    </Compile>
     <Compile Include="VolumeControlF1.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -190,7 +208,14 @@
     <Compile Include="XBMC.Library\XBMC.Playlist.cs" />
     <Compile Include="XBMC.Library\XBMC.Database.cs" />
     <Compile Include="XBMC.Library\XBMC.Communicator.cs" />
+    <Compile Include="XBMC.Library\XBMC.Video.cs" />
     <Compile Include="XBMControl.Language.cs" />
+    <Compile Include="XBMControlF1.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="XBMControlF1.Designer.cs">
+      <DependentUpon>XBMControlF1.cs</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\audio-cd-32x32.png" />
@@ -315,6 +340,15 @@
     <None Include="Resources\button_playlist.png" />
     <None Include="Resources\button_playlist_hover.png" />
     <None Include="Resources\button_playlist_click.png" />
+    <None Include="Resources\button_remote_hover.png" />
+    <None Include="Resources\button_remote.png" />
+    <None Include="Resources\button_remote_click.png" />
+    <None Include="Resources\button_undo.png" />
+    <None Include="Resources\button_up.png" />
+    <None Include="Resources\button_back.png" />
+    <None Include="Resources\button_down.png" />
+    <None Include="Resources\button_forward.PNG" />
+    <None Include="Resources\button_select.png" />
     <Content Include="XBMC.ico" />
     <Content Include="Xbox.ico" />
   </ItemGroup>
