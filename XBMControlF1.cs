@@ -43,11 +43,14 @@ namespace XBMControl
         private ConfigurationF1 ConfigForm;
         private FullSizeImageF1 fullSizeImage;
         private VolumeControlF1 sysTrayVolumeControl;
+        public videoInfoF1 videoInfoForm;
         internal PlaylistF1 Playlist = null;
+        internal NavigatorF1 Navigator = null;
 
         internal bool configFormOpened = false;
         internal bool shareBrowserOpened = false;
         internal bool volumeControlOpened = false;
+        internal bool videoInfoOpened = false;
 
         private int updateTimerConnected = 1000;
         private int updateTimerDisconnected = 10000;
@@ -195,6 +198,7 @@ namespace XBMControl
                 bLastFmHate.Visible = (XBMC.Status.IsPlaying("lastfm")) ? true : false;
                 bLastFmLove.Visible = (XBMC.NowPlaying.GetMediaType() == "Audio") ? true : false;
                 bPlaylist.BackgroundImage = (Settings.Default.playlistOpened && Playlist != null) ? Resources.button_playlist_click : Resources.button_playlist ;
+                bNavigator.BackgroundImage = (Settings.Default.NavigatorOpened && Navigator != null) ? Resources.button_remote_click : Resources.button_remote;
 
                 if (Settings.Default.playlistOpened && Playlist == null)
                     this.cmsViewPlaylist_Click(null, null);
@@ -995,8 +999,52 @@ namespace XBMControl
             else
                 cmsViewPlaylist_Click(null, null);
         }
+
+        private void cmsViewNavigator_Click(object sender, EventArgs e)
+        {
+            if (Navigator == null || !Settings.Default.NavigatorOpened)
+            {
+                Navigator = new NavigatorF1(this);
+                Navigator.Show();
+                Navigator.Top = this.Top;
+                Navigator.Left = (this.Left + this.Width);
+            }
+            else if (Settings.Default.NavigatorOpened && Navigator != null)
+                Navigator.Focus();
+        }
 //END PLAYLIST BUTTON
 
+//START NAVIGATOR BUTTON
+        private void bNavigator_MouseHover(object sender, EventArgs e)
+        {
+            bNavigator.BackgroundImage = Resources.button_remote_hover;
+        }
+
+        private void bNavigator_MouseLeave(object sender, EventArgs e)
+        {
+            bNavigator.BackgroundImage = Resources.button_remote;
+        }
+
+        private void bNavigator_MouseDown(object sender, MouseEventArgs e)
+        {
+            bNavigator.BackgroundImage = Resources.button_remote_click;
+        }
+
+        private void bNavigator_MouseUp(object sender, MouseEventArgs e)
+        {
+            bNavigator.BackgroundImage = Resources.button_remote_hover;
+
+            if (Settings.Default.NavigatorOpened && Navigator != null)
+            {
+                Navigator.Show();
+                Navigator.Focus();
+                this.Focus();
+            }
+            else
+                cmsViewNavigator_Click(null, null);
+        }
+//END NAVIGATOR BUTTON
+        
 //START FAKE DRAG DROP
         private void pToolbar_MouseDown(object sender, MouseEventArgs e)
         {
@@ -1041,6 +1089,11 @@ namespace XBMControl
         private void notifyIcon1_Click(object sender, EventArgs e)
         {
             this.Focus();
+        }
+
+        private void bNavigator_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

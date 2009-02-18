@@ -36,6 +36,8 @@
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.tsiClearPlaylist = new System.Windows.Forms.ToolStripMenuItem();
             this.tsiRefresh = new System.Windows.Forms.ToolStripMenuItem();
+            this.cmsSavePlayList = new System.Windows.Forms.ToolStripMenuItem();
+            this.cmsLoadPlayList = new System.Windows.Forms.ToolStripMenuItem();
             this.pToolbar = new System.Windows.Forms.Panel();
             this.lMainTitle = new System.Windows.Forms.Label();
             this.pictureBox2 = new System.Windows.Forms.PictureBox();
@@ -60,8 +62,9 @@
             this.lbPlaylist.FormattingEnabled = true;
             this.lbPlaylist.Location = new System.Drawing.Point(1, 21);
             this.lbPlaylist.Name = "lbPlaylist";
-            this.lbPlaylist.Size = new System.Drawing.Size(265, 104);
+            this.lbPlaylist.Size = new System.Drawing.Size(299, 104);
             this.lbPlaylist.TabIndex = 1;
+            this.lbPlaylist.MouseUp += new System.Windows.Forms.MouseEventHandler(this.lbPlaylist_MouseUp);
             this.lbPlaylist.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.lbPlaylist_MouseDoubleClick);
             this.lbPlaylist.MouseDown += new System.Windows.Forms.MouseEventHandler(this.lbPlaylist_MouseDown);
             this.lbPlaylist.KeyUp += new System.Windows.Forms.KeyEventHandler(this.lbPlaylist_KeyUp);
@@ -73,9 +76,12 @@
             this.cmsRemoveItem,
             this.toolStripSeparator1,
             this.tsiClearPlaylist,
-            this.tsiRefresh});
+            this.tsiRefresh,
+            this.cmsSavePlayList,
+            this.cmsLoadPlayList});
             this.cmsPlaylist.Name = "contextMenuStrip1";
-            this.cmsPlaylist.Size = new System.Drawing.Size(125, 98);
+            this.cmsPlaylist.Size = new System.Drawing.Size(125, 142);
+            this.cmsPlaylist.Opening += new System.ComponentModel.CancelEventHandler(this.cmsPlaylist_Opening);
             // 
             // cmsPlayFromSelection
             // 
@@ -110,6 +116,20 @@
             this.tsiRefresh.Text = "Refresh";
             this.tsiRefresh.Click += new System.EventHandler(this.RefreshPlaylist);
             // 
+            // cmsSavePlayList
+            // 
+            this.cmsSavePlayList.Name = "cmsSavePlayList";
+            this.cmsSavePlayList.Size = new System.Drawing.Size(124, 22);
+            this.cmsSavePlayList.Text = "Save";
+            this.cmsSavePlayList.Click += new System.EventHandler(this.cmsSavePlayLit_Click);
+            // 
+            // cmsLoadPlayList
+            // 
+            this.cmsLoadPlayList.Name = "cmsLoadPlayList";
+            this.cmsLoadPlayList.Size = new System.Drawing.Size(124, 22);
+            this.cmsLoadPlayList.Text = "Load";
+            this.cmsLoadPlayList.Click += new System.EventHandler(this.cmsLoadPlayList_Click);
+            // 
             // pToolbar
             // 
             this.pToolbar.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
@@ -121,7 +141,7 @@
             this.pToolbar.Controls.Add(this.pbClose);
             this.pToolbar.Location = new System.Drawing.Point(2, 1);
             this.pToolbar.Name = "pToolbar";
-            this.pToolbar.Size = new System.Drawing.Size(264, 20);
+            this.pToolbar.Size = new System.Drawing.Size(298, 20);
             this.pToolbar.TabIndex = 2;
             this.pToolbar.MouseMove += new System.Windows.Forms.MouseEventHandler(this.pToolbar_MouseMove);
             this.pToolbar.MouseDown += new System.Windows.Forms.MouseEventHandler(this.pToolbar_MouseDown);
@@ -136,7 +156,7 @@
             this.lMainTitle.Location = new System.Drawing.Point(26, 4);
             this.lMainTitle.Margin = new System.Windows.Forms.Padding(0);
             this.lMainTitle.Name = "lMainTitle";
-            this.lMainTitle.Size = new System.Drawing.Size(222, 13);
+            this.lMainTitle.Size = new System.Drawing.Size(256, 13);
             this.lMainTitle.TabIndex = 6;
             this.lMainTitle.Text = "Playlist";
             this.lMainTitle.MouseMove += new System.Windows.Forms.MouseEventHandler(this.pToolbar_MouseMove);
@@ -158,7 +178,7 @@
             this.pbClose.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.pbClose.BackColor = System.Drawing.Color.Transparent;
             this.pbClose.BackgroundImage = global::XBMControl.Properties.Resources.close1;
-            this.pbClose.Location = new System.Drawing.Point(251, 4);
+            this.pbClose.Location = new System.Drawing.Point(285, 4);
             this.pbClose.Name = "pbClose";
             this.pbClose.Size = new System.Drawing.Size(9, 9);
             this.pbClose.TabIndex = 3;
@@ -177,7 +197,7 @@
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(248)))), ((int)(((byte)(245)))), ((int)(((byte)(242)))));
             this.BackgroundImage = global::XBMControl.Properties.Resources.MainFormBackground2;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.ClientSize = new System.Drawing.Size(268, 130);
+            this.ClientSize = new System.Drawing.Size(302, 130);
             this.Controls.Add(this.pToolbar);
             this.Controls.Add(this.lbPlaylist);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
@@ -210,6 +230,8 @@
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
         private System.Windows.Forms.ToolStripMenuItem tsiClearPlaylist;
         private System.Windows.Forms.ToolStripMenuItem tsiRefresh;
+        private System.Windows.Forms.ToolStripMenuItem cmsSavePlayList;
+        private System.Windows.Forms.ToolStripMenuItem cmsLoadPlayList;
 
     }
 }

@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using XBMControl.Properties;
+using System.IO;
 
 namespace XBMControl
 {
@@ -45,7 +46,7 @@ namespace XBMControl
                 string currentPlaylistType = (parent.XBMC.NowPlaying.GetMediaType() == "Video") ? "video" : "";
                 parent.XBMC.Playlist.Set(currentPlaylistType);
 
-                string[] aPlaylistEntries = parent.XBMC.Playlist.Get(true);
+                string[] aPlaylistEntries = parent.XBMC.Playlist.Get(true, true);
 
                 if (aPlaylistEntries != null)
                 {
@@ -197,7 +198,36 @@ namespace XBMControl
         {
             lbPlaylist.SelectedIndex = lbPlaylist.IndexFromPoint(e.X, e.Y);
             previouslySelectedItem = lbPlaylist.SelectedIndex;
-            cmsPlaylist.Enabled = (e.Button == MouseButtons.Right && lbPlaylist.SelectedIndex == -1) ? false : true;
+            //cmsPlaylist.Enabled = (e.Button == MouseButtons.Right && lbPlaylist.SelectedIndex == -1) ? false : true;
+        }
+
+        private void lbPlaylist_MouseUp(object sender, MouseEventArgs e)
+        {
+            int tempIndex = 0;
+            string tempString;
+            string[] aPlaylistEntries = null;
+
+            tempIndex = lbPlaylist.IndexFromPoint(e.X, e.Y);
+            
+            if (previouslySelectedItem != -1 && 
+                (previouslySelectedItem != tempIndex) &&
+                e.Button == MouseButtons.Left)
+            {
+                aPlaylistEntries = parent.XBMC.Playlist.Get(false, true);
+                tempString = aPlaylistEntries[previouslySelectedItem];
+                List<string> myList = new List<string>(aPlaylistEntries);
+                myList.RemoveAt(previouslySelectedItem);
+                myList.Insert(tempIndex, tempString);
+
+                parent.XBMC.Playlist.Clear();
+
+                foreach(string entry in myList)
+                    parent.XBMC.Playlist.AddFilesToPlaylist(entry);
+
+                previouslySelectedItem = -1;
+                parent.Playlist.RefreshPlaylist();
+            }
+
         }
 
         private void lbPlaylist_MouseDoubleClick(object sender, MouseEventArgs e)
@@ -227,6 +257,68 @@ namespace XBMControl
             {
                 this.Left = e.X + this.Left - clickOffsetX;
                 this.Top = e.Y + this.Top - clickOffsetY;
+            }
+        }
+
+        private void cmsPlaylist_Opening(object sender, CancelEventArgs e)
+        {
+
+        }
+
+        private void cmsSavePlayLit_Click(object sender, EventArgs e)
+        {
+            Stream myStream;
+            SaveFileDialog saveFileDialog1 = new SaveFileDialog();
+            int count;
+            string tempString;
+            System.Text.UTF8Encoding encoding = new System.Text.UTF8Encoding();
+
+            saveFileDialog1.Filter = "txt files (*.txt)|*.txt|All files (*.*)|*.*"  ;
+            saveFileDialog1.FilterIndex = 2 ;
+            saveFileDialog1.RestoreDirectory = true ;
+
+             if (saveFileDialog1.ShowDialog() == DialogResult.OK)
+             {
+                 if((myStream = saveFileDialog1.OpenFile()) != null)
+                 {
+                     string[] aPlaylistEntries = parent.XBMC.Playlist.Get(false, true);
+
+                     for (count = 0; count < aPlaylistEntries.Length; count++)
+                     {
+                         tempString = (string)aPlaylistEntries[count];
+                         tempString += "\r\n";
+                         Byte[] tempBytes = encoding.GetBytes(tempString);
+                         myStream.Write(tempBytes, 0, tempString.Length);
+                     }
+                     myStream.Close();
+                 }
+             }
+        }
+
+        private void cmsLoadPlayList_Click(object sender, EventArgs e)
+        {
+            StreamReader myStream;
+            OpenFileDialog openFileDialog1 = new OpenFileDialog();
+            string line;
+
+            
+            openFileDialog1.Filter = "txt files (*.txt)|*.txt|All files (*.*)|*.*";
+            openFileDialog1.FilterIndex = 2;
+            openFileDialog1.RestoreDirectory = true;
+
+            
+            if (openFileDialog1.ShowDialog() == DialogResult.OK)
+            {
+                if (!parent.XBMC.Status.IsConnected())
+                    this.Dispose();
+
+                myStream = new System.IO.StreamReader(openFileDialog1.FileName);
+                while((line = myStream.ReadLine()) != null)
+                {
+                    parent.XBMC.Playlist.AddFilesToPlaylist(line);
+                }
+                myStream.Close();
+                parent.Playlist.RefreshPlaylist();
             }
         }
         //END FAKE DRAG DROP

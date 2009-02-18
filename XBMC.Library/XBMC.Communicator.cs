@@ -1,6 +1,7 @@
 ﻿// ------------------------------------------------------------------------
 //    XBMControl - A compact remote controller for XBMC (.NET 3.5)
 //    Copyright (C) 2008  Bram van Oploo (bramvano@gmail.com)
+//                        Mike Thiels (Mike.Thiels@gmail.com)
 //
 //    This program is free software: you can redistribute it and/or modify
 //    it under the terms of the GNU General Public License as published by
@@ -34,6 +35,7 @@ namespace XBMC
         public XBMC_NowPlaying NowPlaying = null;
         public XBMC_Status Status = null;
         public XBMC_Media Media = null;
+        public XBMC_Video Video = null;
 
         private string configuredIp = null;
         private string xbmcUsername = null;
@@ -50,6 +52,7 @@ namespace XBMC
             NowPlaying = new XBMC_NowPlaying(this);
             Status = new XBMC_Status(this);
             Media = new XBMC_Media(this);
+            Video = new XBMC_Video(this);
         }
 
         public string[] Request(string command, string parameter, string ip)
@@ -92,6 +95,11 @@ namespace XBMC
 
                         for (int x = 1; x < pageContent.Length; x++)
                             pageItems[x-1] = pageContent[x];
+                    }
+                    else
+                    {
+                        pageItems = new string[1];
+                        pageItems[0] = pageContent[0];
                     }
                 }
             }
