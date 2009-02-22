@@ -83,55 +83,63 @@
             // 
             // bRight
             // 
+            this.bRight.BackColor = System.Drawing.Color.Transparent;
             this.bRight.BackgroundImage = global::XBMControl.Properties.Resources.button_back;
             this.bRight.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.bRight.FlatAppearance.BorderColor = System.Drawing.Color.White;
             this.bRight.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.bRight.ForeColor = System.Drawing.Color.Transparent;
             this.bRight.Location = new System.Drawing.Point(132, 52);
             this.bRight.Margin = new System.Windows.Forms.Padding(0);
             this.bRight.Name = "bRight";
             this.bRight.Size = new System.Drawing.Size(38, 43);
             this.bRight.TabIndex = 9;
-            this.bRight.UseVisualStyleBackColor = true;
+            this.bRight.UseVisualStyleBackColor = false;
             this.bRight.Click += new System.EventHandler(this.bRight_Click);
             // 
             // bLeft
             // 
+            this.bLeft.BackColor = System.Drawing.Color.Transparent;
             this.bLeft.BackgroundImage = global::XBMControl.Properties.Resources.button_forward;
             this.bLeft.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.bLeft.FlatAppearance.BorderColor = System.Drawing.Color.White;
             this.bLeft.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.bLeft.ForeColor = System.Drawing.Color.Transparent;
             this.bLeft.Location = new System.Drawing.Point(53, 52);
             this.bLeft.Name = "bLeft";
             this.bLeft.Size = new System.Drawing.Size(38, 43);
             this.bLeft.TabIndex = 10;
-            this.bLeft.UseVisualStyleBackColor = true;
+            this.bLeft.UseVisualStyleBackColor = false;
             this.bLeft.Click += new System.EventHandler(this.bLeft_Click);
             // 
             // bUp
             // 
+            this.bUp.BackColor = System.Drawing.Color.Transparent;
             this.bUp.BackgroundImage = global::XBMControl.Properties.Resources.button_up;
             this.bUp.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.bUp.FlatAppearance.BorderColor = System.Drawing.Color.White;
             this.bUp.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.bUp.ForeColor = System.Drawing.Color.Transparent;
             this.bUp.Location = new System.Drawing.Point(89, 17);
             this.bUp.Name = "bUp";
             this.bUp.Size = new System.Drawing.Size(43, 38);
             this.bUp.TabIndex = 11;
-            this.bUp.UseVisualStyleBackColor = true;
+            this.bUp.UseVisualStyleBackColor = false;
             this.bUp.Click += new System.EventHandler(this.bUp_Click);
             // 
             // bDown
             // 
+            this.bDown.BackColor = System.Drawing.Color.Transparent;
             this.bDown.BackgroundImage = global::XBMControl.Properties.Resources.button_down;
             this.bDown.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.bDown.FlatAppearance.BorderColor = System.Drawing.Color.White;
             this.bDown.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.bDown.ForeColor = System.Drawing.Color.Transparent;
             this.bDown.Location = new System.Drawing.Point(89, 92);
             this.bDown.Name = "bDown";
             this.bDown.Size = new System.Drawing.Size(43, 38);
             this.bDown.TabIndex = 12;
-            this.bDown.UseVisualStyleBackColor = true;
+            this.bDown.UseVisualStyleBackColor = false;
             this.bDown.Click += new System.EventHandler(this.bDown_Click);
             // 
             // pToolbar
@@ -149,30 +157,34 @@
             // 
             // bSelect
             // 
+            this.bSelect.BackColor = System.Drawing.Color.Transparent;
             this.bSelect.BackgroundImage = global::XBMControl.Properties.Resources.button_select;
             this.bSelect.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.bSelect.FlatAppearance.BorderColor = System.Drawing.Color.White;
             this.bSelect.FlatAppearance.BorderSize = 0;
             this.bSelect.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.bSelect.ForeColor = System.Drawing.Color.Transparent;
             this.bSelect.Location = new System.Drawing.Point(89, 52);
             this.bSelect.Margin = new System.Windows.Forms.Padding(0);
             this.bSelect.Name = "bSelect";
             this.bSelect.Size = new System.Drawing.Size(43, 43);
             this.bSelect.TabIndex = 14;
-            this.bSelect.UseVisualStyleBackColor = true;
+            this.bSelect.UseVisualStyleBackColor = false;
             this.bSelect.Click += new System.EventHandler(this.bSelect_Click);
             // 
             // bUndo
             // 
+            this.bUndo.BackColor = System.Drawing.Color.Transparent;
             this.bUndo.BackgroundImage = global::XBMControl.Properties.Resources.button_undo;
             this.bUndo.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.bUndo.FlatAppearance.BorderColor = System.Drawing.Color.White;
             this.bUndo.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.bUndo.ForeColor = System.Drawing.Color.Transparent;
             this.bUndo.Location = new System.Drawing.Point(12, 44);
             this.bUndo.Name = "bUndo";
             this.bUndo.Size = new System.Drawing.Size(31, 50);
             this.bUndo.TabIndex = 15;
-            this.bUndo.UseVisualStyleBackColor = true;
+            this.bUndo.UseVisualStyleBackColor = false;
             this.bUndo.Click += new System.EventHandler(this.bUndo_Click_1);
             // 
             // NavigatorF1
