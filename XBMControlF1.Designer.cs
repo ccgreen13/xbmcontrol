@@ -576,7 +576,7 @@
             // 
             this.lSamplerate.Font = new System.Drawing.Font("Tahoma", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
             this.lSamplerate.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(95)))), ((int)(((byte)(95)))), ((int)(((byte)(95)))));
-            this.lSamplerate.Location = new System.Drawing.Point(186, 14);
+            this.lSamplerate.Location = new System.Drawing.Point(180, 14);
             this.lSamplerate.Margin = new System.Windows.Forms.Padding(1, 0, 1, 0);
             this.lSamplerate.Name = "lSamplerate";
             this.lSamplerate.Size = new System.Drawing.Size(23, 10);
@@ -598,7 +598,7 @@
             // 
             this.lBitrate.Font = new System.Drawing.Font("Tahoma", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
             this.lBitrate.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(95)))), ((int)(((byte)(95)))), ((int)(((byte)(95)))));
-            this.lBitrate.Location = new System.Drawing.Point(184, 4);
+            this.lBitrate.Location = new System.Drawing.Point(179, 4);
             this.lBitrate.Margin = new System.Windows.Forms.Padding(0);
             this.lBitrate.Name = "lBitrate";
             this.lBitrate.Size = new System.Drawing.Size(25, 10);

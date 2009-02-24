@@ -608,12 +608,14 @@
             this.tsiPlayVideo.Name = "tsiPlayVideo";
             this.tsiPlayVideo.Size = new System.Drawing.Size(153, 22);
             this.tsiPlayVideo.Text = "Play";
+            this.tsiPlayVideo.MouseUp += new System.Windows.Forms.MouseEventHandler(this.PlaySelectedFiles);
             // 
             // tsiEnqueueVideo
             // 
             this.tsiEnqueueVideo.Name = "tsiEnqueueVideo";
             this.tsiEnqueueVideo.Size = new System.Drawing.Size(153, 22);
             this.tsiEnqueueVideo.Text = "Enqueue";
+            this.tsiEnqueueVideo.MouseUp += new System.Windows.Forms.MouseEventHandler(this.EnqueSelectedFiles);
             // 
             // tsiInfoVideo
             // 
