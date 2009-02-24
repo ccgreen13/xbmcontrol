@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
-using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using XBMControl.Properties;
@@ -217,13 +216,29 @@ namespace XBMControl
                 tempString = aPlaylistEntries[previouslySelectedItem];
                 List<string> myList = new List<string>(aPlaylistEntries);
                 myList.RemoveAt(previouslySelectedItem);
-                myList.Insert(tempIndex, tempString);
+                if (tempIndex != -1)
+                    myList.Insert(tempIndex, tempString);
+                else
+                    myList.Add(tempString);
 
                 parent.XBMC.Playlist.Clear();
 
-                foreach(string entry in myList)
-                    parent.XBMC.Playlist.AddFilesToPlaylist(entry);
+#if false
+                for (tempIndex = myList.Count-1; tempIndex >= 0; tempIndex--)
+                {
+                    tempString = myList[tempIndex];
+                    tempString = tempString.Replace("\\", "/");
+                    parent.XBMC.Playlist.AddFilesToPlaylist(tempString);
+                    
+                }
+#else
+                foreach (string entry in myList)
+                {
+                    tempString = entry.Replace("\\", "/");
 
+                    parent.XBMC.Playlist.AddFilesToPlaylist(tempString);
+                }
+#endif
                 previouslySelectedItem = -1;
                 parent.Playlist.RefreshPlaylist();
             }
