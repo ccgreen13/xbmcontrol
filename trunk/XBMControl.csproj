@@ -340,6 +340,9 @@
     <None Include="Resources\button_down.png" />
     <None Include="Resources\button_forward.PNG" />
     <None Include="Resources\button_select.png" />
+    <None Include="Resources\nederlands.xml" />
+    <None Include="Resources\english.xml" />
+    <None Include="Resources\francais.xml" />
     <Content Include="XBMC.ico" />
     <Content Include="Xbox.ico" />
   </ItemGroup>

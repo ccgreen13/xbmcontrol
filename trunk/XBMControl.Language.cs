@@ -28,7 +28,7 @@ namespace XBMControl.Language
 {
     public class XBMCLanguage
     {
-        private string languageFilePath;
+        //private string languageFilePath;
         private XmlDocument languageFile;
         private XmlNode languageNode;
         private DirectoryInfo languageDir;
@@ -41,20 +41,29 @@ namespace XBMControl.Language
 
         public string[] GetAvailableLanguages()
         {
-            int counter              = 0;
-            FileInfo[] languageFiles = this.languageDir.GetFiles("*.xml");
-            string[] languages       = new string[languageFiles.Length];
+            string[] languages = new string[3];
 
-            foreach (FileInfo f in languageFiles)
-                languages[counter++] = f.Name.Replace(".xml", "");
-
+            languages[0] = "english";
+            languages[1] = "francais";
+            languages[2] = "nederlands";
             return languages;
         }
 
         public void SetLanguage(string language)
         {
-            languageFilePath = languageDir + language + ".xml";
-            languageFile.Load(languageFilePath);
+            string tempString = null;
+
+            if (language == "english")
+                tempString = global::XBMControl.Properties.Resources.english;
+            else if (language == "francais")
+                tempString = global::XBMControl.Properties.Resources.francais;
+            else if (language == "nederlands")
+                tempString = global::XBMControl.Properties.Resources.nederlands;
+            else
+                tempString = global::XBMControl.Properties.Resources.english;
+
+            MemoryStream stream = new MemoryStream(Encoding.UTF8.GetBytes(tempString));
+            languageFile.Load(stream);
         }
 
         public string GetString(string node)
