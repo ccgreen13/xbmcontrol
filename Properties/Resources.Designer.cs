@@ -480,6 +480,32 @@ namespace XBMControl.Properties {
             }
         }
         
+        /// <summary>
+        ///   Looks up a localized string similar to &lt;language&gt;
+        ///	&lt;mainform&gt;
+        ///		&lt;connection&gt;
+        ///			&lt;none&gt;Can&apos;t connect with XBMC&lt;/none&gt;
+        ///		&lt;/connection&gt;
+        ///		&lt;label&gt;
+        ///			&lt;artist&gt;artist&lt;/artist&gt;
+        ///			&lt;title&gt;title&lt;/title&gt;
+        ///			&lt;album&gt;album&lt;/album&gt;
+        ///		&lt;/label&gt;
+        ///		&lt;playing&gt;
+        ///			&lt;nothing&gt;No media playing&lt;/nothing&gt;
+        ///			&lt;now&gt;Now playing &lt;/now&gt;
+        ///			&lt;paused&gt;Playback paused&lt;/paused&gt;
+        ///		&lt;/playing&gt;
+        ///		&lt;dialog&gt;
+        ///			&lt;lastfmLoveTitle&gt;Last.FM Love track&lt;/lastfmLoveTitle&gt;
+        ///			&lt;lastfmLove&gt;This will add the currently playing track to your personal &apos;Loved tracks&apos; on Last.FM.\n\nAre yo [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string english {
+            get {
+                return ResourceManager.GetString("english", resourceCulture);
+            }
+        }
+        
         internal static System.Drawing.Bitmap exit_16x16 {
             get {
                 object obj = ResourceManager.GetObject("exit_16x16", resourceCulture);
@@ -491,6 +517,32 @@ namespace XBMControl.Properties {
             get {
                 object obj = ResourceManager.GetObject("folder_16x16", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to &lt;language&gt;
+        ///	&lt;mainform&gt;
+        ///		&lt;connection&gt;
+        ///			&lt;none&gt;Impossible de se connecter à XBMC&lt;/none&gt;
+        ///		&lt;/connection&gt;
+        ///		&lt;label&gt;
+        ///			&lt;artist&gt;artiste&lt;/artist&gt;
+        ///			&lt;title&gt;titre&lt;/title&gt;
+        ///			&lt;album&gt;album&lt;/album&gt;
+        ///		&lt;/label&gt;
+        ///		&lt;playing&gt;
+        ///			&lt;nothing&gt;Aucun media en cours de lecture&lt;/nothing&gt;
+        ///			&lt;now&gt;Lecture en cours&lt;/now&gt;
+        ///			&lt;paused&gt;En pause&lt;/paused&gt;
+        ///		&lt;/playing&gt;
+        ///		&lt;dialog&gt;
+        ///			&lt;lastfmLoveTitle&gt;Last.FM Love track&lt;/lastfmLoveTitle&gt;
+        ///			&lt;lastfmLove&gt;This will add the currently playing track to your personal &apos;Loved tracks [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string francais {
+            get {
+                return ResourceManager.GetString("francais", resourceCulture);
             }
         }
         
@@ -673,6 +725,32 @@ namespace XBMControl.Properties {
             get {
                 object obj = ResourceManager.GetObject("mute_32x32", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to &lt;language&gt;
+        ///	&lt;mainform&gt;
+        ///		&lt;connection&gt;
+        ///			&lt;none&gt;Kan niet verbinden met XBMC&lt;/none&gt;
+        ///		&lt;/connection&gt;
+        ///		&lt;label&gt;
+        ///			&lt;artist&gt;artiest&lt;/artist&gt;
+        ///			&lt;title&gt;titel&lt;/title&gt;
+        ///			&lt;album&gt;album&lt;/album&gt;
+        ///		&lt;/label&gt;
+        ///		&lt;playing&gt;
+        ///			&lt;nothing&gt;Er wordt geen media afgespeeld&lt;/nothing&gt;
+        ///			&lt;now&gt;Speelt nu &lt;/now&gt;
+        ///			&lt;paused&gt;Afspelen gepauseerd&lt;/paused&gt;
+        ///		&lt;/playing&gt;
+        ///		&lt;dialog&gt;
+        ///			&lt;lastfmLoveTitle&gt;Last.FM Love track&lt;/lastfmLoveTitle&gt;
+        ///			&lt;lastfmLove&gt;This will add the currently playing track to your personal &apos;Loved tracks&apos;  [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string nederlands {
+            get {
+                return ResourceManager.GetString("nederlands", resourceCulture);
             }
         }
         

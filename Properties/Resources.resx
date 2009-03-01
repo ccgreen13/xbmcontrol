@@ -460,4 +460,13 @@
   <data name="XBMClogo_90x90" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\resources\xbmclogo 90x90.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="english" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\english.xml;System.String, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
+  </data>
+  <data name="francais" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\francais.xml;System.String, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
+  </data>
+  <data name="nederlands" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\nederlands.xml;System.String, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
+  </data>
 </root>

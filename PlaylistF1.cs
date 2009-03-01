@@ -223,22 +223,12 @@ namespace XBMControl
 
                 parent.XBMC.Playlist.Clear();
 
-#if false
-                for (tempIndex = myList.Count-1; tempIndex >= 0; tempIndex--)
-                {
-                    tempString = myList[tempIndex];
-                    tempString = tempString.Replace("\\", "/");
-                    parent.XBMC.Playlist.AddFilesToPlaylist(tempString);
-                    
-                }
-#else
                 foreach (string entry in myList)
                 {
                     tempString = entry.Replace("\\", "/");
 
                     parent.XBMC.Playlist.AddFilesToPlaylist(tempString);
                 }
-#endif
                 previouslySelectedItem = -1;
                 parent.Playlist.RefreshPlaylist();
             }
