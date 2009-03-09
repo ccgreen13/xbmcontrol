@@ -39,6 +39,8 @@ namespace XBMControl
             XBMC.SetCredentials("", "");
             Initialize();
 
+            this.Text += " " + Properties.Resources.version;
+
             buttonVolumeDown = new ImageButton();
             buttonVolumeDown.Image = XBMControl.Properties.Resources.vol_down32x32;
             buttonVolumeDown.Location = new Point(155, 160);
