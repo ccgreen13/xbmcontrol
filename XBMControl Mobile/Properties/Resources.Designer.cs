@@ -155,6 +155,15 @@ namespace XBMControl.Properties {
             }
         }
         
+        /// <summary>
+        ///   Looks up a localized string similar to 0.1.0.
+        /// </summary>
+        internal static string version {
+            get {
+                return ResourceManager.GetString("version", resourceCulture);
+            }
+        }
+        
         internal static System.Drawing.Bitmap vol_down {
             get {
                 object obj = ResourceManager.GetObject("vol_down", resourceCulture);
