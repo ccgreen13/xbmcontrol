@@ -1,0 +1,178 @@
+﻿<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="3.5">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>9.0.21022</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{A7F87F5B-23F9-496E-BF69-107062CE5282}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>XBMControl</RootNamespace>
+    <AssemblyName>XBMControl Mobile</AssemblyName>
+    <ProjectTypeGuids>{4D628B5B-2FBC-4AA6-8C16-197242AEB884};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <PlatformFamilyName>PocketPC</PlatformFamilyName>
+    <PlatformID>b2c48bd2-963d-4549-9169-1fa021dce484</PlatformID>
+    <OSVersion>5.02</OSVersion>
+    <DeployDirSuffix>XBMControl_Device</DeployDirSuffix>
+    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+    <NativePlatformName>Windows Mobile 6 Professional SDK</NativePlatformName>
+    <FormFactorID>
+    </FormFactorID>
+    <ApplicationIcon>XBMC.ico</ApplicationIcon>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE;PocketPC</DefineConstants>
+    <NoStdLib>true</NoStdLib>
+    <NoConfig>true</NoConfig>
+    <ErrorReport>prompt</ErrorReport>
+    <FileAlignment>512</FileAlignment>
+    <WarningLevel>4</WarningLevel>
+    <GenerateSerializationAssemblies>Off</GenerateSerializationAssemblies>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE;$(PlatformFamilyName)</DefineConstants>
+    <NoStdLib>true</NoStdLib>
+    <NoConfig>true</NoConfig>
+    <ErrorReport>prompt</ErrorReport>
+    <FileAlignment>512</FileAlignment>
+    <WarningLevel>4</WarningLevel>
+    <GenerateSerializationAssemblies>Off</GenerateSerializationAssemblies>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="mscorlib" />
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="ConfigurationF1.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ConfigurationF1.Designer.cs">
+      <DependentUpon>ConfigurationF1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ImageButton.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="MediaBrowserF1.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MediaBrowserF1.Designer.cs">
+      <DependentUpon>MediaBrowserF1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="NavigatorF1.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="NavigatorF1.Designer.cs">
+      <DependentUpon>NavigatorF1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="PlaylistF1.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="PlaylistF1.Designer.cs">
+      <DependentUpon>PlaylistF1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="XBMControlF1.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form1.Designer.cs">
+      <DependentUpon>XBMControlF1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="ConfigurationF1.resx">
+      <DependentUpon>ConfigurationF1.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MediaBrowserF1.resx">
+      <DependentUpon>MediaBrowserF1.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="NavigatorF1.resx">
+      <DependentUpon>NavigatorF1.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PlaylistF1.resx">
+      <DependentUpon>PlaylistF1.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="XBMControlF1.resx">
+      <DependentUpon>XBMControlF1.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="XBMC.Library\XBMC.Communicator.cs" />
+    <Compile Include="XBMC.Library\XBMC.Controls.cs" />
+    <Compile Include="XBMC.Library\XBMC.Database.cs" />
+    <Compile Include="XBMC.Library\XBMC.Media.cs" />
+    <Compile Include="XBMC.Library\XBMC.NowPlaying.cs" />
+    <Compile Include="XBMC.Library\XBMC.Playlist.cs" />
+    <Compile Include="XBMC.Library\XBMC.Status.cs" />
+    <Compile Include="XBMC.Library\XBMC.Video.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Properties\DataSources\XBMC.Communicator.XBMCcomm.datasource" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\playing-16x16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\notplaying-16x16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\back.png" />
+    <None Include="Resources\down.png" />
+    <None Include="Resources\forward.png" />
+    <Content Include="Resources\home.png" />
+    <Content Include="Resources\navigator.PNG" />
+    <Content Include="XBMC.ico" />
+    <None Include="Resources\vol_down32x32.png" />
+    <None Include="Resources\vol_up32x32.png" />
+    <None Include="Resources\vol_down.png" />
+    <None Include="Resources\up.png" />
+    <None Include="Resources\stop.png" />
+    <None Include="Resources\select.png" />
+    <None Include="Resources\right.png" />
+    <None Include="Resources\rewind.png" />
+    <None Include="Resources\play_pause.png" />
+    <None Include="Resources\options.png" />
+    <None Include="Resources\left.png" />
+    <None Include="Resources\vol_up.png" />
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CompactFramework.CSharp.targets" />
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}">
+        <HostingProcess disable="1" />
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
