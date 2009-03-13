@@ -61,7 +61,7 @@
             // tbIp
             // 
             this.tbIp.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.tbIp.Location = new System.Drawing.Point(87, 22);
+            this.tbIp.Location = new System.Drawing.Point(87, 9);
             this.tbIp.Name = "tbIp";
             this.tbIp.Size = new System.Drawing.Size(130, 21);
             this.tbIp.TabIndex = 0;
@@ -69,7 +69,7 @@
             // tbUsername
             // 
             this.tbUsername.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.tbUsername.Location = new System.Drawing.Point(86, 98);
+            this.tbUsername.Location = new System.Drawing.Point(87, 69);
             this.tbUsername.Name = "tbUsername";
             this.tbUsername.Size = new System.Drawing.Size(129, 21);
             this.tbUsername.TabIndex = 2;
@@ -77,7 +77,7 @@
             // tbPassword
             // 
             this.tbPassword.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.tbPassword.Location = new System.Drawing.Point(87, 125);
+            this.tbPassword.Location = new System.Drawing.Point(88, 96);
             this.tbPassword.Name = "tbPassword";
             this.tbPassword.Size = new System.Drawing.Size(129, 21);
             this.tbPassword.TabIndex = 3;
@@ -85,7 +85,7 @@
             // tbPort
             // 
             this.tbPort.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.tbPort.Location = new System.Drawing.Point(87, 49);
+            this.tbPort.Location = new System.Drawing.Point(87, 36);
             this.tbPort.Name = "tbPort";
             this.tbPort.Size = new System.Drawing.Size(74, 21);
             this.tbPort.TabIndex = 1;
@@ -93,7 +93,7 @@
             // label1
             // 
             this.label1.Font = new System.Drawing.Font("Tahoma", 8F, System.Drawing.FontStyle.Regular);
-            this.label1.Location = new System.Drawing.Point(7, 22);
+            this.label1.Location = new System.Drawing.Point(7, 9);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(73, 21);
             this.label1.Text = "IP Address:";
@@ -102,7 +102,7 @@
             // label2
             // 
             this.label2.Font = new System.Drawing.Font("Tahoma", 8F, System.Drawing.FontStyle.Regular);
-            this.label2.Location = new System.Drawing.Point(6, 49);
+            this.label2.Location = new System.Drawing.Point(6, 36);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(73, 21);
             this.label2.Text = "Port Number:";
@@ -111,7 +111,7 @@
             // label3
             // 
             this.label3.Font = new System.Drawing.Font("Tahoma", 8F, System.Drawing.FontStyle.Regular);
-            this.label3.Location = new System.Drawing.Point(7, 98);
+            this.label3.Location = new System.Drawing.Point(8, 69);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(73, 21);
             this.label3.Text = "User Name:";
@@ -120,7 +120,7 @@
             // label4
             // 
             this.label4.Font = new System.Drawing.Font("Tahoma", 8F, System.Drawing.FontStyle.Regular);
-            this.label4.Location = new System.Drawing.Point(7, 125);
+            this.label4.Location = new System.Drawing.Point(8, 96);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(73, 21);
             this.label4.Text = "Password:";
@@ -129,7 +129,7 @@
             // cbPowerSaver
             // 
             this.cbPowerSaver.Font = new System.Drawing.Font("Tahoma", 8F, System.Drawing.FontStyle.Regular);
-            this.cbPowerSaver.Location = new System.Drawing.Point(38, 176);
+            this.cbPowerSaver.Location = new System.Drawing.Point(40, 123);
             this.cbPowerSaver.Name = "cbPowerSaver";
             this.cbPowerSaver.Size = new System.Drawing.Size(137, 17);
             this.cbPowerSaver.TabIndex = 4;

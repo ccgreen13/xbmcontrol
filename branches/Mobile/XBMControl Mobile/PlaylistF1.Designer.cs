@@ -91,12 +91,13 @@
             // 
             this.lvPlaylist.BackColor = System.Drawing.Color.Silver;
             this.lvPlaylist.Columns.Add(this.columnHeader1);
+            this.lvPlaylist.Dock = System.Windows.Forms.DockStyle.Fill;
             this.lvPlaylist.Font = new System.Drawing.Font("Tahoma", 8F, System.Drawing.FontStyle.Regular);
             this.lvPlaylist.ForeColor = System.Drawing.Color.Black;
             this.lvPlaylist.FullRowSelect = true;
-            this.lvPlaylist.Location = new System.Drawing.Point(0, 3);
+            this.lvPlaylist.Location = new System.Drawing.Point(0, 0);
             this.lvPlaylist.Name = "lvPlaylist";
-            this.lvPlaylist.Size = new System.Drawing.Size(240, 262);
+            this.lvPlaylist.Size = new System.Drawing.Size(240, 268);
             this.lvPlaylist.SmallImageList = this.imageListPlaylist;
             this.lvPlaylist.TabIndex = 1;
             this.lvPlaylist.View = System.Windows.Forms.View.SmallIcon;
