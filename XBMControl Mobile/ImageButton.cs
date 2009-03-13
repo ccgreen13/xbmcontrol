@@ -57,17 +57,17 @@ namespace XBMControl
 			if (image != null)
 			{
 				//Center the image relativelly to the control
-				int imageLeft = (this.Width - image.Width) / 2;
-				int imageTop = (this.Height - image.Height) / 2;
+				int imageLeft = (this.Width - this.Size.Width) / 2;
+				int imageTop = (this.Height - this.Size.Height) / 2;
 
 				if (!bPushed)
 				{
-					imgRect = new Rectangle(imageLeft, imageTop, image.Width, image.Height);
+					imgRect = new Rectangle(imageLeft, imageTop, this.Size.Width, this.Size.Height);
 				}
 				else //The button was pressed
 				{
 					//Shift the image by one pixel
-					imgRect = new Rectangle(imageLeft + 1 , imageTop +1, image.Width, image.Height);
+					imgRect = new Rectangle(imageLeft + 1 , imageTop +1, this.Size.Width, this.Size.Height);
 				}
 				//Set transparent key
 				ImageAttributes imageAttr = new ImageAttributes();

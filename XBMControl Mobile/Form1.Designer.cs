@@ -95,50 +95,50 @@
             // 
             // lTimePlayed
             // 
-            this.lTimePlayed.BackColor = System.Drawing.Color.Silver;
+            this.lTimePlayed.BackColor = System.Drawing.Color.DarkGray;
             this.lTimePlayed.Font = new System.Drawing.Font("Tahoma", 26F, System.Drawing.FontStyle.Bold);
             this.lTimePlayed.ForeColor = System.Drawing.Color.Black;
-            this.lTimePlayed.Location = new System.Drawing.Point(3, 9);
+            this.lTimePlayed.Location = new System.Drawing.Point(3, 0);
             this.lTimePlayed.Name = "lTimePlayed";
-            this.lTimePlayed.Size = new System.Drawing.Size(136, 68);
+            this.lTimePlayed.Size = new System.Drawing.Size(136, 66);
             this.lTimePlayed.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             // 
             // tbVolume
             // 
             this.tbVolume.Enabled = false;
             this.tbVolume.LargeChange = 2;
-            this.tbVolume.Location = new System.Drawing.Point(147, 135);
+            this.tbVolume.Location = new System.Drawing.Point(147, 114);
             this.tbVolume.Maximum = 100;
             this.tbVolume.Name = "tbVolume";
-            this.tbVolume.Size = new System.Drawing.Size(90, 18);
+            this.tbVolume.Size = new System.Drawing.Size(77, 18);
             this.tbVolume.TabIndex = 23;
             this.tbVolume.TickStyle = System.Windows.Forms.TickStyle.None;
             // 
             // lSamplerate
             // 
-            this.lSamplerate.BackColor = System.Drawing.Color.Silver;
+            this.lSamplerate.BackColor = System.Drawing.Color.DarkGray;
             this.lSamplerate.Font = new System.Drawing.Font("Tahoma", 8F, System.Drawing.FontStyle.Regular);
             this.lSamplerate.ForeColor = System.Drawing.Color.Black;
-            this.lSamplerate.Location = new System.Drawing.Point(160, 56);
+            this.lSamplerate.Location = new System.Drawing.Point(160, 40);
             this.lSamplerate.Name = "lSamplerate";
-            this.lSamplerate.Size = new System.Drawing.Size(25, 19);
+            this.lSamplerate.Size = new System.Drawing.Size(25, 16);
             this.lSamplerate.TextAlign = System.Drawing.ContentAlignment.TopRight;
             // 
             // lSamplerateTitle
             // 
             this.lSamplerateTitle.Font = new System.Drawing.Font("Tahoma", 8F, System.Drawing.FontStyle.Regular);
             this.lSamplerateTitle.ForeColor = System.Drawing.Color.Black;
-            this.lSamplerateTitle.Location = new System.Drawing.Point(194, 56);
+            this.lSamplerateTitle.Location = new System.Drawing.Point(194, 40);
             this.lSamplerateTitle.Name = "lSamplerateTitle";
-            this.lSamplerateTitle.Size = new System.Drawing.Size(21, 19);
+            this.lSamplerateTitle.Size = new System.Drawing.Size(30, 16);
             this.lSamplerateTitle.Text = "khz";
             // 
             // lBitrate
             // 
-            this.lBitrate.BackColor = System.Drawing.Color.Silver;
+            this.lBitrate.BackColor = System.Drawing.Color.DarkGray;
             this.lBitrate.Font = new System.Drawing.Font("Tahoma", 8F, System.Drawing.FontStyle.Regular);
             this.lBitrate.ForeColor = System.Drawing.Color.Black;
-            this.lBitrate.Location = new System.Drawing.Point(160, 36);
+            this.lBitrate.Location = new System.Drawing.Point(160, 20);
             this.lBitrate.Name = "lBitrate";
             this.lBitrate.Size = new System.Drawing.Size(25, 20);
             this.lBitrate.TextAlign = System.Drawing.ContentAlignment.TopRight;
@@ -147,28 +147,28 @@
             // 
             this.lBitrateTitle.Font = new System.Drawing.Font("Tahoma", 8F, System.Drawing.FontStyle.Regular);
             this.lBitrateTitle.ForeColor = System.Drawing.Color.Black;
-            this.lBitrateTitle.Location = new System.Drawing.Point(191, 36);
+            this.lBitrateTitle.Location = new System.Drawing.Point(191, 20);
             this.lBitrateTitle.Name = "lBitrateTitle";
             this.lBitrateTitle.Size = new System.Drawing.Size(33, 20);
             this.lBitrateTitle.Text = "kbps";
             // 
             // lConnected
             // 
-            this.lConnected.BackColor = System.Drawing.Color.Silver;
+            this.lConnected.BackColor = System.Drawing.Color.DarkGray;
             this.lConnected.Font = new System.Drawing.Font("Tahoma", 8F, System.Drawing.FontStyle.Regular);
             this.lConnected.ForeColor = System.Drawing.Color.Black;
-            this.lConnected.Location = new System.Drawing.Point(160, 9);
+            this.lConnected.Location = new System.Drawing.Point(160, 0);
             this.lConnected.Name = "lConnected";
-            this.lConnected.Size = new System.Drawing.Size(77, 19);
+            this.lConnected.Size = new System.Drawing.Size(64, 19);
             // 
             // tbProgress
             // 
             this.tbProgress.Enabled = false;
-            this.tbProgress.Location = new System.Drawing.Point(3, 135);
+            this.tbProgress.Location = new System.Drawing.Point(3, 114);
             this.tbProgress.Maximum = 100;
             this.tbProgress.Minimum = 1;
             this.tbProgress.Name = "tbProgress";
-            this.tbProgress.Size = new System.Drawing.Size(108, 18);
+            this.tbProgress.Size = new System.Drawing.Size(78, 18);
             this.tbProgress.TabIndex = 20;
             this.tbProgress.TickStyle = System.Windows.Forms.TickStyle.None;
             this.tbProgress.Value = 1;
@@ -178,19 +178,19 @@
             this.lbPlaylistSize.BackColor = System.Drawing.Color.Silver;
             this.lbPlaylistSize.Font = new System.Drawing.Font("Tahoma", 8F, System.Drawing.FontStyle.Regular);
             this.lbPlaylistSize.ForeColor = System.Drawing.Color.Black;
-            this.lbPlaylistSize.Location = new System.Drawing.Point(3, 165);
+            this.lbPlaylistSize.Location = new System.Drawing.Point(5, 135);
             this.lbPlaylistSize.Name = "lbPlaylistSize";
-            this.lbPlaylistSize.Size = new System.Drawing.Size(136, 19);
+            this.lbPlaylistSize.Size = new System.Drawing.Size(126, 14);
             this.lbPlaylistSize.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             // 
             // lArtistSong
             // 
-            this.lArtistSong.BackColor = System.Drawing.Color.Silver;
+            this.lArtistSong.BackColor = System.Drawing.Color.DarkGray;
             this.lArtistSong.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Bold);
             this.lArtistSong.ForeColor = System.Drawing.Color.Black;
-            this.lArtistSong.Location = new System.Drawing.Point(3, 88);
+            this.lArtistSong.Location = new System.Drawing.Point(3, 66);
             this.lArtistSong.Name = "lArtistSong";
-            this.lArtistSong.Size = new System.Drawing.Size(234, 44);
+            this.lArtistSong.Size = new System.Drawing.Size(221, 46);
             // 
             // MainForm
             // 

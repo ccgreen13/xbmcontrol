@@ -39,53 +39,15 @@ namespace XBMControl
 
         private void ShowSongs()
         {
-#if false
-            if (!rightClick && ActiveTreeView().SelectedNode != null)
-            {
-                if (!ActiveTreeView().SelectedNode.IsExpanded && ActiveTab() != tabAlbums)
-                {
-                    if (ActiveTab() == tabShares)
-                        ExpandSharedDirectory();
-                    else if (ActiveTab() == tabArtists && artistDirectorySelected)
-                        ExpandArtistDirectory();
-                }
-
-                if (ActiveTreeView().SelectedNode.Nodes.Count == 0 || ActiveTab() == tabShares)
-                    PopulateSongBrowser();
-            }
-#else
             if (ActiveTreeView().SelectedNode.Nodes.Count == 0)
                 PopulateSongBrowser();
-#endif
         }
 
         private void SetTreeViewSelection(object sender, KeyEventArgs e)
         {
-#if false
-            ActiveTreeView().SelectedNode = ActiveTreeView().GetNodeAt(e.X, e.Y);
-            rightClick = (e.Button == MouseButtons.Right) ? true : false;
-
-            if (ActiveTreeView().SelectedNode == null)
-            {
-                albumDirectorySelected = false;
-                artistDirectorySelected = false;
-            }
-            else if (ActiveTreeView().SelectedNode.Parent != null && ActiveTab() == tabArtists)
-            {
-                albumDirectorySelected = true;
-                artistDirectorySelected = false;
-            }
-            else if (ActiveTab() == tabArtists || ActiveTab() == tabAlbums)
-            {
-                albumDirectorySelected = false;
-                artistDirectorySelected = true;
-            }
-#else
             //rightClick = (e.Button == MouseButtons.Right) ? true : false;
             albumDirectorySelected = false;
             artistDirectorySelected = false;
-
-#endif
         }
 
         private void PlaySelectedFiles(object sender, MouseEventArgs e)
@@ -96,48 +58,11 @@ namespace XBMControl
         private TreeView ActiveTreeView()
         {
             TreeView activeTreeView = null;
-#if false
-            string tabName = tcMediaBrowser.SelectedTab.Name.ToString();
-
-            if (tabName == "tabShares")
-                activeTreeView = tvMediaShares;
-            else if (tabName == "tabArtists")
-                activeTreeView = tvArtists;
-            else if (tabName == "tabAlbums")
-                activeTreeView = tvAlbums;
-            else if (tabName == "tabSongs")
-                activeTreeView = null;
-            else if (tabName == "tabVideos")
-                activeTreeView = null;
-#else
             activeTreeView = tvMediaShares;
-#endif
+
             return activeTreeView;
         }
 
-#if false
-        private ListView ActiveListView()
-        {
-            ListView activeListView = null;
-#if false
-            string tabName = tcMediaBrowser.SelectedTab.Name.ToString();
-
-            if (tabName == "tabShares")
-                activeListView = lvDirectorySongs;
-            else if (tabName == "tabArtists")
-                activeListView = lvArtistSongs;
-            else if (tabName == "tabAlbums")
-                activeListView = lvAlbumSongs;
-            else if (tabName == "tabSongs")
-                activeListView = lvSongs;
-            else if (tabName == "tabVideos")
-                activeListView = lvVideos;
-#else
-            activeListView = lvDirectorySongs;
-#endif
-            return activeListView;
-        }
-#endif
         private void PopulateDirectoryBrowser(string searchString)
         {
             ActiveTreeView().Nodes.Clear();
@@ -148,26 +73,9 @@ namespace XBMControl
 
             if (parent.XBMC.Status.IsConnected() == false)
                 return;
-#if false
-            if (this.ActiveTab() == tabShares)
-            {
-                aDirectories = parent.XBMC.Media.GetShares(cbShareType.Text);
-                aDirectoryIds = parent.XBMC.Media.GetShares(cbShareType.Text, true);
-            }
-            else if (this.ActiveTab() == tabArtists)
-            {
-                aDirectories = parent.XBMC.Database.GetArtists(searchString);
-                aDirectoryIds = parent.XBMC.Database.GetArtistIds(searchString);
-            }
-            else if (this.ActiveTab() == tabAlbums || (this.ActiveTab() == tabArtists && artistDirectorySelected))
-            {
-                aDirectories = parent.XBMC.Database.GetAlbums(searchString);
-                aDirectoryIds = parent.XBMC.Database.GetAlbumIds(searchString);
-            }
-#else
             aDirectories = parent.XBMC.Media.GetShares("music");
             aDirectoryIds = parent.XBMC.Media.GetShares("music", true);
-#endif
+
             if (aDirectories != null)
             {
                 for (int x = 0; x < aDirectories.Length; x++)
@@ -225,40 +133,8 @@ namespace XBMControl
             string[] aPaths = null;
             ListViewItem tempItem = null;
 
-            //ActiveListView().Items.Clear();
-
-#if false
-            if (ActiveTab() == tabShares)
-            {
-                aTitles = parent.XBMC.Media.GetDirectoryContentNames(ActiveTreeView().SelectedNode.ToolTipText, "[" + cbShareType.Text + "]");
-                aPaths = parent.XBMC.Media.GetDirectoryContentPaths(ActiveTreeView().SelectedNode.ToolTipText, "[" + cbShareType.Text + "]");
-            }
-            else if (ActiveTab() == tabSongs)
-            {
-                aTitles = parent.XBMC.Database.GetSearchSongTitles(tbSearchSong.Text);
-                aPaths = parent.XBMC.Database.GetSearchSongPaths(tbSearchSong.Text);
-            }
-            else if ((ActiveTab() == tabArtists && albumDirectorySelected) || ActiveTab() == tabAlbums)
-                aTitles = parent.XBMC.Database.GetTitlesByAlbumId(ActiveTreeView().SelectedNode.ToolTipText);
-            else
-                aTitles = parent.XBMC.Database.GetTitlesByArtistId(ActiveTreeView().SelectedNode.ToolTipText);
-#else
             aTitles = parent.XBMC.Media.GetDirectoryContentNames((string)ActiveTreeView().SelectedNode.Tag, "[music]");
             aPaths = parent.XBMC.Media.GetDirectoryContentPaths((string)ActiveTreeView().SelectedNode.Tag, "[music]");
-#endif
-
-#if false
-            if (aTitles != null)
-            {
-                for (int x = 0; x < aTitles.Length; x++)
-                {
-                    tempItem = new ListViewItem(aTitles[x]);
-                    ActiveListView().Items.Add(tempItem);
-                    ActiveListView().Items[x].ImageIndex = 1;
-                    if (aPaths != null) ActiveListView().Items[x].Tag = aPaths[x];
-                }
-            }
-#endif
         }
 
         private void TestConnectivity()

@@ -156,7 +156,7 @@ namespace XBMControl.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to 0.1.0.
+        ///   Looks up a localized string similar to 0.1.3.
         /// </summary>
         internal static string version {
             get {

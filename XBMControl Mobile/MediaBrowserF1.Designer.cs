@@ -52,13 +52,12 @@
             // 
             // tvMediaShares
             // 
-            this.tvMediaShares.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.tvMediaShares.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tvMediaShares.Font = new System.Drawing.Font("Tahoma", 8F, System.Drawing.FontStyle.Regular);
             this.tvMediaShares.ForeColor = System.Drawing.Color.Black;
-            this.tvMediaShares.Location = new System.Drawing.Point(3, 3);
+            this.tvMediaShares.Location = new System.Drawing.Point(0, 0);
             this.tvMediaShares.Name = "tvMediaShares";
-            this.tvMediaShares.Size = new System.Drawing.Size(234, 262);
+            this.tvMediaShares.Size = new System.Drawing.Size(240, 268);
             this.tvMediaShares.TabIndex = 8;
             this.tvMediaShares.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.tvMediaShares_AfterSelect);
             // 

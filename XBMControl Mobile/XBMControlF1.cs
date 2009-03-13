@@ -29,7 +29,58 @@ namespace XBMControl
         private ImageButton buttonStop;
         private ImageButton buttonPausePlay;
         private ImageButton buttonForward;
+        private Int16[,] arrayName;
         
+        private Int16[,] buttons240x240 = new Int16[6,4] {
+        // 240x320
+            {003, 150, 32, 32},   // Volume down   
+            {041, 150, 32, 32},   // Volume up
+            {079, 150, 32, 32},   // Rewind
+            {117, 150, 32, 32},   // Stop
+            {155, 150, 32, 32},   // Play/Pause
+            {194, 150, 32, 32}    // Foward
+        };
+
+        private Int16[,] buttons320x320 = new Int16[6, 4] {
+        // 240x320
+            {220, 180, 32, 32},   // Volume down   
+            {263, 180, 32, 32},   // Volume up
+            {  3, 200, 48, 48},   // Rewind
+            { 57, 200, 48, 48},   // Stop
+            {111, 200, 48, 48},   // Play/Pause
+            {165, 200, 48, 48}    // Foward
+        };
+
+        private Int16[,] buttons480x480 = new Int16[6, 4] {
+        // 480x480
+            {306, 265, 64, 64},   // Volume down   
+            {376, 265, 64, 64},   // Volume up
+            {008, 300, 64, 64},   // Rewind
+            {078, 300, 64, 64},   // Stop
+            {148, 300, 64, 64},   // Play/Pause
+            {218, 300, 64, 64}    // Foward
+        };
+
+        private Int16[,] buttons240x320 = new Int16[6, 4] {
+        // 240x320
+            {155, 160, 32, 32},   // Volume down   
+            {198, 160, 32, 32},   // Volume up
+            {  3, 220, 48, 48},   // Rewind
+            { 57, 220, 48, 48},   // Stop
+            {125, 220, 48, 48},   // Play/Pause
+            {189, 220, 48, 48}    // Foward
+        };
+
+        private Int16[,] buttons640x480 = new Int16[6, 4] {
+        // 640x480
+            {274, 270, 96, 96},   // Volume down   
+            {376, 270, 96, 96},   // Volume up
+            {010, 400, 96, 96},   // Rewind
+            {112, 400, 96, 96},   // Stop
+            {214, 400, 96, 96},   // Play/Pause
+            {316, 400, 96, 96}    // Foward
+        };
+
         public MainForm()
         {
             InitializeComponent();
@@ -39,52 +90,63 @@ namespace XBMControl
             XBMC.SetCredentials("", "");
             Initialize();
 
+            if (Screen.PrimaryScreen.Bounds.Height == 240 && Screen.PrimaryScreen.Bounds.Width == 240)
+                arrayName = buttons240x240;
+            else if (Screen.PrimaryScreen.Bounds.Height == 320 && Screen.PrimaryScreen.Bounds.Width == 320)
+                arrayName = buttons320x320;
+            else if (Screen.PrimaryScreen.Bounds.Height == 480 && Screen.PrimaryScreen.Bounds.Width == 480)
+                arrayName = buttons480x480;
+            else if (Screen.PrimaryScreen.Bounds.Height == 640 && Screen.PrimaryScreen.Bounds.Width == 480)
+                arrayName = buttons640x480;
+            else
+                arrayName = buttons240x320;
+
             this.Text += " " + Properties.Resources.version;
 
             buttonVolumeDown = new ImageButton();
-            buttonVolumeDown.Image = XBMControl.Properties.Resources.vol_down32x32;
-            buttonVolumeDown.Location = new Point(155, 160);
-            buttonVolumeDown.Size = new Size(32, 32);
+            buttonVolumeDown.Image = XBMControl.Properties.Resources.vol_down;
+            buttonVolumeDown.Location = new Point(arrayName[0, 0], arrayName[0, 1]);
+            buttonVolumeDown.Size = new Size(arrayName[0, 2], arrayName[0, 3]);
             //Hook up into click event
             buttonVolumeDown.Click += new EventHandler(bVolDown_Click);
             this.Controls.Add(buttonVolumeDown);
 
             buttonVolumeUp = new ImageButton();
-            buttonVolumeUp.Image = XBMControl.Properties.Resources.vol_up32x32;
-            buttonVolumeUp.Location = new Point(198, 160);
-            buttonVolumeUp.Size = new Size(32, 32);
+            buttonVolumeUp.Image = XBMControl.Properties.Resources.vol_up;
+            buttonVolumeUp.Location = new Point(arrayName[1, 0], arrayName[1, 1]);
+            buttonVolumeUp.Size = new Size(arrayName[1, 2], arrayName[1, 3]);
             //Hook up into click event
             buttonVolumeUp.Click += new EventHandler(bVolUp_Click);
             this.Controls.Add(buttonVolumeUp);
 
             buttonRewind = new ImageButton();
             buttonRewind.Image = XBMControl.Properties.Resources.rewind;
-            buttonRewind.Location = new Point(3, 220);
-            buttonRewind.Size = new Size(48, 48);
+            buttonRewind.Location = new Point(arrayName[2, 0], arrayName[2, 1]);
+            buttonRewind.Size = new Size(arrayName[2, 2], arrayName[2, 3]);
             //Hook up into click event
             buttonRewind.Click += new EventHandler(buttonRewind_Click);
             this.Controls.Add(buttonRewind);
 
             buttonStop = new ImageButton();
             buttonStop.Image = XBMControl.Properties.Resources.stop;
-            buttonStop.Location = new Point(57, 220);
-            buttonStop.Size = new Size(48, 48);
+            buttonStop.Location = new Point(arrayName[3, 0], arrayName[3, 1]);
+            buttonStop.Size = new Size(arrayName[3, 2], arrayName[3, 3]);
             //Hook up into click event
             buttonStop.Click += new EventHandler(buttonStop_Click);
             this.Controls.Add(buttonStop);
 
             buttonPausePlay = new ImageButton();
             buttonPausePlay.Image = XBMControl.Properties.Resources.play_pause;
-            buttonPausePlay.Location = new Point(125, 220);
-            buttonPausePlay.Size = new Size(48, 48);
+            buttonPausePlay.Location = new Point(arrayName[4, 0], arrayName[4, 1]);
+            buttonPausePlay.Size = new Size(arrayName[4, 2], arrayName[4, 3]);
             //Hook up into click event
             buttonPausePlay.Click += new EventHandler(buttonPausePlay_Click);
             this.Controls.Add(buttonPausePlay);
 
             buttonForward = new ImageButton();
             buttonForward.Image = XBMControl.Properties.Resources.forward;
-            buttonForward.Location = new Point(189, 220);
-            buttonForward.Size = new Size(48, 48);
+            buttonForward.Location = new Point(arrayName[5, 0], arrayName[5, 1]);
+            buttonForward.Size = new Size(arrayName[5, 2], arrayName[5, 3]);
             //Hook up into click event
             buttonForward.Click += new EventHandler(buttonForward_Click);
             this.Controls.Add(buttonForward);
@@ -152,29 +214,19 @@ namespace XBMControl
                 lArtistSong.Text = "No media playing";
                 lBitrate.Text = "";
                 lSamplerate.Text = "";
-                //lArtist.Text = "";
-                //lTitle.Text = "";
-                //lAlbum.Text = "";
             }
             else if (this.XBMC.Status.IsNewMediaPlaying())
             {
-                //if (this.Playlist != null) this.Playlist.RefreshPlaylist();
-                //Image coverArt = this.XBMC.NowPlaying.GetCoverArt();
-                //pbThumbnail.Image = (coverArt == null) ? Resources.XBMClogo : coverArt;
                 string year = (this.XBMC.NowPlaying.Get("year") == null) ? "" : " [" + this.XBMC.NowPlaying.Get("year") + "]";
                 lBitrate.Text = this.XBMC.NowPlaying.Get("bitrate");
                 lSamplerate.Text = this.XBMC.NowPlaying.Get("samplerate");
                 string genre = (this.XBMC.NowPlaying.Get("genre") == null) ? "" : " [" + this.XBMC.NowPlaying.Get("genre") + "]";
                 string artistLable = (this.XBMC.NowPlaying.Get("artist") == "" || this.XBMC.NowPlaying.Get("artist") == null) ? "" : this.XBMC.NowPlaying.Get("artist") + " - ";
                 lArtistSong.Text = artistLable + this.XBMC.NowPlaying.Get("title");
-                //lArtist.Text = this.XBMC.NowPlaying.Get("artist") + genre;
-                //lTitle.Text = this.XBMC.NowPlaying.Get("title") + " [" + this.XBMC.NowPlaying.Get("duration") + "]";
-                //lAlbum.Text = this.XBMC.NowPlaying.Get("album") + year;
                 tbVolume.Value = XBMC.Status.GetVolume(true);
 
                 if (XBMC.Playlist.getPlayListSize() == 0)
                     XBMC.Playlist.Get(false, true);
-                //pLastFmButtons.Visible = (this.XBMC.Status.LastFmEnabled()) ? true : false;
             }
         }
 
@@ -202,20 +254,6 @@ namespace XBMControl
                     GetNowPlayingSongInfo(resetToDefault);
                     lConnected.Text = "Connected";
                     lbPlaylistSize.Text = Convert.ToString(XBMC.Playlist.getPlayListSize()) + " entries in playlist";
-                    //ShowNowPlayingInfo(resetToDefault);
-                    //ShowPlayStatusInfo();
-                    //SetMediaTypeImage();
-
-                    //Set control button states
-                    //bOpen.BackgroundImage = (shareBrowserOpened) ? Resources.button_open_click : Resources.button_open;
-                    //bPause.BackgroundImage = (XBMC.Status.IsPaused()) ? Resources.button_pause_click : Resources.button_pause;
-                    //bPlay.BackgroundImage = (XBMC.Status.IsPlaying()) ? Resources.button_play_click : Resources.button_play;
-                    //bStop.BackgroundImage = (XBMC.Status.IsNotPlaying()) ? Resources.button_stop_click : Resources.button_stop;
-                    //bMute.BackgroundImage = (XBMC.Status.IsMuted()) ? Resources.button_mute_click : Resources.button_mute;
-                    //bLastFmHate.Visible = (XBMC.Status.IsPlaying("lastfm")) ? true : false;
-                    //bLastFmLove.Visible = (XBMC.NowPlaying.GetMediaType() == "Audio") ? true : false;
-                    //bPlaylist.BackgroundImage = (Settings.Default.playlistOpened && Playlist != null) ? Resources.button_playlist_click : Resources.button_playlist;
-                    //bNavigator.BackgroundImage = (Settings.Default.NavigatorOpened && Navigator != null) ? Resources.button_remote_click : Resources.button_remote;
                 }
             }
             else
@@ -224,16 +262,6 @@ namespace XBMControl
                 updateTimer.Enabled = true;
 
                 lConnected.Text = "Unconnected";
-
-                //SetControlsEnabled(false);
-                //this.ShowConnectionInfo();
-                //ShowNowPlayingInfo(resetToDefault);
-                //SetNowPlayingTimePlayed(resetToDefault);
-                //SetMediaTypeImage();
-                //bPause.BackgroundImage = Resources.button_pause;
-                //bPlay.BackgroundImage = Resources.button_play;
-                //bMute.BackgroundImage = Resources.button_mute;
-
             }
         }
 
@@ -301,5 +329,6 @@ namespace XBMControl
         {
             XBMC.Controls.Previous();
         }
+
     }
 }
