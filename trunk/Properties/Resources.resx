@@ -361,15 +361,6 @@
   <data name="audio_cd_32x32" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\resources\audio-cd-32x32.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="button_back" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\resources\button_back.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="button_down" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\resources\button_down.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="button_forward" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\resources\button_forward.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
   <data name="button_remote" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\resources\button_remote.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
@@ -379,14 +370,8 @@
   <data name="button_remote_hover" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\resources\button_remote_hover.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="button_select" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\resources\button_select.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
   <data name="button_undo" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\resources\button_undo.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="button_up" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\resources\button_up.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="configure_16x16" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\resources\configure-16x16.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -468,5 +453,68 @@
   </data>
   <data name="nederlands" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\nederlands.xml;System.String, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
+  </data>
+  <data name="navigator" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\navigator.PNG;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="navigator_back" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\navigator_back.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="navigator_down" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\navigator_down.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="navigator_forward" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\navigator_forward.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="navigator_home" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\navigator_home.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="navigator_left" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\navigator_left.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="navigator_options" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\navigator_options.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="navigator_play_pause" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\navigator_play_pause.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="navigator_rewind" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\navigator_rewind.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="navigator_right" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\navigator_right.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="navigator_select" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\navigator_select.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="navigator_stop" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\navigator_stop.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="navigator_up" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\navigator_up.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="navigator_vol_down" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\navigator_vol_down.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="navigator_vol_up" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\navigator_vol_up.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="button_exit" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\button_exit.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="button_exit_click" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\button_exit_click.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="button_exit_hover" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\button_exit_hover.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="button_partymode_selected" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\button_partymode_selected.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="button_repeat_selected" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\button_repeat_selected.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="button_shuffle_selected" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\button_shuffle_selected.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
 </root>

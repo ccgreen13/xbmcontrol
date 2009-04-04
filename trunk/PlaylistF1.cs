@@ -52,7 +52,9 @@ namespace XBMControl
                     for (int x = 0; x < aPlaylistEntries.Length; x++)
                     {
                         if (aPlaylistEntries[x] != "")
+                        {
                             lbPlaylist.Items.Add(x + ". " + aPlaylistEntries[x]);
+                        }
                     }
                 }
             }
@@ -327,5 +329,22 @@ namespace XBMControl
             }
         }
         //END FAKE DRAG DROP
+
+        //START CLOSE BUTTON
+        private void pbClose_MouseEnter(object sender, EventArgs e)
+        {
+            pbClose.BackgroundImage = Resources.close1_hover;
+        }
+
+        private void pbClose_MouseLeave(object sender, EventArgs e)
+        {
+            pbClose.BackgroundImage = Resources.close1;
+        }
+
+        private void pbClose_MouseUp(object sender, MouseEventArgs e)
+        {
+            //this.Dispose();
+        }
+        //END CLOSE BUTTON
     }
 }

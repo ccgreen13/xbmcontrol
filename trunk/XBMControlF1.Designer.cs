@@ -714,6 +714,7 @@
             this.bPartymode.MouseDown += new System.Windows.Forms.MouseEventHandler(this.bPartymode_MouseDown);
             this.bPartymode.MouseUp += new System.Windows.Forms.MouseEventHandler(this.bPartymode_MouseUp);
             this.bPartymode.MouseEnter += new System.EventHandler(this.bPartymode_MouseEnter);
+            this.bPartymode.Click += new System.EventHandler(this.bPartymode_Click);
             // 
             // bShuffle
             // 
@@ -732,7 +733,7 @@
             this.bShuffle.Name = "bShuffle";
             this.bShuffle.Size = new System.Drawing.Size(16, 15);
             this.bShuffle.TabIndex = 24;
-            this.toolTip1.SetToolTip(this.bShuffle, "Shuffle on/off");
+            this.toolTip1.SetToolTip(this.bShuffle, "Shuffle");
             this.bShuffle.UseVisualStyleBackColor = false;
             this.bShuffle.MouseLeave += new System.EventHandler(this.bShuffle_MouseLeave);
             this.bShuffle.MouseDown += new System.Windows.Forms.MouseEventHandler(this.bShuffle_MouseDown);
@@ -759,6 +760,7 @@
             this.toolTip1.SetToolTip(this.bRepeat, "Repeat on/off");
             this.bRepeat.UseVisualStyleBackColor = false;
             this.bRepeat.MouseLeave += new System.EventHandler(this.bRepeat_MouseLeave);
+            this.bRepeat.Click += new System.EventHandler(this.bRepeat_Click);
             this.bRepeat.MouseDown += new System.Windows.Forms.MouseEventHandler(this.bRepeat_MouseDown);
             this.bRepeat.MouseUp += new System.Windows.Forms.MouseEventHandler(this.bRepeat_MouseUp);
             this.bRepeat.MouseEnter += new System.EventHandler(this.bRepeat_MouseEnter);
@@ -949,6 +951,7 @@
             this.toolTip1.SetToolTip(this.bPlay, "Play/Resume");
             this.bPlay.UseVisualStyleBackColor = false;
             this.bPlay.MouseLeave += new System.EventHandler(this.bPlay_MouseLeave);
+            this.bPlay.Click += new System.EventHandler(this.bPlay_Click);
             this.bPlay.MouseDown += new System.Windows.Forms.MouseEventHandler(this.bPlay_MouseDown);
             this.bPlay.MouseUp += new System.Windows.Forms.MouseEventHandler(this.bPlay_MouseUp);
             this.bPlay.MouseEnter += new System.EventHandler(this.bPlay_MouseEnter);

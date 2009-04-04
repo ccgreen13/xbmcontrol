@@ -343,6 +343,27 @@
     <None Include="Resources\nederlands.xml" />
     <None Include="Resources\english.xml" />
     <None Include="Resources\francais.xml" />
+    <None Include="Resources\navigator.PNG" />
+    <None Include="Resources\navigator_vol_up.png" />
+    <None Include="Resources\navigator_back.png" />
+    <None Include="Resources\navigator_down.png" />
+    <None Include="Resources\navigator_forward.png" />
+    <None Include="Resources\navigator_home.png" />
+    <None Include="Resources\navigator_left.png" />
+    <None Include="Resources\navigator_options.png" />
+    <None Include="Resources\navigator_play_pause.png" />
+    <None Include="Resources\navigator_rewind.png" />
+    <None Include="Resources\navigator_right.png" />
+    <None Include="Resources\navigator_select.png" />
+    <None Include="Resources\navigator_stop.png" />
+    <None Include="Resources\navigator_up.png" />
+    <None Include="Resources\navigator_vol_down.png" />
+    <None Include="Resources\button_exit_hover.png" />
+    <None Include="Resources\button_exit.png" />
+    <None Include="Resources\button_exit_click.png" />
+    <None Include="Resources\button_repeat_selected.png" />
+    <None Include="Resources\button_shuffle_selected.png" />
+    <None Include="Resources\button_partymode_selected.png" />
     <Content Include="XBMC.ico" />
     <Content Include="Xbox.ico" />
   </ItemGroup>

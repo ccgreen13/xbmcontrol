@@ -54,6 +54,56 @@ namespace XBMC
             Video = new XBMC_Video(this);
         }
 
+        private string[] MySplitString(string s, string delimeter)
+        {
+            if (s == null)
+                throw new ArgumentNullException("stringToBeSplitted is null.");
+            if (delimeter == null)
+                throw new ArgumentNullException("delimeter is null.");
+
+            int dsum = 0;
+            int ssum = 0;
+            int dl = delimeter.Length;
+            int sl = s.Length;
+
+            if (dl == 0 || sl == 0 || sl < dl)
+                return new string[] { s };
+
+            char[] cd = delimeter.ToCharArray();
+            char[] cs = s.ToCharArray();
+            List<string> retlist = new List<string>();
+
+            for (int i = 0; i < dl; i++)
+            {
+                dsum += cd[i];
+                ssum += cs[i];
+            }
+
+            int start = 0;
+            for (int i = start; i < sl - dl; i++)
+            {
+                if (i >= start && dsum == ssum && s.Substring(i, dl) == delimeter)
+                {
+                    retlist.Add(s.Substring(start, i - start));
+                    start = i + dl;
+                }
+
+                ssum += cs[i + dl] - cs[i];
+            }
+
+            if (dsum == ssum && s.Substring(sl - dl, dl) == delimeter)
+            {
+                retlist.Add(s.Substring(start, sl - dl - start));
+                retlist.Add("");
+            }
+            else
+            {
+                retlist.Add(s.Substring(start, sl - start));
+            }
+
+            return retlist.ToArray();
+        }
+
         public string[] Request(string command, string parameter, string ip)
         {
             string[] pageItems = null;
@@ -61,6 +111,7 @@ namespace XBMC
             HttpWebResponse response = null;
             StreamReader reader = null;
             string[] pageContent = null;
+            string tempString = null;
 
             bool isQuery = (command.ToLower() == "querymusicdatabase" || command.ToLower() == "queryvideodatabase") ? true : false;
 
@@ -82,9 +133,15 @@ namespace XBMC
                 reader = new StreamReader(response.GetResponseStream(), Encoding.UTF8);
 
                 if (isQuery)
-                    pageContent = reader.ReadToEnd().Replace("</field>", "").Replace("\n", "").Replace("<html>", "").Replace("</html>", "").Split(new string[] { "<field>" }, StringSplitOptions.None);
+                {
+                    tempString = reader.ReadToEnd().Replace("</field>", "").Replace("\n", "").Replace("<html>", "").Replace("</html>", "");
+                    pageContent = MySplitString(tempString, "<field>");
+                }
                 else
-                    pageContent = reader.ReadToEnd().Replace("\n", "").Replace("<html>", "").Replace("</html>", "").Split(new string[] { "<li>" }, StringSplitOptions.None);
+                {
+                    tempString = reader.ReadToEnd().Replace("\n", "").Replace("<html>", "").Replace("</html>", "");
+                    pageContent = MySplitString(tempString, "<li>");
+                }
 
                 if (pageContent != null)
                 {

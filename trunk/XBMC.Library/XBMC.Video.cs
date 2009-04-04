@@ -172,7 +172,7 @@ namespace XBMC
 
         public void sendAction(string buttonAction)
         {
-            parent.Request("SendKey", buttonAction);
+            parent.Request("action", buttonAction);
         }
     }
 }
