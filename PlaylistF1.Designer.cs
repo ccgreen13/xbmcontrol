@@ -184,6 +184,9 @@
             this.pbClose.TabIndex = 3;
             this.pbClose.TabStop = false;
             this.pbClose.Click += new System.EventHandler(this.pbClose_Click);
+            this.pbClose.MouseLeave += new System.EventHandler(this.pbClose_MouseLeave);
+            this.pbClose.MouseUp += new System.Windows.Forms.MouseEventHandler(this.pbClose_MouseUp);
+            this.pbClose.MouseEnter += new System.EventHandler(this.pbClose_MouseEnter);
             // 
             // timerUpdateSelection
             // 

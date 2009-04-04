@@ -66,7 +66,7 @@ namespace XBMC
         public string[] GetDirectoryContentPaths(string directory, string mask)
         {
             mask = (mask == null) ? "" : ";" + mask;
-
+          
             string[] aDirectoryContent = parent.Request("GetDirectory(" + directory + mask + ")");
 
             if (aDirectoryContent != null)
@@ -74,8 +74,10 @@ namespace XBMC
                 string[] aContentPaths = new string[aDirectoryContent.Length];
 
                 for (int x = 0; x < aDirectoryContent.Length; x++)
+                {
+                    aDirectoryContent[x] = aDirectoryContent[x].Replace("\\", "/");
                     aContentPaths[x] = (aDirectoryContent[x] == "Error:Not folder" || aDirectoryContent[x] == "Error") ? null : aDirectoryContent[x];
-
+                }
                 return aContentPaths;
             }
             else

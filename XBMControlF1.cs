@@ -63,7 +63,8 @@ namespace XBMControl
         private int clickOffsetX, clickOffsetY;
         private int originalWindowHeight;
 
-        private bool repeatEnabled              = false; 
+        private bool repeatEnabled              = false;
+        private bool partyModeEnabled           = false;
        
         public MainForm()
         {
@@ -907,20 +908,31 @@ namespace XBMControl
 
         private void bRepeat_MouseLeave(object sender, EventArgs e)
         {
-            bRepeat.BackgroundImage = Resources.button_repeat;
+            if (repeatEnabled)
+                bRepeat.BackgroundImage = Resources.button_repeat_selected;
+            else
+                bRepeat.BackgroundImage = Resources.button_repeat;
         }
 
         private void bRepeat_MouseDown(object sender, MouseEventArgs e)
         {
             bRepeat.BackgroundImage = Resources.button_repeat_click;
-            repeatEnabled           = (repeatEnabled) ? false : true;
-            this.XBMC.Controls.Repeat(repeatEnabled);  
         }
 
         private void bRepeat_MouseUp(object sender, MouseEventArgs e)
         {
-            bRepeat.BackgroundImage = Resources.button_repeat_hover;
+            if (repeatEnabled)
+                bRepeat.BackgroundImage = Resources.button_repeat_selected;
+            else
+                bRepeat.BackgroundImage = Resources.button_repeat;
         }
+
+        private void bRepeat_Click(object sender, EventArgs e)
+        {
+            repeatEnabled = (repeatEnabled) ? false : true;
+            this.XBMC.Controls.Repeat(repeatEnabled);
+        }
+
 //END REPEAT BUTTON
 
 //START SHUFFLE BUTTON
@@ -954,20 +966,31 @@ namespace XBMControl
 
         private void bPartymode_MouseLeave(object sender, EventArgs e)
         {
-            bPartymode.BackgroundImage = Resources.button_partymode;
+            if (partyModeEnabled)
+                bPartymode.BackgroundImage = Resources.button_partymode_selected;
+            else
+                bPartymode.BackgroundImage = Resources.button_partymode;
         }
 
         private void bPartymode_MouseDown(object sender, MouseEventArgs e)
         {
             bPartymode.BackgroundImage = Resources.button_partymode_click;
-            this.XBMC.Controls.TogglePartymode();
         }
 
         private void bPartymode_MouseUp(object sender, MouseEventArgs e)
         {
-            bPartymode.BackgroundImage = Resources.button_partymode_hover;
+            if (partyModeEnabled)
+                bPartymode.BackgroundImage = Resources.button_partymode_selected;
+            else
+                bPartymode.BackgroundImage = Resources.button_partymode;
         }
-//END PARTYMODE BUTTON
+
+        private void bPartymode_Click(object sender, EventArgs e)
+        {
+            partyModeEnabled = (partyModeEnabled) ? false : true;
+            this.XBMC.Controls.TogglePartymode();
+        }
+        //END PARTYMODE BUTTON
 
 //START PLAYLIST BUTTON
         private void bPlaylist_MouseHover(object sender, EventArgs e)
@@ -1091,6 +1114,11 @@ namespace XBMControl
         }
 
         private void bNavigator_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void bPlay_Click(object sender, EventArgs e)
         {
 
         }

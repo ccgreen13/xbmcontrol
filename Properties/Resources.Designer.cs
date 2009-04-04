@@ -137,13 +137,6 @@ namespace XBMControl.Properties {
             }
         }
         
-        internal static System.Drawing.Bitmap button_back {
-            get {
-                object obj = ResourceManager.GetObject("button_back", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
         internal static System.Drawing.Bitmap button_clear {
             get {
                 object obj = ResourceManager.GetObject("button_clear", resourceCulture);
@@ -151,16 +144,23 @@ namespace XBMControl.Properties {
             }
         }
         
-        internal static System.Drawing.Bitmap button_down {
+        internal static System.Drawing.Bitmap button_exit {
             get {
-                object obj = ResourceManager.GetObject("button_down", resourceCulture);
+                object obj = ResourceManager.GetObject("button_exit", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
         
-        internal static System.Drawing.Bitmap button_forward {
+        internal static System.Drawing.Bitmap button_exit_click {
             get {
-                object obj = ResourceManager.GetObject("button_forward", resourceCulture);
+                object obj = ResourceManager.GetObject("button_exit_click", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap button_exit_hover {
+            get {
+                object obj = ResourceManager.GetObject("button_exit_hover", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -245,6 +245,13 @@ namespace XBMControl.Properties {
         internal static System.Drawing.Bitmap button_partymode_hover {
             get {
                 object obj = ResourceManager.GetObject("button_partymode_hover", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap button_partymode_selected {
+            get {
+                object obj = ResourceManager.GetObject("button_partymode_selected", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -382,9 +389,9 @@ namespace XBMControl.Properties {
             }
         }
         
-        internal static System.Drawing.Bitmap button_select {
+        internal static System.Drawing.Bitmap button_repeat_selected {
             get {
-                object obj = ResourceManager.GetObject("button_select", resourceCulture);
+                object obj = ResourceManager.GetObject("button_repeat_selected", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -406,6 +413,13 @@ namespace XBMControl.Properties {
         internal static System.Drawing.Bitmap button_shuffle_hover {
             get {
                 object obj = ResourceManager.GetObject("button_shuffle_hover", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap button_shuffle_selected {
+            get {
+                object obj = ResourceManager.GetObject("button_shuffle_selected", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -434,13 +448,6 @@ namespace XBMControl.Properties {
         internal static System.Drawing.Bitmap button_undo {
             get {
                 object obj = ResourceManager.GetObject("button_undo", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        internal static System.Drawing.Bitmap button_up {
-            get {
-                object obj = ResourceManager.GetObject("button_up", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -724,6 +731,111 @@ namespace XBMControl.Properties {
         internal static System.Drawing.Bitmap mute_32x32 {
             get {
                 object obj = ResourceManager.GetObject("mute_32x32", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap navigator {
+            get {
+                object obj = ResourceManager.GetObject("navigator", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap navigator_back {
+            get {
+                object obj = ResourceManager.GetObject("navigator_back", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap navigator_down {
+            get {
+                object obj = ResourceManager.GetObject("navigator_down", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap navigator_forward {
+            get {
+                object obj = ResourceManager.GetObject("navigator_forward", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap navigator_home {
+            get {
+                object obj = ResourceManager.GetObject("navigator_home", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap navigator_left {
+            get {
+                object obj = ResourceManager.GetObject("navigator_left", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap navigator_options {
+            get {
+                object obj = ResourceManager.GetObject("navigator_options", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap navigator_play_pause {
+            get {
+                object obj = ResourceManager.GetObject("navigator_play_pause", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap navigator_rewind {
+            get {
+                object obj = ResourceManager.GetObject("navigator_rewind", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap navigator_right {
+            get {
+                object obj = ResourceManager.GetObject("navigator_right", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap navigator_select {
+            get {
+                object obj = ResourceManager.GetObject("navigator_select", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap navigator_stop {
+            get {
+                object obj = ResourceManager.GetObject("navigator_stop", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap navigator_up {
+            get {
+                object obj = ResourceManager.GetObject("navigator_up", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap navigator_vol_down {
+            get {
+                object obj = ResourceManager.GetObject("navigator_vol_down", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap navigator_vol_up {
+            get {
+                object obj = ResourceManager.GetObject("navigator_vol_up", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

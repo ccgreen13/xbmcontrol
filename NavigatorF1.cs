@@ -32,32 +32,28 @@ namespace XBMControl
 
         private void bUp_Click(object sender, EventArgs e)
         {
-            parent.XBMC.Video.sendAction("270");
+            //parent.XBMC.Video.sendAction("270");
+            parent.XBMC.Video.sendAction("3");
         }
 
         private void bLeft_Click(object sender, EventArgs e)
         {
-            parent.XBMC.Video.sendAction("272");
+            //parent.XBMC.Video.sendAction("272");
+            parent.XBMC.Video.sendAction("1");
         }
 
         private void bRight_Click(object sender, EventArgs e)
         {
-            parent.XBMC.Video.sendAction("273");
+            //parent.XBMC.Video.sendAction("273");
+            parent.XBMC.Video.sendAction("2");
         }
 
         private void bDown_Click(object sender, EventArgs e)
         {
-            parent.XBMC.Video.sendAction("271");
+            //parent.XBMC.Video.sendAction("271");
+            parent.XBMC.Video.sendAction("4");
         }
 
-        private void pbClose_Click(object sender, EventArgs e)
-        {
-            Settings.Default.NavigatorOpened = false;
-            Settings.Default.Save();
-            this.Dispose();
-        }
-
-        
         //START FAKE DRAG DROP
         private void pToolbar_MouseDown(object sender, MouseEventArgs e)
         {
@@ -81,20 +77,93 @@ namespace XBMControl
                 this.Top = e.Y + this.Top - clickOffsetY;
             }
         }
+        //END FAKE DRAG DROP
 
         private void bSelect_Click(object sender, EventArgs e)
         {
-            parent.XBMC.Video.sendAction("256");
+            //parent.XBMC.Video.sendAction("256");
+            parent.XBMC.Video.sendAction("7");
         }
 
         private void bUndo_Click_1(object sender, EventArgs e)
         {
-            parent.XBMC.Video.sendAction("275");
+            //parent.XBMC.Video.sendAction("275");
+            parent.XBMC.Video.sendAction("10");
         }
 
         private void NavigatorF1_Load(object sender, EventArgs e)
         {
         }
-        //END FAKE DRAG DROP
+
+        private void bVolDown_Click(object sender, EventArgs e)
+        {
+            //parent.XBMC.Video.sendAction("89");
+            parent.XBMC.Video.sendAction("89");
+        }
+
+        private void bVolUp_Click(object sender, EventArgs e)
+        {
+            //parent.XBMC.Video.sendAction("88");
+            parent.XBMC.Video.sendAction("88");
+        }
+
+        private void bRewind_Click(object sender, EventArgs e)
+        {
+            parent.XBMC.Video.sendAction("78");
+        }
+
+        private void bStop_Click(object sender, EventArgs e)
+        {
+            parent.XBMC.Video.sendAction("13");
+        }
+
+        private void bPlayPause_Click(object sender, EventArgs e)
+        {
+            parent.XBMC.Video.sendAction("12");
+        }
+
+        private void bForward_Click(object sender, EventArgs e)
+        {
+            parent.XBMC.Video.sendAction("77");
+        }
+
+        private void bHome_Click(object sender, EventArgs e)
+        {
+            parent.XBMC.Video.sendAction("18");
+        }
+
+        private void bOptions_Click(object sender, EventArgs e)
+        {
+            parent.XBMC.Video.sendAction("73");
+        }
+
+        private void bClose_Click(object sender, EventArgs e)
+        {
+            Settings.Default.NavigatorOpened = false;
+            Settings.Default.Save();
+            this.Dispose();
+        }
+
+        //START CLOSE BUTTON
+        private void bClose_MouseEnter(object sender, EventArgs e)
+        {
+            bClose.BackgroundImage = Resources.button_exit_hover;
+        }
+
+        private void bClose_MouseLeave(object sender, EventArgs e)
+        {
+            bClose.BackgroundImage = Resources.button_exit;
+        }
+
+        private void bClose_MouseUp(object sender, MouseEventArgs e)
+        {
+            bClose.BackgroundImage = Resources.button_exit;
+        }
+
+        private void bClose_MouseDown(object sender, MouseEventArgs e)
+        {
+            bClose.BackgroundImage = Resources.button_exit_click;
+        }
+        // END CLOSE BUTTON
     }
 }

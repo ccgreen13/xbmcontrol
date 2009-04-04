@@ -166,7 +166,7 @@ namespace XBMC
             Image screenshot = null;
             string base64ImageString = this.GetScreenshotBase64();
 
-            if (base64ImageString != null)
+            if (base64ImageString != null && !base64ImageString.Contains("Error"))
                 screenshot = this.Base64StringToImage(base64ImageString);
 
             return screenshot;

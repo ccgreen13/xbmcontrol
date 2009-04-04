@@ -122,7 +122,7 @@ namespace XBMControl
                     tNode.Text = aDirectories[x];
                     if (aDirectoryIds != null) tNode.ToolTipText = aDirectoryIds[x];
                     ActiveTreeView().Nodes.Add(tNode);
-                    ActiveTreeView().Nodes[x].ImageIndex = 0;
+                    ActiveTreeView().Nodes[x].ImageIndex = 0;         
                 }
             }
         }
@@ -143,8 +143,16 @@ namespace XBMControl
 
             if (ActiveTab() == tabShares)
             {
-                aTitles = parent.XBMC.Media.GetDirectoryContentNames(ActiveTreeView().SelectedNode.ToolTipText, "[" + cbShareType.Text + "]");
-                aPaths = parent.XBMC.Media.GetDirectoryContentPaths(ActiveTreeView().SelectedNode.ToolTipText, "[" + cbShareType.Text + "]");
+                if (cbShareType.Text == "video")
+                {
+                    aTitles = parent.XBMC.Media.GetDirectoryContentNames(ActiveTreeView().SelectedNode.ToolTipText, "[" + cbShareType.Text + "]");
+                    aPaths = parent.XBMC.Media.GetDirectoryContentPaths(ActiveTreeView().SelectedNode.ToolTipText, "[" + cbShareType.Text + "]");
+                }
+                else
+                {
+                    aTitles = parent.XBMC.Media.GetDirectoryContentNames(ActiveTreeView().SelectedNode.ToolTipText, "[" + cbShareType.Text + "]");
+                    aPaths = parent.XBMC.Media.GetDirectoryContentPaths(ActiveTreeView().SelectedNode.ToolTipText, "[" + cbShareType.Text + "]");
+                }
             }
             else if (ActiveTab() == tabSongs)
             {
@@ -161,7 +169,19 @@ namespace XBMControl
                 for (int x = 0; x < aTitles.Length; x++)
                 {
                     ActiveListView().Items.Add(aTitles[x]);
-                    ActiveListView().Items[x].ImageIndex = 1;
+
+                    if (aTitles[x] != null)
+                    {
+                        string[] tempName = aTitles[x].Split('.');
+                        if (tempName[tempName.Length - 1] == "IFO" || tempName[tempName.Length - 1] == "VOB")
+                            ActiveListView().Items[x].ImageIndex = 3;
+                        else
+                            ActiveListView().Items[x].ImageIndex = 1;
+                    }
+                    else
+                    {
+                        ActiveListView().Items[x].ImageIndex = 1;
+                    }
                     if (aPaths != null) ActiveListView().Items[x].ToolTipText = aPaths[x];
                 }
             }
@@ -215,12 +235,16 @@ namespace XBMControl
                     {
                         if (aDirectoryContentPaths[x] != null && aDirectoryContentPaths[x] != "")
                         {
-                            tNode = new TreeNode();
-                            tNode.Name = aDirectoryContentNames[x];
-                            tNode.Text = aDirectoryContentNames[x];
-                            tNode.ToolTipText = aDirectoryContentPaths[x];
-                            ActiveTreeView().SelectedNode.Nodes.Add(tNode);
-                            ActiveTreeView().SelectedNode.Nodes[x].ImageIndex = 0;
+                            string[] aTempContentPaths = aDirectoryContentPaths[x].Split('/');
+                            if (!aTempContentPaths[aTempContentPaths.Length - 2].Contains(".IFO"))
+                            {
+                                tNode = new TreeNode();
+                                tNode.Name = aDirectoryContentNames[x];
+                                tNode.Text = aDirectoryContentNames[x];
+                                tNode.ToolTipText = aDirectoryContentPaths[x];
+                                ActiveTreeView().SelectedNode.Nodes.Add(tNode);
+                                ActiveTreeView().SelectedNode.Nodes[x].ImageIndex = 0;
+                            }
                         }
                     }
 
