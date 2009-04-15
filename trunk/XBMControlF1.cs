@@ -385,14 +385,17 @@ namespace XBMControl
                     string album = this.XBMC.NowPlaying.Get("album") + year;
                     string lastFM = (currentFilename.Substring(0, 6) == "lastfm") ? "(Last.FM)" : "";
 
-                    notifyIcon1.ShowBalloonTip(2000, "XBMControl : " + Language.GetString("mainform/playing/now") + lastFM, artist + title + album, ToolTipIcon.Info);
+                    if (this.XBMC.Status.IsConnected() && Settings.Default.ShowPlayStatusBalloonTips)
+                    {
+                        notifyIcon1.ShowBalloonTip(2000, "XBMControl : " + Language.GetString("mainform/playing/now") + lastFM, artist + title + album, ToolTipIcon.Info);
+                    }
                 }  
             }
         }
 
         private void ShowPlayStatusInfo()
         {
-            if (Settings.Default.ShowPlayStatusBalloonTips)
+            if (!this.XBMC.Status.IsConnected() && Settings.Default.ShowPlayStatusBalloonTips)
             {
                 if (this.XBMC.Status.IsNotPlaying())
                 {

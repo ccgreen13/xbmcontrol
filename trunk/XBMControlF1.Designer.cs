@@ -711,10 +711,10 @@
             this.toolTip1.SetToolTip(this.bPartymode, "\'Party Mode\' on/off");
             this.bPartymode.UseVisualStyleBackColor = false;
             this.bPartymode.MouseLeave += new System.EventHandler(this.bPartymode_MouseLeave);
+            this.bPartymode.Click += new System.EventHandler(this.bPartymode_Click);
             this.bPartymode.MouseDown += new System.Windows.Forms.MouseEventHandler(this.bPartymode_MouseDown);
             this.bPartymode.MouseUp += new System.Windows.Forms.MouseEventHandler(this.bPartymode_MouseUp);
             this.bPartymode.MouseEnter += new System.EventHandler(this.bPartymode_MouseEnter);
-            this.bPartymode.Click += new System.EventHandler(this.bPartymode_Click);
             // 
             // bShuffle
             // 

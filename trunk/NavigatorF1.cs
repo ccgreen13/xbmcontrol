@@ -32,25 +32,21 @@ namespace XBMControl
 
         private void bUp_Click(object sender, EventArgs e)
         {
-            //parent.XBMC.Video.sendAction("270");
             parent.XBMC.Video.sendAction("3");
         }
 
         private void bLeft_Click(object sender, EventArgs e)
         {
-            //parent.XBMC.Video.sendAction("272");
             parent.XBMC.Video.sendAction("1");
         }
 
         private void bRight_Click(object sender, EventArgs e)
         {
-            //parent.XBMC.Video.sendAction("273");
             parent.XBMC.Video.sendAction("2");
         }
 
         private void bDown_Click(object sender, EventArgs e)
         {
-            //parent.XBMC.Video.sendAction("271");
             parent.XBMC.Video.sendAction("4");
         }
 
@@ -81,14 +77,12 @@ namespace XBMControl
 
         private void bSelect_Click(object sender, EventArgs e)
         {
-            //parent.XBMC.Video.sendAction("256");
             parent.XBMC.Video.sendAction("7");
         }
 
         private void bUndo_Click_1(object sender, EventArgs e)
         {
-            //parent.XBMC.Video.sendAction("275");
-            parent.XBMC.Video.sendAction("10");
+            parent.XBMC.Video.sendAction("9");
         }
 
         private void NavigatorF1_Load(object sender, EventArgs e)
@@ -97,13 +91,11 @@ namespace XBMControl
 
         private void bVolDown_Click(object sender, EventArgs e)
         {
-            //parent.XBMC.Video.sendAction("89");
             parent.XBMC.Video.sendAction("89");
         }
 
         private void bVolUp_Click(object sender, EventArgs e)
         {
-            //parent.XBMC.Video.sendAction("88");
             parent.XBMC.Video.sendAction("88");
         }
 
@@ -129,12 +121,12 @@ namespace XBMControl
 
         private void bHome_Click(object sender, EventArgs e)
         {
-            parent.XBMC.Video.sendAction("18");
+            parent.XBMC.Video.sendAction("10");
         }
 
         private void bOptions_Click(object sender, EventArgs e)
         {
-            parent.XBMC.Video.sendAction("73");
+            parent.XBMC.Video.sendAction("18");
         }
 
         private void bClose_Click(object sender, EventArgs e)
@@ -165,5 +157,65 @@ namespace XBMControl
             bClose.BackgroundImage = Resources.button_exit_click;
         }
         // END CLOSE BUTTON
+
+        private void bPrevious_Click(object sender, EventArgs e)
+        {
+            parent.XBMC.Video.sendAction("15");
+        }
+
+        private void bNext_Click(object sender, EventArgs e)
+        {
+            parent.XBMC.Video.sendAction("14");
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            parent.XBMC.Video.sendAction("59");
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            parent.XBMC.Video.sendAction("60");
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            parent.XBMC.Video.sendAction("61");
+        }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+            parent.XBMC.Video.sendAction("62");
+        }
+
+        private void button5_Click(object sender, EventArgs e)
+        {
+            parent.XBMC.Video.sendAction("63");
+        }
+
+        private void button6_Click(object sender, EventArgs e)
+        {
+            parent.XBMC.Video.sendAction("64");
+        }
+
+        private void button7_Click(object sender, EventArgs e)
+        {
+            parent.XBMC.Video.sendAction("65");
+        }
+
+        private void button8_Click(object sender, EventArgs e)
+        {
+            parent.XBMC.Video.sendAction("66");
+        }
+
+        private void button9_Click(object sender, EventArgs e)
+        {
+            parent.XBMC.Video.sendAction("67");
+        }
+
+        private void button0_Click(object sender, EventArgs e)
+        {
+            parent.XBMC.Video.sendAction("58");
+        }
     }
 }
