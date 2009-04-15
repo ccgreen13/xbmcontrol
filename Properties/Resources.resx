@@ -454,9 +454,6 @@
   <data name="nederlands" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\nederlands.xml;System.String, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
   </data>
-  <data name="navigator" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\navigator.PNG;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
   <data name="navigator_back" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\navigator_back.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
@@ -516,5 +513,41 @@
   </data>
   <data name="button_shuffle_selected" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\button_shuffle_selected.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="navigator_next" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\navigator_next.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="navigator_previous" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\navigator_previous.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="navigator_numpad_0" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\navigator_numpad_0.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="navigator_numpad_1" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\navigator_numpad_1.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="navigator_numpad_2" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\navigator_numpad_2.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="navigator_numpad_3" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\navigator_numpad_3.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="navigator_numpad_4" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\navigator_numpad_4.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="navigator_numpad_5" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\navigator_numpad_5.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="navigator_numpad_6" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\navigator_numpad_6.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="navigator_numpad_7" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\navigator_numpad_7.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="navigator_numpad_8" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\navigator_numpad_8.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="navigator_numpad_9" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\navigator_numpad_9.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
 </root>

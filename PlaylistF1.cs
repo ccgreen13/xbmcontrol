@@ -43,7 +43,7 @@ namespace XBMControl
             if (parent.XBMC.Status.IsConnected())
             {
                 string currentPlaylistType = (parent.XBMC.NowPlaying.GetMediaType() == "Video") ? "video" : "";
-                parent.XBMC.Playlist.Set(currentPlaylistType);
+                parent.XBMC.Playlist.SetType(currentPlaylistType);
 
                 string[] aPlaylistEntries = parent.XBMC.Playlist.Get(true, true);
 
@@ -227,7 +227,7 @@ namespace XBMControl
 
                 foreach (string entry in myList)
                 {
-                    tempString = entry.Replace("\\", "/");
+                    tempString = entry.Replace("/", "\\");
 
                     parent.XBMC.Playlist.AddFilesToPlaylist(tempString);
                 }

@@ -3,7 +3,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProductVersion>9.0.21022</ProductVersion>
+    <ProductVersion>9.0.30729</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{6076CB11-37C2-432D-8E23-D00A27A65B94}</ProjectGuid>
     <OutputType>WinExe</OutputType>
@@ -364,6 +364,18 @@
     <None Include="Resources\button_repeat_selected.png" />
     <None Include="Resources\button_shuffle_selected.png" />
     <None Include="Resources\button_partymode_selected.png" />
+    <None Include="Resources\navigator_previous.png" />
+    <None Include="Resources\navigator_next.png" />
+    <None Include="Resources\navigator_numpad_9.png" />
+    <None Include="Resources\navigator_numpad_0.png" />
+    <None Include="Resources\navigator_numpad_1.png" />
+    <None Include="Resources\navigator_numpad_2.png" />
+    <None Include="Resources\navigator_numpad_3.png" />
+    <None Include="Resources\navigator_numpad_4.png" />
+    <None Include="Resources\navigator_numpad_5.png" />
+    <None Include="Resources\navigator_numpad_6.png" />
+    <None Include="Resources\navigator_numpad_7.png" />
+    <None Include="Resources\navigator_numpad_8.png" />
     <Content Include="XBMC.ico" />
     <Content Include="Xbox.ico" />
   </ItemGroup>

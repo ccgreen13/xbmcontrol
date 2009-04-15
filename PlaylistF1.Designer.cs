@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(PlaylistF1));
             this.lbPlaylist = new System.Windows.Forms.ListBox();
             this.cmsPlaylist = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.cmsPlayFromSelection = new System.Windows.Forms.ToolStripMenuItem();
@@ -183,8 +184,8 @@
             this.pbClose.Size = new System.Drawing.Size(9, 9);
             this.pbClose.TabIndex = 3;
             this.pbClose.TabStop = false;
-            this.pbClose.Click += new System.EventHandler(this.pbClose_Click);
             this.pbClose.MouseLeave += new System.EventHandler(this.pbClose_MouseLeave);
+            this.pbClose.Click += new System.EventHandler(this.pbClose_Click);
             this.pbClose.MouseUp += new System.Windows.Forms.MouseEventHandler(this.pbClose_MouseUp);
             this.pbClose.MouseEnter += new System.EventHandler(this.pbClose_MouseEnter);
             // 
@@ -204,6 +205,7 @@
             this.Controls.Add(this.pToolbar);
             this.Controls.Add(this.lbPlaylist);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "PlaylistF1";
             this.ShowIcon = false;
             this.ShowInTaskbar = false;

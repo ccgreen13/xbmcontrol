@@ -50,8 +50,8 @@ namespace XBMC
                         if (i > 1)
                         {
                             string extension = aPlaylistTemp[x].Substring(i, aPlaylistTemp[x].Length - i);
-                                aPlaylistTemp[x] = aPlaylistTemp[x].Replace("\\", "/");
-                            string[] aPlaylistEntry = aPlaylistTemp[x].Split('/');
+                                aPlaylistTemp[x] = aPlaylistTemp[x].Replace("/", "\\");
+                            string[] aPlaylistEntry = aPlaylistTemp[x].Split('\\');
                             string playlistEntry = aPlaylistEntry[aPlaylistEntry.Length - 1].Replace(extension, "");
                             aCurrentPlaylist[x] = playlistEntry;
                         }
@@ -121,7 +121,7 @@ namespace XBMC
             parent.Request("SetPlaylistSong(" + position.ToString() + ")");
         }
 
-        public void Set(string type)
+        public void SetType(string type)
         {
             string playlistType = (type == "video") ? "1" : "0";
             parent.Request("SetCurrentPlaylist(" + playlistType + ")");

@@ -75,7 +75,7 @@ namespace XBMC
 
                 for (int x = 0; x < aDirectoryContent.Length; x++)
                 {
-                    aDirectoryContent[x] = aDirectoryContent[x].Replace("\\", "/");
+                    aDirectoryContent[x] = aDirectoryContent[x].Replace("/", "\\");
                     aContentPaths[x] = (aDirectoryContent[x] == "Error:Not folder" || aDirectoryContent[x] == "Error") ? null : aDirectoryContent[x];
                 }
                 return aContentPaths;
@@ -103,8 +103,8 @@ namespace XBMC
                         aContentNames[x] = null;
                     else
                     {
-                        aContentPaths[x] = aContentPaths[x].Replace("\\", "/");
-                        string[] aTmpContent = aContentPaths[x].Split('/');
+                        aContentPaths[x] = aContentPaths[x].Replace("/", "\\");
+                        string[] aTmpContent = aContentPaths[x].Split('\\');
                         aContentNames[x] = (aTmpContent[aTmpContent.Length - 1] == "") ? aTmpContent[aTmpContent.Length - 2] : aTmpContent[aTmpContent.Length - 1];
                     }
                 }
