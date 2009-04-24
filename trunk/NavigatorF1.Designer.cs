@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(NavigatorF1));
             this.bRight = new System.Windows.Forms.Button();
             this.bLeft = new System.Windows.Forms.Button();
             this.bUp = new System.Windows.Forms.Button();
@@ -164,7 +165,7 @@
             this.bUndo.FlatAppearance.BorderSize = 0;
             this.bUndo.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.bUndo.ForeColor = System.Drawing.Color.DimGray;
-            this.bUndo.Location = new System.Drawing.Point(148, 36);
+            this.bUndo.Location = new System.Drawing.Point(160, 33);
             this.bUndo.Margin = new System.Windows.Forms.Padding(0);
             this.bUndo.Name = "bUndo";
             this.bUndo.Size = new System.Drawing.Size(45, 45);
@@ -196,7 +197,7 @@
             this.bHome.FlatAppearance.BorderSize = 0;
             this.bHome.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.bHome.ForeColor = System.Drawing.Color.DimGray;
-            this.bHome.Location = new System.Drawing.Point(33, 36);
+            this.bHome.Location = new System.Drawing.Point(25, 36);
             this.bHome.Margin = new System.Windows.Forms.Padding(0);
             this.bHome.Name = "bHome";
             this.bHome.Size = new System.Drawing.Size(45, 45);
@@ -212,7 +213,7 @@
             this.bVolDown.FlatAppearance.BorderSize = 0;
             this.bVolDown.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.bVolDown.ForeColor = System.Drawing.Color.DimGray;
-            this.bVolDown.Location = new System.Drawing.Point(33, 93);
+            this.bVolDown.Location = new System.Drawing.Point(25, 93);
             this.bVolDown.Margin = new System.Windows.Forms.Padding(0);
             this.bVolDown.Name = "bVolDown";
             this.bVolDown.Size = new System.Drawing.Size(45, 45);
@@ -228,7 +229,7 @@
             this.bVolUp.FlatAppearance.BorderSize = 0;
             this.bVolUp.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.bVolUp.ForeColor = System.Drawing.Color.DimGray;
-            this.bVolUp.Location = new System.Drawing.Point(148, 93);
+            this.bVolUp.Location = new System.Drawing.Point(160, 93);
             this.bVolUp.Margin = new System.Windows.Forms.Padding(0);
             this.bVolUp.Name = "bVolUp";
             this.bVolUp.Size = new System.Drawing.Size(45, 45);
@@ -247,10 +248,10 @@
             this.bRewind.FlatAppearance.MouseOverBackColor = System.Drawing.Color.DimGray;
             this.bRewind.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.bRewind.ForeColor = System.Drawing.Color.DimGray;
-            this.bRewind.Location = new System.Drawing.Point(33, 245);
+            this.bRewind.Location = new System.Drawing.Point(25, 237);
             this.bRewind.Margin = new System.Windows.Forms.Padding(0);
             this.bRewind.Name = "bRewind";
-            this.bRewind.Size = new System.Drawing.Size(40, 45);
+            this.bRewind.Size = new System.Drawing.Size(45, 45);
             this.bRewind.TabIndex = 20;
             this.navigatorToolTip.SetToolTip(this.bRewind, "Rewind");
             this.bRewind.UseVisualStyleBackColor = true;
@@ -263,10 +264,10 @@
             this.bStop.FlatAppearance.BorderSize = 0;
             this.bStop.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.bStop.ForeColor = System.Drawing.Color.DimGray;
-            this.bStop.Location = new System.Drawing.Point(73, 245);
+            this.bStop.Location = new System.Drawing.Point(70, 237);
             this.bStop.Margin = new System.Windows.Forms.Padding(0);
             this.bStop.Name = "bStop";
-            this.bStop.Size = new System.Drawing.Size(40, 45);
+            this.bStop.Size = new System.Drawing.Size(45, 45);
             this.bStop.TabIndex = 21;
             this.navigatorToolTip.SetToolTip(this.bStop, "Stop");
             this.bStop.UseVisualStyleBackColor = true;
@@ -279,10 +280,10 @@
             this.bPlayPause.FlatAppearance.BorderSize = 0;
             this.bPlayPause.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.bPlayPause.ForeColor = System.Drawing.Color.DimGray;
-            this.bPlayPause.Location = new System.Drawing.Point(113, 245);
+            this.bPlayPause.Location = new System.Drawing.Point(115, 237);
             this.bPlayPause.Margin = new System.Windows.Forms.Padding(0);
             this.bPlayPause.Name = "bPlayPause";
-            this.bPlayPause.Size = new System.Drawing.Size(40, 45);
+            this.bPlayPause.Size = new System.Drawing.Size(45, 45);
             this.bPlayPause.TabIndex = 22;
             this.navigatorToolTip.SetToolTip(this.bPlayPause, "Play/Pause");
             this.bPlayPause.UseVisualStyleBackColor = true;
@@ -295,10 +296,10 @@
             this.bForward.FlatAppearance.BorderSize = 0;
             this.bForward.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.bForward.ForeColor = System.Drawing.Color.DimGray;
-            this.bForward.Location = new System.Drawing.Point(153, 245);
+            this.bForward.Location = new System.Drawing.Point(160, 237);
             this.bForward.Margin = new System.Windows.Forms.Padding(0);
             this.bForward.Name = "bForward";
-            this.bForward.Size = new System.Drawing.Size(40, 45);
+            this.bForward.Size = new System.Drawing.Size(45, 45);
             this.bForward.TabIndex = 23;
             this.navigatorToolTip.SetToolTip(this.bForward, "Fast Foward");
             this.bForward.UseVisualStyleBackColor = true;
@@ -362,10 +363,10 @@
             this.bPrevious.FlatAppearance.MouseOverBackColor = System.Drawing.Color.DimGray;
             this.bPrevious.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.bPrevious.ForeColor = System.Drawing.Color.DimGray;
-            this.bPrevious.Location = new System.Drawing.Point(33, 200);
+            this.bPrevious.Location = new System.Drawing.Point(25, 192);
             this.bPrevious.Margin = new System.Windows.Forms.Padding(0);
             this.bPrevious.Name = "bPrevious";
-            this.bPrevious.Size = new System.Drawing.Size(40, 45);
+            this.bPrevious.Size = new System.Drawing.Size(45, 45);
             this.bPrevious.TabIndex = 25;
             this.navigatorToolTip.SetToolTip(this.bPrevious, "Previous");
             this.bPrevious.UseVisualStyleBackColor = true;
@@ -378,10 +379,10 @@
             this.bNext.FlatAppearance.BorderSize = 0;
             this.bNext.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.bNext.ForeColor = System.Drawing.Color.DimGray;
-            this.bNext.Location = new System.Drawing.Point(153, 200);
+            this.bNext.Location = new System.Drawing.Point(160, 192);
             this.bNext.Margin = new System.Windows.Forms.Padding(0);
             this.bNext.Name = "bNext";
-            this.bNext.Size = new System.Drawing.Size(40, 45);
+            this.bNext.Size = new System.Drawing.Size(45, 45);
             this.bNext.TabIndex = 26;
             this.navigatorToolTip.SetToolTip(this.bNext, "Next");
             this.bNext.UseVisualStyleBackColor = true;
@@ -394,7 +395,7 @@
             this.button1.FlatAppearance.BorderSize = 0;
             this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.button1.ForeColor = System.Drawing.Color.DimGray;
-            this.button1.Location = new System.Drawing.Point(45, 301);
+            this.button1.Location = new System.Drawing.Point(45, 294);
             this.button1.Margin = new System.Windows.Forms.Padding(0);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(45, 45);
@@ -410,7 +411,7 @@
             this.button2.FlatAppearance.BorderSize = 0;
             this.button2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.button2.ForeColor = System.Drawing.Color.DimGray;
-            this.button2.Location = new System.Drawing.Point(90, 301);
+            this.button2.Location = new System.Drawing.Point(90, 294);
             this.button2.Margin = new System.Windows.Forms.Padding(0);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(45, 45);
@@ -426,7 +427,7 @@
             this.button3.FlatAppearance.BorderSize = 0;
             this.button3.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.button3.ForeColor = System.Drawing.Color.DimGray;
-            this.button3.Location = new System.Drawing.Point(135, 301);
+            this.button3.Location = new System.Drawing.Point(135, 294);
             this.button3.Margin = new System.Windows.Forms.Padding(0);
             this.button3.Name = "button3";
             this.button3.Size = new System.Drawing.Size(45, 45);
@@ -442,7 +443,7 @@
             this.button4.FlatAppearance.BorderSize = 0;
             this.button4.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.button4.ForeColor = System.Drawing.Color.DimGray;
-            this.button4.Location = new System.Drawing.Point(45, 346);
+            this.button4.Location = new System.Drawing.Point(45, 339);
             this.button4.Margin = new System.Windows.Forms.Padding(0);
             this.button4.Name = "button4";
             this.button4.Size = new System.Drawing.Size(45, 45);
@@ -458,7 +459,7 @@
             this.button5.FlatAppearance.BorderSize = 0;
             this.button5.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.button5.ForeColor = System.Drawing.Color.DimGray;
-            this.button5.Location = new System.Drawing.Point(90, 346);
+            this.button5.Location = new System.Drawing.Point(90, 339);
             this.button5.Margin = new System.Windows.Forms.Padding(0);
             this.button5.Name = "button5";
             this.button5.Size = new System.Drawing.Size(45, 45);
@@ -474,7 +475,7 @@
             this.button6.FlatAppearance.BorderSize = 0;
             this.button6.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.button6.ForeColor = System.Drawing.Color.DimGray;
-            this.button6.Location = new System.Drawing.Point(135, 346);
+            this.button6.Location = new System.Drawing.Point(135, 339);
             this.button6.Margin = new System.Windows.Forms.Padding(0);
             this.button6.Name = "button6";
             this.button6.Size = new System.Drawing.Size(45, 45);
@@ -490,7 +491,7 @@
             this.button7.FlatAppearance.BorderSize = 0;
             this.button7.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.button7.ForeColor = System.Drawing.Color.DimGray;
-            this.button7.Location = new System.Drawing.Point(45, 391);
+            this.button7.Location = new System.Drawing.Point(45, 384);
             this.button7.Margin = new System.Windows.Forms.Padding(0);
             this.button7.Name = "button7";
             this.button7.Size = new System.Drawing.Size(45, 45);
@@ -506,7 +507,7 @@
             this.button8.FlatAppearance.BorderSize = 0;
             this.button8.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.button8.ForeColor = System.Drawing.Color.DimGray;
-            this.button8.Location = new System.Drawing.Point(90, 391);
+            this.button8.Location = new System.Drawing.Point(90, 384);
             this.button8.Margin = new System.Windows.Forms.Padding(0);
             this.button8.Name = "button8";
             this.button8.Size = new System.Drawing.Size(45, 45);
@@ -522,7 +523,7 @@
             this.button9.FlatAppearance.BorderSize = 0;
             this.button9.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.button9.ForeColor = System.Drawing.Color.DimGray;
-            this.button9.Location = new System.Drawing.Point(135, 391);
+            this.button9.Location = new System.Drawing.Point(135, 384);
             this.button9.Margin = new System.Windows.Forms.Padding(0);
             this.button9.Name = "button9";
             this.button9.Size = new System.Drawing.Size(45, 45);
@@ -538,7 +539,7 @@
             this.button0.FlatAppearance.BorderSize = 0;
             this.button0.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.button0.ForeColor = System.Drawing.Color.DimGray;
-            this.button0.Location = new System.Drawing.Point(90, 436);
+            this.button0.Location = new System.Drawing.Point(90, 429);
             this.button0.Margin = new System.Windows.Forms.Padding(0);
             this.button0.Name = "button0";
             this.button0.Size = new System.Drawing.Size(45, 45);
@@ -553,7 +554,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.DimGray;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.ClientSize = new System.Drawing.Size(234, 499);
+            this.ClientSize = new System.Drawing.Size(234, 479);
             this.Controls.Add(this.button0);
             this.Controls.Add(this.button7);
             this.Controls.Add(this.button8);
@@ -584,6 +585,7 @@
             this.DoubleBuffered = true;
             this.ForeColor = System.Drawing.Color.White;
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "NavigatorF1";
             this.ShowIcon = false;
             this.ShowInTaskbar = false;

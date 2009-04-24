@@ -86,7 +86,7 @@ namespace XBMC
             Image thumbnail = null;
             WebClient client = new WebClient();
             Uri xbmcThumbUri = new Uri("http://" + parent.GetIp() + "/thumb.jpg");
-            parent.Request("GetCurrentlyPlaying", "q:\\web\\thumb.jpg");
+            parent.Request("GetCurrentlyPlaying", "q:/web/thumb.jpg");
 
             try
             {
