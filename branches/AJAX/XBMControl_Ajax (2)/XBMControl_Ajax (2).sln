@@ -1,0 +1,43 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 10.00
+# Visual Studio 2008
+Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "XBMControl_Ajax", "..\..\..\..\..\..\Program Files\XBMC\web\XBMControl_Ajax\", "{A86EEF9B-3273-44C4-B59B-8170122A63C3}"
+	ProjectSection(WebsiteProperties) = preProject
+		SccProjectName = "Svn"
+		SccAuxPath = "Svn"
+		SccLocalPath = "Svn"
+		SccProvider = "SubversionScc"
+		TargetFramework = "3.5"
+		Debug.AspNetCompiler.VirtualPath = "/XBMControl_Ajax"
+		Debug.AspNetCompiler.PhysicalPath = "..\..\..\..\..\..\Program Files\XBMC\web\XBMControl_Ajax\"
+		Debug.AspNetCompiler.TargetPath = "PrecompiledWeb\XBMControl_Ajax\"
+		Debug.AspNetCompiler.Updateable = "true"
+		Debug.AspNetCompiler.ForceOverwrite = "true"
+		Debug.AspNetCompiler.FixedNames = "false"
+		Debug.AspNetCompiler.Debug = "True"
+		Release.AspNetCompiler.VirtualPath = "/XBMControl_Ajax"
+		Release.AspNetCompiler.PhysicalPath = "..\..\..\..\..\..\Program Files\XBMC\web\XBMControl_Ajax\"
+		Release.AspNetCompiler.TargetPath = "PrecompiledWeb\XBMControl_Ajax\"
+		Release.AspNetCompiler.Updateable = "true"
+		Release.AspNetCompiler.ForceOverwrite = "true"
+		Release.AspNetCompiler.FixedNames = "false"
+		Release.AspNetCompiler.Debug = "False"
+		VWDPort = "3006"
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SubversionScc) = preSolution
+		Svn-Managed = True
+		Manager = AnkhSVN - Subversion Support for Visual Studio
+	EndGlobalSection
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{A86EEF9B-3273-44C4-B59B-8170122A63C3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A86EEF9B-3273-44C4-B59B-8170122A63C3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
