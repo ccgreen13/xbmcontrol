@@ -82,11 +82,12 @@ namespace XBMC
 
         public Image GetCoverArt()
         {
+            String[] stringList;
             MemoryStream stream = null;
             Image thumbnail = null;
             WebClient client = new WebClient();
             Uri xbmcThumbUri = new Uri("http://" + parent.GetIp() + "/thumb.jpg");
-            parent.Request("GetCurrentlyPlaying", "q:/web/thumb.jpg");
+            stringList = parent.Request("GetCurrentlyPlaying", "q:/web/thumb.jpg");
 
             try
             {
