@@ -58,12 +58,13 @@
             this.lbPlaylist.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(248)))), ((int)(((byte)(245)))), ((int)(((byte)(242)))));
             this.lbPlaylist.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.lbPlaylist.ContextMenuStrip = this.cmsPlaylist;
-            this.lbPlaylist.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbPlaylist.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lbPlaylist.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(95)))), ((int)(((byte)(95)))), ((int)(((byte)(95)))));
             this.lbPlaylist.FormattingEnabled = true;
+            this.lbPlaylist.ItemHeight = 16;
             this.lbPlaylist.Location = new System.Drawing.Point(1, 21);
             this.lbPlaylist.Name = "lbPlaylist";
-            this.lbPlaylist.Size = new System.Drawing.Size(299, 104);
+            this.lbPlaylist.Size = new System.Drawing.Size(299, 112);
             this.lbPlaylist.TabIndex = 1;
             this.lbPlaylist.MouseUp += new System.Windows.Forms.MouseEventHandler(this.lbPlaylist_MouseUp);
             this.lbPlaylist.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.lbPlaylist_MouseDoubleClick);
@@ -201,9 +202,10 @@
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(248)))), ((int)(((byte)(245)))), ((int)(((byte)(242)))));
             this.BackgroundImage = global::XBMControl.Properties.Resources.MainFormBackground2;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.ClientSize = new System.Drawing.Size(302, 130);
+            this.ClientSize = new System.Drawing.Size(302, 137);
             this.Controls.Add(this.pToolbar);
             this.Controls.Add(this.lbPlaylist);
+            this.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "PlaylistF1";

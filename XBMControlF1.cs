@@ -370,16 +370,18 @@ namespace XBMControl
 //START Notification events
         private void ShowNowPlayingInfo(bool resetToDefault)
         {
+            string tempString;
+
             if (Settings.Default.ShowNowPlayingBalloonTips)
             {
                 if (!this.XBMC.Status.IsNotPlaying() && this.XBMC.Status.IsNewMediaPlaying())
                 {
                     string currentFilename = this.XBMC.NowPlaying.Get("filename");
                     string genre = (this.XBMC.NowPlaying.Get("genre") == "" || this.XBMC.NowPlaying.Get("genre") == null) ? "" : " [" + this.XBMC.NowPlaying.Get("genre") + "]";
-                    string artist = this.XBMC.NowPlaying.Get("artist") + genre + "\n";
+                    string artist = this.XBMC.NowPlaying.Get("artist");
                     string duration = this.XBMC.NowPlaying.Get("duration");
                     string time = (duration == "" || duration == null) ? "" : " [" + duration + "]";
-                    string title = this.XBMC.NowPlaying.Get("title") + time + "\n";
+                    string title = this.XBMC.NowPlaying.Get("title");
                     string year = this.XBMC.NowPlaying.Get("year");
                     year = (year == "" || year == null) ? "" : " [" + year + "]";
                     string album = this.XBMC.NowPlaying.Get("album") + year;
@@ -387,7 +389,12 @@ namespace XBMControl
 
                     if (this.XBMC.Status.IsConnected() && Settings.Default.ShowPlayStatusBalloonTips)
                     {
-                        notifyIcon1.ShowBalloonTip(2000, "XBMControl : " + Language.GetString("mainform/playing/now") + lastFM, artist + title + album, ToolTipIcon.Info);
+                        notifyIcon1.ShowBalloonTip(2000, "XBMControl : " + Language.GetString("mainform/playing/now") + lastFM, artist + genre + "\n" + title + time + "\n" + album, ToolTipIcon.Info);
+                        tempString = artist + "\n" + title;
+                        // System tray tooltip text for "hover" can only be 64 characters long maximum.
+                        if (tempString.Length > 64)
+                            tempString = tempString.Substring(0, 63);
+                        notifyIcon1.Text = tempString;
                     }
                 }  
             }
@@ -410,6 +417,7 @@ namespace XBMControl
                     if (!playStatusMessageShowed)
                     {
                         notifyIcon1.ShowBalloonTip(2000, Language.GetString("global/appName"), Language.GetString("mainform/playing/paused"), ToolTipIcon.Info);
+                        notifyIcon1.Text = "XBMControl\n" + Language.GetString("mainform/playing/paused");
                         playStatusMessageShowed = true;
                     }
                 }
@@ -426,7 +434,10 @@ namespace XBMControl
                 {
                     lArtistSong.Text = Language.GetString("mainform/connection/none");
                     if (Settings.Default.ShowConnectionInfo)
+                    {
                         notifyIcon1.ShowBalloonTip(2000, Language.GetString("global/appName"), Language.GetString("mainform/connection/none"), ToolTipIcon.Error);
+                        notifyIcon1.Text = "XBMControl\n" + Language.GetString("mainform/connection/none");
+                    }
                     else
                         MessageBox.Show(Language.GetString("mainform/connection/none"));
 
@@ -624,6 +635,7 @@ namespace XBMControl
             if (Playlist == null || !Settings.Default.playlistOpened)
             {
                 Playlist = new PlaylistF1(this);
+                //Playlist.Scale(new SizeF((float)2, (float)2));
                 Playlist.Show();
                 Playlist.Top = this.Top;
                 Playlist.Left = (this.Left + this.Width);
@@ -883,6 +895,7 @@ namespace XBMControl
         private void pbMinimize_MouseUp(object sender, MouseEventArgs e)
         {
             this.WindowState = FormWindowState.Minimized;
+            this.Hide();
         }
 //END MINIMIZE BUTTON
 
