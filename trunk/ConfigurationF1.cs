@@ -65,6 +65,7 @@ namespace XBMControl
             cbShowConnectionStatusBalloonTip.Text   = parent.Language.GetString("configuration/label/showConnectionStatusBalloonTip");
             cbRunAtStartup.Text                     = parent.Language.GetString("configuration/label/runAtStartup");
             cbStartMinimized.Text                   = parent.Language.GetString("configuration/label/startMinimized");
+            cbShowConfigurationAtStart.Text         = parent.Language.GetString("configuration/label/showConfigurationAtStart");
             bConfirm.Text                           = parent.Language.GetString("global/button/confirm");
             bCancel.Text                            = parent.Language.GetString("global/button/cancel");
         }
@@ -82,6 +83,7 @@ namespace XBMControl
             Settings.Default.ShowInTaskbar                  = cbShowInTaskbar.Checked;
             Settings.Default.StartMinimized                 = cbStartMinimized.Checked;
             Settings.Default.ShowConnectionInfo             = cbShowConnectionStatusBalloonTip.Checked;
+            Settings.Default.ShowConfigurationAtStart       = cbShowConfigurationAtStart.Checked;
 
             regRunAtStartup                                 = Registry.CurrentUser.OpenSubKey(@"Software\Microsoft\Windows\CurrentVersion\Run", true);
 
@@ -113,7 +115,7 @@ namespace XBMControl
             cbShowInTaskbar.Checked                  = Settings.Default.ShowInTaskbar;
             cbStartMinimized.Checked                 = Settings.Default.StartMinimized;
             cbShowConnectionStatusBalloonTip.Checked = Settings.Default.ShowConnectionInfo;
-
+            cbShowConfigurationAtStart.Checked       = Settings.Default.ShowConfigurationAtStart;
             regRunAtStartup                          = Registry.CurrentUser.OpenSubKey(@"Software\Microsoft\Windows\CurrentVersion\Run", true);
             cbRunAtStartup.Checked                   = (regRunAtStartup.GetValue(parent.Language.GetString("global/appName")) == null) ? false : true;
             regRunAtStartup.Close();

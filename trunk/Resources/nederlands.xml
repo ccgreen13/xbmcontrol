@@ -39,7 +39,8 @@
 			<runAtStartup>Uitvoeren bij opstarten Windows</runAtStartup>
 			<startMinimized>Start application minimized</startMinimized>
 			<connectionTimeout>Verbinding timeout</connectionTimeout>
-		</label>
+      <showConfigurationAtStart>Show this screen at startup</showConfigurationAtStart>
+    </label>
 		<language>
 			<noLanguages>Geen taalbestanden gevonden</noLanguages>
 		</language>
