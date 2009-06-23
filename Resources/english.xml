@@ -41,7 +41,8 @@
 			<runAtStartup>Run at windows startup</runAtStartup>
 			<startMinimized>Start application minimized</startMinimized>
 			<connectionTimeout>Connetion timeout</connectionTimeout>
-		</label>
+      <showConfigurationAtStart>Show this screen at startup</showConfigurationAtStart>
+    </label>
 		<language>
 			<noLanguages>No language files found</noLanguages>
 		</language>

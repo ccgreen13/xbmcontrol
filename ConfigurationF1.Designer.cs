@@ -50,6 +50,7 @@
             this.lMs = new System.Windows.Forms.Label();
             this.pbXBMCLogo = new System.Windows.Forms.PictureBox();
             this.cbStartMinimized = new System.Windows.Forms.CheckBox();
+            this.cbShowConfigurationAtStart = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.pbXBMCLogo)).BeginInit();
             this.SuspendLayout();
             // 
@@ -57,7 +58,7 @@
             // 
             this.bCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.bCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.bCancel.Location = new System.Drawing.Point(305, 304);
+            this.bCancel.Location = new System.Drawing.Point(305, 334);
             this.bCancel.Name = "bCancel";
             this.bCancel.Size = new System.Drawing.Size(72, 23);
             this.bCancel.TabIndex = 0;
@@ -68,7 +69,7 @@
             // bConfirm
             // 
             this.bConfirm.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.bConfirm.Location = new System.Drawing.Point(227, 304);
+            this.bConfirm.Location = new System.Drawing.Point(227, 334);
             this.bConfirm.Name = "bConfirm";
             this.bConfirm.Size = new System.Drawing.Size(72, 23);
             this.bConfirm.TabIndex = 1;
@@ -82,7 +83,7 @@
             this.tbIp.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.tbIp.Location = new System.Drawing.Point(241, 39);
             this.tbIp.Name = "tbIp";
-            this.tbIp.Size = new System.Drawing.Size(134, 21);
+            this.tbIp.Size = new System.Drawing.Size(134, 20);
             this.tbIp.TabIndex = 5;
             // 
             // lIpTitle
@@ -99,7 +100,7 @@
             this.tbUsername.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.tbUsername.Location = new System.Drawing.Point(241, 66);
             this.tbUsername.Name = "tbUsername";
-            this.tbUsername.Size = new System.Drawing.Size(134, 21);
+            this.tbUsername.Size = new System.Drawing.Size(134, 20);
             this.tbUsername.TabIndex = 9;
             // 
             // tbPassword
@@ -108,7 +109,7 @@
             this.tbPassword.Location = new System.Drawing.Point(241, 93);
             this.tbPassword.Name = "tbPassword";
             this.tbPassword.PasswordChar = '*';
-            this.tbPassword.Size = new System.Drawing.Size(134, 21);
+            this.tbPassword.Size = new System.Drawing.Size(134, 20);
             this.tbPassword.TabIndex = 10;
             // 
             // lUsernameTitle
@@ -135,7 +136,7 @@
             this.cbShowInTray.AutoSize = true;
             this.cbShowInTray.Location = new System.Drawing.Point(12, 188);
             this.cbShowInTray.Name = "cbShowInTray";
-            this.cbShowInTray.Size = new System.Drawing.Size(13, 12);
+            this.cbShowInTray.Size = new System.Drawing.Size(15, 14);
             this.cbShowInTray.TabIndex = 13;
             this.cbShowInTray.UseVisualStyleBackColor = true;
             this.cbShowInTray.Click += new System.EventHandler(this.cbShowInTray_Click);
@@ -147,7 +148,7 @@
             this.cbShowNowPlayingBalloonTip.Enabled = false;
             this.cbShowNowPlayingBalloonTip.Location = new System.Drawing.Point(12, 224);
             this.cbShowNowPlayingBalloonTip.Name = "cbShowNowPlayingBalloonTip";
-            this.cbShowNowPlayingBalloonTip.Size = new System.Drawing.Size(13, 12);
+            this.cbShowNowPlayingBalloonTip.Size = new System.Drawing.Size(15, 14);
             this.cbShowNowPlayingBalloonTip.TabIndex = 14;
             this.cbShowNowPlayingBalloonTip.UseVisualStyleBackColor = true;
             // 
@@ -158,7 +159,7 @@
             this.cbShowPlayStatusBalloonTip.Enabled = false;
             this.cbShowPlayStatusBalloonTip.Location = new System.Drawing.Point(12, 242);
             this.cbShowPlayStatusBalloonTip.Name = "cbShowPlayStatusBalloonTip";
-            this.cbShowPlayStatusBalloonTip.Size = new System.Drawing.Size(13, 12);
+            this.cbShowPlayStatusBalloonTip.Size = new System.Drawing.Size(15, 14);
             this.cbShowPlayStatusBalloonTip.TabIndex = 15;
             this.cbShowPlayStatusBalloonTip.UseVisualStyleBackColor = true;
             // 
@@ -169,7 +170,7 @@
             this.cbShowInTaskbar.Enabled = false;
             this.cbShowInTaskbar.Location = new System.Drawing.Point(12, 206);
             this.cbShowInTaskbar.Name = "cbShowInTaskbar";
-            this.cbShowInTaskbar.Size = new System.Drawing.Size(13, 12);
+            this.cbShowInTaskbar.Size = new System.Drawing.Size(15, 14);
             this.cbShowInTaskbar.TabIndex = 16;
             this.cbShowInTaskbar.UseVisualStyleBackColor = true;
             // 
@@ -180,7 +181,7 @@
             this.cbShowConnectionStatusBalloonTip.Enabled = false;
             this.cbShowConnectionStatusBalloonTip.Location = new System.Drawing.Point(12, 260);
             this.cbShowConnectionStatusBalloonTip.Name = "cbShowConnectionStatusBalloonTip";
-            this.cbShowConnectionStatusBalloonTip.Size = new System.Drawing.Size(13, 12);
+            this.cbShowConnectionStatusBalloonTip.Size = new System.Drawing.Size(15, 14);
             this.cbShowConnectionStatusBalloonTip.TabIndex = 17;
             this.cbShowConnectionStatusBalloonTip.UseVisualStyleBackColor = true;
             // 
@@ -211,7 +212,7 @@
             this.cbRunAtStartup.AutoSize = true;
             this.cbRunAtStartup.Location = new System.Drawing.Point(12, 278);
             this.cbRunAtStartup.Name = "cbRunAtStartup";
-            this.cbRunAtStartup.Size = new System.Drawing.Size(13, 12);
+            this.cbRunAtStartup.Size = new System.Drawing.Size(15, 14);
             this.cbRunAtStartup.TabIndex = 21;
             this.cbRunAtStartup.UseVisualStyleBackColor = true;
             // 
@@ -279,9 +280,19 @@
             this.cbStartMinimized.AutoSize = true;
             this.cbStartMinimized.Location = new System.Drawing.Point(12, 170);
             this.cbStartMinimized.Name = "cbStartMinimized";
-            this.cbStartMinimized.Size = new System.Drawing.Size(13, 12);
+            this.cbStartMinimized.Size = new System.Drawing.Size(15, 14);
             this.cbStartMinimized.TabIndex = 26;
             this.cbStartMinimized.UseVisualStyleBackColor = true;
+            // 
+            // cbShowConfigurationAtStart
+            // 
+            this.cbShowConfigurationAtStart.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.cbShowConfigurationAtStart.AutoSize = true;
+            this.cbShowConfigurationAtStart.Location = new System.Drawing.Point(12, 298);
+            this.cbShowConfigurationAtStart.Name = "cbShowConfigurationAtStart";
+            this.cbShowConfigurationAtStart.Size = new System.Drawing.Size(15, 14);
+            this.cbShowConfigurationAtStart.TabIndex = 27;
+            this.cbShowConfigurationAtStart.UseVisualStyleBackColor = true;
             // 
             // ConfigurationF1
             // 
@@ -292,7 +303,8 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(248)))), ((int)(((byte)(245)))), ((int)(((byte)(242)))));
             this.CancelButton = this.bCancel;
-            this.ClientSize = new System.Drawing.Size(389, 339);
+            this.ClientSize = new System.Drawing.Size(389, 369);
+            this.Controls.Add(this.cbShowConfigurationAtStart);
             this.Controls.Add(this.cbStartMinimized);
             this.Controls.Add(this.lMs);
             this.Controls.Add(this.lConnectionTimeout);
@@ -353,5 +365,6 @@
         private System.Windows.Forms.Label lConnectionTimeout;
         private System.Windows.Forms.Label lMs;
         private System.Windows.Forms.CheckBox cbStartMinimized;
+        private System.Windows.Forms.CheckBox cbShowConfigurationAtStart;
     }
 }

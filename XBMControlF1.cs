@@ -58,6 +58,7 @@ namespace XBMControl
 
         private bool playStatusMessageShowed    = false;
         private bool showedConnectionStatus     = false;
+        private bool showConfigurationAtStart   = false;
         private bool resetToDefault             = false;
         private bool isDragging                 = false;
         private int clickOffsetX, clickOffsetY;
@@ -96,13 +97,16 @@ namespace XBMControl
             }
             else
             {
-                if (Settings.Default.Ip == "")
-                    MessageBox.Show(Language.GetString("mainform/dialog/ipNotConfigured"), Language.GetString("mainform/dialog/ipNotConfiguredTitle"));
-                else
-                    MessageBox.Show(Language.GetString("mainform/dialog/unableToConnect"), Language.GetString("mainform/dialog/unableToConnectTitle"));
+                if (Settings.Default.ShowConfigurationAtStart == true)
+                {
+                    if (Settings.Default.Ip == "")
+                        MessageBox.Show(Language.GetString("mainform/dialog/ipNotConfigured"), Language.GetString("mainform/dialog/ipNotConfiguredTitle"));
+                    else
+                        MessageBox.Show(Language.GetString("mainform/dialog/unableToConnect"), Language.GetString("mainform/dialog/unableToConnectTitle"));
 
-                updateTimer.Enabled = false;
-                ShowConfigurationForm();
+                    ShowConfigurationForm();
+                }
+                updateTimer.Enabled = true;
             }
         }
 
@@ -446,6 +450,28 @@ namespace XBMControl
             }
             else
                 showedConnectionStatus = false;
+        }
+
+        private void ShowConfigurationAtStart()
+        {
+            if (!this.XBMC.Status.IsConnected() && Settings.Default.ShowConfigurationAtStart)
+            {
+                if (!showConfigurationAtStart)
+                {
+                    lArtistSong.Text = Language.GetString("mainform/connection/none");
+                    if (Settings.Default.ShowConfigurationAtStart)
+                    {
+                        notifyIcon1.ShowBalloonTip(2000, Language.GetString("global/appName"), Language.GetString("mainform/connection/none"), ToolTipIcon.Error);
+                        notifyIcon1.Text = "XBMControl\n" + Language.GetString("mainform/connection/none");
+                    }
+                    else
+                        MessageBox.Show(Language.GetString("mainform/connection/none"));
+
+                    showConfigurationAtStart = true;
+                }
+            }
+            else
+                showConfigurationAtStart = false;
         }
 //END Notification events
 

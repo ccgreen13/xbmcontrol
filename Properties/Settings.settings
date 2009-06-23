@@ -30,7 +30,7 @@
       <Value Profile="(Default)">english</Value>
     </Setting>
     <Setting Name="Version" Type="System.String" Scope="Application">
-      <Value Profile="(Default)">0.4.6</Value>
+      <Value Profile="(Default)">0.4.7</Value>
     </Setting>
     <Setting Name="ConnectionTimeout" Type="System.Int32" Scope="User">
       <Value Profile="(Default)">3000</Value>
@@ -43,6 +43,9 @@
     </Setting>
     <Setting Name="NavigatorOpened" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="ShowConfigurationAtStart" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">True</Value>
     </Setting>
   </Settings>
 </SettingsFile>

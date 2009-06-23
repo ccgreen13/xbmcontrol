@@ -133,7 +133,7 @@ namespace XBMControl.Properties {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("0.4.6")]
+        [global::System.Configuration.DefaultSettingValueAttribute("0.4.7")]
         public string Version {
             get {
                 return ((string)(this["Version"]));
@@ -185,6 +185,18 @@ namespace XBMControl.Properties {
             }
             set {
                 this["NavigatorOpened"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool ShowConfigurationAtStart {
+            get {
+                return ((bool)(this["ShowConfigurationAtStart"]));
+            }
+            set {
+                this["ShowConfigurationAtStart"] = value;
             }
         }
     }
